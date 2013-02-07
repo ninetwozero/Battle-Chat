@@ -39,6 +39,19 @@ public class User implements Parcelable {
 	public boolean isPlaying() {
 		return mStatus == PLAYING;
 	}
+	
+	public String getOnlineStatus() {
+		switch(mStatus) {
+			case 0:
+				return "OFFLINE";
+			case 1:
+				return "ONLINE";
+			case 2:
+				return "PLAYING";
+			default:
+				return "UNKNOWN";
+		}
+	}
 
 	@Override
 	public int describeContents() {

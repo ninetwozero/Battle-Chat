@@ -26,9 +26,15 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		final Message message = getItem(position);
 		if( convertView == null ) {
 			convertView = mLayoutInflater.inflate(R.layout.list_item_message, null);
 		}
+		
+		setText(convertView, R.id.username, message.getUser().getName());
+		setText(convertView, R.id.message, message.getContent());
+		setText(convertView, R.id.timestamp, message.getTimestamp());
+		
 		return convertView;
 	}
 

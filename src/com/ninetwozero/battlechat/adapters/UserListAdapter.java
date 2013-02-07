@@ -26,9 +26,15 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		final User user = getItem(position);
 		if( convertView == null ) {
 			convertView = mLayoutInflater.inflate(R.layout.list_item_user, null);
 		}
+		
+		setText(convertView, R.id.username, user.getName());
+		setText(convertView, R.id.status, user.getOnlineStatus());
+		
+		convertView.setTag(user);
 		return convertView;
 	}
 

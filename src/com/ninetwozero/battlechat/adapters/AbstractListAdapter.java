@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter {
 	protected Context mContext;
@@ -27,13 +28,17 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 	}
 
 	@Override
-	public int getCount() {
+	final public int getCount() {
 		return mItems == null? 0 : mItems.size();
 	}
 
 	@Override
-	public T getItem(int position) {
+	final public T getItem(int position) {
 		return mItems.get(position);
+	}
+	
+	final public void setText(View container, int resourceId, Object text) {
+		((TextView) container.findViewById(resourceId)).setText(String.valueOf(text));	
 	}
 
 	@Override
