@@ -4,9 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
-	private final static int OFFLINE = 0;
-	private final static int ONLINE = 1;
-	private final static int PLAYING = 2;
+	public final static int OFFLINE = 0;
+	public final static int ONLINE = 1;
+	public final static int PLAYING = 2;
 	
 	private long mId;
 	private String mName;
