@@ -1,6 +1,5 @@
 package com.ninetwozero.battlechat.activities;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +10,7 @@ import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.adapters.UserListAdapter;
 import com.ninetwozero.battlechat.datatypes.User;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends AbstractListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
