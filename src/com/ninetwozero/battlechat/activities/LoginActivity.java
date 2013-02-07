@@ -1,4 +1,10 @@
-package com.ninetwozero.battlechat;
+package com.ninetwozero.battlechat.activities;
+
+import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.R.id;
+import com.ninetwozero.battlechat.R.layout;
+import com.ninetwozero.battlechat.R.menu;
+import com.ninetwozero.battlechat.R.string;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

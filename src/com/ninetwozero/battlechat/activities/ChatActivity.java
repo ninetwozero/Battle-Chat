@@ -1,4 +1,8 @@
-package com.ninetwozero.battlechat;
+package com.ninetwozero.battlechat.activities;
+
+import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.R.layout;
+import com.ninetwozero.battlechat.R.menu;
 
 import android.app.ListActivity;
 import android.os.Bundle;
