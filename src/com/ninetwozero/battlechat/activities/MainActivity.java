@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.adapters.UserListAdapter;
+import com.ninetwozero.battlechat.datatypes.User;
 
 public class MainActivity extends ListActivity {
 
@@ -27,7 +28,8 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
-		startActivity( new Intent(this, ChatActivity.class).putExtra("profileId", id) );
+		User user = (User) view.getTag();
+		startActivity( new Intent(this, ChatActivity.class).putExtra("user", user) );
 	}
 
 	private void setupListView() {
