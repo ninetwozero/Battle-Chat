@@ -1,4 +1,4 @@
-package com.ninetwozero.battlechat.adapters;
+package com.ninetwozero.battlechat.abstractions;
 
 import java.util.ArrayList;
 import java.util.List;

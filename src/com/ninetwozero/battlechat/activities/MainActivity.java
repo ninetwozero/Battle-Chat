@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
 import com.ninetwozero.battlechat.adapters.UserListAdapter;
 import com.ninetwozero.battlechat.datatypes.User;
 

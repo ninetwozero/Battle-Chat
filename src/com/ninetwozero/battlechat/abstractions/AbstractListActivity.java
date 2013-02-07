@@ -1,4 +1,4 @@
-package com.ninetwozero.battlechat.activities;
+package com.ninetwozero.battlechat.abstractions;
 
 import android.app.ListActivity;
 import android.os.Bundle;

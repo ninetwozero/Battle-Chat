@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.abstractions.AbstractListAdapter;
 import com.ninetwozero.battlechat.datatypes.User;
 
 public class UserListAdapter extends AbstractListAdapter<User> {
