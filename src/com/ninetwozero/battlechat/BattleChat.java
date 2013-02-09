@@ -26,11 +26,15 @@ public class BattleChat extends Application {
     	return mSession;
     }
     
-    public static void initSession(final SharedPreferences sharedPreferences) {
+    public static void setSession(Session session) {
+    	mSession = session;
+    }
+    
+    public static void loadSession(final SharedPreferences sharedPreferences) {
     	mSession = new Session(sharedPreferences);
     }
     
-    public static void initSession(User user, Cookie cookie, String checksum) {
+    public static void loadSession(User user, Cookie cookie, String checksum) {
     	mSession = new Session(user, cookie, checksum);
     }
 }

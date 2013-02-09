@@ -12,17 +12,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class BattleChatClient {
 	
-	private final static String JSON_ERROR = "{data:{error:'%s'}}";
 	private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
 	
 	private BattleChatClient() {}
 
-	public static JSONObject get(final String url, final int headerId) throws JSONException {
+	
+	public static String get(final String url) {
+		return get(url, HttpHeaders.Get.NORMAL);
+	}
+	
+	public static String get(final String url, final int headerId) {
 		try {
 			HttpGet httpGet = new HttpGet(url);
 			httpGet.setHeader("Referer", url);
@@ -31,14 +33,18 @@ public class BattleChatClient {
 	        	httpGet.setHeader(header.getName(), header.getValue());
 	        }
 			
-			return getJsonFromHttpResponse(mHttpClient.execute(httpGet));
+			return getStringFromHttpResponse(mHttpClient.execute(httpGet));
 		} catch ( Exception ex) {
 			ex.printStackTrace();
-			return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));
+			return "";
 		}
 	}
+
+	public static String post(final String url, final NameValuePair... data) {
+		return post(url, HttpHeaders.Post.NORMAL, data);
+	}
 	
-	public static JSONObject post(final String url, final int headerId, final NameValuePair... data) throws JSONException {
+	public static String post(final String url, final int headerId, final NameValuePair... data) {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 	        httpPost.setHeader("Referer", url);
@@ -48,20 +54,22 @@ public class BattleChatClient {
 	        }
 			
 	        httpPost.setEntity(new UrlEncodedFormEntity(Arrays.asList(data), HTTP.UTF_8));
-			return getJsonFromHttpResponse(mHttpClient.execute(httpPost));
+			return getStringFromHttpResponse(mHttpClient.execute(httpPost));
 		} catch( Exception ex ) {
 			ex.printStackTrace();
-			return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));			
+			return "";			
 		}
 	}
 
-	private static JSONObject getJsonFromHttpResponse(HttpResponse response) throws JSONException {
+	public static String getStringFromHttpResponse(HttpResponse response) {
         try {       
         	HttpEntity httpEntity = response.getEntity();
-        	return new JSONObject(EntityUtils.toString(httpEntity));
+        	if( httpEntity.getContentLength() > 0 ) {
+        		return EntityUtils.toString(httpEntity);
+        	}
         } catch( Exception ex ) {
         	ex.printStackTrace();
-        	return new JSONObject(String.format(JSON_ERROR, "No content returned from the server."));
         }
+        return "";
 	}
 }

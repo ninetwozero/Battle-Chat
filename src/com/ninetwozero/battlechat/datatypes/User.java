@@ -18,6 +18,12 @@ public class User implements Parcelable {
 		mStatus = in.readInt();
 	}
 	
+	public User(long id, String name) {
+		mId = id;
+		mName = name;
+		mStatus = ONLINE;
+	}
+	
 	public User(long id, String name, int status) {
 		mId = id;
 		mName = name;

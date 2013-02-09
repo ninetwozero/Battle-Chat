@@ -17,6 +17,9 @@ public class ChatActivity extends AbstractListActivity {
 	private EditText mField;
 	private User mUser;
 	
+	private ReloadTask mReloadTask;
+	private SendMessageTask mSendMessageTask;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,7 +28,19 @@ public class ChatActivity extends AbstractListActivity {
 		setupOtherUser();
 		setupForm();
 	}
-
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		reload();
+	}
+	
+	private void reload() {
+		if( mReloadTask == null ) {
+			mReloadTask = new ReloadTask();
+			mReloadTask.execute();
+		}
+	}
 	
 	private void setupOtherUser() {
 		mUser = getIntent().getParcelableExtra("user");
@@ -50,19 +65,46 @@ public class ChatActivity extends AbstractListActivity {
 	}
 
 	private void onSend() {
-		String message = mField.getText().toString();
-		if( message.length() == 0 ) {
-			showToast("You need to enter a message.");
+		if( mSendMessageTask != null ) {
+			showToast("You're already trying to login!");
 			return;
 		}
-		new AsyncPostMessage().execute();
+		
+		String message = mField.getText().toString();
+		if( message.length() == 0 ) {
+			mField.setError("You need to enter a message.");
+			mField.requestFocus();
+			return;
+		}
+		
+		mSendMessageTask = new SendMessageTask();
+		mSendMessageTask.execute();
 	}
 	
 	private void toggleButton() {
-		mButton.setEnabled(!mButton.isEnabled());
+		if( mButton.isEnabled() ) {
+			mButton.setText("Sending...");
+			mButton.setEnabled(false);
+		} else {
+			mButton.setText("Send");
+			mButton.setEnabled(true);
+		}
+		
 	}
 	
-	private class AsyncPostMessage extends AsyncTask<String, Void, Boolean> {
+	private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			try {
+				Thread.sleep(2000);
+			} catch( InterruptedException ex ) {
+				return Math.random() > 0.5;
+			}
+			return true;
+		}
+	}
+	
+	private class SendMessageTask extends AsyncTask<String, Void, Boolean> {
 		@Override
 		protected void onPreExecute() {
 			showToast("Sending message...");
@@ -71,6 +113,11 @@ public class ChatActivity extends AbstractListActivity {
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
+			try {
+				Thread.sleep(2000);
+			} catch( InterruptedException ex ) {
+				return Math.random() > 0.5;
+			}
 			return true;
 		}
 		
@@ -81,6 +128,7 @@ public class ChatActivity extends AbstractListActivity {
 			} else {
 				showToast("Message could not be sent!");
 			}
+			mSendMessageTask = null;
 			toggleButton();
 		}
 	}
