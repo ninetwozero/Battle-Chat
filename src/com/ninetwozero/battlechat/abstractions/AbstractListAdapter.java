@@ -37,6 +37,11 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 		return mItems.get(position);
 	}
 	
+	final public void setItems(List<T> items) {
+		mItems = items;
+		notifyDataSetChanged();
+	}
+	
 	final public void setText(View container, int resourceId, Object text) {
 		((TextView) container.findViewById(resourceId)).setText(String.valueOf(text));	
 	}
@@ -46,5 +51,4 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 
 	@Override
 	abstract public View getView(int position, View convertView, ViewGroup parent);
-
 }
