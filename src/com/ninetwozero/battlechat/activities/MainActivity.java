@@ -1,6 +1,12 @@
 package com.ninetwozero.battlechat.activities;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -15,9 +21,9 @@ import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
 import com.ninetwozero.battlechat.adapters.UserListAdapter;
+import com.ninetwozero.battlechat.comparators.UserComparator;
 import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.BattleChatClient;
-import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 
 public class MainActivity extends AbstractListActivity {
@@ -54,7 +60,9 @@ public class MainActivity extends AbstractListActivity {
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		User user = (User) view.getTag();
-		startActivity( new Intent(this, ChatActivity.class).putExtra("user", user) );
+		if( user != null ) {
+			startActivity( new Intent(this, ChatActivity.class).putExtra("user", user) );			
+		}
 	}
 
 	private void setupListView() {
@@ -65,37 +73,95 @@ public class MainActivity extends AbstractListActivity {
 	
 	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		
-		private String message;
+		private String mMessage;
+		private List<User> mItems;
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			try {
 				JSONObject result = BattleChatClient.post(
 					HttpUris.Chat.FRIENDS, 
-					HttpHeaders.Post.AJAX, 
 					new BasicNameValuePair("post-check-sum", BattleChat.getSession().getChecksum())
 				);
 				
 				if( result.has("error") ) {
-					message = result.getString("error");
+					mMessage = result.getString("error");
 					return false;
 				} 
-				/* TODO: HANDLE OK */
+
+				mItems = getUsersFromJson(result);
 				return true;
 			} catch( Exception ex ) {
 				ex.printStackTrace();
 				return false;
 			}
 		}
-		
+
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if( result ) {
-				/* TODO: UPDATE ADAPTER */
+				((UserListAdapter)getListView().getAdapter()).setItems(mItems);
 			} else {
-				showToast(message);
+				showToast(mMessage);
 			}
 		}
 		
+		private List<User> getUsersFromJson(JSONObject result) throws JSONException {
+			JSONArray friends = result.getJSONArray("friendscomcenter");
+			JSONObject friend;
+			JSONObject presence;
+			List<User> users = new ArrayList<User>();
+			
+			int numFriends = friends.length();
+			int numPlaying = 0;
+			int numOnline = 0;
+			int numOffline = 0;
+			
+			if( numFriends > 0 ) {
+				User user = null;
+				for( int i = 0; i < numFriends; i++ ) {
+					friend = friends.optJSONObject(i);
+					presence = friend.getJSONObject("presence");
+					
+					if( presence.getBoolean("isPlaying") ) {
+						user = new User(
+							Long.parseLong(friend.getString("userId")),
+							friend.getString("username"), 
+							User.PLAYING
+						);
+						numPlaying++;
+					} else if( presence.getBoolean("isOnline") ) {
+						user = new User(
+							Long.parseLong(friend.getString("userId")),
+							friend.getString("username"), 
+							User.ONLINE
+						);
+						numOnline++;
+					} else {
+						user = new User(
+							Long.parseLong(friend.getString("userId")),
+							friend.getString("username"), 
+							User.OFFLINE
+						);
+						numOffline++;
+					}
+					users.add(user);
+				}
+
+				if (numPlaying > 0) {
+					users.add(new User(0, "Playing", User.PLAYING));
+				}
+
+				if (numOnline > 0) {
+					users.add(new User(0, "Online", User.ONLINE));
+				}
+
+				if (numOffline > 0) {
+					users.add(new User(0, "Offline", User.OFFLINE));
+				}
+				Collections.sort(users,	new UserComparator());
+			}
+			return users;
+		}		
 	}
 }

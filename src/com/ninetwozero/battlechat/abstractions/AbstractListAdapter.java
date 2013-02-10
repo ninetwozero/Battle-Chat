@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter {
+	protected final static String TAG = "AbstractListAdapter";
+	
 	protected Context mContext;
 	protected List<T> mItems;
 	protected final LayoutInflater mLayoutInflater;
@@ -43,7 +45,15 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 	}
 	
 	final public void setText(View container, int resourceId, Object text) {
-		((TextView) container.findViewById(resourceId)).setText(String.valueOf(text));	
+		setText(container, resourceId, text, -1);
+	}
+	
+	final public void setText(View container, int resourceId, Object text, int colorResource) {
+		TextView textView = (TextView) container.findViewById(resourceId);
+		textView.setText(String.valueOf(text));	
+		if( colorResource > -1 ){
+			textView.setTextColor(mContext.getResources().getColor(colorResource));
+		}
 	}
 
 	@Override

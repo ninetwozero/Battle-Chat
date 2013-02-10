@@ -38,12 +38,16 @@ public class User implements Parcelable {
 		return mUsername;
 	}
 	
+	public boolean isPlaying() {
+		return mStatus == PLAYING;
+	}
+	
 	public boolean isOnline() {
 		return mStatus == ONLINE;
 	}
 	
-	public boolean isPlaying() {
-		return mStatus == PLAYING;
+	public boolean isOffline() {
+		return mStatus == OFFLINE;
 	}
 	
 	public String getOnlineStatus() {
@@ -79,4 +83,11 @@ public class User implements Parcelable {
 			return new User[size];
 		}
 	};
+	
+	@Override
+	public String toString() {
+		return "User [mId=" + mId + ", mUsername=" + mUsername + ", mStatus="
+				+ mStatus + "]";
+	}
+
 }

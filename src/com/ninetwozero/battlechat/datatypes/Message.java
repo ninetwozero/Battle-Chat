@@ -4,12 +4,13 @@ public class Message {
 
 	private long mId;
 	private String mContent;
-	private User mUser;
+	private String mUsername;
 	private long mTimestamp;
 	
-	public Message(long id, String content, long timestamp) {
+	public Message(long id, String content, String user, long timestamp) {
 		mId = id;
 		mContent = content;
+		mUsername = user;
 		mTimestamp = timestamp;
 	}
 	
@@ -17,12 +18,12 @@ public class Message {
 		return mId;
 	}
 	
-	public String getContent() {
+	public String getMessage() {
 		return mContent;
 	}
 	
-	public User getUser() {
-		return mUser;
+	public String getUsername() {
+		return mUsername;
 	}
 	
 	public long getTimestamp() {

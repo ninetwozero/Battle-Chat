@@ -5,6 +5,7 @@ import com.ninetwozero.battlechat.http.BattleChatClient;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 public class AbstractListActivity extends ListActivity {
@@ -28,6 +29,9 @@ public class AbstractListActivity extends ListActivity {
 	}
 	
 	private void setupBattleChatClient() {
+		if( BattleChat.hasSession() ) {
+			BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+		}
 		BattleChatClient.setCookie(BattleChat.getSession().getCookie());
 	}
 	

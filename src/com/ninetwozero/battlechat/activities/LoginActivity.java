@@ -1,7 +1,5 @@
 package com.ninetwozero.battlechat.activities;
 
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
@@ -27,6 +25,7 @@ import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 
@@ -149,6 +148,7 @@ public class LoginActivity extends Activity {
 					"email", params[0], 
 					"password", params[1],
 					"remember", "1",
+					"redirect", "",
 					"submit", "Sign+in"
 				);
 				connection = connection.method(Method.POST);
@@ -185,10 +185,9 @@ public class LoginActivity extends Activity {
 			if( parser.hasErrorMessage() ) {
 				mErrorMessage = parser.getErrorMessage();
 			} else {
-				Cookie cookie = new BasicClientCookie(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME));	
 				mSession = new Session(
 					new User(parser.getUserId(), parser.getUsername()),
-					cookie,
+					CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)),
 					parser.getChecksum()
 				);
 			}

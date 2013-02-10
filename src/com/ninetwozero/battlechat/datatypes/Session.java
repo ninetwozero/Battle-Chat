@@ -1,11 +1,11 @@
 package com.ninetwozero.battlechat.datatypes;
 
 import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.cookie.BasicClientCookie;
-
-import com.ninetwozero.battlechat.BattleChat;
 
 import android.content.SharedPreferences;
+
+import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.http.CookieFactory;
 
 public class Session {
 	
@@ -19,7 +19,7 @@ public class Session {
 			sharedPreferences.getString("username", "N/A"),
 			User.ONLINE
 		);
-		mCookie = new BasicClientCookie(
+		mCookie = CookieFactory.build(
 			sharedPreferences.getString("sessionName", BattleChat.COOKIE_NAME),
 			sharedPreferences.getString("sessionValue", "")
 		);

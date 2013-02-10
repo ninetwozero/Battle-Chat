@@ -17,6 +17,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.ninetwozero.battlechat.BattleChat;
 
 public class BattleChatClient {
@@ -103,5 +105,6 @@ public class BattleChatClient {
 		CookieStore cookieStore = mHttpClient.getCookieStore();
 		cookieStore.addCookie(cookie);
 		mHttpClient.setCookieStore(cookieStore);
+		mHttpClient.getCookieStore().toString();
 	}
 }

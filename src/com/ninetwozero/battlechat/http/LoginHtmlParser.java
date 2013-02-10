@@ -13,7 +13,7 @@ final public class LoginHtmlParser {
 	}
 	
 	public LoginHtmlParser(final Document document) {
-		mDocument = document;
+		mDocument = document.clone();
 	}
 
 	public long getUserId() {
@@ -34,7 +34,6 @@ final public class LoginHtmlParser {
 		if( error.isEmpty() ) {
 			return false;
 		} else {
-			System.out.println(error.text());
 			return error.hasText();
 		}
 	}
