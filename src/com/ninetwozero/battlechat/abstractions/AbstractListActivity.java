@@ -1,5 +1,8 @@
 package com.ninetwozero.battlechat.abstractions;
 
+import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.http.BattleChatClient;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -11,6 +14,7 @@ public class AbstractListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setupBattleChatClient();
 	}
 
 	public void showToast(final String text) {
@@ -21,6 +25,10 @@ public class AbstractListActivity extends ListActivity {
 		
 		mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
 		mToast.show();
+	}
+	
+	private void setupBattleChatClient() {
+		BattleChatClient.setCookie(BattleChat.getSession().getCookie());
 	}
 	
 }

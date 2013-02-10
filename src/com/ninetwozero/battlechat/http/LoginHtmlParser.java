@@ -7,13 +7,15 @@ import org.jsoup.select.Elements;
 final public class LoginHtmlParser {
 
 	private final Document mDocument;
-	private final String mHtml;
 	
 	public LoginHtmlParser(final String html) {
-		mHtml = html;
-		mDocument = Jsoup.parse(mHtml);
+		mDocument = Jsoup.parse(html);
 	}
 	
+	public LoginHtmlParser(final Document document) {
+		mDocument = document;
+	}
+
 	public long getUserId() {
 		String id = mDocument.select(".base-header-profile-dropdown-username .base-avatar-size-large").attr("rel");
 		return Long.parseLong(id);

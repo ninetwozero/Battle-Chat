@@ -1,7 +1,10 @@
 package com.ninetwozero.battlechat.activities;
 
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicNameValuePair;
+import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
+import org.jsoup.Jsoup;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -18,14 +20,13 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
-import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 
@@ -134,8 +135,7 @@ public class LoginActivity extends Activity {
 		mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 		mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
-
-	/* TODO: Jsoup.connect() seems interesting */	
+	
 	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 		
 		private Session mSession;
@@ -143,17 +143,18 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
-			String result = BattleChatClient.post(
-				HttpUris.LOGIN,
-				new BasicNameValuePair("email", params[0]),
-				new BasicNameValuePair("password", params[1]),
-				new BasicNameValuePair("remember", "1"),
-				new BasicNameValuePair("submit", "Sign+in")
-			);
-		
 			try {
+				Connection connection = Jsoup.connect(HttpUris.LOGIN);
+				connection = connection.data(
+					"email", params[0], 
+					"password", params[1],
+					"remember", "1",
+					"submit", "Sign+in"
+				);
+				connection = connection.method(Method.POST);
+				Connection.Response result = connection.execute();
 				return hasLoggedin(result);
-			} catch( IllegalStateException ex ) {
+			} catch( Exception ex ) {
 				return false;
 			}
 		}
@@ -179,14 +180,15 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 		}
 
-		private boolean hasLoggedin(final String html) {
-			LoginHtmlParser parser = new LoginHtmlParser(html);
+		private boolean hasLoggedin(Connection.Response response) throws Exception {
+			LoginHtmlParser parser = new LoginHtmlParser(response.parse());
 			if( parser.hasErrorMessage() ) {
 				mErrorMessage = parser.getErrorMessage();
 			} else {
+				Cookie cookie = new BasicClientCookie(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME));	
 				mSession = new Session(
 					new User(parser.getUserId(), parser.getUsername()),
-					BattleChatClient.getCookie(),
+					cookie,
 					parser.getChecksum()
 				);
 			}

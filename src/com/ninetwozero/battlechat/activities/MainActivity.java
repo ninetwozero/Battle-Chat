@@ -1,19 +1,29 @@
 package com.ninetwozero.battlechat.activities;
 
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 
+import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
 import com.ninetwozero.battlechat.adapters.UserListAdapter;
 import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.http.BattleChatClient;
+import com.ninetwozero.battlechat.http.HttpHeaders;
+import com.ninetwozero.battlechat.http.HttpUris;
 
 public class MainActivity extends AbstractListActivity {
 
+	public final static String TAG = "MainActivity";
+	
 	private ReloadTask mReloadTask;
 	
 	@Override
@@ -55,14 +65,36 @@ public class MainActivity extends AbstractListActivity {
 	
 	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		
+		private String message;
+		
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			try {
-				Thread.sleep(2000);
-			} catch( InterruptedException ex ) {
-				return Math.random() > 0.5;
+				JSONObject result = BattleChatClient.post(
+					HttpUris.Chat.FRIENDS, 
+					HttpHeaders.Post.AJAX, 
+					new BasicNameValuePair("post-check-sum", BattleChat.getSession().getChecksum())
+				);
+				
+				if( result.has("error") ) {
+					message = result.getString("error");
+					return false;
+				} 
+				/* TODO: HANDLE OK */
+				return true;
+			} catch( Exception ex ) {
+				ex.printStackTrace();
+				return false;
 			}
-			return true;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if( result ) {
+				/* TODO: UPDATE ADAPTER */
+			} else {
+				showToast(message);
+			}
 		}
 		
 	}

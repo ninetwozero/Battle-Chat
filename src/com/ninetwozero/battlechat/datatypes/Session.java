@@ -3,6 +3,8 @@ package com.ninetwozero.battlechat.datatypes;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
 
+import com.ninetwozero.battlechat.BattleChat;
+
 import android.content.SharedPreferences;
 
 public class Session {
@@ -18,7 +20,7 @@ public class Session {
 			User.ONLINE
 		);
 		mCookie = new BasicClientCookie(
-			sharedPreferences.getString("sessionName", "beaker.session.id"),
+			sharedPreferences.getString("sessionName", BattleChat.COOKIE_NAME),
 			sharedPreferences.getString("sessionValue", "")
 		);
 		mChecksum = sharedPreferences.getString("sessionChecksum", "");

@@ -10,6 +10,8 @@ import com.ninetwozero.battlechat.datatypes.User;
 
 
 public class BattleChat extends Application {
+	public final static String COOKIE_NAME = "beaker.session.id";
+	
     private static BattleChat mInstance;
     private static Session mSession;
 
