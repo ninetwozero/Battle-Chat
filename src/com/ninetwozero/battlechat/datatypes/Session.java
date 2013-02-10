@@ -41,4 +41,10 @@ public class Session {
 	public String getChecksum() {
 		return mChecksum;
 	}
+
+	@Override
+	public String toString() {
+		return "Session [mUser=" + mUser + ", mCookie=" + mCookie
+				+ ", mChecksum=" + mChecksum + "]";
+	}
 }

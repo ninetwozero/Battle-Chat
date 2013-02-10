@@ -32,7 +32,7 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
 			convertView = mLayoutInflater.inflate(R.layout.list_item_message, null);
 		}
 		
-		setText(convertView, R.id.username, message.getUser().getName());
+		setText(convertView, R.id.username, message.getUser().getUsername());
 		setText(convertView, R.id.message, message.getContent());
 		setText(convertView, R.id.timestamp, message.getTimestamp());
 		

@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
@@ -71,5 +72,14 @@ public class BattleChatClient {
         	ex.printStackTrace();
         }
         return "";
+	}
+	
+	public static Cookie getCookie() {
+		for(Cookie cookie : mHttpClient.getCookieStore().getCookies()) {
+			if(cookie.getName().equals("beaker.session.id")) {
+				return cookie;
+			}
+		}
+		throw new IllegalStateException("No cookie found.");
 	}
 }

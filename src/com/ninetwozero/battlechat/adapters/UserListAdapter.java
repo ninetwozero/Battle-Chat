@@ -32,7 +32,7 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 			convertView = mLayoutInflater.inflate(R.layout.list_item_user, null);
 		}
 		
-		setText(convertView, R.id.username, user.getName());
+		setText(convertView, R.id.username, user.getUsername());
 		setText(convertView, R.id.status, user.getOnlineStatus());
 		
 		convertView.setTag(user);

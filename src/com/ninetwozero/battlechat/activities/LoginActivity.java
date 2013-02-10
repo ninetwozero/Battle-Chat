@@ -2,15 +2,15 @@ package com.ninetwozero.battlechat.activities;
 
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.ninetwozero.battlechat.BattleChat;
@@ -26,10 +27,11 @@ import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpUris;
+import com.ninetwozero.battlechat.http.LoginHtmlParser;
 
 public class LoginActivity extends Activity {
 
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	public static final String TAG = "LoginActivity";
 
 	private UserLoginTask mAuthTask = null;
 
@@ -133,9 +135,11 @@ public class LoginActivity extends Activity {
 		mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 	}
 
+	/* TODO: Jsoup.connect() seems interesting */	
 	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 		
 		private Session mSession;
+		private String mErrorMessage;
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
@@ -148,8 +152,7 @@ public class LoginActivity extends Activity {
 			);
 		
 			try {
-				mSession = getSessionFromHtml(result);
-				return true;
+				return hasLoggedin(result);
 			} catch( IllegalStateException ex ) {
 				return false;
 			}
@@ -162,36 +165,45 @@ public class LoginActivity extends Activity {
 			
 			if (success) {
 				BattleChat.setSession(mSession);
+				saveToSharedPreferences(mSession);
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
 			} else {
-				mPasswordView.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				Toast.makeText(getApplicationContext(), mErrorMessage, Toast.LENGTH_SHORT).show();
 			}
 		}
-
+		
 		@Override
 		protected void onCancelled() {
 			mAuthTask = null;
 			showProgress(false);
 		}
+
+		private boolean hasLoggedin(final String html) {
+			LoginHtmlParser parser = new LoginHtmlParser(html);
+			if( parser.hasErrorMessage() ) {
+				mErrorMessage = parser.getErrorMessage();
+			} else {
+				mSession = new Session(
+					new User(parser.getUserId(), parser.getUsername()),
+					BattleChatClient.getCookie(),
+					parser.getChecksum()
+				);
+			}
+			return mSession != null;
+		}
 		
-		private Session getSessionFromHtml(final String html) {
-			long userId = 0;
-			String username = "";
-			String cookieName = "beaker.session.id";
-			String cookieValue = "";
-			String checksum = "";
-			
-			final Document document = Jsoup.parse(html);
-			final Element sessionBox = document.select(".base-header-profile-dropdown-username").first();
-			final Element checksumField = document.select("input[name=post-check-sum]").first();
-			
-			return new Session(
-				new User(userId, username),
-				new BasicClientCookie(cookieName, cookieValue),
-				checksum
-			);
+		private void saveToSharedPreferences(Session session) {
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			SharedPreferences.Editor editor = preferences.edit();
+
+			editor.putLong("userId", session.getUser().getId());
+			editor.putString("username", session.getUser().getUsername());
+			editor.putString("sessionName", session.getCookie().getName());
+			editor.putString("sessionValue", session.getCookie().getValue());
+			editor.putString("sessionChecksum", session.getChecksum());
+
+			editor.commit();
 		}
 	}
 }

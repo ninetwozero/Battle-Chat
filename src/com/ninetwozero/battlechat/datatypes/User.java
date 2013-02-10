@@ -9,24 +9,24 @@ public class User implements Parcelable {
 	public final static int PLAYING = 2;
 	
 	private long mId;
-	private String mName;
+	private String mUsername;
 	private int mStatus;
 	
 	public User(Parcel in) {
 		mId = in.readLong();
-		mName = in.readString();
+		mUsername = in.readString();
 		mStatus = in.readInt();
 	}
 	
 	public User(long id, String name) {
 		mId = id;
-		mName = name;
+		mUsername = name;
 		mStatus = ONLINE;
 	}
 	
 	public User(long id, String name, int status) {
 		mId = id;
-		mName = name;
+		mUsername = name;
 		mStatus = status;
 	}
 	
@@ -34,8 +34,8 @@ public class User implements Parcelable {
 		return mId;
 	}
 	
-	public String getName() {
-		return mName;
+	public String getUsername() {
+		return mUsername;
 	}
 	
 	public boolean isOnline() {
@@ -67,7 +67,7 @@ public class User implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeLong(mId);
-		out.writeString(mName);
+		out.writeString(mUsername);
 		out.writeInt(mStatus);
 	}
 	
