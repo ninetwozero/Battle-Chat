@@ -17,8 +17,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.ninetwozero.battlechat.BattleChat;
 
 public class BattleChatClient {

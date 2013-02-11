@@ -28,6 +28,9 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
+import com.ninetwozero.battlechat.misc.Keys;
+
+/* TODO: Chat automatic refresh + notify new messages */
 
 public class ChatActivity extends AbstractListActivity {
 
@@ -110,7 +113,7 @@ public class ChatActivity extends AbstractListActivity {
                 }
             }, 
             0, 
-            25 // TODO: SharedPreferences
+            mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25)*1000
         );
 	}
 	

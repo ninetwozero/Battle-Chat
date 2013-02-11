@@ -6,10 +6,8 @@ import org.jsoup.Jsoup;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -28,7 +26,6 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
-import com.ninetwozero.battlechat.misc.Keys;
 
 public class LoginActivity extends Activity {
 
@@ -167,7 +164,7 @@ public class LoginActivity extends Activity {
 			
 			if (success) {
 				BattleChat.setSession(mSession);
-				saveToSharedPreferences(mSession);
+				BattleChat.saveToSharedPreferences(getApplicationContext());
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
 			} else {
@@ -193,19 +190,6 @@ public class LoginActivity extends Activity {
 				);
 			}
 			return mSession != null;
-		}
-		
-		private void saveToSharedPreferences(Session session) {
-			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			SharedPreferences.Editor editor = preferences.edit();
-
-			editor.putLong(Keys.Session.USER_ID, session.getUser().getId());
-			editor.putString(Keys.Session.USERNAME, session.getUser().getUsername());
-			editor.putString(Keys.Session.COOKIE_NAME, session.getCookie().getName());
-			editor.putString(Keys.Session.COOKIE_VALUE, session.getCookie().getValue());
-			editor.putString(Keys.Session.CHECKSUM, session.getChecksum());
-
-			editor.commit();
 		}
 	}
 }
