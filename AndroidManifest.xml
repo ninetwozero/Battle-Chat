@@ -37,6 +37,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
+
+        <service
+            android:name=".services.BattlelogService"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/service_name" />
     </application>
 
 </manifest>
