@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">BattleChat</string>
+    <string name="service_name">Battlelog Session Service</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_exit">Exit</string>
     <string name="title_activity_main">MainActivity</string>

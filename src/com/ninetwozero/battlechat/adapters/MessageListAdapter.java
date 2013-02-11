@@ -42,7 +42,7 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
 		setText(convertView, R.id.message, message.getMessage());
 		
 		/* TODO: Need a "n seconds/minutes/hours/days ago" */
-		setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeSpanString(message.getTimestamp(), System.currentTimeMillis(), 0));
+		setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeSpanString(message.getTimestamp(), System.currentTimeMillis()/1000, 0));
 		
 		return convertView;
 	}

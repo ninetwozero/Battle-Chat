@@ -42,4 +42,8 @@ final public class LoginHtmlParser {
 		return mDocument.select(".gate-login-errormsg.wfont").first().text();
 	}
 	
+	public boolean isLoggedIn() {
+		return mDocument.select(".gate-login-errormsg").isEmpty();
+	}
+	
 }
