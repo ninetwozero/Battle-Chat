@@ -25,6 +25,7 @@ import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class BattlelogService extends Service {
 		private static final int NOTIFICATION = R.string.service_name;
@@ -109,7 +110,7 @@ public class BattlelogService extends Service {
 	    		if(hasActiveSession) {
 	    			BattleChat.reloadSession(mUser, mCookie, mChecksum);
 	    		} else {
-	    			if( mSharedPreferences.getBoolean("notify_dead_session", true) ) {
+	    			if( mSharedPreferences.getBoolean(Keys.Settings.NOTIFY_ON_LOGOUT, true) ) {
 	    				showNotification();
 	    			}
 	    		}

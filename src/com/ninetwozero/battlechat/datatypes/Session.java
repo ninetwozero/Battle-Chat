@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.http.CookieFactory;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class Session {
 	
@@ -15,15 +16,15 @@ public class Session {
 	
 	public Session(SharedPreferences sharedPreferences) {
 		mUser = new User(
-			sharedPreferences.getLong("userId", 0),
-			sharedPreferences.getString("username", "N/A"),
+			sharedPreferences.getLong(Keys.Session.USER_ID, 0),
+			sharedPreferences.getString(Keys.Session.USERNAME, "N/A"),
 			User.ONLINE
 		);
 		mCookie = CookieFactory.build(
-			sharedPreferences.getString("sessionName", BattleChat.COOKIE_NAME),
-			sharedPreferences.getString("sessionValue", "")
+			sharedPreferences.getString(Keys.Session.COOKIE_NAME, BattleChat.COOKIE_NAME),
+			sharedPreferences.getString(Keys.Session.COOKIE_VALUE, "")
 		);
-		mChecksum = sharedPreferences.getString("sessionChecksum", "");
+		mChecksum = sharedPreferences.getString(Keys.Session.CHECKSUM, "");
 	}
 	
 	public Session(User user, Cookie cookie, String checksum) {

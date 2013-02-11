@@ -28,6 +28,7 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class LoginActivity extends Activity {
 
@@ -198,11 +199,11 @@ public class LoginActivity extends Activity {
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			SharedPreferences.Editor editor = preferences.edit();
 
-			editor.putLong("userId", session.getUser().getId());
-			editor.putString("username", session.getUser().getUsername());
-			editor.putString("sessionName", session.getCookie().getName());
-			editor.putString("sessionValue", session.getCookie().getValue());
-			editor.putString("sessionChecksum", session.getChecksum());
+			editor.putLong(Keys.Session.USER_ID, session.getUser().getId());
+			editor.putString(Keys.Session.USERNAME, session.getUser().getUsername());
+			editor.putString(Keys.Session.COOKIE_NAME, session.getCookie().getName());
+			editor.putString(Keys.Session.COOKIE_VALUE, session.getCookie().getValue());
+			editor.putString(Keys.Session.CHECKSUM, session.getChecksum());
 
 			editor.commit();
 		}
