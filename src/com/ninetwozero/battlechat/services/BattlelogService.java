@@ -20,8 +20,8 @@ import android.support.v4.app.NotificationCompat;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.activities.LoginActivity;
-import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
@@ -44,7 +44,8 @@ public class BattlelogService extends Service {
 
 	    @Override
 	    public int onStartCommand(Intent intent, int flags, int startId) {
-    		load();
+    		setupBattleChatClient();
+	    	load();
 		    return Service.START_NOT_STICKY;	
 	    }
 	    
@@ -101,7 +102,6 @@ public class BattlelogService extends Service {
 	    			ex.printStackTrace();
 	    		}	    			
 	    		return false;
-
 	    	}  	
 	    	
 	    	@Override
@@ -122,4 +122,11 @@ public class BattlelogService extends Service {
 	            return BattlelogService.this;
 	        }
 	    }
+	    
+	    private void setupBattleChatClient() {
+			if( BattleChat.hasSession() ) {
+				BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+			}
+			BattleChatClient.setCookie(BattleChat.getSession().getCookie());
+		}
 	}
