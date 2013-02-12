@@ -86,7 +86,7 @@ public class ChatActivity extends AbstractListActivity {
 	private void setupOtherUser() {
 		mUser = getIntent().getParcelableExtra("user");
 		if( mUser == null ) {
-			showToast("Invalid user selected for this chat.");
+			showToast(R.string.msg_chat_load_fail);
 			finish();
 		}
 	}
@@ -131,13 +131,13 @@ public class ChatActivity extends AbstractListActivity {
 	
 	private void onSend() {
 		if( mSendMessageTask != null ) {
-			showToast("You're already trying to login!");
+			showToast(R.string.msg_chat_send_multiple_error);
 			return;
 		}
 		
 		String message = mField.getText().toString();
 		if( message.length() == 0 ) {
-			mField.setError("You need to enter a message.");
+			mField.setError(getString(R.string.msg_chat_send_message_error));
 			mField.requestFocus();
 			return;
 		}
@@ -148,10 +148,10 @@ public class ChatActivity extends AbstractListActivity {
 	
 	private void toggleButton() {
 		if( mButton.isEnabled() ) {
-			mButton.setText("Sending...");
+			mButton.setText(R.string.label_sending);
 			mButton.setEnabled(false);
 		} else {
-			mButton.setText("Send");
+			mButton.setText(R.string.label_send);
 			mButton.setEnabled(true);
 		}
 		
@@ -190,12 +190,12 @@ public class ChatActivity extends AbstractListActivity {
 		protected void onPostExecute(Boolean result) {
 			if( result ) {
 				if( mUnreadCount > 0 ) {
-					showToast("Number of new messages: " + mUnreadCount);
+					showToast(String.format(getString(R.string.msg_chat_num_unread), mUnreadCount));
 					notifyWithSound();
 				}
 				((MessageListAdapter) getListView().getAdapter()).setItems(mMessages);
 			} else {
-				showToast("Could not reload chat. Please try to relogin.");
+				showToast(R.string.msg_chat_reload_fail);
 			}
 			mReloadTask = null;
 		}
@@ -248,11 +248,11 @@ public class ChatActivity extends AbstractListActivity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if( result ) {
-				showToast("Message sent!");
+				showToast(R.string.msg_message_ok);
 				clearInput();
 				reload();
 			} else {
-				showToast("Message could not be sent!");
+				showToast(R.string.msg_message_fail);
 			}
 			mSendMessageTask = null;
 			toggleButton();

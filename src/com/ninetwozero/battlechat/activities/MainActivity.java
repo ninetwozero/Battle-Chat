@@ -148,15 +148,15 @@ public class MainActivity extends AbstractListActivity {
 				}
 
 				if (numPlaying > 0) {
-					users.add(new User(0, "Playing", User.PLAYING));
+					users.add(new User(0, getString(R.string.label_playing), User.PLAYING));
 				}
 
 				if (numOnline > 0) {
-					users.add(new User(0, "Online", User.ONLINE));
+					users.add(new User(0, getString(R.string.label_online), User.ONLINE));
 				}
 
 				if (numOffline > 0) {
-					users.add(new User(0, "Offline", User.OFFLINE));
+					users.add(new User(0, getString(R.string.label_offline), User.OFFLINE));
 				}
 				Collections.sort(users,	new UserComparator());
 			}

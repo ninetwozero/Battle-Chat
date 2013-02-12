@@ -1,5 +1,6 @@
 package com.ninetwozero.battlechat.misc;
 
+
 public class Keys {
 
 	public static class Session {

@@ -1,6 +1,7 @@
 package com.ninetwozero.battlechat.http;
 
 
+
 public class HttpUris {
 	
 	public final static String MAIN = "http://battlelog.battlefield.com/bf3";

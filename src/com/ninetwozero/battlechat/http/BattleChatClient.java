@@ -77,10 +77,10 @@ public class BattleChatClient {
         		if( object.has("data") ) {
         			return object.getJSONObject("data");
         		} else {
-        			message = "Invalid request. Are you passing the correct headers?";
+        			message = "Invalid request. Please notify the developer.";
         		}
         	} else {
-        		message = "The server didn't return any data.";
+        		message = "No data found.";
         	}
         } catch( Exception ex ) {
         	ex.printStackTrace();

@@ -20,6 +20,10 @@ public class AbstractListActivity extends ListActivity {
 		setupBattleChatClient();
 	}
 
+	public void showToast(final int resource) {
+		showToast(getString(resource));
+	}
+	
 	public void showToast(final String text) {
 		if( mToast != null ) { 
 			mToast.cancel();

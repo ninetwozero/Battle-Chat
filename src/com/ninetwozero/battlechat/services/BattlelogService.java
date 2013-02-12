@@ -64,8 +64,8 @@ public class BattlelogService extends Service {
 		
 		private void showNotification() {
 	    	 Notification notification = new NotificationCompat.Builder(BattlelogService.this)
-	         .setContentTitle("You've been logged out from Battlelog")
-	         .setContentText("Tap here to login")
+	         .setContentTitle(getString(R.string.text_notification_title))
+	         .setContentText(getString(R.string.text_notification_subtitle))
 	         .setSmallIcon(R.drawable.ic_launcher)
 	         .setWhen(System.currentTimeMillis())
 	         .setAutoCancel(true)

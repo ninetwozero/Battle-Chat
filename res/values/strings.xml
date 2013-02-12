@@ -6,5 +6,23 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_exit">Exit</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="msg_message_ok">Message sent!</string>
+    <string name="msg_message_fail">Message could not be sent!</string>
+    <string name="msg_chat_reload_fail">Could not reload chat. Please try to relogin.</string>
+    <string name="msg_chat_num_unread">Number of new messages: %s</string>
+    <string name="label_sending">Sending...</string>
+    <string name="label_send">Send</string>
+    <string name="msg_chat_send_message_error">You need to enter a message.</string>
+    <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
+    <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
+    <string name="text_notification_title">You\'ve been logged out from Battlelog</string>
+    <string name="text_notification_subtitle">Tap here to login</string>
+    <string name="label_offline">Offline</string>
+    <string name="label_online">Online</string>
+    <string name="label_playing">Playing</string>
+    <string name="msg_error_nocookie">No cookie found.</string>
+    <string name="msg_no_messages">No messages found. :-(</string>
+    <string name="app_email">support@ninetwozero.com</string>
+    <string name="msg_no_friends">No friends found. :-(</string>
 
 </resources>
