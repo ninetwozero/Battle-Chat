@@ -40,6 +40,7 @@ public class ChatActivity extends AbstractListActivity {
 	private EditText mField;
 	private User mUser;
 	private long mChatId;
+	private boolean mFirstRun = true;
 	
 	private MediaPlayer mMediaPlayer;
 	private ReloadTask mReloadTask;
@@ -258,7 +259,12 @@ public class ChatActivity extends AbstractListActivity {
 		}
 	}
 
-	public void notifyWithSound() {
+	private void notifyWithSound() {
+		if( mFirstRun ) {
+			mFirstRun = false;
+			return;
+		}
+		
 		if( mSharedPreferences.getBoolean(Keys.Settings.BEEP_ON_NEW, true) ) {
 			mMediaPlayer.start();
 		}
