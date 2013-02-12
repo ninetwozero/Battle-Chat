@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,7 @@ public class ChatActivity extends AbstractListActivity {
 	private User mUser;
 	private long mChatId;
 	
+	private MediaPlayer mMediaPlayer;
 	private ReloadTask mReloadTask;
 	private SendMessageTask mSendMessageTask;
 	private Timer mTimer;
@@ -57,6 +59,7 @@ public class ChatActivity extends AbstractListActivity {
 	public void onResume() {
 		super.onResume();
         setupTimer();
+        setupMediaPlayer();
 	}
 
 	private void reload() {
@@ -69,9 +72,13 @@ public class ChatActivity extends AbstractListActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (mTimer != null) {
+        if( mTimer != null ) {
             mTimer.cancel();
             mTimer = null;
+        }
+        
+        if( mMediaPlayer != null ) {
+        	mMediaPlayer.release();
         }
     }
 	
@@ -113,8 +120,12 @@ public class ChatActivity extends AbstractListActivity {
                 }
             }, 
             0, 
-            mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25)*1000
+            mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25)*1000 //--> ms
         );
+	}
+
+	private void setupMediaPlayer() {
+		mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.notification);
 	}
 	
 	private void onSend() {
@@ -179,6 +190,7 @@ public class ChatActivity extends AbstractListActivity {
 			if( result ) {
 				if( mUnreadCount > 0 ) {
 					showToast("Number of new messages: " + mUnreadCount);
+					notifyWithSound();
 				}
 				((MessageListAdapter) getListView().getAdapter()).setItems(mMessages);
 			} else {
@@ -243,6 +255,12 @@ public class ChatActivity extends AbstractListActivity {
 			}
 			mSendMessageTask = null;
 			toggleButton();
+		}
+	}
+
+	public void notifyWithSound() {
+		if( mSharedPreferences.getBoolean(Keys.Settings.BEEP_ON_NEW, true) ) {
+			mMediaPlayer.start();
 		}
 	}
 }
