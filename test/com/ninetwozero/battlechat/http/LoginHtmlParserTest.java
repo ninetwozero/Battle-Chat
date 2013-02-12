@@ -65,5 +65,10 @@ public class LoginHtmlParserTest {
 		assertThat(loggedIn.getChecksum(), not(""));
 	}
 	
+	@Test
+	public void testDetectLoggedIn() {
+		assertTrue(loggedIn.isLoggedIn());
+		assertFalse(loginError.isLoggedIn());
+	}
 	
 }
