@@ -35,10 +35,9 @@ public class AbstractListActivity extends ListActivity {
 	}
 	
 	private void setupBattleChatClient() {
-		if( BattleChat.hasSession() ) {
+		if( !BattleChat.hasSession() ) {
 			BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 		}
 		BattleChatClient.setCookie(BattleChat.getSession().getCookie());
 	}
-	
 }

@@ -46,7 +46,8 @@ public class MainActivity extends AbstractListActivity {
 
 	private void reload() {
 		if( mReloadTask == null ) {
-			new ReloadTask().execute();
+			mReloadTask = new ReloadTask();
+			mReloadTask.execute();
 		}
 	}
 
@@ -60,7 +61,7 @@ public class MainActivity extends AbstractListActivity {
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		User user = (User) view.getTag();
 		if( user != null ) {
-			startActivity( new Intent(this, ChatActivity.class).putExtra("user", user) );			
+			startActivity( new Intent(this, ChatActivity.class).putExtra(ChatActivity.EXTRA_USER, user) );			
 		}
 	}
 
@@ -103,6 +104,7 @@ public class MainActivity extends AbstractListActivity {
 			} else {
 				showToast(mMessage);
 			}
+			mReloadTask = null;
 		}
 		
 		private List<User> getUsersFromJson(JSONObject result) throws JSONException {

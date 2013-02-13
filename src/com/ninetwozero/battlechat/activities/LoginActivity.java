@@ -6,8 +6,10 @@ import org.jsoup.Jsoup;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -26,11 +28,13 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class LoginActivity extends Activity {
 
 	public static final String TAG = "LoginActivity";
 
+	private SharedPreferences mSharedPreferences;
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
@@ -47,9 +51,23 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		init();
 		setContentView(R.layout.activity_login);
-		
+		setupLayout();
+	}
+
+	private void init() {
+		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		if( alreadyHasCookie() ) {
+			startActivity( new Intent(this, MainActivity.class) );
+		}
+	}
+
+	private boolean alreadyHasCookie() {
+		return mSharedPreferences.contains(Keys.Session.COOKIE_VALUE) && !mSharedPreferences.getString(Keys.Session.COOKIE_VALUE, "").equals("");
+	}
+
+	private void setupLayout() {
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
 

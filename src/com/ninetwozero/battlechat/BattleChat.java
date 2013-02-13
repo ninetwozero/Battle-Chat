@@ -59,4 +59,19 @@ public class BattleChat extends Application {
 
 			editor.commit();
     }
+    
+    public static void clearSession(Context c) {
+		BattleChat.mSession = null;
+    	
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+		SharedPreferences.Editor editor = preferences.edit();
+		
+		editor.remove(Keys.Session.USER_ID);
+		editor.remove(Keys.Session.USERNAME);
+		editor.remove(Keys.Session.COOKIE_NAME);
+		editor.remove(Keys.Session.COOKIE_VALUE);
+		editor.remove(Keys.Session.CHECKSUM);
+		
+		editor.commit();
+    }
 }

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,6 +37,8 @@ import com.ninetwozero.battlechat.misc.Keys;
 public class ChatActivity extends AbstractListActivity {
 
 	public static final String TAG = "ChatActivity";
+	public static final String EXTRA_USER = "user";
+	
 	private Button mButton;
 	private EditText mField;
 	private User mUser;
@@ -117,6 +120,7 @@ public class ChatActivity extends AbstractListActivity {
             new TimerTask() {
                 @Override
                 public void run() {
+                	Log.d(TAG, "Running with it!");
                     reload();
                 }
             }, 
@@ -224,7 +228,7 @@ public class ChatActivity extends AbstractListActivity {
 		
 		@Override
 		protected void onPreExecute() {
-			showToast("Sending message...");
+			showToast(R.string.msg_chat_sending_message);
 			toggleButton();
 		}
 		
@@ -254,6 +258,7 @@ public class ChatActivity extends AbstractListActivity {
 			} else {
 				showToast(R.string.msg_message_fail);
 			}
+			scrollToBottom();
 			mSendMessageTask = null;
 			toggleButton();
 		}
@@ -268,5 +273,16 @@ public class ChatActivity extends AbstractListActivity {
 		if( mSharedPreferences.getBoolean(Keys.Settings.BEEP_ON_NEW, true) ) {
 			mMediaPlayer.start();
 		}
+	}
+
+	public void scrollToBottom() {
+		getListView().post(
+            new Runnable() {
+                @Override
+                public void run() {
+                	getListView().setSelection(getListView().getAdapter().getCount() - 1);
+                }
+            }
+        );
 	}
 }
