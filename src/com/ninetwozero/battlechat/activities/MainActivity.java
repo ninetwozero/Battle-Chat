@@ -26,11 +26,12 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
@@ -52,30 +53,45 @@ public class MainActivity extends AbstractListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setupListView();
+		setupFromSavedInstance(savedInstanceState);
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		reload();
 	}
-
-	private void reload() {
-		if( mReloadTask == null ) {
-			mReloadTask = new ReloadTask();
-			mReloadTask.execute();
-		}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle out) {
+		final UserListAdapter adapter = (UserListAdapter) getListView().getAdapter();
+		final ArrayList<User> friends = (ArrayList<User>) adapter.getItems();
+		out.putParcelableArrayList("friends", friends);
+		
+		super.onSaveInstanceState(out);
 	}
 
+	private void setupFromSavedInstance(Bundle in) {
+		if( in == null ){
+			return;
+		}
+		final List<User> friends = in.getParcelableArrayList("friends");
+		final UserListAdapter adapter = (UserListAdapter) getListView().getAdapter();
+		adapter.setItems(friends);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch( item.getItemId() ) {
+			case R.id.menu_reload:
+				reload();
+				return true;
 			case R.id.menu_settings:
 				startActivity( new Intent(this, SettingsActivity.class));
 				return true;
@@ -102,10 +118,24 @@ public class MainActivity extends AbstractListActivity {
 		listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
 		listView.setAdapter(new UserListAdapter(getApplicationContext()));
 	}
+
+	private void reload() {
+		if( mReloadTask == null ) {
+			mReloadTask = new ReloadTask();
+			mReloadTask.execute();
+		}
+	}
 	
 	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private String mMessage;
 		private List<User> mItems;
+		
+		@Override
+		protected void onPreExecute() {
+			if( getListView().getCount() == 0 ) {
+				toggleLoading(true);
+			}
+		}
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -135,6 +165,7 @@ public class MainActivity extends AbstractListActivity {
 			} else {
 				showToast(mMessage);
 			}
+			toggleLoading(false);
 			mReloadTask = null;
 		}
 		
@@ -195,5 +226,12 @@ public class MainActivity extends AbstractListActivity {
 			}
 			return users;
 		}		
+	}
+	
+	private void toggleLoading(boolean isLoading) {
+		if( getListAdapter() == null || getListAdapter().isEmpty() ) {
+			final View view = findViewById(R.id.status);
+			view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+		}
 	}
 }

@@ -18,7 +18,6 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -26,7 +25,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -36,6 +34,8 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
@@ -46,7 +46,7 @@ import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends SherlockActivity {
 
 	public static final String TAG = "LoginActivity";
 
@@ -128,8 +128,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.activity_login, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_login, menu);
 		return true;
 	}
 

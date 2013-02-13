@@ -45,15 +45,12 @@ import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.misc.Keys;
 
-/* TODO: notify new messages */
 
 public class ChatActivity extends AbstractListActivity {
 
 	public static final String TAG = "ChatActivity";
 	public static final String EXTRA_USER = "user";
 	
-	private Button mButton;
-	private EditText mField;
 	private User mUser;
 	private long mChatId;
 	private boolean mFirstRun = true;
@@ -70,6 +67,7 @@ public class ChatActivity extends AbstractListActivity {
 		setupOtherUser();
 		setupForm();
 		setupListView();
+		setupFromSavedInstance(savedInstanceState);
 	}
 	
 	@Override
@@ -78,14 +76,7 @@ public class ChatActivity extends AbstractListActivity {
         setupTimer();
         setupMediaPlayer();
 	}
-
-	private void reload() {
-		if( mReloadTask == null ) {
-			mReloadTask = new ReloadTask();
-			mReloadTask.execute();
-		}
-	}
-
+	
     @Override
     public void onPause() {
         super.onPause();
@@ -98,6 +89,42 @@ public class ChatActivity extends AbstractListActivity {
         	mMediaPlayer.release();
         }
     }
+    
+	@Override
+	protected void onSaveInstanceState(Bundle out) {
+		final MessageListAdapter adapter = (MessageListAdapter) getListView().getAdapter();
+		final ArrayList<Message> messages = (ArrayList<Message>) adapter.getItems();
+		
+		out.putLong("chatId", mChatId);
+		out.putParcelable("user", mUser);
+		out.putParcelableArrayList("messages", messages);
+		out.putBoolean("firstRun", mFirstRun);
+		
+		super.onSaveInstanceState(out);
+	}
+
+	private void setupFromSavedInstance(Bundle in) {
+		if( in == null ){
+			return;
+		}
+		final long chatId = in.getLong("chatId");
+		final User user = in.getParcelable("user");
+		final List<Message> friends = in.getParcelableArrayList("messages");
+		final MessageListAdapter adapter = (MessageListAdapter) getListView().getAdapter();
+		final boolean firstRun = in.getBoolean("firstRun");
+		
+		mChatId = chatId;
+		mUser = user;
+		adapter.setItems(friends);
+		mFirstRun = firstRun;
+	}
+
+	private void reload() {
+		if( mReloadTask == null ) {
+			mReloadTask = new ReloadTask();
+			mReloadTask.execute();
+		}
+	}	
 	
 	private void setupOtherUser() {
 		mUser = getIntent().getParcelableExtra("user");
@@ -107,11 +134,8 @@ public class ChatActivity extends AbstractListActivity {
 		}
 	}
 	
-	private void setupForm() {
-		mButton = (Button) findViewById(R.id.button_send);
-		mField = (EditText) findViewById(R.id.input_message);
-	
-		mButton.setOnClickListener(
+	private void setupForm() {	
+		findViewById(R.id.button_send).setOnClickListener(
 			new OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -152,10 +176,11 @@ public class ChatActivity extends AbstractListActivity {
 			return;
 		}
 		
-		String message = mField.getText().toString();
+		EditText field = (EditText) findViewById(R.id.input_message);
+		String message = field.getText().toString();
 		if( message.length() == 0 ) {
-			mField.setError(getString(R.string.msg_chat_send_message_error));
-			mField.requestFocus();
+			field.setError(getString(R.string.msg_chat_send_message_error));
+			field.requestFocus();
 			return;
 		}
 		
@@ -164,12 +189,13 @@ public class ChatActivity extends AbstractListActivity {
 	}
 	
 	private void toggleButton() {
-		if( mButton.isEnabled() ) {
-			mButton.setText(R.string.label_sending);
-			mButton.setEnabled(false);
+		final Button button = (Button) findViewById(R.id.button_send);
+		if( button.isEnabled() ) {
+			button.setText(R.string.label_sending);
+			button.setEnabled(false);
 		} else {
-			mButton.setText(R.string.label_send);
-			mButton.setEnabled(true);
+			button.setText(R.string.label_send);
+			button.setEnabled(true);
 		}
 		
 	}
@@ -181,6 +207,13 @@ public class ChatActivity extends AbstractListActivity {
 	private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private List<Message> mMessages = new ArrayList<Message>();
 		private int mUnreadCount = 0;
+		
+		@Override
+		protected void onPreExecute() {
+			if( getListView().getCount() == 0 ) {
+				toggleLoading(true);
+			}
+		}
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -215,6 +248,7 @@ public class ChatActivity extends AbstractListActivity {
 			} else {
 				showToast(R.string.msg_chat_reload_fail);
 			}
+			toggleLoading(false);
 			mReloadTask = null;
 		}
 		
@@ -297,5 +331,12 @@ public class ChatActivity extends AbstractListActivity {
                 }
             }
         );
+	}
+	
+	private void toggleLoading(boolean isLoading) {
+		if( getListAdapter() == null || getListAdapter().isEmpty() ) {
+			final View view = findViewById(R.id.status);
+			view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+		}
 	}
 }

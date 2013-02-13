@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+	This file is part of BattleChat
+
+    BattleChat is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    BattleChat is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sample="http://schemas.android.com/apk/res/com.ninetwozero.battlechat" >
 
@@ -18,8 +31,7 @@
     <com.kmansoft.IntegerListPreference
         android:defaultValue="25"
         android:key="chat_refresh_interval"
-        android:title="@string/text_preference_beep_title"
-        android:title="Chat refresh interval"
+        android:title="@string/text_preference_interval_title"
         sample:entryList="@array/update_interval_entries"
         sample:valueList="@array/update_interval_values" />
 </PreferenceScreen>

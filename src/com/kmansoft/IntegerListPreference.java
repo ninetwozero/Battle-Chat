@@ -8,7 +8,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
-import com.ninetwozero.bf3droid.R;
+
+import com.ninetwozero.battlechat.R;
 
 public class IntegerListPreference extends DialogPreference {
     private CharSequence[] mEntries;

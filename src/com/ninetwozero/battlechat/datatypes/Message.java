@@ -14,13 +14,23 @@
 
 package com.ninetwozero.battlechat.datatypes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Message {
+
+public class Message implements Parcelable {
 
 	private long mId;
 	private String mContent;
 	private String mUsername;
 	private long mTimestamp;
+	
+	public Message(Parcel in) {
+		mId = in.readLong();
+		mContent = in.readString();
+		mUsername = in.readString();
+		mTimestamp = in.readLong();
+	}
 	
 	public Message(long id, String content, String user, long timestamp) {
 		mId = id;
@@ -44,4 +54,25 @@ public class Message {
 	public long getTimestamp() {
 		return mTimestamp;
 	}
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeLong(mId);
+		out.writeString(mContent);
+		out.writeString(mUsername);	
+		out.writeLong(mTimestamp);
+	}
+	
+	public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+		public Message createFromParcel(Parcel in) {
+			return new Message(in);
+		}
+		public Message[] newArray(int size) {
+			return new Message[size];
+		}
+	};
 }

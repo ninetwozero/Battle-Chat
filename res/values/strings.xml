@@ -17,14 +17,14 @@
     <string name="app_name">BattleChat</string>
     <string name="service_name">Battlelog Session Service</string>
 
-    <integer-array name="update_interval_entries">
+    <string-array name="update_interval_entries">
         <item>Every 5 seconds</item>
         <item>Every 10 seconds</item>
         <item>Every 17 seconds</item>
         <item>Every 25 seconds</item>
         <item>Every 30 seconds</item>
         <item>Every minute</item>
-    </integer-array>
+    </string-array>
     <integer-array name="update_interval_values">
         <item>5</item>
         <item>10</item>
@@ -87,8 +87,12 @@
     <string name="text_preference_notification_title">Notify when logged out</string>
     <string name="text_preference_notification_on">A notification will be shown.</string>
     <string name="text_preference_notification_off">You won&amp;apos;t even know it happened.</string>
-    <string name="text_preference_beep_off">You won&amp;apos;t hear a thing!</string>
-    <string name="text_preference_beep_on">Don\'t worry, we&amp;apos;ll beep you.</string>
-    <string name="text_preference_beep_title">Notify upon receiving a new message</string>
+    <string name="text_preference_beep_off">You won\'t hear a thing!</string>
+    <string name="text_preference_beep_on">Don\'t worry, we\'ll beep you.</string>
+    <string name="text_preference_beep_title">Beep for messages</string>
+    <string name="text_preference_interval_title">Chat refresh interval</string>
+    <string name="text_main_loading">Getting your friends...</string>
+    <string name="title_refresh">Refresh</string>
+    <string name="text_chat_loading">Loading messages...</string>
 
 </resources>

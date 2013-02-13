@@ -15,19 +15,17 @@
 package com.ninetwozero.battlechat.activities;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
-/* TODO: 
- * Create preferences in xml format
- * Add preferences from xml 
- * */
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.ninetwozero.battlechat.R;
 
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends SherlockPreferenceActivity {
 
 	public static final String TAG = "SettingsActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.settings);
 	}
 }

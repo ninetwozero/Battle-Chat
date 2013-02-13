@@ -53,6 +53,10 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 		return mItems.get(position);
 	}
 	
+	final public List<T> getItems() {
+		return mItems;
+	}
+	
 	final public void setItems(List<T> items) {
 		mItems = items;
 		notifyDataSetChanged();

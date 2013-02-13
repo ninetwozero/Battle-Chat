@@ -14,16 +14,16 @@
 
 package com.ninetwozero.battlechat.abstractions;
 
-import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 
-public class AbstractListActivity extends ListActivity {
+public class AbstractListActivity extends SherlockListActivity {
 	protected SharedPreferences mSharedPreferences;
 	private Toast mToast;
 	
