@@ -41,6 +41,10 @@ public class Session {
 		return mCookie;
 	}
 	
+	public String getCookieValue() {
+		return mCookie.getValue();
+	}
+	
 	public String getChecksum() {
 		return mChecksum;
 	}

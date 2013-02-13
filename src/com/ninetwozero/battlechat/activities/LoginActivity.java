@@ -29,6 +29,7 @@ import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.services.BattleChatService;
 
 public class LoginActivity extends Activity {
 
@@ -37,11 +38,9 @@ public class LoginActivity extends Activity {
 	private SharedPreferences mSharedPreferences;
 	private UserLoginTask mAuthTask = null;
 
-	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
 
-	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
@@ -60,6 +59,7 @@ public class LoginActivity extends Activity {
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if( alreadyHasCookie() ) {
 			startActivity( new Intent(this, MainActivity.class) );
+			finish();
 		}
 	}
 
@@ -183,6 +183,7 @@ public class LoginActivity extends Activity {
 			if (success) {
 				BattleChat.setSession(mSession);
 				BattleChat.saveToSharedPreferences(getApplicationContext());
+				BattleChatService.scheduleRun(getApplicationContext());
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
 			} else {

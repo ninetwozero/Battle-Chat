@@ -15,7 +15,7 @@
     <string name="msg_chat_send_message_error">You need to enter a message.</string>
     <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
     <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
-    <string name="text_notification_title">You\'ve been logged out from Battlelog</string>
+    <string name="text_notification_title">Logged out from Battlelog</string>
     <string name="text_notification_subtitle">Tap here to login</string>
     <string name="label_offline">Offline</string>
     <string name="label_online">Online</string>
@@ -41,5 +41,6 @@
 	<string name="text_time_week_p">%s weeks ago</string>
 	<string name="text_time_year">1 year ago</string>
 	<string name="text_time_year_p">%s years ago</string>
+	<string name="menu_about">About</string>
 
 </resources>

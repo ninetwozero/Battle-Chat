@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,7 +31,7 @@ import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.misc.Keys;
 
-/* TODO: Chat automatic refresh + notify new messages */
+/* TODO: notify new messages */
 
 public class ChatActivity extends AbstractListActivity {
 
@@ -120,7 +119,6 @@ public class ChatActivity extends AbstractListActivity {
             new TimerTask() {
                 @Override
                 public void run() {
-                	Log.d(TAG, "Running with it!");
                     reload();
                 }
             }, 
@@ -131,6 +129,7 @@ public class ChatActivity extends AbstractListActivity {
 
 	private void setupMediaPlayer() {
 		mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.notification);
+		mMediaPlayer.setVolume(1.0f, 1.0f);
 	}
 	
 	private void onSend() {
@@ -198,6 +197,7 @@ public class ChatActivity extends AbstractListActivity {
 					notifyWithSound();
 				}
 				((MessageListAdapter) getListView().getAdapter()).setItems(mMessages);
+				scrollToBottom();
 			} else {
 				showToast(R.string.msg_chat_reload_fail);
 			}
@@ -258,7 +258,6 @@ public class ChatActivity extends AbstractListActivity {
 			} else {
 				showToast(R.string.msg_message_fail);
 			}
-			scrollToBottom();
 			mSendMessageTask = null;
 			toggleButton();
 		}

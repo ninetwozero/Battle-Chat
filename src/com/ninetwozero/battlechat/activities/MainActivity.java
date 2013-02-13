@@ -25,6 +25,7 @@ import com.ninetwozero.battlechat.comparators.UserComparator;
 import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpUris;
+import com.ninetwozero.battlechat.services.BattleChatService;
 
 public class MainActivity extends AbstractListActivity {
 
@@ -66,13 +67,14 @@ public class MainActivity extends AbstractListActivity {
 				return true;
 			case R.id.menu_exit:
 				BattleChat.clearSession(getApplicationContext());
+    			BattleChatService.unschedule(getApplicationContext());
 				finish();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		User user = (User) view.getTag();
@@ -88,7 +90,6 @@ public class MainActivity extends AbstractListActivity {
 	}
 	
 	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
-		
 		private String mMessage;
 		private List<User> mItems;
 		
