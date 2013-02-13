@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -59,6 +60,7 @@ public class LoginActivity extends Activity {
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
+	private View mDisclaimerView;
 	private TextView mLoginStatusMessageView;
 
 	@Override
@@ -99,6 +101,7 @@ public class LoginActivity extends Activity {
 			}
 		);
 
+		mDisclaimerView = findViewById(R.id.text_disclaimer);
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -111,6 +114,16 @@ public class LoginActivity extends Activity {
 				}
 			}
 		);
+		
+		findViewById(R.id.checkbox_accept).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						final CheckBox checkbox = (CheckBox) view;
+						toggleDisclaimer(checkbox.isChecked());
+					}
+				}
+			);
 	}
 
 	@Override
@@ -224,5 +237,10 @@ public class LoginActivity extends Activity {
 			}
 			return mSession != null;
 		}
+	}
+	
+	private void toggleDisclaimer(boolean showLoginForm) {
+		mLoginFormView.setVisibility(showLoginForm ? View.VISIBLE : View.GONE);
+		mDisclaimerView.setVisibility(showLoginForm ? View.GONE : View.VISIBLE);
 	}
 }

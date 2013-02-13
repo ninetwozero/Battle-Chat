@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.User;
 
 

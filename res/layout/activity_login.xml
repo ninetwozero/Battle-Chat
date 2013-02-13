@@ -12,10 +12,50 @@
     GNU General Public License for more details.
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
+    <!-- Disclaimer -->
+
+    <RelativeLayout
+        android:id="@+id/wrap_disclaimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/text_disclaimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:text="@string/text_login_disclaimer" />
+
+        <LinearLayout
+            android:id="@+id/wrap_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_disclaimer"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" >
+
+            <CheckBox
+                android:id="@+id/checkbox_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/text_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_login_accept_terms" />
+        </LinearLayout>
+    </RelativeLayout>
+    
     <!-- Login progress -->
 
     <LinearLayout
@@ -48,7 +88,9 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/wrap_disclaimer"
+        android:visibility="gone" >
 
         <LinearLayout
             style="@style/LoginFormContainer"
@@ -61,8 +103,8 @@
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:text="@string/app_email"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@string/app_email" />
 
             <EditText
                 android:id="@+id/password"
@@ -74,8 +116,8 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:text=""
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="" />
 
             <Button
                 android:id="@+id/sign_in_button"
@@ -89,4 +131,4 @@
         </LinearLayout>
     </ScrollView>
 
-</merge>
+</RelativeLayout>

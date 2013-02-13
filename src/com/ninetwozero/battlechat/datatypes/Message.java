@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.datatypes;
 
+
 public class Message {
 
 	private long mId;
