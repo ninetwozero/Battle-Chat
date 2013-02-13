@@ -1,0 +1,3 @@
+TODO:
+Populate SettingsActivity
+Validate that chat beeps upon new message
