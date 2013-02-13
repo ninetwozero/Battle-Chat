@@ -40,11 +40,7 @@ public class Session {
 	public Cookie getCookie() {
 		return mCookie;
 	}
-	
-	public String getCookieValue() {
-		return mCookie.getValue();
-	}
-	
+		
 	public String getChecksum() {
 		return mChecksum;
 	}

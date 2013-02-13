@@ -94,17 +94,14 @@ public class BattleChatService extends Service {
 	    	private Cookie mCookie;
 	    	private String mChecksum;
 	    	
-	    	/* TODO: Cookie refreshing is not working, does not detect logged in state */
 	    	@Override
 	    	protected Boolean doInBackground(Void... params) {
 	    		try {
 	    			Log.i(TAG, "Talking to the website...");
-	    			Connection.Response response = Jsoup.connect(HttpUris.MAIN).header(
-	    				"Set-Cookie", 
-	    				generateCookieHeader()
+	    			Connection.Response response = Jsoup.connect(HttpUris.MAIN).cookie(
+	    				BattleChat.getSession().getCookie().getName(), 
+	    				BattleChat.getSession().getCookie().getValue()
 					).execute();
-	    			Log.d(TAG, "cookieHeader => " + generateCookieHeader());
-	    			Log.d(TAG, "headers => " + response.headers().toString());
 	    			LoginHtmlParser parser = new LoginHtmlParser(response.parse());
 	    			if( parser.isLoggedIn() ) {
 		    			mUser = new User(parser.getUserId(), parser.getUsername(), User.ONLINE);
@@ -117,14 +114,6 @@ public class BattleChatService extends Service {
 	    		}	    			
 	    		return false;
 	    	}
-
-			private String generateCookieHeader() {
-				return Keys.Session.COOKIE_NAME 
-				+ "=" 
-				+ BattleChat.getSession().getCookieValue() 
-				+ ";domain=" 
-				+ BattleChat.COOKIE_DOMAIN;
-			}  	
 	    	
 	    	@Override
 	    	protected void onPostExecute(Boolean hasActiveSession) {
