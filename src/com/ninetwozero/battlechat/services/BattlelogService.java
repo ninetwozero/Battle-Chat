@@ -113,6 +113,7 @@ public class BattlelogService extends Service {
 	    			if( mSharedPreferences.getBoolean(Keys.Settings.NOTIFY_ON_LOGOUT, true) ) {
 	    				showNotification();
 	    			}
+	    			BattleChat.clearSession(getApplicationContext());
 	    		}
 	    		stopSelf();
 	    	}
