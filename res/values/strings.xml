@@ -27,5 +27,19 @@
     <string name="title_settings">Settings</string>
     <string name="title_chat">Chat</string>
     <string name="title_main">Friends</string>
+    <string name="msg_chat_sending_message">Sending message…</string>
+    
+	<string name="text_time_second">1 second ago</string>
+	<string name="text_time_second_p">%s seconds ago</string>
+	<string name="text_time_min">1 minute ago</string>
+	<string name="text_time_min_p">%s minutes ago</string>
+	<string name="text_time_hour">1 hour ago</string>
+	<string name="text_time_hour_p">%s hours ago</string>
+	<string name="text_time_day">1 day ago</string>
+	<string name="text_time_day_p">%s days ago</string>
+	<string name="text_time_week">1 week ago</string>
+	<string name="text_time_week_p">%s weeks ago</string>
+	<string name="text_time_year">1 year ago</string>
+	<string name="text_time_year_p">%s years ago</string>
 
 </resources>
