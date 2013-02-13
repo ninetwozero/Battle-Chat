@@ -27,7 +27,7 @@ import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 
-public class BattlelogService extends Service {
+public class BattleChatService extends Service {
 		private static final int NOTIFICATION = R.string.service_name;
 		private static final String TAG = "BattlelogSessionService";
 
@@ -63,7 +63,7 @@ public class BattlelogService extends Service {
 		}
 		
 		private void showNotification() {
-	    	 Notification notification = new NotificationCompat.Builder(BattlelogService.this)
+	    	 Notification notification = new NotificationCompat.Builder(BattleChatService.this)
 	         .setContentTitle(getString(R.string.text_notification_title))
 	         .setContentText(getString(R.string.text_notification_subtitle))
 	         .setSmallIcon(R.drawable.ic_launcher)
@@ -80,7 +80,7 @@ public class BattlelogService extends Service {
 	    }
 	    
 	    public static final Intent getIntent(Context c) {
-	    	return new Intent(c, BattlelogService.class);
+	    	return new Intent(c, BattleChatService.class);
 	    }
 	    
 	    public class SessionReloadTask extends AsyncTask<Void, Void, Boolean> {
@@ -120,8 +120,8 @@ public class BattlelogService extends Service {
 	    }
 
 	    public class LocalBinder extends Binder {
-	        BattlelogService getService() {
-	            return BattlelogService.this;
+	        BattleChatService getService() {
+	            return BattleChatService.this;
 	        }
 	    }
 	    

@@ -44,7 +44,7 @@
         </activity>
 
         <service
-            android:name=".services.BattlelogService"
+            android:name="com.ninetwozero.battlechat.services.BattleChatService"
             android:icon="@drawable/ic_launcher"
             android:label="@string/service_name" />
     </application>
