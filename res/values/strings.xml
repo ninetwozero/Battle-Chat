@@ -10,12 +10,30 @@
     BattleChat is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU General Public License for more details.
 -->
 <resources>
 
     <string name="app_name">BattleChat</string>
     <string name="service_name">Battlelog Session Service</string>
+
+    <integer-array name="update_interval_entries">
+        <item>Every 5 seconds</item>
+        <item>Every 10 seconds</item>
+        <item>Every 17 seconds</item>
+        <item>Every 25 seconds</item>
+        <item>Every 30 seconds</item>
+        <item>Every minute</item>
+    </integer-array>
+    <integer-array name="update_interval_values">
+        <item>5</item>
+        <item>10</item>
+        <item>17</item>
+        <item>25</item>
+        <item>30</item>
+        <item>60</item>
+    </integer-array>
+
     <string name="hello_world">Hello world!</string>
     <string name="menu_exit">Exit</string>
     <string name="title_activity_main">MainActivity</string>
@@ -41,8 +59,6 @@
     <string name="title_chat">Chat</string>
     <string name="title_main">Friends</string>
     <string name="msg_chat_sending_message">Sending message…</string>
-    
-    
     <string name="prompt_email">Origin™ Email</string>
     <string name="prompt_password">Origin™ Password</string>
     <string name="action_sign_in_register"><b>Sign in</b> or register</string>
@@ -53,21 +69,26 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    
-	<string name="text_time_second">1 second ago</string>
-	<string name="text_time_second_p">%s seconds ago</string>
-	<string name="text_time_min">1 minute ago</string>
-	<string name="text_time_min_p">%s minutes ago</string>
-	<string name="text_time_hour">1 hour ago</string>
-	<string name="text_time_hour_p">%s hours ago</string>
-	<string name="text_time_day">1 day ago</string>
-	<string name="text_time_day_p">%s days ago</string>
-	<string name="text_time_week">1 week ago</string>
-	<string name="text_time_week_p">%s weeks ago</string>
-	<string name="text_time_year">1 year ago</string>
-	<string name="text_time_year_p">%s years ago</string>
-	<string name="menu_about">About</string>
-	<string name="text_login_disclaimer">This app is not created nor endorsed by EA/DICE. Battlefield is a registered trademark of EA Digital Illusions CE AB. No user account information is being stored and/or shared with third-parties.</string>
-	<string name="text_login_accept_terms">I accept the terms and conditions.</string>
+    <string name="text_time_second">1 second ago</string>
+    <string name="text_time_second_p">%s seconds ago</string>
+    <string name="text_time_min">1 minute ago</string>
+    <string name="text_time_min_p">%s minutes ago</string>
+    <string name="text_time_hour">1 hour ago</string>
+    <string name="text_time_hour_p">%s hours ago</string>
+    <string name="text_time_day">1 day ago</string>
+    <string name="text_time_day_p">%s days ago</string>
+    <string name="text_time_week">1 week ago</string>
+    <string name="text_time_week_p">%s weeks ago</string>
+    <string name="text_time_year">1 year ago</string>
+    <string name="text_time_year_p">%s years ago</string>
+    <string name="menu_about">About</string>
+    <string name="text_login_disclaimer">This app is not created nor endorsed by EA/DICE. Battlefield is a registered trademark of EA Digital Illusions CE AB. No user account information is being stored and/or shared with third-parties.</string>
+    <string name="text_login_accept_terms">I accept the terms and conditions.</string>
+    <string name="text_preference_notification_title">Notify when logged out</string>
+    <string name="text_preference_notification_on">A notification will be shown.</string>
+    <string name="text_preference_notification_off">You won&amp;apos;t even know it happened.</string>
+    <string name="text_preference_beep_off">You won&amp;apos;t hear a thing!</string>
+    <string name="text_preference_beep_on">Don\'t worry, we&amp;apos;ll beep you.</string>
+    <string name="text_preference_beep_title">Notify upon receiving a new message</string>
 
 </resources>
