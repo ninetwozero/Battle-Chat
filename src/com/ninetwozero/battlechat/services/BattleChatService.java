@@ -164,7 +164,8 @@ public class BattleChatService extends Service {
 		public static void scheduleRun(Context c) {
 			AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.setInexactRepeating(
-				AlarmManager.ELAPSED_REALTIME, 0, 
+				AlarmManager.ELAPSED_REALTIME, 
+				DateUtils.HOUR_IN_SECONDS * 1000, 
 				DateUtils.HOUR_IN_SECONDS * 1000, 
 				BattleChatService.getPendingIntent(c.getApplicationContext())
 			);

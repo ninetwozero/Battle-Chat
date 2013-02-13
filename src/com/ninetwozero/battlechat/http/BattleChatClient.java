@@ -69,7 +69,6 @@ public class BattleChatClient {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 	        httpPost.setHeader("Referer", url);
-	        
 	        for( Header header : HttpHeaders.Post.getHeaders(headerId) ) {
 	        	httpPost.setHeader(header.getName(), header.getValue());
 	        }
