@@ -20,6 +20,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
@@ -29,6 +30,7 @@ import com.ninetwozero.battlechat.misc.Keys;
 public class BattleChat extends Application {
 	public final static String COOKIE_NAME = "beaker.session.id";
 	public final static String COOKIE_DOMAIN = "battlelog.battlefield.com";
+	private final static String TAG = "BattleChat";
 	
     private static BattleChat mInstance;
     private static Session mSession;
@@ -55,6 +57,7 @@ public class BattleChat extends Application {
     }
     
     public static void reloadSession(User user, Cookie cookie, String checksum) {
+    	Log.d(TAG, "cookie => " + cookie);
     	mSession = new Session(user, cookie, checksum);
     }
 	

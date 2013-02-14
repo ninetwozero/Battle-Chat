@@ -98,5 +98,6 @@
     <string name="text_about_by">By Karl Lindmark</string>
     <string name="text_about_email">support@ninetwozero.com</string>
     <string name="text_about_version">1.0</string>
+    <string name="text_chat_title">Chatting with %s</string>
 
 </resources>

@@ -65,6 +65,7 @@ public class ChatActivity extends AbstractListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
 		setupOtherUser();
+		setChatTitle();
 		setupForm();
 		setupListView();
 		setupFromSavedInstance(savedInstanceState);
@@ -75,6 +76,10 @@ public class ChatActivity extends AbstractListActivity {
 		super.onResume();
         startTimer();
         setupMediaPlayer();
+	}
+	
+	private void setChatTitle() {
+		setTitle(String.format(getString(R.string.text_chat_title), mUser.getUsername()));
 	}
 	
     @Override

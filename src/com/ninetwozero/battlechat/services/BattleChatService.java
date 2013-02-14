@@ -116,10 +116,11 @@ public class BattleChatService extends Service {
 	    				BattleChat.getSession().getCookie().getName(), 
 	    				BattleChat.getSession().getCookie().getValue()
 					).execute();
+
 	    			LoginHtmlParser parser = new LoginHtmlParser(response.parse());
 	    			if( parser.isLoggedIn() ) {
 		    			mUser = new User(parser.getUserId(), parser.getUsername(), User.ONLINE);
-		    			mCookie = CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME));
+		    			mCookie = BattleChat.getSession().getCookie();
 		    			mChecksum = parser.getChecksum();
 		    			return true;
 	    			}
@@ -159,7 +160,6 @@ public class BattleChatService extends Service {
 				BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 			}
 		}
-	    
 
 		public static void scheduleRun(Context c) {
 			AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
