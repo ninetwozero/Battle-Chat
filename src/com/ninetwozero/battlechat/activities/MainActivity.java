@@ -28,7 +28,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -89,6 +88,9 @@ public class MainActivity extends AbstractListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch( item.getItemId() ) {
+			case R.id.menu_about:
+				startActivity( new Intent(this, AboutActivity.class) );
+				return true;
 			case R.id.menu_reload:
 				reload();
 				return true;

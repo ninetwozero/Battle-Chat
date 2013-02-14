@@ -73,22 +73,29 @@ public class ChatActivity extends AbstractListActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-        setupTimer();
+        startTimer();
         setupMediaPlayer();
 	}
 	
     @Override
     public void onPause() {
         super.onPause();
-        if( mTimer != null ) {
+        stopTimer();
+        stopMediaPlayer();
+    }
+
+	private void stopMediaPlayer() {
+		if( mMediaPlayer != null ) {
+        	mMediaPlayer.release();
+        }
+	}
+
+	private void stopTimer() {
+		if( mTimer != null ) {
             mTimer.cancel();
             mTimer = null;
         }
-        
-        if( mMediaPlayer != null ) {
-        	mMediaPlayer.release();
-        }
-    }
+	}
     
 	@Override
 	protected void onSaveInstanceState(Bundle out) {
@@ -151,7 +158,7 @@ public class ChatActivity extends AbstractListActivity {
 		listView.setAdapter(new MessageListAdapter(getApplicationContext(), mUser.getUsername()));
 	}
 	
-	private void setupTimer() {
+	private void startTimer() {
 		mTimer = new Timer();
         mTimer.schedule(
             new TimerTask() {
@@ -188,14 +195,14 @@ public class ChatActivity extends AbstractListActivity {
 		mSendMessageTask.execute(message, String.valueOf(mChatId), BattleChat.getSession().getChecksum());
 	}
 	
-	private void toggleButton() {
+	private void toggleButton(boolean enable) {
 		final Button button = (Button) findViewById(R.id.button_send);
-		if( button.isEnabled() ) {
-			button.setText(R.string.label_sending);
-			button.setEnabled(false);
-		} else {
+		if( enable ) {
 			button.setText(R.string.label_send);
 			button.setEnabled(true);
+		} else {
+			button.setText(R.string.label_sending);
+			button.setEnabled(false);
 		}
 		
 	}
@@ -247,6 +254,8 @@ public class ChatActivity extends AbstractListActivity {
 				scrollToBottom();
 			} else {
 				showToast(R.string.msg_chat_reload_fail);
+				findViewById(R.id.button_send).setEnabled(false);
+				stopTimer();
 			}
 			toggleLoading(false);
 			mReloadTask = null;
@@ -277,7 +286,7 @@ public class ChatActivity extends AbstractListActivity {
 		@Override
 		protected void onPreExecute() {
 			showToast(R.string.msg_chat_sending_message);
-			toggleButton();
+			toggleButton(false);
 		}
 		
 		@Override
@@ -307,7 +316,7 @@ public class ChatActivity extends AbstractListActivity {
 				showToast(R.string.msg_message_fail);
 			}
 			mSendMessageTask = null;
-			toggleButton();
+			toggleButton(true);
 		}
 	}
 

@@ -17,7 +17,6 @@ package com.ninetwozero.battlechat.adapters;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -67,7 +66,6 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final User user = getItem(position);
 		if( getItemViewType(position) == HEADING ) {
-			Log.d(TAG, "position:" + position + ";user => " + user);
 			if( convertView == null ) {
 				convertView = mLayoutInflater.inflate(R.layout.list_item_heading, null);
 			}

@@ -1,3 +1,2 @@
 TODO:
-Populate SettingsActivity
-Validate that chat beeps upon new message
+Why doesn't the chat work upon logging in? Something's fishy!

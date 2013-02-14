@@ -45,6 +45,10 @@
             android:label="@string/title_main" >
         </activity>
         <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_about" >
+        </activity>
+        <activity
             android:name=".activities.ChatActivity"
             android:label="@string/title_chat" >
         </activity>

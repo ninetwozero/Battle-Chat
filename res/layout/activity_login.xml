@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:layout_centerVertical="true"
             android:text="@string/text_login_disclaimer" />
 
         <LinearLayout
@@ -41,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_disclaimer"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:gravity="center" >
 
             <CheckBox
