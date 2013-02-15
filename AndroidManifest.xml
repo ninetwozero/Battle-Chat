@@ -15,7 +15,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ninetwozero.battlechat"
-    android:versionCode="2"
+    android:versionCode="5"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -50,7 +50,8 @@
         </activity>
         <activity
             android:name=".activities.ChatActivity"
-            android:label="@string/title_chat" >
+            android:label="@string/title_chat"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".activities.SettingsActivity"

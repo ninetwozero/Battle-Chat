@@ -34,6 +34,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
@@ -76,6 +78,21 @@ public class ChatActivity extends AbstractListActivity {
 		super.onResume();
         startTimer();
         setupMediaPlayer();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.activity_chat, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if( item.getItemId() == R.id.menu_reload ) {
+			reload(true);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	private void setChatTitle() {
@@ -131,9 +148,9 @@ public class ChatActivity extends AbstractListActivity {
 		mFirstRun = firstRun;
 	}
 
-	private void reload() {
+	private void reload(boolean show) {
 		if( mReloadTask == null ) {
-			mReloadTask = new ReloadTask();
+			mReloadTask = new ReloadTask(show);
 			mReloadTask.execute();
 		}
 	}	
@@ -169,7 +186,7 @@ public class ChatActivity extends AbstractListActivity {
             new TimerTask() {
                 @Override
                 public void run() {
-                    reload();
+                    reload(false);
                 }
             }, 
             0, 
@@ -219,10 +236,15 @@ public class ChatActivity extends AbstractListActivity {
 	private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private List<Message> mMessages = new ArrayList<Message>();
 		private int mUnreadCount = 0;
+		private boolean mShow;
+		
+		public ReloadTask(boolean show) {
+			mShow = show;
+		}
 		
 		@Override
 		protected void onPreExecute() {
-			if( getListView().getCount() == 0 ) {
+			if( getListView().getCount() == 0 || mShow ) {
 				toggleLoading(true);
 			}
 		}
@@ -316,7 +338,7 @@ public class ChatActivity extends AbstractListActivity {
 			if( result ) {
 				showToast(R.string.msg_message_ok);
 				clearInput();
-				reload();
+				reload(false);
 			} else {
 				showToast(R.string.msg_message_fail);
 			}
@@ -348,9 +370,7 @@ public class ChatActivity extends AbstractListActivity {
 	}
 	
 	private void toggleLoading(boolean isLoading) {
-		if( getListAdapter() == null || getListAdapter().isEmpty() ) {
-			final View view = findViewById(R.id.status);
-			view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-		}
+		final View view = findViewById(R.id.status);
+		view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
 	}
 }
