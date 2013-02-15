@@ -51,6 +51,10 @@ public class Session {
 		return mUser;
 	}
 	
+	public String getUsername() {
+		return mUser.getUsername();
+	}
+	
 	public Cookie getCookie() {
 		return mCookie;
 	}

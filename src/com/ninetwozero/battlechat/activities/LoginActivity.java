@@ -73,6 +73,7 @@ public class LoginActivity extends SherlockActivity {
 
 	private void init() {
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		setTitle(R.string.title_login);
 		if( alreadyHasCookie() ) {
 			startActivity( new Intent(this, MainActivity.class) );
 			finish();
@@ -173,8 +174,9 @@ public class LoginActivity extends SherlockActivity {
 	}
 	
 	private void showProgress(final boolean show) {
-		mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-		mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+		mLoginStatusView.setVisibility(show? View.VISIBLE : View.GONE);
+		mLoginFormView.setVisibility(show? View.GONE : View.VISIBLE);
+		mDisclaimerView.setVisibility(show? View.GONE : View.VISIBLE);
 	}
 	
 	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
@@ -210,10 +212,17 @@ public class LoginActivity extends SherlockActivity {
 				BattleChat.setSession(mSession);
 				BattleChat.saveToSharedPreferences(getApplicationContext());
 				BattleChatService.scheduleRun(getApplicationContext());
+				showNotification();
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
 			} else {
 				Toast.makeText(getApplicationContext(), mErrorMessage, Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		private void showNotification() {
+			if( mSharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true) ) {
+				BattleChat.showLoggedInNotification(getApplicationContext());
 			}
 		}
 		

@@ -17,7 +17,7 @@
 
     <CheckBoxPreference
         android:defaultValue="true"
-        android:key="notify_dead_session"
+        android:key="persistent_notification"
         android:summaryOff="@string/text_preference_notification_off"
         android:summaryOn="@string/text_preference_notification_on"
         android:title="@string/text_preference_notification_title" />

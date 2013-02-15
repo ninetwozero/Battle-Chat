@@ -58,7 +58,8 @@ public class MainActivity extends AbstractListActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		reload();
+		reload(false);
+		showNotification();
 	}
 	
 	@Override
@@ -92,13 +93,14 @@ public class MainActivity extends AbstractListActivity {
 				startActivity( new Intent(this, AboutActivity.class) );
 				return true;
 			case R.id.menu_reload:
-				reload();
+				reload(true);
 				return true;
 			case R.id.menu_settings:
 				startActivity( new Intent(this, SettingsActivity.class));
 				return true;
 			case R.id.menu_exit:
 				BattleChat.clearSession(getApplicationContext());
+    			BattleChat.clearNotification(getApplicationContext());
     			BattleChatService.unschedule(getApplicationContext());
 				finish();
 				return true;
@@ -121,9 +123,9 @@ public class MainActivity extends AbstractListActivity {
 		listView.setAdapter(new UserListAdapter(getApplicationContext()));
 	}
 
-	private void reload() {
+	private void reload(boolean show) {
 		if( mReloadTask == null ) {
-			mReloadTask = new ReloadTask();
+			mReloadTask = new ReloadTask(show);
 			mReloadTask.execute();
 		}
 	}
@@ -131,10 +133,15 @@ public class MainActivity extends AbstractListActivity {
 	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private String mMessage;
 		private List<User> mItems;
+		private boolean mShow;
+		
+		public ReloadTask(boolean show) {
+			mShow = show;
+		}
 		
 		@Override
 		protected void onPreExecute() {
-			if( getListView().getCount() == 0 ) {
+			if( getListView().getCount() == 0 || mShow ) {
 				toggleLoading(true);
 			}
 		}
@@ -231,9 +238,7 @@ public class MainActivity extends AbstractListActivity {
 	}
 	
 	private void toggleLoading(boolean isLoading) {
-		if( getListAdapter() == null || getListAdapter().isEmpty() ) {
-			final View view = findViewById(R.id.status);
-			view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-		}
+		final View view = findViewById(R.id.status);
+		view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
 	}
 }

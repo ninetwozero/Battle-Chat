@@ -31,13 +31,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.ninetwozero.battlechat.BattleChat;
 
 public class BattleChatClient {
 	
-	private final static String TAG = "BattleChatClient";
+	public final static String TAG = "BattleChatClient";
 	private final static String JSON_ERROR = "{error:'%s'}";
 	private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
 	

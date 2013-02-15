@@ -27,7 +27,7 @@ public class Keys {
 	}
 	
 	public static class Settings {
-		public final static String NOTIFY_ON_LOGOUT = "notify_dead_session";
+		public final static String PERSISTENT_NOTIFICATION = "persistent_notification";
 		public final static String CHAT_INTERVAL = "chat_refresh_interval";
 		public final static String BEEP_ON_NEW = "beep_on_new_message";
 		private Settings() {}

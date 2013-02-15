@@ -77,7 +77,7 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 			}
 		
 			setText(convertView, R.id.username, user.getUsername(), getColorForStatus(user.isPlaying(), user.isOnline()));
-			setText(convertView, R.id.status, user.getOnlineStatus(), getColorForStatus(user.isPlaying(), user.isOnline()));
+			setText(convertView, R.id.online_status, user.getOnlineStatus(), getColorForStatus(user.isPlaying(), user.isOnline()));
 			convertView.setTag(user);
 		}
 		return convertView;

@@ -46,8 +46,9 @@
     <string name="msg_chat_send_message_error">You need to enter a message.</string>
     <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
     <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
-    <string name="text_notification_title">Logged out from Battlelog</string>
-    <string name="text_notification_subtitle">Tap here to login</string>
+    <string name="text_notification_title">Battle Chat status</string>
+    <string name="text_notification_subtitle_ok">Signed in as %s. Tap to open.</string>
+    <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
     <string name="label_offline">Offline</string>
     <string name="label_online">Online</string>
     <string name="label_playing">Playing</string>
@@ -82,11 +83,11 @@
     <string name="text_time_year">1 year ago</string>
     <string name="text_time_year_p">%s years ago</string>
     <string name="menu_about">About</string>
-    <string name="text_login_disclaimer">This app is not created nor endorsed by EA/DICE. Battlefield is a registered trademark of EA Digital Illusions CE AB. No user account information is being stored and/or shared with third-parties.</string>
+    <string name="text_login_disclaimer">This app was not created nor is it endorsed by EA/DICE. Battlefield is a registered trademark of EA Digital Illusions CE AB. No user account information is being stored and/or shared with third-parties.</string>
     <string name="text_login_accept_terms">I accept the terms and conditions.</string>
-    <string name="text_preference_notification_title">Notify when logged out</string>
+    <string name="text_preference_notification_title">Display status notification</string>
     <string name="text_preference_notification_on">A notification will be shown.</string>
-    <string name="text_preference_notification_off">You won&amp;apos;t even know it happened.</string>
+    <string name="text_preference_notification_off">No notifications will be shown.</string>
     <string name="text_preference_beep_off">You won\'t hear a thing!</string>
     <string name="text_preference_beep_on">Don\'t worry, we\'ll beep you.</string>
     <string name="text_preference_beep_title">Beep for messages</string>
@@ -99,5 +100,6 @@
     <string name="text_about_email">support@ninetwozero.com</string>
     <string name="text_about_version">1.0</string>
     <string name="text_chat_title">Chatting with %s</string>
+    <string name="title_login">Login</string>
 
 </resources>

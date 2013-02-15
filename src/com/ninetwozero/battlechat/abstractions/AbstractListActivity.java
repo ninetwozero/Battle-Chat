@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.http.BattleChatClient;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class AbstractListActivity extends SherlockListActivity {
 	protected SharedPreferences mSharedPreferences;
@@ -32,6 +33,7 @@ public class AbstractListActivity extends SherlockListActivity {
 		super.onCreate(savedInstanceState);
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		setupBattleChatClient();
+		showNotification();
 	}
 
 	public void showToast(final int resource) {
@@ -53,5 +55,13 @@ public class AbstractListActivity extends SherlockListActivity {
 			BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 		}
 		BattleChatClient.setCookie(BattleChat.getSession().getCookie());
+	}
+	
+	protected void showNotification() {
+		if( mSharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true) ) {
+			BattleChat.showLoggedInNotification(getApplicationContext());
+		} else {
+			BattleChat.clearNotification(getApplicationContext());
+		}
 	}
 }
