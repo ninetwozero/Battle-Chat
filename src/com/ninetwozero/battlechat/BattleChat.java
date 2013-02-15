@@ -98,6 +98,10 @@ public class BattleChat extends Application {
     }
     
     public static void showLoggedInNotification(final Context c) {
+    	if( c == null ) {
+    		return;
+    	}
+    	
     	final String subtitle = String.format(
 			c.getString(R.string.text_notification_subtitle_ok), 
     		BattleChat.getSession().getUsername()
