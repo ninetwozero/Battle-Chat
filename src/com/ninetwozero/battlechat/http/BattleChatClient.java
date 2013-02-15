@@ -1,3 +1,17 @@
+/*
+	This file is part of BattleChat
+
+	BattleChat is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	BattleChat is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+*/
+
 package com.ninetwozero.battlechat.http;
 
 import java.util.Arrays;
@@ -17,12 +31,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.ninetwozero.battlechat.BattleChat;
 
 public class BattleChatClient {
 	
+	public final static String TAG = "BattleChatClient";
 	private final static String JSON_ERROR = "{error:'%s'}";
 	private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
 	
@@ -57,7 +70,6 @@ public class BattleChatClient {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 	        httpPost.setHeader("Referer", url);
-	        
 	        for( Header header : HttpHeaders.Post.getHeaders(headerId) ) {
 	        	httpPost.setHeader(header.getName(), header.getValue());
 	        }
@@ -79,10 +91,10 @@ public class BattleChatClient {
         		if( object.has("data") ) {
         			return object.getJSONObject("data");
         		} else {
-        			message = "Invalid request. Are you passing the correct headers?";
+        			message = "Invalid request. Please notify the developer.";
         		}
         	} else {
-        		message = "The server didn't return any data.";
+        		message = "No data found.";
         	}
         } catch( Exception ex ) {
         	ex.printStackTrace();

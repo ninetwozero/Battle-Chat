@@ -1,15 +1,29 @@
+/*
+	This file is part of BattleChat
+
+	BattleChat is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	BattleChat is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+*/
+
 package com.ninetwozero.battlechat.adapters;
 
 import java.util.List;
 
 import android.content.Context;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListAdapter;
 import com.ninetwozero.battlechat.datatypes.Message;
+import com.ninetwozero.battlechat.utils.DateUtils;
 
 public class MessageListAdapter extends AbstractListAdapter<Message> {
 	
@@ -40,11 +54,7 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
 		
 		setText(convertView, R.id.username, message.getUsername(), fromOtherUser? R.color.orange : R.color.blue);
 		setText(convertView, R.id.message, message.getMessage());
-		
-		/* TODO: Need a "n seconds/minutes/hours/days ago" */
-		setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeSpanString(message.getTimestamp(), System.currentTimeMillis()/1000, 0));
-		
+		setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeString(mContext, message.getTimestamp()));
 		return convertView;
 	}
-
 }

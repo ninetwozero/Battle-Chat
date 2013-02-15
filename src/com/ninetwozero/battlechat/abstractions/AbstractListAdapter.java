@@ -1,3 +1,17 @@
+/*
+	This file is part of BattleChat
+
+	BattleChat is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	BattleChat is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+*/
+
 package com.ninetwozero.battlechat.abstractions;
 
 import java.util.ArrayList;
@@ -37,6 +51,10 @@ public abstract class AbstractListAdapter<T extends Object> extends BaseAdapter 
 	@Override
 	final public T getItem(int position) {
 		return mItems.get(position);
+	}
+	
+	final public List<T> getItems() {
+		return mItems;
 	}
 	
 	final public void setItems(List<T> items) {

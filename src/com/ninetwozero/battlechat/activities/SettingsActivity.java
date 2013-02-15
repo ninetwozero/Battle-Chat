@@ -12,22 +12,21 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.http;
+package com.ninetwozero.battlechat.activities;
 
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.cookie.BasicClientCookie;
+import android.os.Bundle;
 
-import com.ninetwozero.battlechat.BattleChat;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.ninetwozero.battlechat.R;
 
-public class CookieFactory {
+public class SettingsActivity extends SherlockPreferenceActivity {
 
-	private CookieFactory() {
+	public static final String TAG = "SettingsActivity";
+
+	@SuppressWarnings("deprecation") // TODO: Known issue
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.settings);
 	}
-	
-	public static Cookie build(final String name, final String value) {
-		BasicClientCookie cookie = new BasicClientCookie(name, value);
-		cookie.setDomain(BattleChat.COOKIE_DOMAIN);
-		return cookie;
-	}
-
 }

@@ -1,3 +1,17 @@
+/*
+	This file is part of BattleChat
+
+	BattleChat is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	BattleChat is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+*/
+
 package com.ninetwozero.battlechat.datatypes;
 
 import org.apache.http.cookie.Cookie;
@@ -6,6 +20,7 @@ import android.content.SharedPreferences;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.http.CookieFactory;
+import com.ninetwozero.battlechat.misc.Keys;
 
 public class Session {
 	
@@ -15,15 +30,15 @@ public class Session {
 	
 	public Session(SharedPreferences sharedPreferences) {
 		mUser = new User(
-			sharedPreferences.getLong("userId", 0),
-			sharedPreferences.getString("username", "N/A"),
+			sharedPreferences.getLong(Keys.Session.USER_ID, 0),
+			sharedPreferences.getString(Keys.Session.USERNAME, "N/A"),
 			User.ONLINE
 		);
 		mCookie = CookieFactory.build(
-			sharedPreferences.getString("sessionName", BattleChat.COOKIE_NAME),
-			sharedPreferences.getString("sessionValue", "")
+			sharedPreferences.getString(Keys.Session.COOKIE_NAME, BattleChat.COOKIE_NAME),
+			sharedPreferences.getString(Keys.Session.COOKIE_VALUE, "")
 		);
-		mChecksum = sharedPreferences.getString("sessionChecksum", "");
+		mChecksum = sharedPreferences.getString(Keys.Session.CHECKSUM, "");
 	}
 	
 	public Session(User user, Cookie cookie, String checksum) {
@@ -36,10 +51,14 @@ public class Session {
 		return mUser;
 	}
 	
+	public String getUsername() {
+		return mUser.getUsername();
+	}
+	
 	public Cookie getCookie() {
 		return mCookie;
 	}
-	
+		
 	public String getChecksum() {
 		return mChecksum;
 	}

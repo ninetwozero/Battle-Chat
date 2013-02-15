@@ -1,10 +1,23 @@
+/*
+	This file is part of BattleChat
+
+	BattleChat is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	BattleChat is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+*/
+
 package com.ninetwozero.battlechat.activities;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,15 +25,18 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
@@ -28,30 +44,48 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
+import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.services.BattleChatService;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends SherlockActivity {
 
 	public static final String TAG = "LoginActivity";
 
+	private SharedPreferences mSharedPreferences;
 	private UserLoginTask mAuthTask = null;
 
-	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
 
-	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
+	private View mDisclaimerView;
 	private TextView mLoginStatusMessageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		init();
 		setContentView(R.layout.activity_login);
-		
+		setupLayout();
+	}
+
+	private void init() {
+		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		setTitle(R.string.title_login);
+		if( alreadyHasCookie() ) {
+			startActivity( new Intent(this, MainActivity.class) );
+			finish();
+		}
+	}
+
+	private boolean alreadyHasCookie() {
+		return mSharedPreferences.contains(Keys.Session.COOKIE_VALUE) && !mSharedPreferences.getString(Keys.Session.COOKIE_VALUE, "").equals("");
+	}
+
+	private void setupLayout() {
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
 
@@ -69,6 +103,7 @@ public class LoginActivity extends Activity {
 			}
 		);
 
+		mDisclaimerView = findViewById(R.id.text_disclaimer);
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -81,13 +116,31 @@ public class LoginActivity extends Activity {
 				}
 			}
 		);
+		
+		findViewById(R.id.checkbox_accept).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						final CheckBox checkbox = (CheckBox) view;
+						toggleDisclaimer(checkbox.isChecked());
+					}
+				}
+			);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.activity_login, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_login, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if( item.getItemId() == R.id.menu_about ) {
+			startActivity( new Intent(this, AboutActivity.class) );
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void doLogin() {
@@ -131,8 +184,9 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void showProgress(final boolean show) {
-		mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-		mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+		mLoginStatusView.setVisibility(show? View.VISIBLE : View.GONE);
+		mLoginFormView.setVisibility(show? View.GONE : View.VISIBLE);
+		mDisclaimerView.setVisibility(show? View.GONE : View.VISIBLE);
 	}
 	
 	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
@@ -166,11 +220,19 @@ public class LoginActivity extends Activity {
 			
 			if (success) {
 				BattleChat.setSession(mSession);
-				saveToSharedPreferences(mSession);
+				BattleChat.saveToSharedPreferences(getApplicationContext());
+				BattleChatService.scheduleRun(getApplicationContext());
+				showNotification();
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
 			} else {
 				Toast.makeText(getApplicationContext(), mErrorMessage, Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		private void showNotification() {
+			if( mSharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true) ) {
+				BattleChat.showLoggedInNotification(getApplicationContext());
 			}
 		}
 		
@@ -193,18 +255,10 @@ public class LoginActivity extends Activity {
 			}
 			return mSession != null;
 		}
-		
-		private void saveToSharedPreferences(Session session) {
-			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			SharedPreferences.Editor editor = preferences.edit();
-
-			editor.putLong("userId", session.getUser().getId());
-			editor.putString("username", session.getUser().getUsername());
-			editor.putString("sessionName", session.getCookie().getName());
-			editor.putString("sessionValue", session.getCookie().getValue());
-			editor.putString("sessionChecksum", session.getChecksum());
-
-			editor.commit();
-		}
+	}
+	
+	private void toggleDisclaimer(boolean showLoginForm) {
+		mLoginFormView.setVisibility(showLoginForm ? View.VISIBLE : View.GONE);
+		mDisclaimerView.setVisibility(showLoginForm ? View.GONE : View.VISIBLE);
 	}
 }
