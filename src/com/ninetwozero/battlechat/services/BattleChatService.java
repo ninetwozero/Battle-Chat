@@ -115,16 +115,20 @@ public class BattleChatService extends Service {
 	    			BattleChat.reloadSession(mUser, mCookie, mChecksum);
 	    		} else {
 		    		Log.i(TAG, "Our sesssion isn't intact. Removing the stored information.");
-		    		showNotification();
 		    		BattleChatService.unschedule(getApplicationContext());
 	    			BattleChat.clearSession(getApplicationContext());
 	    		}
+	    		showNotification(hasActiveSession);
 	    		stopSelf();
 	    	}
 
-			private void showNotification() {
+			private void showNotification(boolean hasActiveSession) {
 				if( mSharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true) ) {
-					BattleChat.showLoggedInNotification(getApplicationContext());
+					if( hasActiveSession ) {
+						BattleChat.showLoggedInNotification(getApplicationContext());
+					} else {
+						BattleChat.showLoggedOutNotification(getApplicationContext());
+					}
 				}
 			}
 	    }
