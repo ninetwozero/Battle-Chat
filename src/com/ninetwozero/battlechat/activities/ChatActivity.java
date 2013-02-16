@@ -28,7 +28,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -253,7 +252,6 @@ public class ChatActivity extends AbstractListActivity {
 					JSONObject chatObject = result.getJSONObject("chat");
 					mMessages = getMessagesFromJSON(chatObject);
 					mChatId = result.getLong("chatId");
-					Log.d(TAG, chatObject.toString(1));	
 					return true;
 				}
 			} catch( Exception ex ) {
@@ -278,8 +276,6 @@ public class ChatActivity extends AbstractListActivity {
 			toggleLoading(false);
 			mReloadTask = null;
 		}
-		
-		/* TODO: FIX ALGORITHM */
 		
 		public boolean shouldNotifyUser(List<Message> messages) {
 	        Message message = null;
