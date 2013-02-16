@@ -24,7 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.media.MediaPlayer;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -56,11 +57,13 @@ public class ChatActivity extends AbstractListActivity {
 	private User mUser;
 	private long mChatId;
 	private boolean mFirstRun = true;
-	
-	private MediaPlayer mMediaPlayer;
+	private long mLatestMessageTimestamp = 0;
+
 	private ReloadTask mReloadTask;
 	private SendMessageTask mSendMessageTask;
 	private Timer mTimer;
+	private SoundPool mSoundPool;
+	private int mSoundId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,7 @@ public class ChatActivity extends AbstractListActivity {
 	public void onResume() {
 		super.onResume();
         startTimer();
-        setupMediaPlayer();
+        setupSound();
 	}
 	
 	@Override
@@ -103,14 +106,8 @@ public class ChatActivity extends AbstractListActivity {
     public void onPause() {
         super.onPause();
         stopTimer();
-        stopMediaPlayer();
+        stopSound();
     }
-
-	private void stopMediaPlayer() {
-		if( mMediaPlayer != null ) {
-        	mMediaPlayer.release();
-        }
-	}
 
 	private void stopTimer() {
 		if( mTimer != null ) {
@@ -193,11 +190,6 @@ public class ChatActivity extends AbstractListActivity {
             mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25)*1000 //--> ms
         );
 	}
-
-	private void setupMediaPlayer() {
-		mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.notification);
-		mMediaPlayer.setVolume(1.0f, 1.0f);
-	}
 	
 	private void onSend() {
 		if( mSendMessageTask != null ) {
@@ -235,8 +227,7 @@ public class ChatActivity extends AbstractListActivity {
 	
 	private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private List<Message> mMessages = new ArrayList<Message>();
-		private int mUnreadCount = 0;
-		private boolean mShow;
+		private boolean mShow = true;
 		
 		public ReloadTask(boolean show) {
 			mShow = show;
@@ -261,7 +252,6 @@ public class ChatActivity extends AbstractListActivity {
 					JSONObject chatObject = result.getJSONObject("chat");
 					mMessages = getMessagesFromJSON(chatObject);
 					mChatId = result.getLong("chatId");
-					mUnreadCount = chatObject.isNull("unreadCount")? 0 : chatObject.getInt("unreadCount");	
 					return true;
 				}
 			} catch( Exception ex ) {
@@ -273,8 +263,7 @@ public class ChatActivity extends AbstractListActivity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if( result ) {
-				if( mUnreadCount > 0 ) {
-					showToast(String.format(getString(R.string.msg_chat_num_unread), mUnreadCount));
+				if( shouldNotifyUser(mMessages) ) {
 					notifyWithSound();
 				}
 				((MessageListAdapter) getListView().getAdapter()).setItems(mMessages);
@@ -287,6 +276,24 @@ public class ChatActivity extends AbstractListActivity {
 			toggleLoading(false);
 			mReloadTask = null;
 		}
+		
+		public boolean shouldNotifyUser(List<Message> messages) {
+	        Message message = null;
+	        for (int curr = messages.size() - 1, min = ((curr > 5) ? curr - 5 : 0); curr > min; curr--) {
+	        	message = messages.get(curr);
+	        	if( message.getTimestamp() < mLatestMessageTimestamp ) {
+	        		return false;
+	        	}
+	        	
+	            if( message.getUsername().equals(mUser.getUsername()) && mLatestMessageTimestamp < message.getTimestamp() ) {
+	                mFirstRun = (mLatestMessageTimestamp  == 0);
+	                mLatestMessageTimestamp  = message.getTimestamp();
+	                return true;
+	            }
+	        }
+	        return false;
+		}
+		
 		
 		private List<Message> getMessagesFromJSON(JSONObject chatObject) throws JSONException {
 			List<Message> results = new ArrayList<Message>();
@@ -347,14 +354,9 @@ public class ChatActivity extends AbstractListActivity {
 		}
 	}
 
-	private void notifyWithSound() {
-		if( mFirstRun ) {
-			mFirstRun = false;
-			return;
-		}
-		
+	private void notifyWithSound() {		
 		if( mSharedPreferences.getBoolean(Keys.Settings.BEEP_ON_NEW, true) ) {
-			mMediaPlayer.start();
+			playSound();
 		}
 	}
 
@@ -372,5 +374,26 @@ public class ChatActivity extends AbstractListActivity {
 	private void toggleLoading(boolean isLoading) {
 		final View view = findViewById(R.id.status);
 		view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+	}
+	
+	private void setupSound() {
+		mSoundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+		mSoundId = mSoundPool.load(getApplicationContext(), R.raw.notification, 1);
+	}
+	
+	private void stopSound() {
+		if( mSoundPool == null ) {
+			return;
+		}
+		mSoundPool.release();
+		mSoundPool = null;
+		mSoundId = 0;
+	}
+	
+	private void playSound() {
+		if( mSoundPool == null ) {
+			return;
+		}
+		mSoundPool.play(mSoundId, 1.0f, 1.0f, 1, 0, 1);
 	}
 }
