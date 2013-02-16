@@ -56,9 +56,11 @@ public class LoginActivity extends SherlockActivity {
 
 	private String mEmail;
 	private String mPassword;
+	private boolean mAccept = false;
 
 	private EditText mEmailView;
 	private EditText mPasswordView;
+	private CheckBox mCheckbox;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private View mDisclaimerView;
@@ -69,7 +71,15 @@ public class LoginActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		init();
 		setContentView(R.layout.activity_login);
+		getDataFromBundle(savedInstanceState);
 		setupLayout();
+	}
+
+	private void getDataFromBundle(Bundle in) {
+		if( in == null ) {
+			return;
+		}
+		mAccept = in.getBoolean("accept", false);
 	}
 
 	private void init() {
@@ -107,7 +117,7 @@ public class LoginActivity extends SherlockActivity {
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
-
+		mCheckbox = (CheckBox) findViewById(R.id.checkbox_accept);
 		findViewById(R.id.sign_in_button).setOnClickListener(
 			new OnClickListener() {
 				@Override
@@ -118,14 +128,21 @@ public class LoginActivity extends SherlockActivity {
 		);
 		
 		findViewById(R.id.checkbox_accept).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						final CheckBox checkbox = (CheckBox) view;
-						toggleDisclaimer(checkbox.isChecked());
-					}
+			new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					final CheckBox checkbox = (CheckBox) view;
+					toggleDisclaimer(checkbox.isChecked());
 				}
-			);
+			}
+		);
+		toggleDisclaimer(mAccept);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle out) {
+		out.putBoolean("accept", mCheckbox.isChecked());
+		super.onSaveInstanceState(out);
 	}
 
 	@Override
@@ -258,6 +275,7 @@ public class LoginActivity extends SherlockActivity {
 	}
 	
 	private void toggleDisclaimer(boolean showLoginForm) {
+		mCheckbox.setChecked(showLoginForm);
 		mLoginFormView.setVisibility(showLoginForm ? View.VISIBLE : View.GONE);
 		mDisclaimerView.setVisibility(showLoginForm ? View.GONE : View.VISIBLE);
 	}
