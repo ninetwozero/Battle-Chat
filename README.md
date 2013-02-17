@@ -7,7 +7,7 @@ About the author
 **Karl Lindmark**<br />
 E-mail: support@ninetwozero.com<br />
 Web: http://www.ninetwozero.com<br />
-Twitter: @karllindmark<br />
+Twitter: [@karllindmark](https://www.twitter.com/karllindmark)<br />
 
 ### Special thanks
 To all the people that have helped out by testing, providing feedback and/or anything else helpful. Much appreciated. :-)
