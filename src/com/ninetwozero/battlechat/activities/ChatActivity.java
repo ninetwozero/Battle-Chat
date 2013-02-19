@@ -183,7 +183,14 @@ public class ChatActivity extends AbstractListActivity {
             new TimerTask() {
                 @Override
                 public void run() {
-                    reload(false);
+                	runOnUiThread(
+                		new Runnable() {
+                			@Override
+	                        public void run() {
+	                        	reload(false);
+	                        }
+                		}
+                	);
                 }
             }, 
             0, 
