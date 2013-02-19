@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.http.cookie.Cookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -99,14 +101,15 @@ public class MainActivity extends AbstractListActivity {
 				startActivity( new Intent(this, SettingsActivity.class));
 				return true;
 			case R.id.menu_exit:
-				BattleChat.clearSession(getApplicationContext());
-    			BattleChat.clearNotification(getApplicationContext());
-    			BattleChatService.unschedule(getApplicationContext());
-				finish();
+    			logoutFromWebsite();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void logoutFromWebsite() {
+		new LogoutTask().execute();
 	}
 
 	@Override
@@ -130,7 +133,7 @@ public class MainActivity extends AbstractListActivity {
 		}
 	}
 	
-	public class ReloadTask extends AsyncTask<Void, Void, Boolean> {
+	private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
 		private String mMessage;
 		private List<User> mItems;
 		private boolean mShow;
@@ -173,6 +176,7 @@ public class MainActivity extends AbstractListActivity {
 				((UserListAdapter)getListView().getAdapter()).setItems(mItems);
 			} else {
 				showToast(mMessage);
+				logoutFromWebsite();
 			}
 			toggleLoading(false);
 			mReloadTask = null;
@@ -235,6 +239,27 @@ public class MainActivity extends AbstractListActivity {
 			}
 			return users;
 		}		
+	}
+	
+	private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			try {
+				final Cookie cookie = BattleChat.getSession().getCookie();
+				Jsoup.connect(HttpUris.LOGOUT).cookie(cookie.getName(), cookie.getValue());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			BattleChat.clearSession(getApplicationContext());
+			BattleChat.clearNotification(getApplicationContext());
+			BattleChatService.unschedule(getApplicationContext());
+			sendToLoginScreen();
+		}
 	}
 	
 	private void toggleLoading(boolean isLoading) {

@@ -42,7 +42,7 @@ public class AbstractListActivity extends SherlockListActivity {
 		}
 	}
 
-	private void sendToLoginScreen() {
+	final protected void sendToLoginScreen() {
 		startActivity( new Intent(this, LoginActivity.class) );
 		finish();
 	}

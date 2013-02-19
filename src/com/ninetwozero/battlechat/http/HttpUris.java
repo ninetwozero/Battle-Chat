@@ -20,6 +20,7 @@ public class HttpUris {
 	public final static String MAIN = "http://battlelog.battlefield.com/bf3";
 	public final static String MAIN_SECURE = "https://battlelog.battlefield.com/bf3";
 	public final static String LOGIN = MAIN_SECURE + "/gate/login";
+	public final static String LOGOUT = MAIN + "/session/logout/";
 	
 	public class Chat {
 		public static final String FRIENDS = MAIN + "/comcenter/sync/";
