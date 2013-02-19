@@ -378,7 +378,6 @@ public class ChatActivity extends AbstractListActivity {
         );
 	}
 	
-	// TODO: FIX CRASH UPON FINDVIEWBYID SEE #12
 	private void toggleLoading(boolean isLoading) {
 		final View view = findViewById(R.id.status);
 		view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
