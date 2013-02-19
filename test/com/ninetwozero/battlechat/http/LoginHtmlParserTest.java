@@ -17,13 +17,13 @@ import org.junit.Test;
 
 public class LoginHtmlParserTest {
 	
-	private LoginHtmlParser loggedIn;
-	private LoginHtmlParser loginError;
+	private LoginHtmlParser mLoggedIn;
+	private LoginHtmlParser mLoginError;
 	
 	public LoginHtmlParserTest() {
 		try {
-			loggedIn = new LoginHtmlParser(getFileAsString("index.htm"));
-			loginError = new LoginHtmlParser(getFileAsString("index_error.htm"));
+			mLoggedIn = new LoginHtmlParser(getFileAsString("index.htm"));
+			mLoginError = new LoginHtmlParser(getFileAsString("index_error.htm"));
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
@@ -45,30 +45,30 @@ public class LoginHtmlParserTest {
 	}
 	
 	@Test
-	public void testDetectLoginError() { 
-		assertFalse(loggedIn.hasErrorMessage());
-		assertTrue(loginError.hasErrorMessage());
+	public void testDetectmLoginError() { 
+		assertFalse(mLoggedIn.hasErrorMessage());
+		assertTrue(mLoginError.hasErrorMessage());
 	}
 	
 	@Test
 	public void testGetUserId() {
-		assertEquals(loggedIn.getUserId(), Long.parseLong("2832658801548551060"));
+		assertEquals(mLoggedIn.getUserId(), Long.parseLong("2832658801548551060"));
 	}
 	
 	@Test
 	public void testGetUsername() {
-		assertEquals(loggedIn.getUsername(), "ninetwozero");
+		assertEquals(mLoggedIn.getUsername(), "ninetwozero");
 	}
 	
 	@Test
 	public void testGetChecksum() {
-		assertThat(loggedIn.getChecksum(), not(""));
+		assertThat(mLoggedIn.getChecksum(), not(""));
 	}
 	
 	@Test
-	public void testDetectLoggedIn() {
-		assertTrue(loggedIn.isLoggedIn());
-		assertFalse(loginError.isLoggedIn());
+	public void testDetectmLoggedIn() {
+		assertTrue(mLoggedIn.ismLoggedIn());
+		assertFalse(mLoginError.ismLoggedIn());
 	}
 	
 }
