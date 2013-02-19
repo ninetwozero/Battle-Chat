@@ -11,7 +11,9 @@ import org.junit.Test;
 import com.ninetwozero.battlechat.datatypes.User;
 
 
-/* TODO: We have to remove the Parcelable parts of User in able to run this at the moment (as regular JUNIT). */
+// TODO: We have to remove the Parcelable parts of User in able to run this at the moment (as regular JUNIT).
+// FIXME: When Junit supports individual bars per assertion, I'll refactor the ten methods into one with a loop
+
 public class UserComparatorTest {
     
 	private static List<User> mUsersAutomatic;
