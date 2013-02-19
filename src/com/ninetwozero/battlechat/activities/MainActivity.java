@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.http.cookie.Cookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -243,8 +245,9 @@ public class MainActivity extends AbstractListActivity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			try {
-				BattleChatClient.get(HttpUris.LOGOUT);
-			} catch (JSONException e) {
+				final Cookie cookie = BattleChat.getSession().getCookie();
+				Jsoup.connect(HttpUris.LOGOUT).cookie(cookie.getName(), cookie.getValue());
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return true;
