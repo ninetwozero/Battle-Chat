@@ -55,7 +55,7 @@ public class ChatActivity extends AbstractListActivity {
 	public static final String EXTRA_USER = "user";
 	
 	private User mUser;
-	private long mChatId;
+	private long mChatId = 0;
 	private boolean mFirstRun = true;
 	private long mLatestMessageTimestamp = 0;
 
@@ -63,7 +63,7 @@ public class ChatActivity extends AbstractListActivity {
 	private SendMessageTask mSendMessageTask;
 	private Timer mTimer;
 	private SoundPool mSoundPool;
-	private int mSoundId;
+	private int mSoundId = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,12 @@ public class ChatActivity extends AbstractListActivity {
 		super.onResume();
         startTimer();
         setupSound();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		new CloseTask().execute(mChatId);
 	}
 	
 	@Override
@@ -402,5 +408,22 @@ public class ChatActivity extends AbstractListActivity {
 			return;
 		}
 		mSoundPool.play(mSoundId, 1.0f, 1.0f, 1, 0, 1);
+	}
+	
+	private class CloseTask extends AsyncTask<Long, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Long... params) {
+			try {
+				BattleChatClient.get(
+					HttpUris.Chat.CLOSE.replace("{CHAT_ID}", String.valueOf(params[0])),
+					HttpHeaders.Get.AJAX
+				
+				);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
 	}
 }
