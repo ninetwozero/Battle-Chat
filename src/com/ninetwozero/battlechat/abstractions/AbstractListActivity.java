@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.abstractions;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.activities.LoginActivity;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.misc.Keys;
 
@@ -32,8 +34,17 @@ public class AbstractListActivity extends SherlockListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		setupBattleChatClient();
-		showNotification();
+		if( BattleChat.hasStoredCookie(mSharedPreferences) ) {
+			setupBattleChatClient();
+			showNotification();
+		} else {
+			sendToLoginScreen();
+		}
+	}
+
+	private void sendToLoginScreen() {
+		startActivity( new Intent(this, LoginActivity.class) );
+		finish();
 	}
 
 	public void showToast(final int resource) {
@@ -51,8 +62,8 @@ public class AbstractListActivity extends SherlockListActivity {
 	}
 	
 	private void setupBattleChatClient() {
-		if( !BattleChat.hasSession() ) {
-			BattleChat.reloadSession(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+		if( !BattleChat.hasSession() && BattleChat.hasStoredCookie(mSharedPreferences) ) {
+			BattleChat.reloadSession(mSharedPreferences);
 		}
 		BattleChatClient.setCookie(BattleChat.getSession().getCookie());
 	}

@@ -139,4 +139,7 @@ public class BattleChat extends Application {
     	NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
     	mNotificationManager.cancel(R.string.service_name);
 	}
+	public static boolean hasStoredCookie(final SharedPreferences preferences) {
+    	return !"".equals(preferences.getString(Keys.Session.COOKIE_VALUE, ""));
+	}
 }

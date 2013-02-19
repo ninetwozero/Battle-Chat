@@ -12,63 +12,62 @@
     GNU General Public License for more details.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
-    <!-- Disclaimer -->
-
     <RelativeLayout
-        android:id="@+id/wrap_disclaimer"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:padding="5dp" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/text_disclaimer"
+        <!-- Disclaimer -->
+
+        <RelativeLayout
+            android:id="@+id/wrap_disclaimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/text_login_disclaimer" />
-
-        <LinearLayout
-            android:id="@+id/wrap_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_disclaimer"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center" >
-
-            <CheckBox
-                android:id="@+id/checkbox_accept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:layout_alignParentTop="true"
+            android:padding="5dp" >
 
             <TextView
-                android:id="@+id/text_accept"
+                android:id="@+id/text_disclaimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/text_login_disclaimer" />
+
+            <LinearLayout
+                android:id="@+id/wrap_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_login_accept_terms" />
-        </LinearLayout>
-    </RelativeLayout>
-    
-    <!-- Login form -->
+                android:layout_below="@id/text_disclaimer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center" >
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/wrap_disclaimer"
-        android:visibility="gone" >
+                <CheckBox
+                    android:id="@+id/checkbox_accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/text_accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_login_accept_terms" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Login form -->
 
         <LinearLayout
+            android:id="@+id/login_form"
             style="@style/LoginFormContainer"
-            android:orientation="vertical" >
+            android:layout_below="@id/wrap_disclaimer"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <EditText
                 android:id="@+id/email"
@@ -103,33 +102,33 @@
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in_short" />
         </LinearLayout>
-    </ScrollView>
 
-    <!-- Login progress -->
+        <!-- Login progress -->
 
-    <LinearLayout
-        android:id="@+id/login_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone" >
+        <LinearLayout
+            android:id="@+id/login_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/login_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-</RelativeLayout>
+            <TextView
+                android:id="@+id/login_status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/login_progress_signing_in"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

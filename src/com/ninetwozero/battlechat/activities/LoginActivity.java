@@ -51,19 +51,19 @@ public class LoginActivity extends SherlockActivity {
 
 	public static final String TAG = "LoginActivity";
 
-	private SharedPreferences mSharedPreferences;
+	private boolean mAccept = false;
 	private UserLoginTask mAuthTask = null;
-
 	private String mEmail;
 	private String mPassword;
-	private boolean mAccept = false;
-
+	private SharedPreferences mSharedPreferences;
+	
 	private EditText mEmailView;
 	private EditText mPasswordView;
 	private CheckBox mCheckbox;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private View mDisclaimerView;
+	private View mDisclaimerWrap;
 	private TextView mLoginStatusMessageView;
 
 	@Override
@@ -114,6 +114,7 @@ public class LoginActivity extends SherlockActivity {
 		);
 
 		mDisclaimerView = findViewById(R.id.text_disclaimer);
+		mDisclaimerWrap = findViewById(R.id.wrap_disclaimer);
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -203,6 +204,7 @@ public class LoginActivity extends SherlockActivity {
 	private void showProgress(final boolean show) {
 		mLoginStatusView.setVisibility(show? View.VISIBLE : View.GONE);
 		mLoginFormView.setVisibility(show? View.GONE : View.VISIBLE);
+		mDisclaimerWrap.setVisibility(show? View.GONE : View.VISIBLE);
 		mDisclaimerView.setVisibility(show? View.GONE : View.VISIBLE);
 	}
 	
