@@ -66,7 +66,7 @@
     <string name="prompt_email">Origin™ email</string>
     <string name="prompt_password">Origin™ heslo</string>
     <string name="action_sign_in_register"><b>Přihlašte se</b> nebo se zaregistrujte</string>
-    <string name="action_sign_in_short">Přihlásit</string>
+    <string name="action_sign_in_short">Přihlašte se</string>
     <string name="menu_forgot_password">Obnovit ztracené heslo</string>
     <string name="login_progress_signing_in">Přihlašuji&#8230;</string>
     <string name="error_invalid_email">Emailová adresa je neplatná</string>
