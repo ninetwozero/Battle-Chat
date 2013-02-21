@@ -67,8 +67,7 @@ public class LoginHtmlParserTest {
 	
 	@Test
 	public void testDetectmLoggedIn() {
-		assertTrue(mLoggedIn.ismLoggedIn());
-		assertFalse(mLoginError.ismLoggedIn());
+		assertTrue(mLoggedIn.isLoggedIn());
+		assertFalse(mLoginError.isLoggedIn());
 	}
-	
 }
