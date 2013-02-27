@@ -63,7 +63,7 @@ public class BattleChatService extends Service {
 	    }
 	    
 		private void load() {
-			if( mSessionReloadTask == null ) {
+			if( mSessionReloadTask == null && BattleChat.isConnectedToNetwork() ) {
 				mSessionReloadTask = new SessionReloadTask();
 				mSessionReloadTask.execute();
 			}
