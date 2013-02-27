@@ -10,8 +10,7 @@
     BattleChat is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
--->
+    GNU General Public License for more details.-->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ninetwozero.battlechat"
@@ -23,6 +22,7 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".BattleChat"
@@ -33,6 +33,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,7 +60,7 @@
         </activity>
 
         <service
-            android:name="com.ninetwozero.battlechat.services.BattleChatService"
+            android:name=".services.BattleChatService"
             android:icon="@drawable/ic_launcher"
             android:label="@string/service_name" />
     </application>

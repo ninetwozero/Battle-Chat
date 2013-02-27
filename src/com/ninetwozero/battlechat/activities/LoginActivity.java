@@ -51,19 +51,20 @@ public class LoginActivity extends SherlockActivity {
 
 	public static final String TAG = "LoginActivity";
 
-	private SharedPreferences mSharedPreferences;
+	private boolean mAccept = false;
 	private UserLoginTask mAuthTask = null;
-
 	private String mEmail;
 	private String mPassword;
-	private boolean mAccept = false;
-
+	private SharedPreferences mSharedPreferences;
+	
 	private EditText mEmailView;
 	private EditText mPasswordView;
 	private CheckBox mCheckbox;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private View mDisclaimerView;
+	private View mDisclaimerWrap;
+	private View mNetworkText;
 	private TextView mLoginStatusMessageView;
 
 	@Override
@@ -74,7 +75,12 @@ public class LoginActivity extends SherlockActivity {
 		getDataFromBundle(savedInstanceState);
 		setupLayout();
 	}
-
+	
+	protected void onResume() {
+		super.onResume();
+		displayNetworkNotice(BattleChat.isConnectedToNetwork());
+	}
+	
 	private void getDataFromBundle(Bundle in) {
 		if( in == null ) {
 			return;
@@ -85,7 +91,7 @@ public class LoginActivity extends SherlockActivity {
 	private void init() {
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		setTitle(R.string.title_login);
-		if( alreadyHasCookie() ) {
+		if( alreadyHasCookie() && BattleChat.isConnectedToNetwork() ) {
 			startActivity( new Intent(this, MainActivity.class) );
 			finish();
 		}
@@ -113,7 +119,9 @@ public class LoginActivity extends SherlockActivity {
 			}
 		);
 
+		mNetworkText = findViewById(R.id.text_network);
 		mDisclaimerView = findViewById(R.id.text_disclaimer);
+		mDisclaimerWrap = findViewById(R.id.wrap_disclaimer);
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -122,7 +130,9 @@ public class LoginActivity extends SherlockActivity {
 			new OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					doLogin();
+					if( BattleChat.isConnectedToNetwork() ) {
+						doLogin();
+					}
 				}
 			}
 		);
@@ -203,6 +213,7 @@ public class LoginActivity extends SherlockActivity {
 	private void showProgress(final boolean show) {
 		mLoginStatusView.setVisibility(show? View.VISIBLE : View.GONE);
 		mLoginFormView.setVisibility(show? View.GONE : View.VISIBLE);
+		mDisclaimerWrap.setVisibility(show? View.GONE : View.VISIBLE);
 		mDisclaimerView.setVisibility(show? View.GONE : View.VISIBLE);
 	}
 	
@@ -278,5 +289,10 @@ public class LoginActivity extends SherlockActivity {
 		mCheckbox.setChecked(showLoginForm);
 		mLoginFormView.setVisibility(showLoginForm ? View.VISIBLE : View.GONE);
 		mDisclaimerView.setVisibility(showLoginForm ? View.GONE : View.VISIBLE);
+	}
+	
+	private void displayNetworkNotice(boolean isConnected) {
+		mNetworkText.setVisibility(isConnected? View.GONE : View.VISIBLE);
+		findViewById(R.id.sign_in_button).setEnabled(isConnected);
 	}
 }

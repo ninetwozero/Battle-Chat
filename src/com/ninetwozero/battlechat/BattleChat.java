@@ -23,6 +23,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
@@ -135,8 +137,18 @@ public class BattleChat extends Application {
     	mNotificationManager.notify(R.string.service_name, notification);
     }
     
-	public static void clearNotification(Context c) {
+	public static void clearNotification(final Context c) {
     	NotificationManager mNotificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
     	mNotificationManager.cancel(R.string.service_name);
+	}
+	
+	public static boolean hasStoredCookie(final SharedPreferences preferences) {
+    	return !"".equals(preferences.getString(Keys.Session.COOKIE_VALUE, ""));
+	}
+	
+	public static boolean isConnectedToNetwork() {
+	    ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(CONNECTIVITY_SERVICE);
+	    NetworkInfo network = manager.getActiveNetworkInfo();
+	    return (network != null && network.isConnected());
 	}
 }
