@@ -293,6 +293,6 @@ public class LoginActivity extends SherlockActivity {
 	
 	private void displayNetworkNotice(boolean isConnected) {
 		mNetworkText.setVisibility(isConnected? View.GONE : View.VISIBLE);
-		findViewById(R.id.sign_in_button).setVisibility(isConnected? View.VISIBLE : View.GONE);
+		findViewById(R.id.sign_in_button).setEnabled(isConnected);
 	}
 }
