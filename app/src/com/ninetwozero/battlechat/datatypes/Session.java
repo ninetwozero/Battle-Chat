@@ -14,13 +14,13 @@
 
 package com.ninetwozero.battlechat.datatypes;
 
-import org.apache.http.cookie.Cookie;
-
 import android.content.SharedPreferences;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.http.CookieFactory;
 import com.ninetwozero.battlechat.misc.Keys;
+
+import org.apache.http.cookie.Cookie;
 
 public class Session {
 	

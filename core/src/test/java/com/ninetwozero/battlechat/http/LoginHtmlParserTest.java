@@ -1,17 +1,9 @@
 package com.ninetwozero.battlechat.http;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import java.io.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -46,28 +38,28 @@ public class LoginHtmlParserTest {
 	
 	@Test
 	public void testDetectmLoginError() { 
-		assertFalse(mLoggedIn.hasErrorMessage());
-		assertTrue(mLoginError.hasErrorMessage());
+		Assert.assertFalse(mLoggedIn.hasErrorMessage());
+		Assert.assertTrue(mLoginError.hasErrorMessage());
 	}
 	
 	@Test
 	public void testGetUserId() {
-		assertEquals(mLoggedIn.getUserId(), Long.parseLong("2832658801548551060"));
+		Assert.assertEquals(mLoggedIn.getUserId(), Long.parseLong("2832658801548551060"));
 	}
 	
 	@Test
 	public void testGetUsername() {
-		assertEquals(mLoggedIn.getUsername(), "ninetwozero");
+		Assert.assertEquals(mLoggedIn.getUsername(), "ninetwozero");
 	}
 	
 	@Test
 	public void testGetChecksum() {
-		assertThat(mLoggedIn.getChecksum(), not(""));
+		Assert.assertThat(mLoggedIn.getChecksum(), CoreMatchers.not(""));
 	}
 	
 	@Test
 	public void testDetectmLoggedIn() {
-		assertTrue(mLoggedIn.isLoggedIn());
-		assertFalse(mLoginError.isLoggedIn());
+		Assert.assertTrue(mLoggedIn.isLoggedIn());
+		Assert.assertFalse(mLoginError.isLoggedIn());
 	}
 }

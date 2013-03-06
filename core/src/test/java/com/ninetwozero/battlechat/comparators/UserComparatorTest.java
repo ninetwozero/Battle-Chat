@@ -1,6 +1,6 @@
 package com.ninetwozero.battlechat.comparators;
 
-import static org.junit.Assert.assertEquals;
+import com.ninetwozero.battlechat.datatypes.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,8 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.ninetwozero.battlechat.datatypes.User;
-
+import static org.junit.Assert.assertEquals;
 
 // TODO: We have to remove the Parcelable parts of User in able to run this at the moment (as regular JUNIT).
 // FIXME: When Junit supports individual bars per assertion, I'll refactor the ten methods into one with a loop

@@ -14,8 +14,6 @@
 
 package com.ninetwozero.battlechat;
 
-import org.apache.http.cookie.Cookie;
-
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -32,6 +30,8 @@ import com.ninetwozero.battlechat.activities.LoginActivity;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.misc.Keys;
+
+import org.apache.http.cookie.Cookie;
 
 
 public class BattleChat extends Application {
