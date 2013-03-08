@@ -149,6 +149,6 @@ public class BattleChat extends Application {
 	public static boolean isConnectedToNetwork() {
 	    ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(CONNECTIVITY_SERVICE);
 	    NetworkInfo network = manager.getActiveNetworkInfo();
-	    return (network != null && network.isConnected());
+	    return network != null && network.isConnected();
 	}
 }
