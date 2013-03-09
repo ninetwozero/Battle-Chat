@@ -35,7 +35,7 @@ final public class DateUtils {
 	            return "N/A";
 	        }
 
-	        dateDiff = (dateDiff < 0) ? 0 : dateDiff;
+	        dateDiff = dateDiff < 0 ? 0 : dateDiff;
 	        if ((dateDiff / MINUTE_IN_SECONDS) < 1) {
 	            dateString = getElapsedSeconds(c, dateDiff);
 	        } else if ((dateDiff / HOUR_IN_SECONDS) < 1) {
@@ -58,7 +58,7 @@ final public class DateUtils {
 		if (dateDiff == 1) {
 		    return c.getString(R.string.text_time_second);
 		} else {
-		    return String.format(c.getString(R.string.text_time_second_p), (dateDiff % MINUTE_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_second_p), dateDiff % MINUTE_IN_SECONDS);
 		}
 	}
 
@@ -66,7 +66,7 @@ final public class DateUtils {
 		if (dateDiff / MINUTE_IN_SECONDS == 1) {
 		    return c.getString(R.string.text_time_min);
 		} else {
-		    return String.format(c.getString(R.string.text_time_min_p), (dateDiff / MINUTE_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_min_p), dateDiff / MINUTE_IN_SECONDS);
 		}
 	}
 	
@@ -74,7 +74,7 @@ final public class DateUtils {
 		if (dateDiff / HOUR_IN_SECONDS == 1) {
 		    return c.getString(R.string.text_time_hour);
 		} else {
-		    return String.format(c.getString(R.string.text_time_hour_p), (dateDiff / HOUR_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_hour_p), dateDiff / HOUR_IN_SECONDS);
 		}
 	}
 	
@@ -82,7 +82,7 @@ final public class DateUtils {
 		if (dateDiff / DAY_IN_SECONDS == 1) {
 		    return c.getString(R.string.text_time_day);
 		} else {
-		    return String.format(c.getString(R.string.text_time_day_p), (dateDiff / DAY_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_day_p), dateDiff / DAY_IN_SECONDS);
 		}
 	}
 	
@@ -90,7 +90,7 @@ final public class DateUtils {
 		if (dateDiff / WEEK_IN_SECONDS == 1) {
 		    return c.getString(R.string.text_time_week);
 		} else {
-		    return String.format(c.getString(R.string.text_time_week_p), (dateDiff / WEEK_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_week_p), dateDiff / WEEK_IN_SECONDS);
 		}
 	}
 	
@@ -98,7 +98,7 @@ final public class DateUtils {
 		if (dateDiff / YEAR_IN_SECONDS == 1) {
 		    return c.getString(R.string.text_time_year);
 		} else {
-		    return String.format(c.getString(R.string.text_time_year_p), (dateDiff / YEAR_IN_SECONDS));
+		    return String.format(c.getString(R.string.text_time_year_p), dateDiff / YEAR_IN_SECONDS);
 		}
 	}	
 	

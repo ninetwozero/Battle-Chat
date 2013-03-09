@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 	This file is part of BattleChat
 
     BattleChat is free software: you can redistribute it and/or modify
@@ -17,92 +16,90 @@
 -->
 <resources>
 
-    <string name="app_name">Battle Chat</string>
-    <string name="service_name">Služba sezení Battlelog</string>
+  <string name="app_name">Battle Chat</string>
+  <string name="service_name">Služba sezení Battlelog</string>
 
-    <string-array name="update_interval_entries">
-        <item>Každých 5 sekund</item>
-        <item>Každých 10 sekund</item>
-        <item>Každých 17 sekund</item>
-        <item>Každých 25 sekund</item>
-        <item>Každých 30 sekund</item>
-        <item>Každou minutu</item>
-    </string-array>
-    <integer-array name="update_interval_values">
-        <item>5</item>
-        <item>10</item>
-        <item>17</item>
-        <item>25</item>
-        <item>30</item>
-        <item>60</item>
-    </integer-array>
+  <string-array name="update_interval_entries">
+    <item>Každých 5 sekund</item>
+    <item>Každých 10 sekund</item>
+    <item>Každých 17 sekund</item>
+    <item>Každých 25 sekund</item>
+    <item>Každých 30 sekund</item>
+    <item>Každou minutu</item>
+  </string-array>
+  <integer-array name="update_interval_values">
+    <item>5</item>
+    <item>10</item>
+    <item>17</item>
+    <item>25</item>
+    <item>30</item>
+    <item>60</item>
+  </integer-array>
 
-    <string name="hello_world">Nazdar světe!</string>
-    <string name="menu_exit">Konec</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="msg_message_ok">Zpráva odeslána!</string>
-    <string name="msg_message_fail">Zpráva nemohla být odeslána!</string>
-    <string name="msg_chat_reload_fail">Nepodařilo se obnovit chat. Zkuste se znovu přihlásit.</string>
-    <string name="msg_chat_num_unread">Počet nových zpráv: %s</string>
-    <string name="label_sending">Odesílání…</string>
-    <string name="label_send">Odeslat</string>
-    <string name="msg_chat_send_message_error">Musíte vyplnit zprávu.</string>
-    <string name="msg_chat_send_multiple_error">Už zprávu odesíláte!</string>
-    <string name="msg_chat_load_fail">Nastala chyba: Nemůžete chatovat s tímto uživatelem.</string>
-    <string name="text_notification_title">Battle Chat status</string>
-    <string name="text_notification_subtitle_ok">Přihlášen jako %s. Dotkněte se pro otevření.</string>
-    <string name="text_notification_subtitle_fail">Sezení ztraceno. Dotkněte se pro přihlášení.</string>
-    <string name="label_offline">Offline</string>
-    <string name="label_online">Online</string>
-    <string name="label_playing">Hraje</string>
-    <string name="msg_error_nocookie">Žádná cookie nenalezena.</string>
-    <string name="msg_no_messages">Žádná zpráva nenalezena. :-(</string>
-    <string name="app_email">support@ninetwozero.com</string>
-    <string name="msg_no_friends">Žádní přátelé nenalezeni. :-(</string>
-    <string name="title_settings">Nastavení</string>
-    <string name="title_chat">Chat</string>
-    <string name="title_main">Přátelé</string>
-    <string name="msg_chat_sending_message">Odesílám zprávu&#8230;</string>
-    <string name="prompt_email">Origin™ email</string>
-    <string name="prompt_password">Origin™ heslo</string>
-    <string name="action_sign_in_register"><b>Přihlašte se</b> nebo se zaregistrujte</string>
-    <string name="action_sign_in_short">Přihlašte se</string>
-    <string name="menu_forgot_password">Obnovit ztracené heslo</string>
-    <string name="login_progress_signing_in">Přihlašuji&#8230;</string>
-    <string name="error_invalid_email">Emailová adresa je neplatná</string>
-    <string name="error_invalid_password">Heslo je příliš krátké</string>
-    <string name="error_incorrect_password">Heslo je nesprávné</string>
-    <string name="error_field_required">Toto pole je vyžadováno</string>
-    <string name="text_time_second">před 1 sekundou</string>
-    <string name="text_time_second_p">před %s sekundami</string>
-    <string name="text_time_min">před 1 minutou</string>
-    <string name="text_time_min_p">před %s minutami</string>
-    <string name="text_time_hour">před 1 hodinou</string>
-    <string name="text_time_hour_p">před %s hodinami</string>
-    <string name="text_time_day">před 1 dnem</string>
-    <string name="text_time_day_p">před %s dny</string>
-    <string name="text_time_week">před 1 týdnem</string>
-    <string name="text_time_week_p">před %s týdny</string>
-    <string name="text_time_year">před 1 rokem</string>
-    <string name="text_time_year_p">před %s roky</string>
-    <string name="menu_about">O aplikaci</string>
-    <string name="text_login_disclaimer">Tato aplikace nebyla vytvořena, ani schválena EA/DICE. Battlefield je registrovaná ochranná známka EA Digital Illusions CE AB. Žádné informace o uživateli nejsou ukládány a/nebo sdíleny s třetími stranami.</string>
-    <string name="text_login_accept_terms">Souhlasím s podmínkami používání.</string>
-    <string name="text_preference_notification_title">Ukazovat notifikaci se statusem</string>
-    <string name="text_preference_notification_on">Notifikace bude viditelná.</string>
-    <string name="text_preference_notification_off">Notifikace nebude viditelná.</string>
-    <string name="text_preference_beep_off">Nic neuslyšíte.</string>
-    <string name="text_preference_beep_on">Nebojte se, pípneme.</string>
-    <string name="text_preference_beep_title">Pípat při přijaté zprávě</string>
-    <string name="text_preference_interval_title">Interval obnovení chatu</string>
-    <string name="text_main_loading">Načítám vaše přátele&#8230;</string>
-    <string name="title_refresh">Obnovit</string>
-    <string name="text_chat_loading">Načítám zprávy&#8230;</string>
-    <string name="title_about">O aplikaci</string>
-    <string name="text_about_by">Od Karl Lindmark</string>
-    <string name="text_about_email">support@ninetwozero.com</string>
-    <string name="text_about_version">1.0</string>
-    <string name="text_chat_title">Chatujete s %s</string>
-    <string name="title_login">Přihlásit se</string>
-
+  <string name="menu_exit">Konec</string>
+  <string name="msg_message_ok">Zpráva odeslána!</string>
+  <string name="msg_message_fail">Zpráva nemohla být odeslána!</string>
+  <string name="msg_chat_reload_fail">Nepodařilo se obnovit chat. Zkuste se znovu přihlásit.</string>
+  <string name="label_sending">Odesílání…</string>
+  <string name="label_send">Odeslat</string>
+  <string name="msg_chat_send_message_error">Musíte vyplnit zprávu.</string>
+  <string name="msg_chat_send_multiple_error">Už zprávu odesíláte!</string>
+  <string name="msg_chat_load_fail">Nastala chyba: Nemůžete chatovat s tímto uživatelem.</string>
+  <string name="text_notification_title">Battle Chat status</string>
+  <string name="text_notification_subtitle_ok">Přihlášen jako %s. Dotkněte se pro otevření.</string>
+  <string name="text_notification_subtitle_fail">Sezení ztraceno. Dotkněte se pro přihlášení.</string>
+  <string name="label_offline">Offline</string>
+  <string name="label_online">Online</string>
+  <string name="label_playing">Hraje</string>
+  <string name="msg_no_messages">Žádná zpráva nenalezena. :-(</string>
+  <string name="app_email">support@ninetwozero.com</string>
+  <string name="msg_no_friends">Žádní přátelé nenalezeni. :-(</string>
+  <string name="title_settings">Nastavení</string>
+  <string name="title_chat">Chat</string>
+  <string name="title_main">Přátelé</string>
+  <string name="msg_chat_sending_message">Odesílám zprávu&#8230;</string>
+  <string name="prompt_email">Origin™ email</string>
+  <string name="prompt_password">Origin™ heslo</string>
+  <string name="action_sign_in_short">Přihlašte se</string>
+  <string name="login_progress_signing_in">Přihlašuji&#8230;</string>
+  <string name="error_invalid_email">Emailová adresa je neplatná</string>
+  <string name="error_field_required">Toto pole je vyžadováno</string>
+  <string name="text_time_second">před 1 sekundou</string>
+  <string name="text_time_second_p">před %s sekundami</string>
+  <string name="text_time_min">před 1 minutou</string>
+  <string name="text_time_min_p">před %s minutami</string>
+  <string name="text_time_hour">před 1 hodinou</string>
+  <string name="text_time_hour_p">před %s hodinami</string>
+  <string name="text_time_day">před 1 dnem</string>
+  <string name="text_time_day_p">před %s dny</string>
+  <string name="text_time_week">před 1 týdnem</string>
+  <string name="text_time_week_p">před %s týdny</string>
+  <string name="text_time_year">před 1 rokem</string>
+  <string name="text_time_year_p">před %s roky</string>
+  <string name="menu_about">O aplikaci</string>
+  <string name="text_login_disclaimer">Tato aplikace nebyla vytvořena, ani schválena EA/DICE. Battlefield je
+    registrovaná ochranná známka EA Digital Illusions CE AB. Žádné informace o uživateli nejsou ukládány a/nebo sdíleny
+    s třetími stranami.
+  </string>
+  <string name="text_login_accept_terms">Souhlasím s podmínkami používání.</string>
+  <string name="text_preference_notification_title">Ukazovat notifikaci se statusem</string>
+  <string name="text_preference_notification_on">Notifikace bude viditelná.</string>
+  <string name="text_preference_notification_off">Notifikace nebude viditelná.</string>
+  <string name="text_preference_beep_off">Nic neuslyšíte.</string>
+  <string name="text_preference_beep_on">Nebojte se, pípneme.</string>
+  <string name="text_preference_beep_title">Pípat při přijaté zprávě</string>
+  <string name="text_preference_interval_title">Interval obnovení chatu</string>
+  <string name="text_main_loading">Načítám vaše přátele&#8230;</string>
+  <string name="title_refresh">Obnovit</string>
+  <string name="text_chat_loading">Načítám zprávy&#8230;</string>
+  <string name="title_about">O aplikaci</string>
+  <string name="text_about_by">Od Karl Lindmark</string>
+  <string name="text_about_email">support@ninetwozero.com</string>
+  <string name="text_about_version">1.0</string>
+  <string name="text_chat_title">Chatujete s %s</string>
+  <string name="title_login">Přihlásit se</string>
+  <string name="msg_no_network">This app requires an active Internet connection. Make sure you\'re connected to a
+    network (mobile/wireless network) and re-open the app.
+  </string>
+  <string name="ninetwozero">NINETWOZERO</string>
 </resources>
