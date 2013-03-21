@@ -53,7 +53,7 @@
     <dependency>
       <groupId>com.squareup.spoon</groupId>
       <artifactId>spoon-client</artifactId>
-      <version>1.0.2-SNAPSHOT</version>
+      <version>1.0.2</version>
     </dependency>
   </dependencies>
 
@@ -75,7 +75,7 @@
       <plugin>
         <groupId>com.squareup.spoon</groupId>
         <artifactId>spoon-maven-plugin</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.2</version>
         <configuration>
           <title>Battle Chat App</title>
           <debug>true</debug>

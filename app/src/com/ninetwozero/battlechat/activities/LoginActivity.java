@@ -14,10 +14,6 @@
 
 package com.ninetwozero.battlechat.activities;
 
-import org.jsoup.Connection;
-import org.jsoup.Connection.Method;
-import org.jsoup.Jsoup;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -47,12 +43,16 @@ import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 
+import org.jsoup.Connection;
+import org.jsoup.Connection.Method;
+import org.jsoup.Jsoup;
+
 public class LoginActivity extends SherlockActivity {
 
 	public static final String TAG = "LoginActivity";
 
-	private boolean mAccept = false;
-	private UserLoginTask mAuthTask = null;
+	private boolean mAccept;
+	private UserLoginTask mAuthTask;
 	private String mEmail;
 	private String mPassword;
 	private SharedPreferences mSharedPreferences;
