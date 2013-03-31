@@ -44,6 +44,17 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.squareup</groupId>
+      <artifactId>fest-android</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.squareup.spoon</groupId>
+      <artifactId>spoon-client</artifactId>
+      <version>1.0.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -60,6 +71,23 @@
           </test>
         </configuration>
         <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>com.squareup.spoon</groupId>
+        <artifactId>spoon-maven-plugin</artifactId>
+        <version>1.0.2</version>
+        <configuration>
+          <title>Battle Chat App</title>
+          <debug>true</debug>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
