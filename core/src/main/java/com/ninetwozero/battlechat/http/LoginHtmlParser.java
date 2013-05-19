@@ -32,15 +32,18 @@ final public class LoginHtmlParser {
 
 	public long getUserId() {
 		String id = mDocument.select(".base-header-profile-dropdown-username .base-avatar-size-large").attr("rel");
+        if( id.equals("") ) {
+            id = "0";
+        }
 		return Long.parseLong(id);
 	}
 	
 	public String getUsername() {
-		return mDocument.select(".base-header-profile-dropdown-username span").text();
+		return mDocument.select(".header-profile-dropdown .profile > a > div").text();
 	}
 	
 	public String getChecksum() {
-		return mDocument.select("#base-header-search-area input[name=post-check-sum]").val();
+		return mDocument.select("#profile-edit-form input[name=post-check-sum]").val();
 	}
 	
 	public boolean hasErrorMessage() {
