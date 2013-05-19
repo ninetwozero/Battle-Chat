@@ -98,8 +98,7 @@
   <string name="text_about_version">1.0</string>
   <string name="text_chat_title">Chatujete s %s</string>
   <string name="title_login">Přihlásit se</string>
-  <string name="msg_no_network">This app requires an active Internet connection. Make sure you\'re connected to a
-    network (mobile/wireless network) and re-open the app.
+  <string name="msg_no_network">Tato aplikace vyžaduje aktivní internetové připojení. Přesvěčte se, že jste připojeni k síti (mobilní/bezdrátové) a znovu otevřete aplikaci.
   </string>
   <string name="ninetwozero">NINETWOZERO</string>
 </resources>
