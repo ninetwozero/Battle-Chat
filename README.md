@@ -19,6 +19,10 @@ Twitter: [@peter_budo](https://www.twitter.com/peter-budo)<br />
 Twitter: [@dapil](https://www.twitter.com/dapil)<br />
 Web: http://gplus.to/dpeukert<br />
 
+**Steve Beaudet** (Logo)<br />
+Twitter: [@dbagjones](https://www.twitter.com/dbagjones)<br />
+Web: http://djonesradio.com<br />
+
 
 ### Special thanks
 To all the people that have helped out by testing, providing feedback and/or anything else helpful. Much appreciated. :-)
