@@ -14,26 +14,34 @@ public class LoginHtmlParserTest {
 	
 	public LoginHtmlParserTest() {
 		try {
-			mLoggedIn = new LoginHtmlParser(getFileAsString("index.htm"));
-			mLoginError = new LoginHtmlParser(getFileAsString("index_error.htm"));
+			mLoggedIn = new LoginHtmlParser(getFileAsString("/index.htm"));
+			mLoginError = new LoginHtmlParser(getFileAsString("/index_error.htm"));
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
 	}
 	
-	private String getFileAsString(String path) throws Exception {
-		File file = new File(path);
-		InputStream stream = new FileInputStream(file);
+	private String getFileAsString(String path){
+		//File file = new File(path);
+		InputStream stream = LoginHtmlParserTest.class.getResourceAsStream(path);//new FileInputStream(file);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 	    StringBuilder output = new StringBuilder();
 	    String line = null;
-	    
-	    while ((line = reader.readLine()) != null) {
-	      output.append(line).append("\n");
-	    }
-	    
-	    stream.close();
-	    return output.toString();
+
+        try {
+            while ((line = reader.readLine()) != null) {
+              output.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return output.toString();
 	}
 	
 	@Test
