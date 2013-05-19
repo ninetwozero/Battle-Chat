@@ -1,10 +1,13 @@
 package com.ninetwozero.battlechat.http;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.*;
 
 
 public class LoginHtmlParserTest {
@@ -14,19 +17,18 @@ public class LoginHtmlParserTest {
 	
 	public LoginHtmlParserTest() {
 		try {
-			mLoggedIn = new LoginHtmlParser(getFileAsString("/index.htm"));
-			mLoginError = new LoginHtmlParser(getFileAsString("/index_error.htm"));
+			mLoggedIn = new LoginHtmlParser(getFileAsString("/htm/index.htm"));
+			mLoginError = new LoginHtmlParser(getFileAsString("/htm/index_error.htm"));
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
 	}
 	
 	private String getFileAsString(String path){
-		//File file = new File(path);
-		InputStream stream = LoginHtmlParserTest.class.getResourceAsStream(path);//new FileInputStream(file);
+		InputStream stream = LoginHtmlParserTest.class.getResourceAsStream(path);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 	    StringBuilder output = new StringBuilder();
-	    String line = null;
+	    String line;
 
         try {
             while ((line = reader.readLine()) != null) {
@@ -52,7 +54,6 @@ public class LoginHtmlParserTest {
 	
 	@Test
 	public void testGetUserId() {
-    //    Assert.assertEquals(mLoggedIn.getUserId(), Long.parseLong("2832658801548551060"));
         Assert.assertEquals(mLoggedIn.getUserId(), 0);
     }
 	

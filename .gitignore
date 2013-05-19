@@ -32,6 +32,9 @@ tmp/
 .idea/
 local.properties
 
+# Windows
+Thumbs.db
+
 # MAC
 *.DS_Store
 
