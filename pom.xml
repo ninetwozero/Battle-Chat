@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.novoda</groupId>
     <artifactId>reporting</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.5</version>
   </parent>
 
   <groupId>com.ninetwozero.battlechat</groupId>
@@ -43,7 +43,6 @@
   </repositories>
 
   <pluginRepositories>
-
     <pluginRepository>
       <id>public-mvn-repo.plugin-releases</id>
       <url>https://github.com/novoda/public-mvn-repo/raw/master/releases</url>
@@ -51,13 +50,12 @@
         <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
-
   </pluginRepositories>
 
   <scm>
-    <url><!--EXAMPLE https://github.com/novoda/SQLiteProvider/tree/${scm.branch}--></url>
-    <connection><!--EXAMPLE scm:git:git://https://github.com/novoda/SQLiteProvider.git--></connection>
-    <developerConnection><!--EXAMPLE scm:git:ssh://https://github.com/novoda/SQLiteProvider.git--></developerConnection>
+    <url>https://github.com/ninetwozero/Battle-Chat/tree/${scm.branch}</url>
+    <connection>scm:git:git://https://git://github.com/ninetwozero/Battle-Chat.git</connection>
+    <developerConnection>scm:git:ssh://https://git://github.com/ninetwozero/Battle-Chat.git</developerConnection>
   </scm>
 
   <licenses>

@@ -49,8 +49,8 @@
 
     <dependency>
       <groupId>com.actionbarsherlock</groupId>
-      <artifactId>library</artifactId>
-      <version>4.2.0</version>
+      <artifactId>actionbarsherlock</artifactId>
+      <version>4.3.0</version>
       <type>apklib</type>
     </dependency>
 
@@ -85,5 +85,16 @@
 
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+        <artifactId>android-maven-plugin</artifactId>
+        <configuration>
+          <lint>
+            <skip>false</skip>
+          </lint>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

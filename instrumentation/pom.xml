@@ -17,6 +17,7 @@
   <properties>
     <eclipse.excludeArtifactIds>android, android-test</eclipse.excludeArtifactIds>
     <tested.project>app</tested.project>
+    <spoon.version>1.0.3</spoon.version>
   </properties>
 
   <dependencies>
@@ -53,7 +54,7 @@
     <dependency>
       <groupId>com.squareup.spoon</groupId>
       <artifactId>spoon-client</artifactId>
-      <version>1.0.2</version>
+      <version>${spoon.version}</version>
     </dependency>
   </dependencies>
 
@@ -75,7 +76,7 @@
       <plugin>
         <groupId>com.squareup.spoon</groupId>
         <artifactId>spoon-maven-plugin</artifactId>
-        <version>1.0.2</version>
+        <version>${spoon.version}</version>
         <configuration>
           <title>Battle Chat App</title>
           <debug>true</debug>
