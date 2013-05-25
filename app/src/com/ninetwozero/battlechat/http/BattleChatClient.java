@@ -14,8 +14,7 @@
 
 package com.ninetwozero.battlechat.http;
 
-import java.util.Arrays;
-
+import com.ninetwozero.battlechat.BattleChat;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +30,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ninetwozero.battlechat.BattleChat;
+import java.util.Arrays;
 
 public class BattleChatClient {
 	
@@ -83,7 +82,7 @@ public class BattleChatClient {
 	}
 
 	public static JSONObject getJsonObjectFromHttpResponse(HttpResponse response) throws Exception {
-        String message = "";
+        String message = "No message received.";
 		try {       
         	HttpEntity httpEntity = response.getEntity();
         	if( httpEntity.getContentLength() > 0 ) {

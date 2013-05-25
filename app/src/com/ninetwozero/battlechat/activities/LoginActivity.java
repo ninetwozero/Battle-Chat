@@ -95,6 +95,7 @@ public class LoginActivity extends SherlockActivity {
 			startActivity( new Intent(this, MainActivity.class) );
 			finish();
 		}
+        mEmail = mSharedPreferences.getString(Keys.Session.EMAIL, "");
 	}
 
 	private boolean alreadyHasCookie() {
@@ -218,25 +219,39 @@ public class LoginActivity extends SherlockActivity {
 	}
 	
 	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
-		
+
+        public static final int LOGIN_TIMEOUT = 30000;
+        private String mSuppliedEmail;
+        private String mSuppliedPassword;
 		private Session mSession;
 		private String mErrorMessage;
 		
 		@Override
 		protected Boolean doInBackground(String... params) {
-			try {
+            if( params.length != 2 ) {
+                mErrorMessage = "Invalid length of input data.";
+                return false;
+            }
+
+            mSuppliedEmail = params[0];
+            mSuppliedPassword = params[1];
+
+            try {
 				Connection connection = Jsoup.connect(HttpUris.LOGIN);
 				connection = connection.data(
-					"email", params[0], 
-					"password", params[1],
+					"email", mSuppliedEmail,
+					"password", mSuppliedPassword,
 					"remember", "1",
 					"redirect", "",
 					"submit", "Sign+in"
 				);
+                connection = connection.timeout(LOGIN_TIMEOUT);
 				connection = connection.method(Method.POST);
 				Connection.Response result = connection.execute();
-				return hasLoggedin(result);
+                return hasLoggedin(result);
 			} catch( Exception ex ) {
+                mErrorMessage = ex.getMessage();
+                ex.printStackTrace();
 				return false;
 			}
 		}
@@ -250,6 +265,7 @@ public class LoginActivity extends SherlockActivity {
 				BattleChat.setSession(mSession);
 				BattleChat.saveToSharedPreferences(getApplicationContext());
 				BattleChatService.scheduleRun(getApplicationContext());
+
 				showNotification();
 				startActivity( new Intent(LoginActivity.this, MainActivity.class));
 				finish();
@@ -276,8 +292,12 @@ public class LoginActivity extends SherlockActivity {
 				mErrorMessage = parser.getErrorMessage();
 			} else {
 				mSession = new Session(
-					new User(parser.getUserId(), parser.getUsername()),
-					CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)),
+					new User(
+                        parser.getUserId(),
+                        parser.getUsername()),
+					    CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)
+                    ),
+                    mSuppliedEmail,
 					parser.getChecksum()
 				);
 			}

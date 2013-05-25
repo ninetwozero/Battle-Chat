@@ -84,6 +84,7 @@ public class BattleChatService extends Service {
 	    public class SessionReloadTask extends AsyncTask<Void, Void, Boolean> {
 	    	private User mUser;
 	    	private Cookie mCookie;
+            private String mEmail;
 	    	private String mChecksum;
 	    	
 	    	@Override
@@ -99,7 +100,8 @@ public class BattleChatService extends Service {
 	    			if( parser.isLoggedIn() ) {
 		    			mUser = new User(parser.getUserId(), parser.getUsername(), User.ONLINE);
 		    			mCookie = BattleChat.getSession().getCookie();
-		    			mChecksum = parser.getChecksum();
+		    			mEmail = BattleChat.getSession().getEmail();
+                        mChecksum = parser.getChecksum();
 		    			return true;
 	    			}
 	    		} catch( Exception ex ) {
@@ -112,7 +114,7 @@ public class BattleChatService extends Service {
 	    	protected void onPostExecute(Boolean hasActiveSession) {
 	    		if(hasActiveSession) {
 		    		Log.i(TAG, "Our sesssion is intact, keep rolling!");
-	    			BattleChat.reloadSession(mUser, mCookie, mChecksum);
+	    			BattleChat.reloadSession(mUser, mCookie, mEmail, mChecksum);
 	    		} else {
 		    		Log.i(TAG, "Our sesssion isn't intact. Removing the stored information.");
 		    		BattleChatService.unschedule(getApplicationContext());

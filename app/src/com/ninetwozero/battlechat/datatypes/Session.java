@@ -23,9 +23,10 @@ import com.ninetwozero.battlechat.misc.Keys;
 import org.apache.http.cookie.Cookie;
 
 public class Session {
-	
+
 	private User mUser;
 	private Cookie mCookie;
+    private String mEmail;
 	private String mChecksum;
 	
 	public Session(SharedPreferences sharedPreferences) {
@@ -38,12 +39,14 @@ public class Session {
 			sharedPreferences.getString(Keys.Session.COOKIE_NAME, BattleChat.COOKIE_NAME),
 			sharedPreferences.getString(Keys.Session.COOKIE_VALUE, "")
 		);
+        mEmail = sharedPreferences.getString(Keys.Session.EMAIL, "");
 		mChecksum = sharedPreferences.getString(Keys.Session.CHECKSUM, "");
 	}
 	
-	public Session(User user, Cookie cookie, String checksum) {
+	public Session(User user, Cookie cookie, String email, String checksum) {
 		mUser = user;
 		mCookie = cookie;
+        mEmail = email;
 		mChecksum = checksum;
 	}
 	
@@ -54,6 +57,10 @@ public class Session {
 	public String getUsername() {
 		return mUser.getUsername();
 	}
+
+    public String getEmail() {
+        return mEmail;
+    }
 	
 	public Cookie getCookie() {
 		return mCookie;

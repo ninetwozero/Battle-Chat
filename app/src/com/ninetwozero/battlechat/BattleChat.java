@@ -63,8 +63,8 @@ public class BattleChat extends Application {
     	mSession = new Session(sharedPreferences);
     }
     
-    public static void reloadSession(User user, Cookie cookie, String checksum) {
-    	mSession = new Session(user, cookie, checksum);
+    public static void reloadSession(User user, Cookie cookie, String email, String checksum) {
+    	mSession = new Session(user, cookie, email, checksum);
     }
 	
     public static boolean hasSession() {
@@ -76,7 +76,8 @@ public class BattleChat extends Application {
 			SharedPreferences.Editor editor = preferences.edit();
 
 			editor.putLong(Keys.Session.USER_ID, mSession.getUser().getId());
-			editor.putString(Keys.Session.USERNAME, mSession.getUser().getUsername());
+            editor.putString(Keys.Session.USERNAME, mSession.getUser().getUsername());
+            editor.putString(Keys.Session.EMAIL, mSession.getEmail());
 			editor.putString(Keys.Session.COOKIE_NAME, mSession.getCookie().getName());
 			editor.putString(Keys.Session.COOKIE_VALUE, mSession.getCookie().getValue());
 			editor.putString(Keys.Session.CHECKSUM, mSession.getChecksum());

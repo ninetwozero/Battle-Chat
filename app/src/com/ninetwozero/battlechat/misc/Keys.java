@@ -20,6 +20,7 @@ public class Keys {
 	public static class Session {
 		public final static String USER_ID = "userId";
 		public final static String USERNAME = "username";
+        public final static String EMAIL = "email";
 		public final static String COOKIE_NAME = "sessionName";
 		public final static String COOKIE_VALUE = "sessionValue";
 		public final static String CHECKSUM = "sessionChecksum";
