@@ -20,7 +20,7 @@ import android.os.Parcelable;
 public class User implements Parcelable {
 	public final static int OFFLINE = 0;
 	public final static int ONLINE = 1;
-	public final static int PLAYING = 2;
+	public final static int PLAYING = 264;
 	
 	private long mId;
 	private String mUsername;
@@ -57,7 +57,7 @@ public class User implements Parcelable {
 	}
 	
 	public boolean isOnline() {
-		return mStatus == ONLINE;
+		return mStatus >= ONLINE && mStatus < PLAYING;
 	}
 	
 	public boolean isOffline() {
@@ -66,14 +66,14 @@ public class User implements Parcelable {
 	
 	public String getOnlineStatus() {
 		switch(mStatus) {
-			case 0:
+			case OFFLINE:
 				return "OFFLINE";
-			case 1:
+			case ONLINE:
 				return "ONLINE";
-			case 2:
+			case PLAYING:
 				return "PLAYING";
 			default:
-				return "UNKNOWN";
+				return "ONLINE"; // 1 <= x < 264 = playing
 		}
 	}
 

@@ -14,23 +14,11 @@
 
 package com.ninetwozero.battlechat.activities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.http.cookie.Cookie;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
@@ -42,6 +30,16 @@ import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.services.BattleChatService;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AbstractListActivity {
 
@@ -185,7 +183,7 @@ public class MainActivity extends AbstractListActivity {
 		private List<User> getUsersFromJson(JSONObject result) throws JSONException {
 			JSONArray friends = result.getJSONArray("friendscomcenter");
 			JSONObject friend;
-			JSONObject presence;
+			int presenceState;
 			List<User> users = new ArrayList<User>();
 			
 			int numFriends = friends.length();
@@ -194,34 +192,31 @@ public class MainActivity extends AbstractListActivity {
 			int numOffline = 0;
 			
 			if( numFriends > 0 ) {
-				User user = null;
 				for( int i = 0; i < numFriends; i++ ) {
 					friend = friends.optJSONObject(i);
-					presence = friend.getJSONObject("presence");
-					
-					if( presence.getBoolean("isPlaying") ) {
-						user = new User(
-							Long.parseLong(friend.getString("userId")),
-							friend.getString("username"), 
-							User.PLAYING
-						);
-						numPlaying++;
-					} else if( presence.getBoolean("isOnline") ) {
-						user = new User(
-							Long.parseLong(friend.getString("userId")),
-							friend.getString("username"), 
-							User.ONLINE
-						);
-						numOnline++;
-					} else {
-						user = new User(
-							Long.parseLong(friend.getString("userId")),
-							friend.getString("username"), 
-							User.OFFLINE
-						);
-						numOffline++;
-					}
-					users.add(user);
+					presenceState = friend.getJSONObject("presence").getInt("presenceStates");
+
+                    switch( presenceState ) {
+                        case User.PLAYING:
+                            numPlaying++;
+                            break;
+                        case User.ONLINE:
+                            numOnline++;
+                            break;
+                        case User.OFFLINE:
+                            numOffline++;
+                            break;
+                        default:
+                            break;
+                    }
+
+					users.add(
+                        new User(
+                            Long.parseLong(friend.getString("userId")),
+                            friend.getString("username"),
+                            presenceState
+                        )
+                    );
 				}
 
 				if (numPlaying > 0) {

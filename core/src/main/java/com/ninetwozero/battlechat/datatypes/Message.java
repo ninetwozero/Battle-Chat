@@ -20,27 +20,20 @@ import android.os.Parcelable;
 
 public class Message implements Parcelable {
 
-	private long mId;
 	private String mContent;
 	private String mUsername;
 	private long mTimestamp;
 	
 	public Message(Parcel in) {
-		mId = in.readLong();
 		mContent = in.readString();
 		mUsername = in.readString();
 		mTimestamp = in.readLong();
 	}
 	
-	public Message(long id, String content, String user, long timestamp) {
-		mId = id;
+	public Message(String content, String user, long timestamp) {
 		mContent = content;
 		mUsername = user;
 		mTimestamp = timestamp;
-	}
-	
-	public long getId() {
-		return mId;
 	}
 	
 	public String getMessage() {
@@ -61,7 +54,6 @@ public class Message implements Parcelable {
 	
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeLong(mId);
 		out.writeString(mContent);
 		out.writeString(mUsername);	
 		out.writeLong(mTimestamp);
