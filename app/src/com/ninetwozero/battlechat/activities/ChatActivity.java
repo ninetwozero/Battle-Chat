@@ -261,7 +261,7 @@ public class ChatActivity extends AbstractListActivity {
 				
 				if( result.has("chatId") ) {
 					JSONObject chatObject = result.getJSONObject("chat");
-                    mChatId = result.getLong("chatId");
+                	mChatId = result.getLong("chatId");
 					mMessages = getMessagesFromJSON(chatObject);
 					return true;
 				}
