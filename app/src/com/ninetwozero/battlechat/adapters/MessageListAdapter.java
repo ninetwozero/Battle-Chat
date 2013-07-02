@@ -14,16 +14,15 @@
 
 package com.ninetwozero.battlechat.adapters;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListAdapter;
 import com.ninetwozero.battlechat.datatypes.Message;
 import com.ninetwozero.battlechat.utils.DateUtils;
+
+import java.util.List;
 
 public class MessageListAdapter extends AbstractListAdapter<Message> {
 	
@@ -38,10 +37,15 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
 		super(context, items);
 		mOtherUser = other;
 	}
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
 	
 	@Override
 	public long getItemId(int position) {
-		return getItem(position).getId();
+		return position;
 	}
 
 	@Override

@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
@@ -37,16 +36,15 @@ import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.misc.Keys;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class ChatActivity extends AbstractListActivity {
@@ -263,8 +261,8 @@ public class ChatActivity extends AbstractListActivity {
 				
 				if( result.has("chatId") ) {
 					JSONObject chatObject = result.getJSONObject("chat");
+                    mChatId = result.getLong("chatId");
 					mMessages = getMessagesFromJSON(chatObject);
-					mChatId = result.getLong("chatId");
 					return true;
 				}
 			} catch( Exception ex ) {
@@ -314,10 +312,9 @@ public class ChatActivity extends AbstractListActivity {
 			JSONObject message = null;
 			
 			for( int i = 0, max = messages.length(); i < max; i++ ) {
-				message = messages.getJSONObject(i); 
+				message = new JSONObject(messages.getString(i));
 				results.add( 
 					new Message(
-						Long.parseLong(message.getString("chatId")),
 						message.getString("message"),
 						message.getString("fromUsername"),
 						message.getLong("timestamp")
