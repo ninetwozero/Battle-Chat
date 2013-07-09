@@ -14,7 +14,8 @@
 
 package com.ninetwozero.battlechat.http;
 
-import com.ninetwozero.battlechat.BattleChat;
+import java.util.Arrays;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,20 +31,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-
 public class BattleChatClient {
-	
-	public final static String TAG = "BattleChatClient";
-	private final static String JSON_ERROR = "{error:'%s'}";
+	private static final String JSON_ERROR = "{error:'%s'}";
 	private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
 	
 	private BattleChatClient() {}
-
-	
-	public static JSONObject get(final String url) throws JSONException {
-		return get(url, HttpHeaders.Get.NORMAL);
-	}
 	
 	public static JSONObject get(final String url, final int headerId) throws JSONException {
 		try {
@@ -82,7 +74,7 @@ public class BattleChatClient {
 	}
 
 	public static JSONObject getJsonObjectFromHttpResponse(HttpResponse response) throws Exception {
-        String message = "No message received.";
+        String message;
 		try {       
         	HttpEntity httpEntity = response.getEntity();
         	if( httpEntity.getContentLength() > 0 ) {
@@ -101,16 +93,6 @@ public class BattleChatClient {
         }
         return new JSONObject(String.format(JSON_ERROR, message));
 	}
-	
-	public static Cookie getCookie() {
-		for(Cookie cookie : mHttpClient.getCookieStore().getCookies()) {
-			if(cookie.getName().equals(BattleChat.COOKIE_NAME)) {
-				return cookie;
-			}
-		}
-		throw new IllegalStateException("No cookie found.");
-	}
-
 
 	public static void setCookie(Cookie cookie) {
 		CookieStore cookieStore = mHttpClient.getCookieStore();
