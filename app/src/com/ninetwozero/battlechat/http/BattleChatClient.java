@@ -32,72 +32,73 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BattleChatClient {
-	private static final String JSON_ERROR = "{error:'%s'}";
-	private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
-	
-	private BattleChatClient() {}
-	
-	public static JSONObject get(final String url, final int headerId) throws JSONException {
-		try {
-			HttpGet httpGet = new HttpGet(url);
-			httpGet.setHeader("Referer", url);
-			
-			for( Header header : HttpHeaders.Post.getHeaders(headerId) ) {
-	        	httpGet.setHeader(header.getName(), header.getValue());
-	        }
-			
-			return getJsonObjectFromHttpResponse(mHttpClient.execute(httpGet));
-		} catch ( Exception ex) {
-			ex.printStackTrace();
-	        return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));	
-		}
-	}
+    private static final String JSON_ERROR = "{error:'%s'}";
+    private static DefaultHttpClient mHttpClient = HttpClientFactory.getThreadSafeClient();
 
-	public static JSONObject post(final String url, final NameValuePair... data) throws JSONException {
-		return post(url, HttpHeaders.Post.NORMAL, data);
-	}
-	
-	public static JSONObject post(final String url, final int headerId, final NameValuePair... data) throws JSONException {
-		try {
-			HttpPost httpPost = new HttpPost(url);
-	        httpPost.setHeader("Referer", url);
-	        for( Header header : HttpHeaders.Post.getHeaders(headerId) ) {
-	        	httpPost.setHeader(header.getName(), header.getValue());
-	        }
-			
-	        httpPost.setEntity(new UrlEncodedFormEntity(Arrays.asList(data), HTTP.UTF_8));
-			return getJsonObjectFromHttpResponse(mHttpClient.execute(httpPost));
-		} catch( Exception ex ) {
-			ex.printStackTrace();
-	        return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));		
-		}
-	}
+    private BattleChatClient() {
+    }
 
-	public static JSONObject getJsonObjectFromHttpResponse(HttpResponse response) throws Exception {
+    public static JSONObject get(final String url, final int headerId) throws JSONException {
+        try {
+            HttpGet httpGet = new HttpGet(url);
+            httpGet.setHeader("Referer", url);
+
+            for (Header header : HttpHeaders.Post.getHeaders(headerId)) {
+                httpGet.setHeader(header.getName(), header.getValue());
+            }
+
+            return getJsonObjectFromHttpResponse(mHttpClient.execute(httpGet));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));
+        }
+    }
+
+    public static JSONObject post(final String url, final NameValuePair... data) throws JSONException {
+        return post(url, HttpHeaders.Post.NORMAL, data);
+    }
+
+    public static JSONObject post(final String url, final int headerId, final NameValuePair... data) throws JSONException {
+        try {
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setHeader("Referer", url);
+            for (Header header : HttpHeaders.Post.getHeaders(headerId)) {
+                httpPost.setHeader(header.getName(), header.getValue());
+            }
+
+            httpPost.setEntity(new UrlEncodedFormEntity(Arrays.asList(data), HTTP.UTF_8));
+            return getJsonObjectFromHttpResponse(mHttpClient.execute(httpPost));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new JSONObject(String.format(JSON_ERROR, ex.getMessage()));
+        }
+    }
+
+    public static JSONObject getJsonObjectFromHttpResponse(HttpResponse response) throws Exception {
         String message;
-		try {       
-        	HttpEntity httpEntity = response.getEntity();
-        	if( httpEntity.getContentLength() > 0 ) {
-        		JSONObject object = new JSONObject(EntityUtils.toString(httpEntity));
-        		if( object.has("data") ) {
-        			return object.getJSONObject("data");
-        		} else {
-        			message = "Invalid request. Please notify the developer.";
-        		}
-        	} else {
-        		message = "No data found.";
-        	}
-        } catch( Exception ex ) {
-        	ex.printStackTrace();
-        	message = ex.getMessage();
+        try {
+            HttpEntity httpEntity = response.getEntity();
+            if (httpEntity.getContentLength() > 0) {
+                JSONObject object = new JSONObject(EntityUtils.toString(httpEntity));
+                if (object.has("data")) {
+                    return object.getJSONObject("data");
+                } else {
+                    message = "Invalid request. Please notify the developer.";
+                }
+            } else {
+                message = "No data found.";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            message = ex.getMessage();
         }
         return new JSONObject(String.format(JSON_ERROR, message));
-	}
+    }
 
-	public static void setCookie(Cookie cookie) {
-		CookieStore cookieStore = mHttpClient.getCookieStore();
-		cookieStore.addCookie(cookie);
-		mHttpClient.setCookieStore(cookieStore);
-		mHttpClient.getCookieStore().toString();
-	}
+    public static void setCookie(Cookie cookie) {
+        CookieStore cookieStore = mHttpClient.getCookieStore();
+        cookieStore.addCookie(cookie);
+        mHttpClient.setCookieStore(cookieStore);
+        mHttpClient.getCookieStore().toString();
+    }
 }

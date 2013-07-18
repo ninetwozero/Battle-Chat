@@ -14,10 +14,6 @@
 
 package com.ninetwozero.battlechat.services;
 
-import org.apache.http.cookie.Cookie;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -36,6 +32,10 @@ import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.utils.DateUtils;
+
+import org.apache.http.cookie.Cookie;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
 public class BattleChatService extends Service {
 
@@ -68,15 +68,11 @@ public class BattleChatService extends Service {
         }
     }
 
-    public static final PendingIntent getPendingIntent(Context c) {
+    public static PendingIntent getPendingIntent(Context c) {
         return PendingIntent.getService(c, 0, getIntent(c), PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
-    public static final PendingIntent getPendingIntent(Context c, Intent data) {
-        return PendingIntent.getService(c, 0, data, PendingIntent.FLAG_CANCEL_CURRENT);
-    }
-
-    public static final Intent getIntent(Context c) {
+    public static Intent getIntent(Context c) {
         return new Intent(c, BattleChatService.class);
     }
 
@@ -163,7 +159,7 @@ public class BattleChatService extends Service {
         alarmManager.cancel(BattleChatService.getPendingIntent(c.getApplicationContext()));
     }
 
-    private String tag(){
+    private String tag() {
         return BattleChatService.class.getSimpleName();
     }
 }

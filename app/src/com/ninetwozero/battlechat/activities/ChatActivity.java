@@ -38,15 +38,15 @@ import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.misc.Keys;
 
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ChatActivity extends AbstractListActivity {
 
@@ -289,7 +289,7 @@ public class ChatActivity extends AbstractListActivity {
         }
 
         public boolean shouldNotifyUser(List<Message> messages) {
-            Message message = null;
+            Message message;
             for (int curr = messages.size() - 1, min = (curr > 5 ? curr - 5 : 0); curr > min; curr--) {
                 message = messages.get(curr);
                 if (message.getTimestamp() < mLatestMessageTimestamp) {
@@ -308,7 +308,7 @@ public class ChatActivity extends AbstractListActivity {
         private List<Message> getMessagesFromJSON(JSONObject chatObject) throws JSONException {
             List<Message> results = new ArrayList<Message>();
             JSONArray messages = chatObject.getJSONArray("messages");
-            JSONObject message = null;
+            JSONObject message;
 
             for (int i = 0, max = messages.length(); i < max; i++) {
                 message = new JSONObject(messages.getString(i));

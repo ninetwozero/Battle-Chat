@@ -14,10 +14,10 @@
 
 package com.ninetwozero.battlechat.http;
 
+import com.ninetwozero.battlechat.BattleChat;
+
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
-
-import com.ninetwozero.battlechat.BattleChat;
 
 public class CookieFactory {
 
