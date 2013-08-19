@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.ninetwozero.battlechat</groupId>
     <artifactId>battle-chat-parent</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.6</version>
   </parent>
 
   <groupId>com.ninetwozero.battlechat</groupId>
@@ -17,7 +17,7 @@
   <properties>
     <eclipse.excludeArtifactIds>android, android-test</eclipse.excludeArtifactIds>
     <tested.project>app</tested.project>
-    <spoon.version>1.0.5</spoon.version>
+    <spoon.version>1.0.3</spoon.version>
   </properties>
 
   <dependencies>
@@ -48,7 +48,7 @@
     <dependency>
       <groupId>com.squareup</groupId>
       <artifactId>fest-android</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.3</version>
     </dependency>
 
     <dependency>

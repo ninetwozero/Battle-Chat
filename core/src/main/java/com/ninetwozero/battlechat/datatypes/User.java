@@ -19,90 +19,113 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     public final static int OFFLINE = 0;
-    public final static int ONLINE = 1;
-    public final static int PLAYING = 264;
+
+    public static final int ONLINE_WEB = 1;
+    public static final int ONLINE_TABLET = 2;
+    public static final int ONLINE_MOBILE = 4;
+    public static final int ONLINE_GAME = 8;
+    public static final int ONLINE_ORIGIN = 16;
+
+    public static final int PLAYING_MP = 256;
+    public static final int PLAYING_COOP = 512;
+    public static final int PLAYING_ORIGIN = 1024;
+
+    public static final int AWAY_WEB = 65536;
+    public static final int AWAY_ORIGIN = 131072;
+
+    public static final int INVISIBLE_WEB = 6777216;
+    public static final int INVISIBLE_TABLET = 33554432;
+    public static final int INVISIBLE_MOBILE = 67108864;
+
+    public static final long GROUP_WEB = 4294967296L;
+    public static final long GROUP_ORIGIN = 8589934592L;
 
     private long mId;
-    private String mUsername;
-    private int mStatus;
+	private String mUsername;
+	private int mState;
+	
+	public User(Parcel in) {
+		mId = in.readLong();
+		mUsername = in.readString();
+		mState = in.readInt();
+	}
+	
+	public User(long id, String name) {
+		mId = id;
+		mUsername = name;
+		mState = ONLINE_WEB;
+	}
+	
+	public User(long id, String name, int status) {
+		mId = id;
+		mUsername = name;
+		mState = status;
+	}
+	
+	public long getId() {
+		return mId;
+	}
+	
+	public String getUsername() {
+		return mUsername;
+	}
+	
+	public boolean isPlaying() {
+		return mState == PLAYING_MP;
+	}
+	
+	public boolean isOnline() {
+		return mState == ONLINE_WEB;
+	}
 
-    public User(Parcel in) {
-        mId = in.readLong();
-        mUsername = in.readString();
-        mStatus = in.readInt();
+    public boolean isAway() {
+        return mState == AWAY_WEB;
     }
-
-    public User(long id, String name) {
-        mId = id;
-        mUsername = name;
-        mStatus = ONLINE;
-    }
-
-    public User(long id, String name, int status) {
-        mId = id;
-        mUsername = name;
-        mStatus = status;
-    }
-
-    public long getId() {
-        return mId;
-    }
-
-    public String getUsername() {
-        return mUsername;
-    }
-
-    public boolean isPlaying() {
-        return mStatus == PLAYING;
-    }
-
-    public boolean isOnline() {
-        return mStatus >= ONLINE && mStatus < PLAYING;
-    }
-
-    public boolean isOffline() {
-        return mStatus == OFFLINE;
-    }
-
-    public String getOnlineStatus() {
-        switch (mStatus) {
+	
+	public boolean isOffline() {
+		return mState == OFFLINE;
+	}
+	
+	public String getOnlineStatus() {
+        switch(mState) {
             case OFFLINE:
                 return "OFFLINE";
-            case ONLINE:
+            case ONLINE_WEB:
                 return "ONLINE";
-            case PLAYING:
+            case PLAYING_MP:
                 return "PLAYING";
+            case AWAY_WEB:
+                return "AWAY";
             default:
-                return "ONLINE"; // 1 <= x < 264 = playing
+                return "UNKNOWN (" + mState + ")";
         }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeLong(mId);
-        out.writeString(mUsername);
-        out.writeInt(mStatus);
-    }
-
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
-    @Override
-    public String toString() {
-        return "User [mId=" + mId + ", mUsername=" + mUsername + ", mStatus="
-                + mStatus + "]";
-    }
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeLong(mId);
+		out.writeString(mUsername);
+		out.writeLong(mState);
+	}
+	
+	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+		public User createFromParcel(Parcel in) {
+			return new User(in);
+		}
+		public User[] newArray(int size) {
+			return new User[size];
+		}
+	};
+	
+	@Override
+	public String toString() {
+		return "User [mId=" + mId + ", mUsername=" + mUsername + ", mState="
+				+ mState + "]";
+	}
 
 }
