@@ -17,11 +17,10 @@ package com.ninetwozero.battlechat.adapters;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractListAdapter;
 import com.ninetwozero.battlechat.datatypes.User;
-
-import java.util.List;
 
 public class UserListAdapter extends AbstractListAdapter<User> {
 	private final int HEADING = 0;
@@ -29,10 +28,6 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 	
 	public UserListAdapter(Context context) {
 		super(context);
-	}
-	
-	public UserListAdapter(Context context, List<User> items) {
-		super(context, items);
 	}
 	
 	@Override
@@ -68,7 +63,7 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 			if( convertView == null ) {
 				convertView = mLayoutInflater.inflate(R.layout.list_item_heading, null);
 			}
-			setText(convertView, R.id.title, user.getUsername());
+			setText(convertView, R.id.text1, user.getUsername());
 			
 		} else {
 			if( convertView == null ) {
@@ -90,7 +85,7 @@ public class UserListAdapter extends AbstractListAdapter<User> {
 		} else if( away ) {
             return R.color.darkgreen;
         } else {
-            return R.color.grey;
+            return R.color.dirtywhite;
         }
 	}
 

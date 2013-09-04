@@ -55,4 +55,9 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
         setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeString(mContext, message.getTimestamp()));
         return convertView;
     }
+
+    public void setOtherUser(final String username) {
+        mOtherUser = username;
+        notifyDataSetChanged();
+    }
 }

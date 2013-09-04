@@ -12,24 +12,26 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.activities;
+package com.ninetwozero.battlechat.fragments;
 
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.abstractions.AbstractListActivity;
+import com.ninetwozero.battlechat.abstractions.AbstractListFragment;
 import com.ninetwozero.battlechat.adapters.MessageListAdapter;
 import com.ninetwozero.battlechat.datatypes.Message;
 import com.ninetwozero.battlechat.datatypes.User;
@@ -48,7 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ChatActivity extends AbstractListActivity {
+public class ChatFragment extends AbstractListFragment {
 
     public static final String EXTRA_USER = "user";
 
@@ -57,28 +59,31 @@ public class ChatActivity extends AbstractListActivity {
     private boolean mFirstRun = true;
     private long mLatestMessageTimestamp = 0;
 
+    private LayoutInflater mInflater;
     private ReloadTask mReloadTask;
     private SendMessageTask mSendMessageTask;
+    private SharedPreferences mSharedPreferences;
     private Timer mTimer;
     private SoundPool mSoundPool;
     private int mSoundId = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        setupOtherUser();
-        setChatTitle();
-        setupForm();
-        setupListView();
-        setupFromSavedInstance(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle icicle) {
+        mInflater = inflater;
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        final View view = mInflater.inflate(R.layout.activity_chat, parent, false);
+        initialize(view, icicle);
+        return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        startTimer();
-        setupSound();
+        if( mUser != null ) {
+            startTimer();
+            setupSound();
+        }
     }
 
     @Override
@@ -87,23 +92,8 @@ public class ChatActivity extends AbstractListActivity {
         new CloseTask().execute(mChatId);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.activity_chat, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_reload) {
-            reload(true);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void setChatTitle() {
-        setTitle(String.format(getString(R.string.text_chat_title), mUser.getUsername()));
+        getActivity().setTitle(String.format(getString(R.string.text_chat_title), mUser.getUsername()));
     }
 
     @Override
@@ -121,8 +111,8 @@ public class ChatActivity extends AbstractListActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle out) {
-        final MessageListAdapter adapter = (MessageListAdapter) getListView().getAdapter();
+    public void onSaveInstanceState(Bundle out) {
+        final MessageListAdapter adapter = (MessageListAdapter) getListAdapter();
         final ArrayList<Message> messages = (ArrayList<Message>) adapter.getItems();
 
         out.putLong("chatId", mChatId);
@@ -133,6 +123,11 @@ public class ChatActivity extends AbstractListActivity {
         super.onSaveInstanceState(out);
     }
 
+    private void initialize(final View view, final Bundle icicle) {
+        setupForm(view);
+        setupFromSavedInstance(icicle);
+    }
+
     private void setupFromSavedInstance(Bundle in) {
         if (in == null) {
             return;
@@ -140,13 +135,14 @@ public class ChatActivity extends AbstractListActivity {
         final long chatId = in.getLong("chatId");
         final User user = in.getParcelable("user");
         final List<Message> friends = in.getParcelableArrayList("messages");
-        final MessageListAdapter adapter = (MessageListAdapter) getListView().getAdapter();
+        final MessageListAdapter adapter = (MessageListAdapter) getListAdapter();
         final boolean firstRun = in.getBoolean("firstRun");
 
         mChatId = chatId;
         mUser = user;
-        adapter.setItems(friends);
         mFirstRun = firstRun;
+
+        adapter.setItems(friends);
     }
 
     private void reload(boolean show) {
@@ -156,16 +152,8 @@ public class ChatActivity extends AbstractListActivity {
         }
     }
 
-    private void setupOtherUser() {
-        mUser = getIntent().getParcelableExtra("user");
-        if (mUser == null) {
-            showToast(R.string.msg_chat_load_fail);
-            finish();
-        }
-    }
-
-    private void setupForm() {
-        findViewById(R.id.button_send).setOnClickListener(
+    private void setupForm(final View view) {
+        view.findViewById(R.id.button_send).setOnClickListener(
                 new OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -175,31 +163,37 @@ public class ChatActivity extends AbstractListActivity {
         );
     }
 
-    private void setupListView() {
-        final ListView listView = getListView();
+    private void setupListView(final View view) {
+        final ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
-        listView.setAdapter(new MessageListAdapter(getApplicationContext(), mUser.getUsername()));
+        setListAdapter(new MessageListAdapter(getActivity(), "N/A"));
+    }
+
+    private void updateUsernameInAdapter(final String username) {
+        ((MessageListAdapter) getListAdapter()).setOtherUser(username);
     }
 
     private void startTimer() {
-        mTimer = new Timer();
-        mTimer.schedule(
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        reload(false);
+        if( mTimer == null ) {
+            mTimer = new Timer();
+            mTimer.schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            reload(false);
+                                        }
                                     }
-                                }
-                        );
-                    }
-                },
-                0,
-                mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25) * 1000 //--> ms
-        );
+                            );
+                        }
+                    },
+                    0,
+                    mSharedPreferences.getInt(Keys.Settings.CHAT_INTERVAL, 25) * 1000 //--> ms
+            );
+        }
     }
 
     private void onSend() {
@@ -208,7 +202,7 @@ public class ChatActivity extends AbstractListActivity {
             return;
         }
 
-        EditText field = (EditText) findViewById(R.id.input_message);
+        EditText field = (EditText) getView().findViewById(R.id.input_message);
         String message = field.getText().toString();
         if (message.length() == 0) {
             field.setError(getString(R.string.msg_chat_send_message_error));
@@ -221,7 +215,7 @@ public class ChatActivity extends AbstractListActivity {
     }
 
     private void toggleButton(boolean enable) {
-        final Button button = (Button) findViewById(R.id.button_send);
+        final Button button = (Button) getView().findViewById(R.id.button_send);
         if (enable) {
             button.setText(R.string.label_send);
             button.setEnabled(true);
@@ -233,7 +227,7 @@ public class ChatActivity extends AbstractListActivity {
     }
 
     private void clearInput() {
-        ((TextView) findViewById(R.id.input_message)).setText("");
+        ((TextView) getView().findViewById(R.id.input_message)).setText("");
     }
 
     private class ReloadTask extends AsyncTask<Void, Void, Boolean> {
@@ -277,11 +271,11 @@ public class ChatActivity extends AbstractListActivity {
                 if (shouldNotifyUser(mMessages)) {
                     notifyWithSound();
                 }
-                ((MessageListAdapter) getListView().getAdapter()).setItems(mMessages);
+                ((MessageListAdapter) getListAdapter()).setItems(mMessages);
                 scrollToBottom();
             } else {
                 showToast(R.string.msg_chat_reload_fail);
-                findViewById(R.id.button_send).setEnabled(false);
+                getView().findViewById(R.id.button_send).setEnabled(false);
                 stopTimer();
             }
             toggleLoading(false);
@@ -374,20 +368,22 @@ public class ChatActivity extends AbstractListActivity {
                 new Runnable() {
                     @Override
                     public void run() {
-                        getListView().setSelection(getListView().getAdapter().getCount() - 1);
+                        getListView().setSelection(getListAdapter().getCount() - 1);
                     }
                 }
         );
     }
 
     private void toggleLoading(boolean isLoading) {
-        final View view = findViewById(R.id.status);
+        final View view = getView().findViewById(R.id.status);
         view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
     }
 
     private void setupSound() {
-        mSoundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
-        mSoundId = mSoundPool.load(getApplicationContext(), R.raw.notification, 1);
+        if( mSoundPool == null ) {
+            mSoundPool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 0);
+            mSoundId = mSoundPool.load(getActivity(), R.raw.notification, 1);
+        }
     }
 
     private void stopSound() {
@@ -411,8 +407,8 @@ public class ChatActivity extends AbstractListActivity {
         protected Boolean doInBackground(Long... params) {
             try {
                 BattleChatClient.get(
-                        HttpUris.Chat.CLOSE.replace("{CHAT_ID}", String.valueOf(params[0])),
-                        HttpHeaders.Get.AJAX
+                    HttpUris.Chat.CLOSE.replace("{CHAT_ID}", String.valueOf(params[0])),
+                    HttpHeaders.Get.AJAX
 
                 );
                 return true;
@@ -421,5 +417,20 @@ public class ChatActivity extends AbstractListActivity {
             }
             return true;
         }
+    }
+
+    public void openChatWithUser(final User user) {
+        mUser = user;
+        if( mUser == null ) {
+            throw new IllegalStateException("User is null");
+        }
+
+        setChatTitle();
+        setupListView(getView());
+
+        startTimer();
+        setupSound();
+
+        reload(true);
     }
 }

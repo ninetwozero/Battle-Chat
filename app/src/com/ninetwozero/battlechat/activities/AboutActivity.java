@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
@@ -22,10 +23,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.ninetwozero.battlechat.R;
 
-public class AboutActivity extends SherlockActivity {
+public class AboutActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

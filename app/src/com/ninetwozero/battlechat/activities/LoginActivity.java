@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -21,6 +22,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -30,9 +33,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
@@ -47,7 +47,7 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 
-public class LoginActivity extends SherlockActivity {
+public class LoginActivity extends Activity {
 
     private boolean mAccept;
     private UserLoginTask mAuthTask;
@@ -156,7 +156,7 @@ public class LoginActivity extends SherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.activity_login, menu);
+        getMenuInflater().inflate(R.menu.activity_login, menu);
         return true;
     }
 
@@ -285,18 +285,18 @@ public class LoginActivity extends SherlockActivity {
         }
 
         private boolean hasLoggedin(Connection.Response response) throws Exception {
-            LoginHtmlParser parser = new LoginHtmlParser(response.parse());
+            final LoginHtmlParser parser = new LoginHtmlParser(response.parse());
             if (parser.hasErrorMessage()) {
                 mErrorMessage = parser.getErrorMessage();
             } else {
                 mSession = new Session(
-                        new User(
-                                parser.getUserId(),
-                                parser.getUsername()),
-                        CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)
-                        ),
-                        mSuppliedEmail,
-                        parser.getChecksum()
+                    new User(
+                        parser.getUserId(),
+                        parser.getUsername()
+                    ),
+                    CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)),
+                    mSuppliedEmail,
+                    parser.getChecksum()
                 );
             }
             return mSession != null;

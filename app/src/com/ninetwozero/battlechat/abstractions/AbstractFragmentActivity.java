@@ -14,19 +14,20 @@
 
 package com.ninetwozero.battlechat.abstractions;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListActivity;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.activities.LoginActivity;
 import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.misc.Keys;
 
-public class AbstractListActivity extends SherlockListActivity {
+public class AbstractFragmentActivity extends Activity {
     protected SharedPreferences mSharedPreferences;
     private Toast mToast;
 
@@ -38,13 +39,9 @@ public class AbstractListActivity extends SherlockListActivity {
             setupBattleChatClient();
             showNotification();
         } else {
+            Log.w("TAG", "SENDING TO LOIGN");
             sendToLoginScreen();
         }
-    }
-
-    final protected void sendToLoginScreen() {
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
     }
 
     public void showToast(final int resource) {
@@ -74,5 +71,10 @@ public class AbstractListActivity extends SherlockListActivity {
         } else {
             BattleChat.clearNotification(getApplicationContext());
         }
+    }
+
+    final protected void sendToLoginScreen() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }
