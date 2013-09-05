@@ -14,13 +14,16 @@
 
 package com.ninetwozero.battlechat.http;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 final public class LoginHtmlParser {
-
     private final Document mDocument;
+    private final String BATTLELOG_AVATAR = "http://battlelog-cdn.battlefield.com/cdnprefix/avatar1/public/base/shared/default-avatar-320.png";
 
     public LoginHtmlParser(final String html) {
         mDocument = Jsoup.parse(html);
@@ -46,6 +49,14 @@ final public class LoginHtmlParser {
         return mDocument.select("#profile-edit-form input[name=post-check-sum]").val();
     }
 
+    public String getGravatar() {
+        final String style = mDocument.select("#base-header-user-tools .avatar").attr("style");
+        final Pattern pattern = Pattern.compile(".*/avatar/(\\w+)\\?.*");
+        final Matcher matcher = pattern.matcher(style);
+
+        return matcher.matches()? getFullGravatarUrl(matcher.group(1)) : BATTLELOG_AVATAR;
+    }
+
     public boolean hasErrorMessage() {
         Elements error = mDocument.select(".gate-login-errormsg.wfont");
         if (error.isEmpty()) {
@@ -61,6 +72,10 @@ final public class LoginHtmlParser {
 
     public boolean isLoggedIn() {
         return mDocument.select(".gate-login-errormsg").isEmpty();
+    }
+
+    private String getFullGravatarUrl(final String hash) {
+        return "http://www.gravatar.com/avatar/" + hash + ".png?s=320";
     }
 
 }

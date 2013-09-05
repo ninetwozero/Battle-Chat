@@ -67,8 +67,13 @@ public class LoginHtmlParserTest {
     }
 
     @Test
-    public void testDetectmLoggedIn() {
+    public void testDetectLoggedIn() {
         Assert.assertTrue(mLoggedIn.isLoggedIn());
         Assert.assertFalse(mLoginError.isLoggedIn());
+    }
+
+    @Test
+    public void testGetGravatar(){
+        Assert.assertEquals(mLoggedIn.getGravatar(), "http://www.gravatar.com/avatar/1241459af7d1ba348ec8b258240ea145.png?s=320");
     }
 }
