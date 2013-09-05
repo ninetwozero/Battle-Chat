@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html xmlns:surf="" id="base-bf3-html" class="no-js is-touch is-android">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge;chrome=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta property="og:image" content="http://battlelog.battlefield.com/public/base/shared/default-avatar-52.png" />
+		<meta name="description" content="Battlelog is a free social platform that ties into Battlefield 3 and lets you socialize, track stats, plan your next game, and more from your web browser!">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<title>
+			Battlelog
+			/ Battlefield 3
+		</title>
+		<link rel="apple-touch-icon-precomposed" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/apple-touch-icon-precomposed.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<script type="text/javascript">
+			(function(m) { if (m) document.location.href = m[1] + decodeURIComponent(m[2]); })(document.location.href.match(new RegExp("(http.*?\/\/.*?)/.*?#!(.*)", "im")));
+		</script>
+		<script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
+		<!--[if lt IE 9]>
+		<script src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/js/ie/IE7.js"></script>
+		<![endif]-->
+		<link rel="stylesheet"
+			type="text/css"
+			href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated-sass/battlelog-touch.css" />
+		<link rel="stylesheet"
+			type="text/css"
+			href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated-sass/bf3-touch.css" />
+		<link rel="stylesheet" type="text/css" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/css/ui-lightness/jquery-ui-1.8.custom.css"/>
+		<link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_base_topbundles_598469677.css"/>
+		<link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_base_topbundles_132965357.css"/>
+		<link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_base_topbundles_2952419077.css"/>
+		<!-- Game specific style -->
+		<link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_base_topbundles_3614378984.css"/>
+		<!-- here it is -->
+		<!--[if IE]>
+		<style>
+			input[type=password]{ padding-right: 0;}
+		</style>
+		<![endif]-->
+		<link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_base_topbundles_3638168734.css"/>
+		<script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_base_topbundles_193731291.js"></script>
+		<script id="base-head-webfontload">
+			var fb = ( ($.browser.mozilla && document.documentElement.style.MozTransform === '') || $.browser.opera );
+			if (fb) {
+			$(document.body).addClass("wf-_fout");
+			}
+			WebFont.load({
+			custom: {
+			families: ["Purista"],
+			urls : ["/cdnprefix/local/public/base/fonts/purista/purista.css"]
+			}
+			});
+			WebFont.load({
+			custom: {
+			families: ['BebasNeueRegular'],
+			urls : ["/cdnprefix/local/public/base/fonts/bebasNeueRegular.css"]
+			}
+			});
+			
+		</script>
+		<script type="text/javascript">
+			WebFont.load({
+			custom: {
+			families: ["Purista"],
+			urls : ["/cdnprefix/local/public/base/fonts/purista/purista.css"]
+			}
+			});
+		</script>
+	</head>
+	<body id="base-bf3-body" class="
+		new-base-bf3-body
+		is-loggedin fullwidth
+		">
+		<surf:container id="comcenter_container">
+			<div id="comcenter-popup" class="comcenter-popup"></div>
+			<div id="comcenter">
+				<div id="comcenter-inner">
+					<div id="comcenter-popup-inner" class="comcenter-popup"></div>
+					<div class="comcenter-divider"></div>
+					<div id="comcenter-chats">
+					</div>
+				</div>
+			</div>
+			<div id="comcenter-friends">
+				<surf:container id="surface-comcenter-area">
+					<div id="comcenter-area" class="comcenter-not-in-voice">
+						<div id="friendlist-header">
+							<p>Com center</p>
+							<i class="icon-search" data-bind-toggle="comcenter-search"></i>
+							<form id="comcenter-search">
+								<input type="text" name="query" value="" placeholder="Find soldiers" />
+								<i class="icon-custom icon-close inverted" data-bind-toggle="comcenter-search"></i>
+							</form>
+						</div>
+						<div id="comcenter-loading">
+							<div class="comcenter-loading-area"></div>
+						</div>
+						<div id="comcenter-tab-friends-content" class="comcenter-tab-content">
+							<div id="comcenter-tab-friends-content-lists-wrapper">
+								<ul id="comcenter-search-results">
+								</ul>
+								<surf:container id="comcenter-surface-friendrequests"></surf:container>
+								<surf:container id="comcenter-surface-friends">
+									<div class="comcenter-no-online-friends">
+										<div class="loader small"></div>
+									</div>
+								</surf:container>
+							</div>
+						</div>
+						<surf:container id="comcenter-party">
+							<div class="comcenter-settings">
+								<div class="pull-left">
+									<button
+										class="btn btn-clean btn-tiny"
+										data-track="groupchat.create"
+										data-bind-action="comcenter-create-party">
+									<i class="icon chat group"></i>Create group chat
+									</button>
+								</div>
+							</div>
+						</surf:container>
+					</div>
+				</surf:container>
+				<div id="comcenter-friendbutton" class="comcenter-item notselectable">
+					<surf:container id="comcenter-surface-taskbar">
+						<div class="comcenter-taskbar-inner ">
+							<div class="comcenter-taskbar-info">
+								<header>
+									<div class="comcenter-origin-logo"></div>
+									<div class="comcenter-button-title">Com center</div>
+								</header>
+								<div class="comcenter-button-info">0 online</div>
+							</div>
+							<div class="comcenter-taskbar-voice-info">
+								<a title="Voice&amp;nbsp;settings" data-tooltip="Voice&amp;nbsp;settings" class="comcenter-voice-setting-icon comcenter-setting" href="/bf3/settings/voice/"></a>
+								<div class="comcenter-setting mic">
+								</div>
+								<div id="comcenter-voice-noise-container" class="comcenter-setting noise">
+									<div id="comcenter-voice-slider-container">
+										<div class="comcenter-sonar-slider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</surf:container>
+				</div>
+				<input id="inviteCoopGame-urlaction" value="/bf3/coop/inviteToCoop/#OWNERPERSONAID#/#USERID#/#LEVEL#/#DIFFICULTY#/" type="hidden" />
+				<input id="resendInviteCoopGame-urlaction" value="/bf3/coop/resendInviteToCoop/#COOPID#/" type="hidden" />
+				<input id="coopStartPublic-urlaction" value="/bf3/coop/startPublic/#LEVEL#/#DIFFICULTY#/" type="hidden" />
+				<input id="coopDecline-urlaction" value="/bf3/coop/declineGame/#COOPID#/" type="hidden" />
+				<input id="coopLeave-urlaction" value="/bf3/coop/leaveGame/#COOPID#/" type="hidden" />
+				<input id="coopJoinGame-urlaction" value="/bf3/coop/acceptInvite/#COOPID#/" type="hidden" />
+				<input id="getMatchmakingFilter" type="hidden" value="/bf3/servers/getSavedMatchmakingFilter/#PLATFORM#/" />
+				<input id="saveServerBrowserFilter" type="hidden" value="/bf3/servers/saveServerBrowserFilter/#PLATFORM#/" />
+			</div>
+			<div id="comcenter-gamecontrol">
+			</div>
+			<script src="https://s3-eu-west-1.amazonaws.com/bl-assets/bp-compat.js"></script>
+		</surf:container>
+		<div id="base-background" class="">
+		</div>
+		<header id="base-header">
+			<section class="community-bar">
+				<div class="inner-wrapper">
+					<div class="grid-container premium-bg">
+						<div class="battlelog-logo">
+							<a href="/bf3/" class="logo"></a>
+						</div>
+						<div class="game-logo">
+							<div class="ajax-loading-wrapper">
+								<div class="loadticker loadticker-small" id="base-ajax-loading"></div>
+							</div>
+							<a class="logo  game-bf3" href="/bf3/"></a>
+							<div class="outerarrow">
+								<div data-bind-community-dropdown="section-select" class="arrow"></div>
+							</div>
+						</div>
+						<section id="base-header-user-tools" class="user-tools">
+							<ul class="tools pull-right">
+								<li id="gamemanager-indicator">
+									<div id="header-gm" data-tool="gameupdater"
+										class="tools-item log gamemanager highlight"
+										data-popover-toggleable="true"
+										data-bind-toggle="popover"
+										data-popover-pos-offset="-42"
+										data-popover-no-unbind="true">
+										<div class="popover-content">
+											<surf:container id="gamemanager-plugin"></surf:container>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div data-tool="matches" data-track="header.icon.matches" class="tools-item log
+										matches" data-bind-toggle="popover" data-popover-no-unbind="true"
+										data-popover-toggleable="true">
+										<div class="base-unread-icon"></div>
+										<div class="popover-content">
+											<div class="header-tool-content"></div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="battlereports-icon" data-tool="reports" data-track="header.icon.battlereports"
+										class="log tools-item reports "
+										data-bind-toggle="popover"
+										data-popover-pos-offset="-43"
+										data-popover-no-unbind="true"
+										data-popover-toggleable="true">
+										<div class="base-unread-icon"></div>
+										<div class="popover-content">
+											<div class="header-tool-content"></div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div id="updates-icon" data-tool="updates" data-track="header.icon.updates" class="tools-item
+										log notifications "
+										data-bind-toggle="popover"
+										data-popover-pos-offset="-75"
+										data-popover-no-unbind="true"
+										data-popover-toggleable="true">
+										<div class="base-unread-icon"></div>
+										<div class="popover-content">
+											<div class="header-tool-content"></div>
+										</div>
+									</div>
+								</li>
+								<li class="comcenter-toggle tools-item">
+									<surf:container id="comcenter-count">
+										<button data-bind-toggle="comcenter">
+										<i class="icon"></i>
+										0
+										</button>
+									</surf:container>
+								</li>
+							</ul>
+						</section>
+					</div>
+				</div>
+				<div class="dropdown-bar">
+					<section class="dropdown-content dropdown-sections" data-dropdown="section-select">
+						<div class="grid-container">
+							<div class="row">
+								<div class="span4">
+									<a href="/bf4/"
+										class="base-no-ajax game-box game-bf4"
+										data-section="bf4">
+										<div class="box-overlay"></div>
+									</a>
+								</div>
+								<div class="span4">
+									<a href="/bf3/"
+										class="base-no-ajax game-box game-bf3 active"
+										data-section="bf3">
+										<div class="box-overlay"></div>
+									</a>
+								</div>
+								<div class="span4">
+									<a href="/mohw/"
+										class="base-no-ajax game-box game-mohw "
+										data-section="mohw">
+										<div class="box-overlay"></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</section>
+			<section class="game-bar">
+				<div class="inner-wrapper">
+					<div class="grid-container">
+						<nav class="main-nav" data-dropdown-urlaction="/bf3/getDropdownMenu/#TYPE#/">
+							<ul class="base-section-menu">
+								<li class="has-dropdown soldier" data-page="stats" data-bind-toggle="dropdown">
+									<a class="wfont"
+										href="/bf3/soldier/NINETWOZERO/stats/177958806/xbox/">
+										<img class="profile-soldier-image "
+											width="48"
+											height="48"
+											src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/soldier/s/bf3-us-recon.png"
+											/>
+										<div id="header-rank" class="header-soldier-rank"></div>
+										<span>Soldier</span>
+									</a>
+								</li>
+								<li class="has-dropdown" data-page="multiplayer" data-bind-toggle="dropdown">
+									<a class="wfont" href="/bf3/servers/">Multiplayer</a>
+								</li>
+								<li data-page="coop">
+									<a class="wfont" href="/bf3/coop/177958806/NINETWOZERO/">
+									CO-OP
+									</a>
+								</li>
+								<li data-page="campaign">
+									<a class="wfont" href="/bf3/campaign/">Campaign</a>
+								</li>
+								<li data-page="platoons">
+									<a class="wfont" href="/bf3/platoon/landing/">Platoons</a>
+								</li>
+							</ul>
+						</nav>
+						<nav id="base-header-secondary-nav" class="secondary-nav">
+							<ul>
+								<li data-page="preorderbf4">
+									<a class="wfont base-no-ajax"
+										href="/bf4/preorder/">
+									Pre-order BF4
+									</a>
+								</li>
+								<li data-page="forum">
+									<a href="/bf3/forum/">Forums</a>
+								</li>
+								<li data-page="devblog">
+									<a href="/bf3/news/">News</a>
+								</li>
+								<li data-page="store">
+									<a href="/bf3/store/">Store</a>
+								</li>
+								<li data-page="premium">
+									<a href="/bf3/premium/" class="premium">Premium</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="grid-container">
+					<div class="dropdown-bar">
+						<div class="dropdown-content" data-for="stats">
+							<div class="row">
+								<nav class="span4 dropdown-menu">
+									<a href="/bf3/soldier/NINETWOZERO/stats/177958806/xbox/">
+									<i class="icon-white icon-pulse"></i>
+									<span>Stats</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/weapons/177958806/xbox/">
+									<i class="icon-white icon-weapon"></i>
+									<span>Weapons</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/vehicles/177958806/xbox/">
+									<i class="icon-white icon-wheel"></i>
+									<span>Vehicles</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/awards/177958806/xbox/">
+									<i class="icon-white icon-medal"></i>
+									<span>Awards</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/assignments/177958806/xbox/">
+									<i class="icon-white icon-check"></i>
+									<span>Assignments</span>
+									</a>
+								</nav>
+								<nav class="span4 dropdown-menu">
+									<a href="/bf3/soldier/NINETWOZERO/dogtags/177958806/xbox/">
+									<i class="icon-white icon-dogtags"></i>
+									<span>Dog Tags</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/loadout/177958806/xbox/">
+									<i class="icon-white icon-briefcase"></i>
+									<span>Loadout</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/unlocks/177958806/xbox/">
+									<i class="icon-white icon-lock"></i>
+									<span>Unlocks</span>
+									</a>
+									<a href="/bf3/soldier/NINETWOZERO/activity/177958806/xbox/">
+									<i class="icon-white icon-clock"></i>
+									<span>Game Activity</span>
+									</a>
+								</nav>
+								<section class="span4">
+									<input type="hidden" data-surface-fetch-id="header-soldier-stats" data-query='stats=1' value="/bf3/indexstats/177958806/1/" />
+									<surf:container id="header-soldier-stats">
+										<div class="soldierstats-box">
+											<header>
+												<div class="name">
+													<a href="/bf3/soldier/NINETWOZERO/stats/177958806/xbox/">NINETWOZERO</a>
+												</div>
+												<div class="platform">
+													<span class="battlereport-header-info-gameicon bright common-gameicon-hori common-game-2-1"></span>
+												</div>
+											</header>
+										</div>
+									</surf:container>
+									<div class="soldierstats-pic-container">
+										<img class="profile-soldier-image pixelate"
+											width="297"
+											height="336"
+											src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/soldier/l/bf3-us-recon.png"
+											style="position: relative; right: -111px"
+											/>
+									</div>
+								</section>
+							</div>
+						</div>
+						<div class="dropdown-content" data-for="multiplayer">
+							<div class="row">
+								<nav class="span4 dropdown-menu">
+									<a href="/bf3/servers/">
+									<i class="icon-white icon-servers"></i>
+									<span>Server Browser</span>
+									</a>
+									<a href="/bf3/servers/favourites/">
+									<i class="icon-white icon-star"></i>
+									<span>Favorites</span>
+									</a>
+									<a href="/bf3/servers/history/">
+									<i class="icon-white icon-clock"></i>
+									<span>History</span>
+									</a>
+									<a href="/bf3/matches/">
+									<i class="icon-white icon-matches"></i>
+									<span>Matches</span>
+									</a>
+								</nav>
+								<nav class="span4 dropdown-menu">
+									<a href="/bf3/leaderboard/">
+									<i class="icon-white icon-ring"></i>
+									<span>Leaderboards</span>
+									</a>
+									<a href="/bf3/leaderboard/ninetwozero/">
+									<i class="icon-white icon-friends"></i>
+									<span>Friend Leaderboards</span>
+									</a>
+								</nav>
+								<div class="span4">
+									<button class="btn btn-primary btn-block btn-large base-quickmatch-serverfilter-menu"
+										data-tooltip="Loading..."
+										data-track="menudropdown.quickmatch"
+										data-game="2"
+										data-platform="1"
+										data-bind-action="quick-match">Quick match</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<ul id="receipt-container"></ul>
+				</div>
+			</section>
+			<section class="sticky-bar">
+				<div class="grid-container" id="sticky-container"></div>
+			</section>
+		</header>
+		<div id="viewport">
+			<div id="base-page">
+				<div id="base-container" class="grid-container">
+					<div id="content" class="content">
+						<input type="hidden" id="popup-showintro" value="introduction main activitystream" data="/bf3/popup/setIntroSectionBitVisited/" />
+						<div class="sitenotification">
+						</div>
+						<div class="main-loggedin-header-puffs">
+							<input type="hidden" id="main-stats-fetch-url" value="/bf3/indexstats/177958806/1/"/>
+							<div class="main-loggedin-header-puff" id="main-loggedin-header-puff-topstory">
+								<a data-track="puff.topstory" href="/bf3/news/view/2955971139751437983/" class="main-topstory-link">
+									<div class="main-loggedin-header-puff-background" style="background-image:url(http://static.cdn.ea.com/battlelog/prod/61d099d23fe104fe673091d470c96970/en_US/blog/en/files/2013/08/deploy-uav-v1-664x352.jpg?v=1377882881.62)"></div>
+									<div class="main-loggedin-header-puff-overlay"></div>
+									<div class="main-loggedin-header-puff-content">
+										<h2 class="wfont">Top Story</h2>
+										<div class="main-loggedin-header-puff-play">
+											<div class="main-topstory-comments">
+												<div class="icon"></div>
+												537
+											</div>
+											<div class="devblog-topstory-votes">
+												<div class="icon"></div>
+												51
+											</div>
+											<h3>Road to Battlefield 4 &#8211; Commander Mode</h3>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="main-loggedin-header-puff fetch-stats" data-track="puff.coop" id="main-loggedin-header-puff-coop" data-href="/bf3/coop/" data-type="coop">
+								<div class="main-loggedin-header-puff-background"></div>
+								<div class="main-loggedin-header-puff-loading common-spinner" data-size="small"></div>
+								<div class="main-loggedin-header-puff-content">
+									<h2 class="wfont">CO-OP</h2>
+									<div class="main-loggedin-header-puff-play">
+										<div class="main-loggedin-header-puff-progress-counter">
+											<surf:container id="main-boxcoop"></surf:container>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="main-loggedin-header-puff last" data-track="puff.premium" id="main-loggedin-header-puff-premium" data-href="/bf3/premium/">
+								<div class="main-loggedin-header-puff-background"></div>
+								<div class="main-loggedin-header-puff-overlay"></div>
+								<div class="main-loggedin-header-puff-content">
+									<h2 class="wfont">Premium</h2>
+									<article>
+										<h1>End Game</h1>
+										<time>
+										Available now!
+										</time>
+										<i class="icon premium-calendar-icon type-0"></i>
+										<img class="event" src="http://static.cdn.ea.com/battlelog/prod/08d692a48c4f8cc239cd094cd9c38804/premium/calendar/easo/editorial/Battlefield/3/calendar/images/bf3premium_xpack_EndGame_thumb_pc_web.png?v=1378405940.78" alt="End Game">
+									</article>
+									<article>
+										<h1>End Game Strategy Guide</h1>
+										<time>
+										Available now!
+										</time>
+										<i class="icon premium-calendar-icon type-2"></i>
+										<img class="event" src="http://static.cdn.ea.com/battlelog/prod/08d692a48c4f8cc239cd094cd9c38804/premium/calendar/easo/editorial/Battlefield/3/calendar/images/3_strategy/bf3premium_strategy_EndGame_thumb_web.png?v=1378405940.78" alt="End Game Strategy Guide">
+									</article>
+									<article>
+										<h1>Premium Video 10: March Premium Video</h1>
+										<time>
+										Available now!
+										</time>
+										<i class="icon premium-calendar-icon type-4"></i>
+										<img class="event" src="http://static.cdn.ea.com/battlelog/prod/08d692a48c4f8cc239cd094cd9c38804/premium/calendar/easo/editorial/Battlefield/3/calendar/images/5_videos/bf3premium_videos10_thumb_web.png?v=1378405940.78" alt="Premium Video 10: March Premium Video">
+									</article>
+									<div class="bullets"><span class="active">&bull;</span><span>&bull;</span><span>&bull;</span></div>
+								</div>
+							</div>
+							<div class="main-loggedin-header-puff fetch-stats" data-track="puff.assignments" id="main-loggedin-header-puff-assignments" data-href="/bf3/soldier/NINETWOZERO/assignments/177958806/xbox/" data-type="assignments">
+								<div class="main-loggedin-header-puff-background"></div>
+								<div class="main-loggedin-header-puff-loading common-spinner" data-size="small"></div>
+								<div class="main-loggedin-header-puff-content">
+									<h2 class="wfont">Assignments</h2>
+									<div class="main-loggedin-header-puff-play">
+										<div class="main-loggedin-header-puff-progress-counter">
+											<surf:container id="main-boxassigments"></surf:container>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="main-loggedin-header-puff fetch-stats last" data-track="puff.unlocks" id="main-loggedin-header-puff-unlocks" data-href="/bf3/soldier/NINETWOZERO/unlocks/177958806/xbox/" data-type="unlocks">
+								<div class="main-loggedin-header-puff-background"></div>
+								<div class="main-loggedin-header-puff-loading common-spinner" data-size="small"></div>
+								<div class="main-loggedin-header-puff-content">
+									<h2 class="wfont">Upcoming Unlocks</h2>
+									<div class="main-loggedin-header-puff-play">
+										<input type="hidden" id="main-unlocks-area" />
+									</div>
+								</div>
+							</div>
+							<div class="base-clear"></div>
+							<div id="main-preorderbf4-banner" class="en_US">
+								<a data-track="entrypoint.banner.preorderbf4"
+									href="/bf4/preorder/">
+									<span class="span-h2">Prepare 4 Battle 10.29.13</span>
+									<div class="base-clear"></div>
+									<span class="span-h3">Pre-order to get the China Rising Expansion Pack</span>
+								</a>
+							</div>
+							<div class="base-clear"></div>
+							<div class="main-loggedin-actionbar noplaybar">
+							</div>
+						</div>
+						<div class="base-middle main-loggedin-middle">
+							<div class="base-middle-content">
+								<div class="row">
+									<div class="span8">
+										<div class="box">
+											<header>
+												<h1>Battle Feed</h1>
+											</header>
+											<div id="main-loggedin-battlelog" class="box-content">
+												<div id="main-loggedin-feed" class="battlefeed" data-bind-feed-mode="feed"
+													data-feed-context="main">
+													<div class="box-content">
+														<div id="profile-status-message" class="profile-your">
+															<div class="message profile-toggle-edit">
+																<div id="profile-status-message-area">
+																	<span class="profile-status-message-text">
+																	You guys should all go get my new app - Internationumber. Free for all Androids ...
+																	</span>
+																	<span class="profile-status-message-date">
+																	8 months ago
+																	</span>
+																</div>
+																<div id="profile-edit-status-button"></div>
+															</div>
+															<form id="profile-edit-form"
+																method="POST"
+																class="profile-toggle-edit base-hide"
+																action="/bf3/user/setStatusmessage/">
+																<input type="hidden" name="post-check-sum" value="ff306cbbaa" />
+																<input type="hidden" value="/bf3/user/getLinkPreview/" id="feed-preview-url"/>
+																<input class="feed-textlimit-count"
+																	maxlength="200"
+																	type="text"
+																	name="message"
+																	id="profile-status-message-edit"
+																	autocomplete="off"
+																	placeholder="Update your status text"
+																	value=""/>
+																<div id="feed-addlinkwithpreviewarea" class="base-hide">
+																	<label class="feed-link-preview-label">Type or paste the URL to your link, video or image<br>
+																	<input class="feed-link-preview" type="text" maxlength=200 type="text" name="urls[]" />
+																	</label>
+																	<surf:container id="feed-link-preview-area"></surf:container>
+																	<div class="spinner">
+																		<img width="16" height="16"
+																			src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/shared/loading16x16.gif" alt="ajax loader" />
+																	</div>
+																</div>
+																<div>
+																	<div class="feed-actions">
+																		<a class="feed-update-status-terms base-no-ajax">UGC Terms</a>
+																		<button type="submit" class="btn btn-primary btn-small">
+																		Update status
+																		</button>
+																	</div>
+																	<div id="feed-addlink-container">
+																		Add: <a id="feed-addlinkwithpreview">Link, video or image</a>
+																	</div>
+																</div>
+																<div class="clear-right"></div>
+															</form>
+														</div>
+													</div>
+													<div id="main-feed-container"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="span4 main-side-column">
+										<div class="box box-plate main-loggedin-leftcolumn-activity activitystream-wrapper">
+											<header>
+												<h1>Game Activity</h1>
+												<ul class="common-selector ui-selector main-loggedin-leftcolumn-activity-filter" data-filter="activitystream">
+													<li class="first" data-show="you">
+														<div>
+															<p>You</p>
+														</div>
+													</li>
+													<li class="last selected" data-show="all">
+														<div>
+															<p>ALL</p>
+														</div>
+													</li>
+												</ul>
+												<div class="activity-header-gameicon common-gameicon common-game-2-xbox"></div>
+											</header>
+											<div class="main-loggedin-leftcolumn-activity-intro">
+												<h4>Introducing Game Activity</h4>
+												<p>Now you have more control of what events you share with your friends. Just click the star next to an event to make it persistent in the Battle Feed.</p>
+												<div class="close"></div>
+											</div>
+											<div class="box-content">
+												<input type="hidden" class="activitystream-events-urlaction" data-filter="you" value="/bf3/activitystream/getEvents/you/" />
+												<input type="hidden" class="activitystream-events-urlaction" data-filter="all" value="/bf3/activitystream/getEvents/" />
+												<div class="activitystream-list-wrapper scrollbar-visible">
+													<surf:container id="activitystream-surface">
+														<ul class="list activitystream-list small">
+															<li data-id="18244176303" class=" item activitystream-item small clearfix not-mine" data-id="18244176303" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/Mhuppe/"
+																		rel="2832660339167839467"
+																		style="background-image: url(http://www.gravatar.com/avatar/0595d414e0c45161d607298807473786?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/Mhuppe/">Mhuppe</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378408258" class="base-ago">4 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>ANTI VEHICLE RIBBON</b><br>In a round, Destroy 3 enemy vehicles." class="award-item">
+																		<a href="/bf3/soldier/Mhuppe/awards/352305499/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r10.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18244176303/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18245645584" class=" item activitystream-item small clearfix not-mine shared" data-id="18245645584" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378408190" class="base-ago">5 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>PDW RIBBON</b><br>In a round, kill 7 enemies with Personal Defense Weapons." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r07.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>FLAG DEFENDER RIBBON</b><br>In a round, get 5 Flag Defends." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r41.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST WINNER RIBBON</b><br>Win a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r31.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST RIBBON</b><br>Finish a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r36.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SUPPRESSION RIBBON</b><br>In a round, get 3 Suppression Assists." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r15.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18245645584/" data-tooltip="Shared to Battle Feed"></div>
+															</li>
+															<li data-id="18244272249" class=" item activitystream-item small clearfix not-mine" data-id="18244272249" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/Mhuppe/"
+																		rel="2832660339167839467"
+																		style="background-image: url(http://www.gravatar.com/avatar/0595d414e0c45161d607298807473786?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/Mhuppe/">Mhuppe</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378406957" class="base-ago">26 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>AIR WARFARE RIBBON</b><br>In a round, kill 5 enemies with Air Vehicles." class="award-item">
+																		<a href="/bf3/soldier/Mhuppe/awards/352305499/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r27.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST WINNER RIBBON</b><br>Win a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/Mhuppe/awards/352305499/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r31.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST RIBBON</b><br>Finish a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/Mhuppe/awards/352305499/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r36.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ANTI VEHICLE RIBBON</b><br>In a round, Destroy 3 enemy vehicles." class="award-item">
+																		<a href="/bf3/soldier/Mhuppe/awards/352305499/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r10.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18244272249/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237603159" class=" item activitystream-item small clearfix not-mine shared" data-id="18237603159" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378406696" class="base-ago">30 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>MELEE RIBBON</b><br>In a round, kill 4 enemies with Melee Weapons." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r08.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>DISABLE VEHICLE RIBBON</b><br>In a round, Disable 4 enemy vehicles." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r09.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST WINNER RIBBON</b><br>Win a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r31.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST RIBBON</b><br>Finish a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r36.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SAVIOR RIBBON</b><br>In a round, get 2 Savior Kills." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r13.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237603159/" data-tooltip="Shared to Battle Feed"></div>
+															</li>
+															<li data-id="18240718441" class=" item activitystream-item small clearfix not-mine" data-id="18240718441" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378406271" class="base-ago">37 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>RUSH RIBBON</b><br>Finish a Rush round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r35.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18240718441/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18240718313" class=" item activitystream-item small clearfix not-mine" data-id="18240718313" data-type="BF3GAMEREPORT">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new unlocks</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378406271" class="base-ago">37 minutes ago</span>
+																	</p>
+																	<div class="clear"></div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_WNAME_M98B" data-tooltip="<b>Laser Sight</b><br>Unlocked for <b>M98B</b> by getting <b>20</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/targetpointer.png" />
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18240718313/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18241665893" class=" item activitystream-item small clearfix not-mine shared" data-id="18241665893" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378405586" class="base-ago">49 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>TDMCQ WINNER RIBBON</b><br>Win a TDMCQ round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/tdmcq2d.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>AUG A3 SERVICE STAR</b><br>AWARDED EVERY 100 KILLS WITH THE AUG A3" class="award-item">
+																		<img width="43" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/servicestars/servicestar-43x43.png" style="margin: 0;" />
+																	</div>
+																	<div data-tooltip="<b>AVENGER RIBBON</b><br>In a round, get 3 Avenger Kills." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r12.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>TDMCQ RIBBON</b><br>Finish a TDMCQ round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/tdmcqribbon.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MVP 2 RIBBON</b><br>In a round, be the 2nd Best Player." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r17.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18241665893/" data-tooltip="Shared to Battle Feed"></div>
+															</li>
+															<li data-id="18244423972" class=" item activitystream-item small clearfix not-mine" data-id="18244423972" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378405518" class="base-ago">50 minutes ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>SQUAD SPAWN RIBBON</b><br>In a round, get 7 Squad Spawn Bonuses." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r22.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>RUSH WINNER RIBBON</b><br>Win a Rush round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r30.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>AIR WARFARE RIBBON</b><br>In a round, kill 5 enemies with Air Vehicles." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r27.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>RUSH RIBBON</b><br>Finish a Rush round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r35.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>RESUPPLY EFFICIENCY RIBBON</b><br>In a round, get 7 Resupplies." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r42.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18244423972/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18244019239" class=" item activitystream-item small clearfix not-mine" data-id="18244019239" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378404850" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>SQUAD SPAWN RIBBON</b><br>In a round, get 7 Squad Spawn Bonuses." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r22.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>HAND GUN RIBBON</b><br>In a round, kill 4 enemies with Handguns." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r05.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MVP 2 RIBBON</b><br>In a round, be the 2nd Best Player." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r17.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SCAVENGER RIBBON</b><br>Finish a Scavenger round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/scavengerribbon.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18244019239/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18239538924" class=" item activitystream-item small clearfix not-mine" data-id="18239538924" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378404496" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>SAVIOR RIBBON</b><br>In a round, get 2 Savior Kills." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r13.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>TEAM DEATHMATCH RIBBON</b><br>Finish a Team Deathmatch round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r37.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MEDICAL EFFICIENCY RIBBON</b><br>In a round, get 5 Revives." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r44.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18239538924/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18239538796" class=" item activitystream-item small clearfix not-mine" data-id="18239538796" data-type="BF3GAMEREPORT">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new unlocks</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378404496" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear"></div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_WNAME_F2000" data-tooltip="<b>Heavy Barrel</b><br>Unlocked for <b>F2000</b> by getting <b>20</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/heavybarrel.png" />
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18239538796/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18242233080" class=" item activitystream-item small clearfix not-mine" data-id="18242233080" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378403823" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>TANK SUPERIORITY RIBBON</b><br>Finish a Tank Superiority round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/tanksuperiorityribbon.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>TANK SUPERIORITY WINNER RIBBON</b><br>Win a Tank Superiority round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/tanksuperiority2d.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18242233080/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237427163" class=" item activitystream-item small clearfix not-mine" data-id="18237427163" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378403595" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>FLAG ATTACKER RIBBON</b><br>In a round, get 4 Flag Captures." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r40.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST WINNER RIBBON</b><br>Win a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r31.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>CONQUEST RIBBON</b><br>Finish a Conquest round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r36.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SAVIOR RIBBON</b><br>In a round, get 2 Savior Kills." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r13.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ACCURACY RIBBON</b><br>In a round, get 5 Headshots." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r11.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MVP 3 RIBBON</b><br>In a round, be the 3rd Best Player." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r18.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SUPPRESSION RIBBON</b><br>In a round, get 3 Suppression Assists." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r15.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MEDICAL EFFICIENCY RIBBON</b><br>In a round, get 5 Revives." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r44.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237427163/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237427035" class=" item activitystream-item small clearfix not-mine" data-id="18237427035" data-type="BF3GAMEREPORT">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new unlocks</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378403595" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear"></div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_XP2_WNAME_SCARL" data-tooltip="<b>Holographic (HOLO)</b><br>Unlocked for <b>SCAR-L</b> by getting <b>80</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/eotech.png" />
+																	</div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_XP2_WNAME_SCARL" data-tooltip="<b>Suppressor</b><br>Unlocked for <b>SCAR-L</b> by getting <b>70</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/soundsuppressor.png" />
+																	</div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_XP2_WNAME_SCARL" data-tooltip="<b>Bipod</b><br>Unlocked for <b>SCAR-L</b> by getting <b>60</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/bipod.png" />
+																	</div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_XP2_WNAME_SCARL" data-tooltip="<b>Reflex (RDS)</b><br>Unlocked for <b>SCAR-L</b> by getting <b>50</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/rx01.png" />
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237427035/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18238755050" class=" item activitystream-item small clearfix not-mine shared" data-id="18238755050" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378403269" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>SQUAD SPAWN RIBBON</b><br>In a round, get 7 Squad Spawn Bonuses." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r22.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>HAND GUN RIBBON</b><br>In a round, kill 4 enemies with Handguns." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r05.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ACE SQUAD RIBBON</b><br>In a round, be part of the Best Squad." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r19.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>AVENGER RIBBON</b><br>In a round, get 3 Avenger Kills." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r12.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SCAVENGER RIBBON</b><br>Finish a Scavenger round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/scavengerribbon.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18238755050/" data-tooltip="Shared to Battle Feed"></div>
+															</li>
+															<li data-id="18237963928" class=" item activitystream-item small clearfix not-mine" data-id="18237963928" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378402461" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>SQUAD SPAWN RIBBON</b><br>In a round, get 7 Squad Spawn Bonuses." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r22.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SAVIOR RIBBON</b><br>In a round, get 2 Savior Kills." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r13.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>RUSH RIBBON</b><br>Finish a Rush round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r35.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237963928/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18242133670" class=" item activitystream-item small clearfix not-mine" data-id="18242133670" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378401843" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>RUSH WINNER RIBBON</b><br>Win a Rush round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r30.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>RUSH RIBBON</b><br>Finish a Rush round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r35.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18242133670/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237345304" class=" item activitystream-item small clearfix not-mine" data-id="18237345304" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378401477" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>DOMINATION WINNER RIBBON</b><br>Win a Domination round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/conquest_domination2d.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SAVIOR RIBBON</b><br>In a round, get 2 Savior Kills." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r13.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ACCURACY RIBBON</b><br>In a round, get 5 Headshots." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r11.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ACE SQUAD RIBBON</b><br>In a round, be part of the Best Squad." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r19.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SUPPRESSION RIBBON</b><br>In a round, get 3 Suppression Assists." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r15.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MEDICAL EFFICIENCY RIBBON</b><br>In a round, get 5 Revives." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r44.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MVP RIBBON</b><br>In a round, be the Best Player." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r16.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>DOMINATION RIBBON</b><br>Finish a Domination round." class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/awards/364860111/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/conquest_dominationribbon.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237345304/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237345176" class=" item activitystream-item small clearfix not-mine" data-id="18237345176" data-type="BF3ASSIGNMENTS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">completed an assignment</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378401477" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div class="assignment-item" data-tooltip="Bullet Point">
+																		<a href="/bf3/soldier/vyktor_95/assignments/364860111/pc/" >
+																		<img width="206" height="52" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/assignments/2048/xp2a08.jpg" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237345176/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18237345048" class=" item activitystream-item small clearfix not-mine" data-id="18237345048" data-type="BF3GAMEREPORT">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/vyktor_95/"
+																		rel="2832659368512972718"
+																		style="background-image: url(http://www.gravatar.com/avatar/d5e23880887bedd18fe135a41b429ed5?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/vyktor_95/">vyktor_95</a>
+																		<span class="description">received new unlocks</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378401477" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear"></div>
+																	<div class="award-item">
+																		<a href="/bf3/soldier/vyktor_95/iteminfo/jng-90/364860111/pc/">
+																		<img data-sid="BF3_ID_P_XP2_WNAME_JNG90" data-tooltip="<b>JNG-90</b>&lt;br&gt;1 / 1 Assignment" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/xp2_jng90.png" />
+																		</a>
+																	</div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_WNAME_AEK971" data-tooltip="<b>PKA-S (HOLO)</b><br>Unlocked for <b>AEK-971</b> by getting <b>80</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/pkas.png" />
+																	</div>
+																	<div class="award-item">
+																		<img data-parentid="BF3_ID_P_WNAME_AEK971" data-tooltip="<b>Suppressor</b><br>Unlocked for <b>AEK-971</b> by getting <b>70</b> kills" width="79" height="43" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/items_79x43/soundsuppressor.png" />
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18237345048/" data-tooltip="Share to Battle Feed"></div>
+															</li>
+															<li data-id="18241197714" class=" item activitystream-item small clearfix not-mine shared" data-id="18241197714" data-type="BF3AWARDS">
+																<div class="avatar">
+																	<a class="avatar medium playing"
+																		href="/bf3/user/LittleBoySVK/"
+																		rel="2832665149443593606"
+																		style="background-image: url(http://www.gravatar.com/avatar/c6ab81de2b9a29b1cdff4e84e9cc59a2?s=36&amp;d=http%3A%2F%2Fbattlelog-cdn.battlefield.com%2Fcdnprefix%2Favatar1%2Fpublic%2Fbase%2Fshared%2Fdefault-avatar-36.png);"
+																		>
+																	</a>
+																</div>
+																<div class="item-body">
+																	<div class="user">
+																		<a class="base-profile-link name" href="/bf3/user/LittleBoySVK/">LittleBoySVK</a>
+																		<span class="description">received new awards</span>
+																	</div>
+																	<p class="details">
+																		<span data-timestamp="1378401437" class="base-ago">1 hour ago</span>
+																	</p>
+																	<div class="clear spacing"></div>
+																	<div data-tooltip="<b>RUSH RIBBON</b><br>Finish a Rush round." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r35.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>AVENGER RIBBON</b><br>In a round, get 3 Avenger Kills." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r12.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>SUPPRESSION RIBBON</b><br>In a round, get 3 Suppression Assists." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r15.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>ASSAULT RIFLE RIBBON</b><br>In a round, kill 7 enemies with Assault Rifles." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r01.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																	<div data-tooltip="<b>MEDICAL EFFICIENCY RIBBON</b><br>In a round, get 5 Revives." class="award-item">
+																		<a href="/bf3/soldier/LittleBoySVK/awards/200661244/pc/">
+																		<img width="75" height="25" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/profile/bf3/stats/ribbons/s/r44.png" style="margin: 9px 2px 9px 2px;" />
+																		</a>
+																	</div>
+																</div>
+																<div class="share" data-urlaction="/bf3/activitystream/share/18241197714/" data-tooltip="Shared to Battle Feed"></div>
+															</li>
+														</ul>
+													</surf:container>
+												</div>
+											</div>
+											<footer class="view-more"><span class="base-link">View more</span></footer>
+										</div>
+										<div data-advertisement="homepage" data-advertisement-url="http://adsrv-int.ea.com/api/20120529/advertisement" class="advirticement with-default ad320x200">
+											<div class="advirticement-default">
+												<a href="http://store.dice.se/battlefield/?utm_source=battlelog&amp;utm_medium=banner&amp;utm_content=bl-front-store&amp;utm_campaign=battlelog-front-store-banner"><img width="320" height="200" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/main/ad-dicestore.png"></a>
+											</div>
+										</div>
+										<div id="main-postlistsmall" class="devblog">
+											<div class="right-column">
+												<section class="box
+													box-secondary
+													devblog-postlistsmall">
+													<header>
+														<h1 class="dev-blog-item-header">Latest News</h1>
+													</header>
+													<div class="box-content">
+														<div class="devblog-item ">
+															<div class="thumbnail">
+																<a href="/bf3/news/view/2955971139751437983/"><img src="http://static.cdn.ea.com/battlelog/prod/61d099d23fe104fe673091d470c96970/en_US/blog/en/files/2013/08/deploy-uav-v1-75x53.jpg?v=1377882881.62" /></a>
+															</div>
+															<div class="iteminfo">
+																<a href="/bf3/news/view/2955971139751437983/" class="post-title">Road to Battlefield 4 &#8211; Commander Mode</a>
+																<div class="textinfo">
+																	<span>
+																	<span data-timestamp="1377882478" class="base-ago">6 days ago</span>
+																	<img width="3" height="3" class="common-square" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/common/common-square.png" />
+																	537
+																	comments
+																	</span>
+																</div>
+															</div>
+															<div class="clear"></div>
+														</div>
+													</div>
+													<div class="box-content">
+														<div class="devblog-item ">
+															<div class="thumbnail">
+																<a href="/bf3/news/view/2955971139553711519/"><img src="http://static.cdn.ea.com/battlelog/prod/61d099d23fe104fe673091d470c96970/en_US/blog/en/files/2013/08/ThursBatlogPost-75x53.jpg?v=1377177663.45" /></a>
+															</div>
+															<div class="iteminfo">
+																<a href="/bf3/news/view/2955971139553711519/" class="post-title">Levolutionizing the Battle</a>
+																<div class="textinfo">
+																	<span>
+																	<span data-timestamp="1377177658" class="base-ago">2 weeks ago</span>
+																	<img width="3" height="3" class="common-square" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/common/common-square.png" />
+																	860
+																	comments
+																	</span>
+																</div>
+															</div>
+															<div class="clear"></div>
+														</div>
+													</div>
+													<div class="box-content">
+														<div class="devblog-item ">
+															<div class="thumbnail">
+																<a href="/bf3/news/view/2955971139526683039/"><img src="http://static.cdn.ea.com/battlelog/prod/61d099d23fe104fe673091d470c96970/en_US/blog/en/files/2013/08/corey-75x53.jpg?v=1377079648.84" /></a>
+															</div>
+															<div class="iteminfo">
+																<a href="/bf3/news/view/2955971139526683039/" class="post-title">Prepare 4 Battlefield 4 Paracel Storm Live Stream</a>
+																<div class="textinfo">
+																	<span>
+																	<span data-timestamp="1377079517" class="base-ago">2 weeks ago</span>
+																	<img width="3" height="3" class="common-square" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/common/common-square.png" />
+																	562
+																	comments
+																	</span>
+																</div>
+															</div>
+															<div class="clear"></div>
+														</div>
+													</div>
+													<footer>
+														<a class="main-all-news-link" href="/bf3/news/">All news</a>
+													</footer>
+												</section>
+												<section class="box box-secondary devblog-postlistsmall"
+													id="friendrecommendation-main-container" data-recommendations-url="/bf3/friendrecommendation/getFriendRecommendations/">
+													<header>
+														<h1 class="dev-blog-item-header">Recommended friends</h1>
+													</header>
+													<div class="box-content"></div>
+												</section>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="base-clear"></div>
+							<div id="main-dfa-area"></div>
+						</div>
+						<script type="text/javascript">
+							$(function() {
+							main.initTealium("http://d.xp1.ru4.com/meta?_o=42032312&amp;_t=battlefieldlogcont&amp;_random=57761058606&amp;ssv_custid=2267812884");
+							});
+						</script>
+					</div>
+					<div id="grid-overlay">
+						<div class="row">
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+							<div class="span1"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="esnlaunch_container"></div>
+		</div>
+		<div id="fb-root"></div>
+		<div id="draggables"></div>
+		<div id="popup-intro-browser-wrapper"></div>
+		<div id="feedback-popup-opener-tab" class="feedback-popup-opener" data-track="feedback.opener"></div>
+		<div id="soundFxPlayer"></div>
+		<div id="dialog-container"></div>
+		<div id="unified-game-manager"></div>
+		<script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_base_bottombundles_256467712.js"></script>
+		<script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_base_bottombundles_462311433.js"></script>
+		<script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_base_bottombundles_3963374309.js"></script>
+		<script src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/dynamic/bf3/en_US.js"></script>
+		<script src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/dynamic/web/en_US.js"></script>
+		<script type="text/javascript">
+			Surface.setTimeZoneData('UTC');
+			Surface.urlContext = {"_section":"bf3"};
+			Surface.globalContext = {"feed":[{"numLikes":1,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68512218","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"r31","0_unlockId":"r07","3_unlockId":"r36","1_unlockId":"r41","4_unlockId":"r15"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R07_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R07_DESC","imageName":"r07","unlockId":"r07","type":2048},{"nameSID":"BF3_ID_P_AWARD_R41_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R41_DESC","imageName":"r41","unlockId":"r41","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408258,"itemId":"18245645584","likeUserIds":["2832660143725998945"],"ownerId":"2832665149443593606","id":"2955852759329617286","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":1,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68510418","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"r31","0_unlockId":"r08","3_unlockId":"r36","1_unlockId":"r09","4_unlockId":"r13"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R08_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R08_DESC","imageName":"r08","unlockId":"r08","type":2048},{"nameSID":"BF3_ID_P_AWARD_R09_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R09_DESC","imageName":"r09","unlockId":"r09","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408256,"itemId":"18237603159","likeUserIds":["2832660143725998945"],"ownerId":"2832665149443593606","id":"2955852759329617030","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":1,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68509125","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"3_unlockId":"r01","4_unlockId":"xp2rntdmcq","2_unlockId":"r12","5_unlockId":"r17","0_unlockId":"xp2rtdmc","1_unlockId":"sshaarAUG"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_XP2_P_AWARD_R_TDMCQ_NAME","image":null,"descriptionSID":"BF3_ID_XP2_P_AWARD_R_TDMCQ_DESC","imageName":"tdmcq2d","unlockId":"xp2rtdmc","type":2048},{"nameSID":"BF3_ID_P_WSTAR_NAME_STEYRAUG","image":null,"descriptionSID":"BF3_ID_P_WSTAR_DESC_STEYRAUG","imageName":"servicestar","unlockId":"sshaarAUG","type":8192},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_TDMCQ_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_TDMCQ_DESC","imageName":"tdmcqribbon","unlockId":"xp2rntdmcq","type":2048},{"nameSID":"BF3_ID_P_AWARD_R17_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R17_DESC","imageName":"r17","unlockId":"r17","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408254,"itemId":"18241665893","likeUserIds":["2832660143725998945"],"ownerId":"2832665149443593606","id":"2955852759329616646","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":0,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68506652","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"r19","0_unlockId":"r22","3_unlockId":"r12","1_unlockId":"r05","4_unlockId":"xp4rnscv"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_R05_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R05_DESC","imageName":"r05","unlockId":"r05","type":2048},{"nameSID":"BF3_ID_P_AWARD_R19_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R19_DESC","imageName":"r19","unlockId":"r19","type":2048},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_DESC","imageName":"scavengerribbon","unlockId":"xp4rnscv","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408250,"itemId":"18238755050","likeUserIds":[],"ownerId":"2832665149443593606","id":"2955852759329616134","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":0,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68504720","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"r15","0_unlockId":"r35","3_unlockId":"r01","1_unlockId":"r12","4_unlockId":"r44"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_P_AWARD_R44_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R44_DESC","imageName":"r44","unlockId":"r44","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408246,"itemId":"18241197714","likeUserIds":[],"ownerId":"2832665149443593606","id":"2955852759329615878","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":0,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68502492","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"xp3rnts","0_unlockId":"r21","3_unlockId":"xp3rts","1_unlockId":"r25"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R21_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R21_DESC","imageName":"r21","unlockId":"r21","type":2048},{"nameSID":"BF3_ID_P_AWARD_R25_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R25_DESC","imageName":"r25","unlockId":"r25","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_TS_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_TS_DESC","imageName":"tanksuperiorityribbon","unlockId":"xp3rnts","type":2048},{"nameSID":"BF3_ID_XP3_P_AWARD_R_TANKSUPERIORITY_NAME","image":null,"descriptionSID":"BF3_ID_XP3_P_AWARD_R_TANKSUPERIORITY_DESC","imageName":"tanksuperiority2d","unlockId":"xp3rts","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408241,"itemId":"18232572852","likeUserIds":[],"ownerId":"2832665149443593606","id":"2955852759329615238","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":0,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68501293","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"2_unlockId":"r35","0_unlockId":"r21","3_unlockId":"r43","1_unlockId":"r25"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R21_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R21_DESC","imageName":"r21","unlockId":"r21","type":2048},{"nameSID":"BF3_ID_P_AWARD_R25_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R25_DESC","imageName":"r25","unlockId":"r25","type":2048},{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048},{"nameSID":"BF3_ID_P_AWARD_R43_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R43_DESC","imageName":"r43","unlockId":"r43","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378408236,"itemId":"18233987801","likeUserIds":[],"ownerId":"2832665149443593606","id":"2955852759329613830","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":0,"owner":{"username":"pittnuma","gravatarMd5":"99e5e1028971b49b3473466bb7ddb627","userId":"2832659177436564008","createdAt":1322595298,"presence":{"userId":"2832659177436564008","updatedAt":1378408530,"presenceStates":"0"}},"feedCategory":4,"personaId":"375537412","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68466327","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"rank":"129"},"MOHWAWARDS":null,"eventName":"BF3RANKUP","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":null,"BLAZECLUBJOINED":null,"BF3RANKUP":{"nameSID":"BF3_ID_P_RANK129_NAME","rank":129},"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378382404,"itemId":"18206911317","likeUserIds":[],"ownerId":"2832659177436564008","id":"2955057088719542312","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832659177436564008","user":{"username":"pittnuma","gravatarMd5":"99e5e1028971b49b3473466bb7ddb627","userId":"2832659177436564008","createdAt":1322595298,"presence":{"userId":"2832659177436564008","updatedAt":1378408530,"presenceStates":"0"}},"updatedAt":1378318570,"firstPartyId":"","personaId":"375537412","personaName":"pittnuma","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"374\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":2,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":2,"personaId":null,"shareText":null,"platform":null,"hidden":false,"STATUSMESSAGE":{"preview":"{\"provider_url\":\"http:\\\/\\\/www.agiledata.org\",\"title\":\"Introduction to Test Driven Development (TDD)\",\"url\":\"http:\\\/\\\/www.agiledata.org\\\/essays\\\/tdd.html\",\"thumbnail_width\":847,\"version\":\"1.0\",\"provider_name\":\"Agiledata\",\"thumbnail_url\":\"http:\\\/\\\/www.agiledata.org\\\/images\\\/atdd.jpg\",\"type\":\"link\",\"thumbnail_height\":783}","statusMessage":"Yesterday DICE cock-up with update wasn't cool at all. It does show serious issues with their deployment. Nobody can convince me that they do proper TDD - Test Driven Development"},"numComments":0,"creationDate":1378368628,"itemId":"2832665149443593606","likeUserIds":["2832660143725998945","2832658801538203661"],"ownerId":"2832665149443593606","id":"2955852759328439046","isCommentable":true,"owner2":null,"section":1073741824,"comments":[],"event":"statusmessage","ownerId2":"0","persona":null,"BATTLEPACK":null,"comment1":null,"comment2":null},{"numLikes":1,"owner":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"feedCategory":4,"personaId":"200661244","shareText":"","platform":1,"hidden":false,"numComments":0,"SHAREDGAMEEVENT":{"gameHistoryId":"68466630","BF3GAMEREPORT":null,"BF4TRACKINGCOMPLETE":null,"BF4ASSIGNMENTS":null,"BF3ASSIGNMENTS":null,"RANKUP":null,"BF4RANKUP":null,"mapping":{"7_unlockId":"xp4rscav","3_unlockId":"r05","4_unlockId":"r18","2_unlockId":"r08","5_unlockId":"r12","0_unlockId":"r22","1_unlockId":"m17","6_unlockId":"xp4rnscv"},"MOHWAWARDS":null,"eventName":"BF3AWARDS","BF4GAMEREPORT":null,"BLAZECLUBCREATED":null,"MOHWTOUR":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_M17_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_M17_DESC","imageName":"m17","unlockId":"m17","type":1024},{"nameSID":"BF3_ID_P_AWARD_R08_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R08_DESC","imageName":"r08","unlockId":"r08","type":2048},{"nameSID":"BF3_ID_P_AWARD_R05_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R05_DESC","imageName":"r05","unlockId":"r05","type":2048},{"nameSID":"BF3_ID_P_AWARD_R18_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R18_DESC","imageName":"r18","unlockId":"r18","type":2048},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_DESC","imageName":"scavengerribbon","unlockId":"xp4rnscv","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_R_SCAVENGER_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_R_SCAVENGER_DESC","imageName":"scavenger2d","unlockId":"xp4rscav","type":2048}]},"BLAZECLUBJOINED":null,"BF3RANKUP":null,"MOHWITEMS":null,"MOHWRECORD":null,"BF4AWARDS":null},"creationDate":1378323968,"itemId":"18204612876","likeUserIds":["2832659982671138128"],"ownerId":"2832665149443593606","id":"2955852759327414534","isCommentable":true,"owner2":null,"section":2,"comments":[],"event":"sharedgameevent","ownerId2":"0","persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BATTLEPACK":null,"comment1":null,"comment2":null}],"currentUrl":"|bf3|","userContext":{"showingFriendRequests":true,"friends":[]},"staticContext":{"googleAnalytics":"UA-28072291-1","suggestionTypes":{"real":{},"CAMPAIGN_ASSIGNMENT":256,"ASSIGNMENT":128,"WEAPON":2,"denominator":{},"numerator":{},"KIT_UNLOCK":16,"VEHICLE_ATTACHMENT":8,"PERSONAL_RECORD":1,"SERVICE_STAR":512,"imag":{},"BATTLEPACK":1024,"MEDAL":32,"WEAPON_ATTACHMENT":4,"RIBBON":64},"userPresenceStates":{"AWAY_ORIGIN":131072,"PLAYING_MP":256,"ONLINE_TABLET":2,"PLAYING_ORIGIN":1024,"ONLINE_ORIGIN":16,"numerator":{},"INVISIBLE_MOBILE":67108864,"denominator":{},"INVISIBLE_TABLET":33554432,"PLAYING_COOP":512,"GROUP_WEB":4294967296,"ONLINE_GAME":8,"GROUP_ORIGIN":8589934592,"ONLINE_MOBILE":4,"real":{},"imag":{},"INVISIBLE_WEB":16777216,"ONLINE_WEB":1,"AWAY_WEB":65536},"pluginDownloadUrl":"\/public\/download\/battlelog-web-plugins_2.1.7_115.exe","locale":"en_US","idleTimeout":600,"isProduction":true,"serverBrowserMaxSize":300,"platforms":{"real":{},"imag":{},"denominator":{},"numerator":{},"XBOXONE":64,"XBOX":8,"PC":1,"XBOX360":2,"PS2":16,"PS3":4,"PS4":32},"pluginVersion":"2.1.7","sslAvailable":true,"advertisementService":"http:\/\/adsrv-int.ea.com\/api\/20120529\/advertisement","gateDLCBodyClass":"","preferredLang":null,"currentHost":"http:\/\/battlelog.battlefield.com:80","originStoreExpansions":{"8192":"OFB-EAST:55172","512":"OFB-EAST:41331","4096":"OFB-EAST:51080","16384":"OFB-EAST:109546437","1024":"OFB-EAST:50401","2048":"OFB-EAST:50631"},"socialSharingEnabled":false,"myPersonas":[{"picture":"","personaId":"177958806","games":{"2":"2"},"personaName":"NINETWOZERO","updatedAt":1378327089,"userId":"2832658801548551060","clanTag":"","originalPersona":{"picture":"","userId":"2832658801548551060","user":null,"updatedAt":1378327089,"firstPartyId":"","personaId":"177958806","personaName":"NINETWOZERO","gamesLegacy":"0","namespace":"xbox","gamesJson":"{\"2\":\"2\",\"64\":\"0\"}","games":{"64":"0","2":"2"},"clanTag":""},"namespace":"xbox"}],"battlereportFeedbackSurveyUrl":"\/bf4\/about\/at-survey\/","languages":[{"lang":"en","value":1},{"lang":"de","value":2},{"lang":"fr","value":4},{"lang":"es","value":8},{"lang":"it","value":16},{"lang":"pl","value":32},{"lang":"ru","value":64},{"lang":"ja","value":128},{"lang":"ko","value":256},{"lang":"zh","value":512},{"lang":"cs","value":1024}],"useSonar":true,"launchTimerInSeconds":0,"sections":{"real":{},"BFBC":128,"ALL":536870912,"MOHW":4096,"urlStrings":["bf3","all","api","mohw","bf4"],"BFMC":512,"imag":{},"denominator":{},"numerator":{},"BF1942":4,"BFP4F":1024,"BF3":2,"BF2":32,"BFHEROES":256,"BF1943":8,"BF2142":64,"BFBC2":1,"GENERAL":1073741824,"BFVIETNAM":16,"WARSAW":2048},"pluginLauncherVersion":"115","friendrecommendationEnabled":true,"gameExpansions":{"BF3AM":8192,"BF3AK":4096,"BF4PREPURCHASE":65536,"VANILLA":0,"BF2142NS":4,"BF4XP3DT":4194304,"BF3PREMIUM":1024,"BF3EG":16384,"BF1942SW":2,"BFBCPS3DEMO":128,"BF3CQ":2048,"BF2AF":8,"BF4XP2NS":2097152,"MOHWPDLC0":32768,"BFBC360DEMO":64,"real":{},"imag":{},"denominator":{},"BF2SF":32,"BF4DDPREPURCHASE":131072,"BF1942RTR":1,"BF4XP1CR":1048576,"BF3B2K":512,"BF4PREMIUM":262144,"BF4XP4FS":8388608,"numerator":{},"BF4XP0SA":524288,"BF2EF":16,"BFBC2NAM":256},"buildVersion":"production-9","keeperQueryEndpoint":"","facebookOpenGraphEnabled":false,"checkPlugin":false,"nucleusNamespaces":{"BATTLEFIELD":"battlefield","CEM_EA_ID":"cem_ea_id","XBOX":"xbox","PS3":"ps3"},"ownsActiveGame":true,"devguideEnabled":false,"isTouchDevice":true,"allowRunGame":false,"useJsDebug":false,"backdropUrl":"","voice":{"xmlInitUrl":"http:\/\/battlelog.battlefield.com\/sonar\/xml\/","version":"0.70.4"},"serverBrowserPageSize":30,"activePersona":{"picture":"bf3-us-recon","personaId":"177958806","personaName":"NINETWOZERO","userId":"2832658801548551060","banned":false,"namespace":"xbox","platform":1,"game":2,"games":{"64":"0","2":"2"}},"logClientSideErrors":false,"gameType":{"real":{},"COOP":4,"imag":{},"SP":2,"numerator":{},"denominator":{},"MP":1,"NOT_PLAYING":0},"keeperEnabled":false,"tealiumUrl":"http:\/\/d.xp1.ru4.com\/meta?_o=42032312&_t=battlefieldlogcont&_random=57761058606&ssv_custid=2267812884","checkGameInstalled":false,"currentHostSecure":"https:\/\/battlelog.battlefield.com:443","games":{"real":{},"BFBC":128,"BF1943":8,"MOHW":4096,"BFMC":512,"imag":{},"denominator":{},"numerator":{},"BF1942":4,"BFP4F":1024,"BF3":2,"BF2":32,"BFHEROES":256,"BF2142":64,"BFBC2":1,"BFVIETNAM":16,"WARSAW":2048},"cdnBaseDir":"battlelog\/prod\/","detectedBrowser":{"isIOS":false,"isWin64":false,"isAndroid":true,"appVersion":null,"isOriginIGO":false,"isWinXP":false,"isIE":false,"isHybridApp":false,"isTouchDevice":true,"appCapabilities":null,"isCommanderApp":false,"isWindows":false},"originStoreScriptUrl":"https:\/\/games.web.dm.origin.com\/web\/ecommerce\/originStoreWeb","gravatarDefaultUrl":"http:\/\/battlelog-cdn.battlefield.com\/cdnprefix\/avatar1\/public\/base\/shared\/default-avatar-[SIZE].png","sslStrategy":"login"},"isAjaxFetch":false,"currentCanonicalURL":"http:\/\/battlelog.battlefield.com\/bf3\/","flushStorage":true,"session":{"hasAdminAccess":false,"postChecksum":"ff306cbbaa","user":{"username":"ninetwozero","gravatarMd5":"1241459af7d1ba348ec8b258240ea145","userId":"2832658801548551060","createdAt":1319665326,"presence":{"userId":"2832658801548551060","updatedAt":1378408530,"presenceStates":"0"}},"rollouts":["LIVE_SCOREBOARD","SERVERBANNER_UPLOAD","ESPORT_MATCHES","ESPORT_MATCHES_PC","SERVERBANNER_UPLOAD_PS3","ESPORT_MATCHES_PS3","SERVERBANNER_UPLOAD_XBOX","ESPORT_MATCHES_XBOX","BF3LOADOUT","CLUB_EMBLEMS"],"userGameExpansions":{"512":[2],"1024":[],"65536":[],"131072":[]},"locale":{"shortdate":"%d\/%m","fulldate":"%Y-%m-%d","offset":120,"time":"%H:%M"},"isLoggedIn":true,"userGames":{"2":[2],"4":[1]},"userId":"2832658801548551060","introSectionBits":47},"useExperimentalPush":false,"systemUtcTime":1378408530,"mutedSounds":31,"staticPrefix":"http:\/\/battlelog-cdn.battlefield.com\/cdnprefix\/9c6d33122d17c","realm":{"lang":1,"game":2,"section":2},"pushConnections":[{"sslAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","apiKey":"planet","nodeNumber":0,"channelsWithAuth":["1378451730;3dc2e92263f5437247bd3ca0259607359d733118friendfeed_2832658801548551060","1378451730;374de6239ea83a5348d0837de741b9516ff06b60bp:user","1378451730;b658a7ac2b058fb1228c6a349b28a1463c167180tablet"],"sslEnabled":false,"sslWsAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","channels":["friendfeed_2832658801548551060","bp:user","tablet"],"token":"1378451730;be76b529c4db2f00c9971cd73d03f57381a0c02e","user":"2832658801548551060","address":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","wsAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","log":false}],"recentLogin":false,"useSockJsPush":true,"activitystreaminfo":{},"pushOperator":"prod","writeBanUntil":0,"componentName":"main","feedContext":"home","hasWriteBan":false,"pushFlashUrl":"http:\/\/ec2-54-217-226-90.eu-west-1.compute.amazonaws.com\/clients\/client-1.swf","activeMenu":"home","requestURI":"http:\/\/battlelog.battlefield.com\/bf3\/","isAjaxNavigation":false,"actionName":"index","isSecure":false,"pushJavascriptUrl":"http:\/\/ec2-54-217-226-90.eu-west-1.compute.amazonaws.com\/clients\/client-2.js","banType":0,"frontpageAdvertisement":{"image":"\/public\/main\/ad-dicestore.png","link":"http:\/\/store.dice.se\/battlefield\/?utm_source=battlelog&utm_medium=banner&utm_content=bl-front-store&utm_campaign=battlelog-front-store-banner","script":"http:\/\/adsrv.ea.com\/api\/20120529\/advertisement"}};
+			Surface.urlactionMap = {};
+			Surface.Renderer.state.usedTemplates = ['profile.showsoldierpic', 'header.bf3dropdownsoldier', 'activitystream.list', 'comcenter.list', 'popup.empty', 'comcenter.area', 'base.bf3headerdropdown', 'feed.postmessage', 'ui.soldierstats', 'base.footer', 'launcher.empty', 'ui.avatar', 'battlereport.empty', 'main.loggedin', 'notification.empty', 'base.headersecondarynav', 'surfaceframework.index', 'base.header', 'base.postChecksum', 'devblog.postlistsmall', 'activitystream.item', 'ui.selector', 'sonar.empty', 'base.topbundles', 'activitystream.itembody', 'base.headerusertools', 'notificationevent.empty', 'unifiedgamemanager.empty', 'dialog.empty', 'base.index', 'header.dropdownsoldier', 'friend.empty', 'feed.feedpoststatusmessage', 'base.googleanalytics', 'profile.link', 'popup.showIntro', 'comcenter.index', 'base.push', 'common.ago', 'base.ajaxindex', 'ui.loader', 'base.bottombundles', 'base.ago', 'base.headernav', 'main.bonusexpbar', 'gamemanager.empty', 'common.square'];
+			Surface.Renderer.state.usedComponents = ['profile', 'feed', 'popup', 'activitystream', 'launcher', 'notification', 'unifiedgamemanager', 'battlereport', 'notificationevent', 'surfaceframework', 'header', 'devblog', 'base', 'ui', 'common', 'dialog', 'gamemanager', 'sonar', 'main', 'comcenter', 'friend'];
+			Surface.domReady(Surface.Renderer.invokeUsedComponents);
+			typeof(block_main_loggedin) != 'undefined' ? base.index.surface_108_6.render({}, block_main_loggedin) : Surface.logMissingBlockConfig('block_main_loggedin', 'comcenter_container');
+			typeof(block_comcenter_list) != 'undefined' ? comcenter.list.surface_3_2.render({"friendrequests":null,"userContext":null,"showingOffline":null,"friendscomcenter":null,"captureMode":null,"showingFriendRequests":null,"originavailable":null,"comcenterLoading":null,"gc":null,"showingOnline":null,"uc":null,"pptkey":null}, block_comcenter_list) : Surface.logMissingBlockConfig('block_comcenter_list', 'surface-comcenter-area');
+			typeof(block_comcenter_area) != 'undefined' ? comcenter.area.surface_8_6.render({"unread":null,"friendscomcenter":null}, block_comcenter_area) : Surface.logMissingBlockConfig('block_comcenter_area', 'comcenter-surface-taskbar');
+			typeof(block_base_headerusertools) != 'undefined' ? base.headerusertools.surface_21_25.render({"states":null,"state":null}, block_base_headerusertools) : Surface.logMissingBlockConfig('block_base_headerusertools', 'gamemanager-plugin');
+			typeof(block_base_headerusertools) != 'undefined' ? base.headerusertools.surface_178_17.render({}, block_base_headerusertools) : Surface.logMissingBlockConfig('block_base_headerusertools', 'comcenter-count');
+			typeof(block_header_dropdownsoldier) != 'undefined' ? header.dropdownsoldier.surface_31_17.render({}, block_header_dropdownsoldier) : Surface.logMissingBlockConfig('block_header_dropdownsoldier', 'header-soldier-stats');
+			typeof(block_main_loggedin) != 'undefined' ? main.loggedin.surface_102_34.render({"takenLevels":null}, block_main_loggedin) : Surface.logMissingBlockConfig('block_main_loggedin', 'main-boxcoop');
+			typeof(block_main_loggedin) != 'undefined' ? main.loggedin.surface_151_34.render({"missionTrees":null}, block_main_loggedin) : Surface.logMissingBlockConfig('block_main_loggedin', 'main-boxassigments');
+			typeof(block_feed_feedpoststatusmessage) != 'undefined' ? feed.feedpoststatusmessage.surface_27_9.render({"media":null}, block_feed_feedpoststatusmessage) : Surface.logMissingBlockConfig('block_feed_feedpoststatusmessage', 'feed-link-preview-area');
+			typeof(block_main_loggedin) != 'undefined' ? main.loggedin.surface_335_38.render({"activitystream":[{"BF4ASSIGNMENTS":null,"userId":"2832660339167839467","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R10_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R10_DESC","imageName":"r10","unlockId":"r10","type":2048}]},"MOHWITEMS":null,"id":"18244176303","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378408258,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832660339167839467","user":{"username":"Mhuppe","gravatarMd5":"0595d414e0c45161d607298807473786","userId":"2832660339167839467","createdAt":1319847507,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"352305499"},"userId":"2832660339167839467","playingMp":{"serverGuid":"18dca8a7-e5e6-4e47-b0df-4edce854ac5a","platform":1,"personaId":"352305499","gameId":"14952952","role":1,"gameExpansions":[0],"serverName":"[ABF]NoshahrCanal little birds no igla\/stinger FastRespawn","gameMode":1,"game":2,"levelName":"MP_017"},"updatedAt":1378408155,"isPlaying":true,"presenceStates":"65801","isOnline":true}},"updatedAt":1378405973,"firstPartyId":"","personaId":"352305499","personaName":"Mhuppe","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"5382\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"352305499","game":2,"user":{"username":"Mhuppe","gravatarMd5":"0595d414e0c45161d607298807473786","userId":"2832660339167839467","createdAt":1319847507,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"352305499"},"userId":"2832660339167839467","playingMp":{"serverGuid":"18dca8a7-e5e6-4e47-b0df-4edce854ac5a","platform":1,"personaId":"352305499","gameId":"14952952","role":1,"gameExpansions":[0],"serverName":"[ABF]NoshahrCanal little birds no igla\/stinger FastRespawn","gameMode":1,"game":2,"levelName":"MP_017"},"updatedAt":1378408155,"isPlaying":true,"presenceStates":"65801","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68512305","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R07_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R07_DESC","imageName":"r07","unlockId":"r07","type":2048},{"nameSID":"BF3_ID_P_AWARD_R41_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R41_DESC","imageName":"r41","unlockId":"r41","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048}]},"MOHWITEMS":null,"id":"18245645584","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378408190,"MOHWRECORD":null,"isShared":true,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68512218","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832660339167839467","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R27_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R27_DESC","imageName":"r27","unlockId":"r27","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R10_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R10_DESC","imageName":"r10","unlockId":"r10","type":2048}]},"MOHWITEMS":null,"id":"18244272249","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378406957,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832660339167839467","user":{"username":"Mhuppe","gravatarMd5":"0595d414e0c45161d607298807473786","userId":"2832660339167839467","createdAt":1319847507,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"352305499"},"userId":"2832660339167839467","playingMp":{"serverGuid":"18dca8a7-e5e6-4e47-b0df-4edce854ac5a","platform":1,"personaId":"352305499","gameId":"14952952","role":1,"gameExpansions":[0],"serverName":"[ABF]NoshahrCanal little birds no igla\/stinger FastRespawn","gameMode":1,"game":2,"levelName":"MP_017"},"updatedAt":1378408155,"isPlaying":true,"presenceStates":"65801","isOnline":true}},"updatedAt":1378405973,"firstPartyId":"","personaId":"352305499","personaName":"Mhuppe","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"5382\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"352305499","game":2,"user":{"username":"Mhuppe","gravatarMd5":"0595d414e0c45161d607298807473786","userId":"2832660339167839467","createdAt":1319847507,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"352305499"},"userId":"2832660339167839467","playingMp":{"serverGuid":"18dca8a7-e5e6-4e47-b0df-4edce854ac5a","platform":1,"personaId":"352305499","gameId":"14952952","role":1,"gameExpansions":[0],"serverName":"[ABF]NoshahrCanal little birds no igla\/stinger FastRespawn","gameMode":1,"game":2,"levelName":"MP_017"},"updatedAt":1378408155,"isPlaying":true,"presenceStates":"65801","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68510750","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R08_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R08_DESC","imageName":"r08","unlockId":"r08","type":2048},{"nameSID":"BF3_ID_P_AWARD_R09_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R09_DESC","imageName":"r09","unlockId":"r09","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048}]},"MOHWITEMS":null,"id":"18237603159","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378406696,"MOHWRECORD":null,"isShared":true,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68510418","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048}]},"MOHWITEMS":null,"id":"18240718441","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378406271,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68509923","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":null,"MOHWITEMS":null,"id":"18240718313","BF3GAMEREPORT":{"statItems":[{"nameSID":"BF3_ID_P_ANAME_LASER","image":"targetpointer","guid":null,"slug":"laser-sight","parentNameSID":"BF3_ID_P_WNAME_M98B","parentImage":"m98b","descriptionSID":"BF3_ID_P_ADESC_LASER","unlockId":"ID_P_ANAME_LASER","codeNeeded":"c_srM98__kwa_g","valueNeeded":"20.0","type":256}]},"eventName":"BF3GAMEREPORT","platform":1,"timestamp":1378406271,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68509923","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_XP2_P_AWARD_R_TDMCQ_NAME","image":null,"descriptionSID":"BF3_ID_XP2_P_AWARD_R_TDMCQ_DESC","imageName":"tdmcq2d","unlockId":"xp2rtdmc","type":2048},{"nameSID":"BF3_ID_P_WSTAR_NAME_STEYRAUG","image":null,"descriptionSID":"BF3_ID_P_WSTAR_DESC_STEYRAUG","imageName":"servicestar","unlockId":"sshaarAUG","type":8192},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_TDMCQ_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_TDMCQ_DESC","imageName":"tdmcqribbon","unlockId":"xp2rntdmcq","type":2048},{"nameSID":"BF3_ID_P_AWARD_R17_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R17_DESC","imageName":"r17","unlockId":"r17","type":2048}]},"MOHWITEMS":null,"id":"18241665893","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378405586,"MOHWRECORD":null,"isShared":true,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68509125","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_R30_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R30_DESC","imageName":"r30","unlockId":"r30","type":2048},{"nameSID":"BF3_ID_P_AWARD_R27_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R27_DESC","imageName":"r27","unlockId":"r27","type":2048},{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048},{"nameSID":"BF3_ID_P_AWARD_R42_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R42_DESC","imageName":"r42","unlockId":"r42","type":2048}]},"MOHWITEMS":null,"id":"18244423972","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378405518,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68509050","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_R05_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R05_DESC","imageName":"r05","unlockId":"r05","type":2048},{"nameSID":"BF3_ID_P_AWARD_R17_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R17_DESC","imageName":"r17","unlockId":"r17","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_DESC","imageName":"scavengerribbon","unlockId":"xp4rnscv","type":2048}]},"MOHWITEMS":null,"id":"18244019239","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378404850,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68508352","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_P_AWARD_R37_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R37_DESC","imageName":"r37","unlockId":"r37","type":2048},{"nameSID":"BF3_ID_P_AWARD_R44_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R44_DESC","imageName":"r44","unlockId":"r44","type":2048}]},"MOHWITEMS":null,"id":"18239538924","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378404496,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68507957","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":null,"MOHWITEMS":null,"id":"18239538796","BF3GAMEREPORT":{"statItems":[{"nameSID":"BF3_ID_P_ANAME_BARREL","image":"heavybarrel","guid":null,"slug":"heavy-barrel","parentNameSID":"BF3_ID_P_WNAME_F2000","parentImage":"f2000","descriptionSID":"BF3_ID_P_ADESC_BARREL","unlockId":"ID_P_ANAME_BARREL","codeNeeded":"c_arF2__kwa_g","valueNeeded":"20.0","type":256}]},"eventName":"BF3GAMEREPORT","platform":1,"timestamp":1378404496,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68507957","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_XP4_P_AWARD_N_TS_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_TS_DESC","imageName":"tanksuperiorityribbon","unlockId":"xp3rnts","type":2048},{"nameSID":"BF3_ID_XP3_P_AWARD_R_TANKSUPERIORITY_NAME","image":null,"descriptionSID":"BF3_ID_XP3_P_AWARD_R_TANKSUPERIORITY_DESC","imageName":"tanksuperiority2d","unlockId":"xp3rts","type":2048}]},"MOHWITEMS":null,"id":"18242233080","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378403823,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68507276","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R40_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R40_DESC","imageName":"r40","unlockId":"r40","type":2048},{"nameSID":"BF3_ID_P_AWARD_R31_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R31_DESC","imageName":"r31","unlockId":"r31","type":2048},{"nameSID":"BF3_ID_P_AWARD_R36_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R36_DESC","imageName":"r36","unlockId":"r36","type":2048},{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048},{"nameSID":"BF3_ID_P_AWARD_R11_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R11_DESC","imageName":"r11","unlockId":"r11","type":2048},{"nameSID":"BF3_ID_P_AWARD_R18_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R18_DESC","imageName":"r18","unlockId":"r18","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_P_AWARD_R44_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R44_DESC","imageName":"r44","unlockId":"r44","type":2048}]},"MOHWITEMS":null,"id":"18237427163","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378403595,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68507016","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":null,"MOHWITEMS":null,"id":"18237427035","BF3GAMEREPORT":{"statItems":[{"nameSID":"BF3_ID_P_ANAME_EOTECH","image":"eotech","guid":null,"slug":"holographic-holo","parentNameSID":"BF3_ID_P_XP2_WNAME_SCARL","parentImage":"xp2_scarl","descriptionSID":"BF3_ID_P_ADESC_EOTECH","unlockId":"ID_P_ANAME_EOTECH","codeNeeded":"c_arSCARL__kwa_g","valueNeeded":"80.0","type":256},{"nameSID":"BF3_ID_P_ANAME_SILENCER","image":"soundsuppressor","guid":null,"slug":"suppressor","parentNameSID":"BF3_ID_P_XP2_WNAME_SCARL","parentImage":"xp2_scarl","descriptionSID":"BF3_ID_P_ADESC_SILENCER","unlockId":"ID_P_ANAME_SILENCER","codeNeeded":"c_arSCARL__kwa_g","valueNeeded":"70.0","type":256},{"nameSID":"BF3_ID_P_ANAME_BIPOD","image":"bipod","guid":null,"slug":"bipod","parentNameSID":"BF3_ID_P_XP2_WNAME_SCARL","parentImage":"xp2_scarl","descriptionSID":"BF3_ID_P_ADESC_BIPOD","unlockId":"ID_P_ANAME_BIPOD","codeNeeded":"c_arSCARL__kwa_g","valueNeeded":"60.0","type":256},{"nameSID":"BF3_ID_P_ANAME_RX01","image":"rx01","guid":null,"slug":"reflex-rds","parentNameSID":"BF3_ID_P_XP2_WNAME_SCARL","parentImage":"xp2_scarl","descriptionSID":"BF3_ID_P_ADESC_RX01","unlockId":"ID_P_ANAME_RX01","codeNeeded":"c_arSCARL__kwa_g","valueNeeded":"50.0","type":256}]},"eventName":"BF3GAMEREPORT","platform":1,"timestamp":1378403595,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68507016","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_R05_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R05_DESC","imageName":"r05","unlockId":"r05","type":2048},{"nameSID":"BF3_ID_P_AWARD_R19_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R19_DESC","imageName":"r19","unlockId":"r19","type":2048},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_SCAVENGER_DESC","imageName":"scavengerribbon","unlockId":"xp4rnscv","type":2048}]},"MOHWITEMS":null,"id":"18238755050","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378403269,"MOHWRECORD":null,"isShared":true,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68506652","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R22_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R22_DESC","imageName":"r22","unlockId":"r22","type":2048},{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048},{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048}]},"MOHWITEMS":null,"id":"18237963928","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378402461,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68505791","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R30_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R30_DESC","imageName":"r30","unlockId":"r30","type":2048},{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048}]},"MOHWITEMS":null,"id":"18242133670","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378401843,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68505148","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_XP3_P_AWARD_R_DOMINATION_NAME","image":null,"descriptionSID":"BF3_ID_XP3_P_AWARD_R_DOMINATION_DESC","imageName":"conquest_domination2d","unlockId":"xp3rdom","type":2048},{"nameSID":"BF3_ID_P_AWARD_R13_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R13_DESC","imageName":"r13","unlockId":"r13","type":2048},{"nameSID":"BF3_ID_P_AWARD_R11_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R11_DESC","imageName":"r11","unlockId":"r11","type":2048},{"nameSID":"BF3_ID_P_AWARD_R19_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R19_DESC","imageName":"r19","unlockId":"r19","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_P_AWARD_R44_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R44_DESC","imageName":"r44","unlockId":"r44","type":2048},{"nameSID":"BF3_ID_P_AWARD_R16_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R16_DESC","imageName":"r16","unlockId":"r16","type":2048},{"nameSID":"BF3_ID_XP4_P_AWARD_N_DOMINATION_NAME","image":null,"descriptionSID":"BF3_ID_XP4_P_AWARD_N_DOMINATION_DESC","imageName":"conquest_dominationribbon","unlockId":"xp4rndom","type":2048}]},"MOHWITEMS":null,"id":"18237345304","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378401477,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68504773","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":null,"MOHWITEMS":null,"id":"18237345176","BF3GAMEREPORT":null,"eventName":"BF3ASSIGNMENTS","platform":1,"timestamp":1378401477,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":{"statItems":[{"nameSID":"BF3_ID_XP2_ASSIGNMENT_8","image":"xp2a08","unlockId":"xp2ma08"}]},"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68504773","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832659368512972718","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":null,"MOHWITEMS":null,"id":"18237345048","BF3GAMEREPORT":{"statItems":[{"nameSID":"BF3_ID_P_XP2_WNAME_JNG90","image":"xp2_jng90","guid":"B8CA6D09-62C2-4208-A094-B8E50F716E47","slug":"jng-90","parentNameSID":null,"parentImage":null,"descriptionSID":"BF3_ID_P_XP2_WDESC_JNG90","unlockId":"B8CA6D09-62C2-4208-A094-B8E50F716E47","codeNeeded":"xp2ma08_00","valueNeeded":"1.0","type":64},{"nameSID":"BF3_ID_P_ANAME_PKAS","image":"pkas","guid":null,"slug":"pka-s-holo","parentNameSID":"BF3_ID_P_WNAME_AEK971","parentImage":"aek971","descriptionSID":"BF3_ID_P_ADESC_PKAS","unlockId":"ID_P_ANAME_PKAS","codeNeeded":"c_arAEK__kwa_g","valueNeeded":"80.0","type":256},{"nameSID":"BF3_ID_P_ANAME_SILENCER","image":"soundsuppressor","guid":null,"slug":"suppressor","parentNameSID":"BF3_ID_P_WNAME_AEK971","parentImage":"aek971","descriptionSID":"BF3_ID_P_ADESC_SILENCER","unlockId":"ID_P_ANAME_SILENCER","codeNeeded":"c_arAEK__kwa_g","valueNeeded":"70.0","type":256}]},"eventName":"BF3GAMEREPORT","platform":1,"timestamp":1378401477,"MOHWRECORD":null,"isShared":false,"persona":{"picture":"","userId":"2832659368512972718","user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378327779,"firstPartyId":"","personaId":"364860111","personaName":"vyktor_95","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"1030\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"364860111","game":2,"user":{"username":"vyktor_95","gravatarMd5":"d5e23880887bedd18fe135a41b429ed5","userId":"2832659368512972718","createdAt":1319968458,"presence":{"onlineGame":{"platform":4,"game":2,"personaId":"301442493"},"userId":"2832659368512972718","playingMp":{"serverGuid":null,"platform":4,"personaId":"301442493","gameId":null,"role":1,"gameExpansions":null,"serverName":null,"gameMode":null,"game":2,"levelName":null},"updatedAt":1378408372,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68504773","BF4AWARDS":null},{"BF4ASSIGNMENTS":null,"userId":"2832665149443593606","MOHWAWARDS":null,"BF4GAMEREPORT":null,"autoshare":null,"BF3AWARDS":{"statItems":[{"nameSID":"BF3_ID_P_AWARD_R35_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R35_DESC","imageName":"r35","unlockId":"r35","type":2048},{"nameSID":"BF3_ID_P_AWARD_R12_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R12_DESC","imageName":"r12","unlockId":"r12","type":2048},{"nameSID":"BF3_ID_P_AWARD_R15_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R15_DESC","imageName":"r15","unlockId":"r15","type":2048},{"nameSID":"BF3_ID_P_AWARD_R01_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R01_DESC","imageName":"r01","unlockId":"r01","type":2048},{"nameSID":"BF3_ID_P_AWARD_R44_NAME","image":null,"descriptionSID":"BF3_ID_P_AWARD_R44_DESC","imageName":"r44","unlockId":"r44","type":2048}]},"MOHWITEMS":null,"id":"18241197714","BF3GAMEREPORT":null,"eventName":"BF3AWARDS","platform":1,"timestamp":1378401437,"MOHWRECORD":null,"isShared":true,"persona":{"picture":"","userId":"2832665149443593606","user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"updatedAt":1378312112,"firstPartyId":"","personaId":"200661244","personaName":"LittleBoySVK","gamesLegacy":"0","namespace":"cem_ea_id","gamesJson":"{\"1\":\"294\"}","games":{},"clanTag":""},"BF4TRACKINGCOMPLETE":null,"MOHWTOUR":null,"personaId":"200661244","game":2,"user":{"username":"LittleBoySVK","gravatarMd5":"c6ab81de2b9a29b1cdff4e84e9cc59a2","userId":"2832665149443593606","createdAt":1319522597,"presence":{"onlineGame":{"platform":1,"game":2,"personaId":"200661244"},"userId":"2832665149443593606","playingMp":{"serverGuid":"acf9b9a9-b0ce-4057-a953-9607a589dc60","platform":1,"personaId":"200661244","gameId":"14943298","role":1,"gameExpansions":[0],"serverName":" Stinky Fish Head HC * 40 Slots*no pro Gamer*  Caspian \/ Kharg*","gameMode":64,"game":2,"levelName":"MP_018"},"updatedAt":1378408347,"isPlaying":true,"presenceStates":"265","isOnline":true}},"BF3RANKUP":null,"BLAZECLUBJOINED":null,"BF3ASSIGNMENTS":null,"BF4RANKUP":null,"BLAZECLUBCREATED":null,"likeUserIds":[],"RANKUP":null,"gameHistoryId":"68504720","BF4AWARDS":null}],"activitystreamListsize":"small","activitystreamFilterShow":"all","mineOnly":null}, block_main_loggedin) : Surface.logMissingBlockConfig('block_main_loggedin', 'activitystream-surface');Surface.Renderer.warnDuplicateSurfaces();
+		</script>
+		<script type="text/javascript">
+			/* We want to store these right away, not on dom ready */
+			base.staticContext = S.globalContext.staticContext;
+			base.userContext = S.globalContext.userContext
+			// console.log spam fix
+			Surface.$.event.props = Surface.$.event.props.join('|').replace('layerX|layerY|', '').split('|');
+		</script>
+		<script type="text/javascript" src="http://s3-eu-west-1.amazonaws.com/bl-assets/beaconpush/client-4.min.js"></script>
+		<script>
+			try {
+			
+			
+			main.beaconPush = new Beaconpush(
+			'http://ec2-54-217-226-90.eu-west-1.compute.amazonaws.com/session', 'prod', '2832658801548551060', '1378451730;be76b529c4db2f00c9971cd73d03f57381a0c02e', { debug: false }
+			);
+			main.beaconPush.connect();
+			['friendfeed_2832658801548551060', 'bp:user', 'tablet']
+			main.beaconPush.setSubscriptions(["friendfeed_2832658801548551060","bp:user","tablet"], Push.listener);
+			
+			} catch(e) {
+			// BP failed to load so we need to create a dummy object
+			S.error("Beaconpush failed to load!");
+			var fn = function(){};
+			var props = "connect,setSubscriptions,subscribe,trigger,triggerInterval,triggerUser".split(",");
+			main.beaconPush = {};
+			while (props.length) {
+			main.beaconPush[props.splice(0,1)] = fn;
+			}
+			}
+		</script>
+		<script language="javascript">
+			var ga_id = S.globalContext.staticContext.googleAnalytics;
+			if(ga_id){
+			$.ga(ga_id);
+			$.ga.Anonymize()
+			$.ga.setWebsite();
+			$.ga.setVisitor();
+			$.ga.trackPageview();
+			}
+		</script>
+	</body>
+</html>

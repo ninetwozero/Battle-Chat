@@ -34,15 +34,12 @@ final public class LoginHtmlParser {
     }
 
     public long getUserId() {
-        String id = mDocument.select(".base-header-profile-dropdown-username .base-avatar-size-large").attr("rel");
-        if (id.equals("")) {
-            id = "0";
-        }
-        return Long.parseLong(id);
+        final String id = mDocument.select("#base-header-user-tools .avatar").attr("rel");
+        return "".equals(id)? 0 : Long.parseLong(id);
     }
 
     public String getUsername() {
-        return mDocument.select(".header-profile-dropdown .profile > a > div").text();
+        return mDocument.select("#base-header-user-tools .header-profile-dropdown .profile > a > div").text();
     }
 
     public String getChecksum() {
@@ -78,4 +75,15 @@ final public class LoginHtmlParser {
         return "http://www.gravatar.com/avatar/" + hash + ".png?s=320";
     }
 
+    @Override
+    public String toString() {
+        return "LoginHtmlParser{" +
+                ", userId=" + getUserId() +
+                ", username='" + getUsername() + '\'' +
+                ", checksum='" + getChecksum() + '\'' +
+                ", gravatar='" + getGravatar() + '\'' +
+                ", errorMessage=" + (hasErrorMessage()? getErrorMessage(): "N/A") + '\'' +
+                ", loggedIn=" + isLoggedIn() +
+                '}';
+    }
 }

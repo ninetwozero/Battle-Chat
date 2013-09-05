@@ -68,10 +68,8 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
         setContentView(R.layout.activity_login);
-        getDataFromBundle(savedInstanceState);
-        setupLayout();
+        initialize(savedInstanceState);
     }
 
     protected void onResume() {
@@ -86,9 +84,16 @@ public class LoginActivity extends Activity {
         mAccept = in.getBoolean("accept", false);
     }
 
-    private void init() {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    private void initialize(final Bundle data) {
+        setupFromPreexistingData();
+        getDataFromBundle(data);
+        setupLayout();
+
+    }
+
+    private void setupFromPreexistingData() {
         setTitle(R.string.title_login);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (alreadyHasCookie() && BattleChat.isConnectedToNetwork()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -219,6 +224,7 @@ public class LoginActivity extends Activity {
     public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 
         public static final int LOGIN_TIMEOUT = 30000;
+        public static final String USER_AGENT_CHROME = " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19";
         private String mSuppliedEmail;
         private String mSuppliedPassword;
         private Session mSession;
@@ -235,16 +241,16 @@ public class LoginActivity extends Activity {
             mSuppliedPassword = params[1];
 
             try {
-                Connection connection = Jsoup.connect(HttpUris.LOGIN);
-                connection = connection.data(
+                final Connection connection = Jsoup.connect(HttpUris.LOGIN).data(
                         "email", mSuppliedEmail,
                         "password", mSuppliedPassword,
                         "remember", "1",
                         "redirect", "",
                         "submit", "Sign+in"
-                );
-                connection = connection.timeout(LOGIN_TIMEOUT);
-                connection = connection.method(Method.POST);
+                    )
+                    .timeout(LOGIN_TIMEOUT)
+                    .method(Method.POST)
+                    .userAgent(USER_AGENT_CHROME);
                 Connection.Response result = connection.execute();
                 return hasLoggedin(result);
             } catch (Exception ex) {

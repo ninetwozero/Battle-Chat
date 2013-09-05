@@ -53,7 +53,7 @@ public class LoginHtmlParserTest {
 
     @Test
     public void testGetUserId() {
-        Assert.assertEquals(mLoggedIn.getUserId(), 0);
+        Assert.assertEquals(mLoggedIn.getUserId(), 2832658801548551060L);
     }
 
     @Test
