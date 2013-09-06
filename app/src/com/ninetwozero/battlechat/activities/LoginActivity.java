@@ -42,6 +42,7 @@ import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
+import com.ninetwozero.battlechat.utils.StorageUtils;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
@@ -224,7 +225,6 @@ public class LoginActivity extends Activity {
     public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 
         public static final int LOGIN_TIMEOUT = 30000;
-        public static final String USER_AGENT_CHROME = " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19";
         private String mSuppliedEmail;
         private String mSuppliedPassword;
         private Session mSession;
@@ -247,10 +247,10 @@ public class LoginActivity extends Activity {
                         "remember", "1",
                         "redirect", "",
                         "submit", "Sign+in"
-                    )
+                )
                     .timeout(LOGIN_TIMEOUT)
                     .method(Method.POST)
-                    .userAgent(USER_AGENT_CHROME);
+                    .userAgent(LoginHtmlParser.USER_AGENT_CHROME);
                 Connection.Response result = connection.execute();
                 return hasLoggedin(result);
             } catch (Exception ex) {
@@ -295,15 +295,17 @@ public class LoginActivity extends Activity {
             if (parser.hasErrorMessage()) {
                 mErrorMessage = parser.getErrorMessage();
             } else {
+                long userId = parser.getUserId();
                 mSession = new Session(
                     new User(
-                        parser.getUserId(),
+                        userId,
                         parser.getUsername()
                     ),
                     CookieFactory.build(BattleChat.COOKIE_NAME, response.cookie(BattleChat.COOKIE_NAME)),
                     mSuppliedEmail,
                     parser.getChecksum()
                 );
+                StorageUtils.downloadFile(getApplicationContext(), parser.getGravatar(), userId);
             }
             return mSession != null;
         }

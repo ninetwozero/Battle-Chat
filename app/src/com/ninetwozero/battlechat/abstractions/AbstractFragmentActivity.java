@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ninetwozero.battlechat.BattleChat;
@@ -39,7 +38,6 @@ public class AbstractFragmentActivity extends Activity {
             setupBattleChatClient();
             showNotification();
         } else {
-            Log.w("TAG", "SENDING TO LOIGN");
             sendToLoginScreen();
         }
     }

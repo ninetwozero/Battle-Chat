@@ -24,6 +24,7 @@ import org.jsoup.select.Elements;
 final public class LoginHtmlParser {
     private final Document mDocument;
     private final String BATTLELOG_AVATAR = "http://battlelog-cdn.battlefield.com/cdnprefix/avatar1/public/base/shared/default-avatar-320.png";
+    public static final String USER_AGENT_CHROME = " Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.151 Safari/535.19";
 
     public LoginHtmlParser(final String html) {
         mDocument = Jsoup.parse(html);

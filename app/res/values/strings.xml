@@ -102,5 +102,6 @@
     network (mobile/wireless network) and re-open the app.
   </string>
   <string name="ninetwozero">NINETWOZERO</string>
+  <string name="logged_in_as">LOGGED IN AS</string>
 
 </resources>

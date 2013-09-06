@@ -61,7 +61,7 @@ public class User implements Parcelable {
 		mUsername = name;
 		mState = status;
 	}
-	
+
 	public long getId() {
 		return mId;
 	}

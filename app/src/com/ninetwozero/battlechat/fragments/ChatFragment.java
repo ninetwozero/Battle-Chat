@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.fragments;
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -66,6 +67,14 @@ public class ChatFragment extends AbstractListFragment {
     private Timer mTimer;
     private SoundPool mSoundPool;
     private int mSoundId = 0;
+
+    private ChatFragment() {}
+
+    public static Fragment newInstance() {
+        final ChatFragment fragment = new ChatFragment();
+        fragment.setArguments(new Bundle());
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle icicle) {

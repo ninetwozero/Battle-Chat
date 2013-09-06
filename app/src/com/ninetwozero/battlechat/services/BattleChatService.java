@@ -14,10 +14,6 @@
 
 package com.ninetwozero.battlechat.services;
 
-import org.apache.http.cookie.Cookie;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -36,6 +32,10 @@ import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.http.LoginHtmlParser;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.utils.DateUtils;
+
+import org.apache.http.cookie.Cookie;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
 public class BattleChatService extends Service {
 		private static final String TAG = "BattlelogSessionService";
@@ -91,14 +91,16 @@ public class BattleChatService extends Service {
 	    	protected Boolean doInBackground(Void... params) {
 	    		try {
 	    			Log.i(TAG, "Talking to the website...");
-	    			Connection.Response response = Jsoup.connect(HttpUris.MAIN).cookie(
+	    			Connection.Response response = Jsoup.connect(HttpUris.MAIN).userAgent(
+                        LoginHtmlParser.USER_AGENT_CHROME
+                    ).cookie(
 	    				BattleChat.getSession().getCookie().getName(), 
 	    				BattleChat.getSession().getCookie().getValue()
 					).execute();
 
 	    			LoginHtmlParser parser = new LoginHtmlParser(response.parse());
 	    			if( parser.isLoggedIn() ) {
-		    			mUser = new User(parser.getUserId(), parser.getUsername(), User.ONLINE_MOBILE);
+		    			mUser = new User(parser.getUserId(), parser.getUsername());
 		    			mCookie = BattleChat.getSession().getCookie();
 		    			mEmail = BattleChat.getSession().getEmail();
                         mChecksum = parser.getChecksum();

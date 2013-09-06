@@ -5,10 +5,19 @@
   android:layout_height="wrap_content"
   android:padding="8dp">
 
+  <TextView
+      style="@style/heading"
+      android:id="@+id/heading_user"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/logged_in_as"
+  />
   <ImageView
-    android:id="@+id/gravatar"
-    android:layout_width="64dp"
-    android:layout_height="64dp"/>
+      android:id="@+id/gravatar"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:layout_below="@id/heading_user"
+  />
 
   <TextView
     android:id="@+id/user_account"

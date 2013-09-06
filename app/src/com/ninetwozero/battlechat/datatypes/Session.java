@@ -53,6 +53,10 @@ public class Session {
 	public User getUser() {
 		return mUser;
 	}
+
+    public long getUserId() {
+        return mUser.getId();
+    }
 	
 	public String getUsername() {
 		return mUser.getUsername();

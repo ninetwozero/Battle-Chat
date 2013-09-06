@@ -5,18 +5,46 @@
     android:layout_height="match_parent"
     android:background="@drawable/action_bar_background"
 >
-    <include layout="@layout/side_account_box" />
+    <include android:id="@+id/account_box" layout="@layout/side_account_box" />
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
+        android:layout_below="@id/account_box"
     />
     <TextView
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_below="@id/account_box"
     />
+  <LinearLayout
+      android:id="@+id/status"
+      android:background="@drawable/action_bar_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone"
+      android:layout_below="@id/account_box"
+    >
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Fetching your friends..."
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
+    </LinearLayout>
 </RelativeLayout>

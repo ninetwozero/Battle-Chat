@@ -2,12 +2,15 @@ package com.ninetwozero.battlechat.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
@@ -60,6 +63,7 @@ public class SlidingMenuFragment extends AbstractListFragment {
 
     private void initialize(final View view, final Bundle icicle) {
         setupFromSavedInstance(icicle);
+        setupAccountBox(view);
         setupListView(view);
     }
 
@@ -76,16 +80,26 @@ public class SlidingMenuFragment extends AbstractListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         final User user = (User) view.getTag();
         if( user != null ) {
-            FragmentManager manager = getFragmentManager();
+            final FragmentManager manager = getFragmentManager();
             Fragment fragment = manager.findFragmentByTag("ChatFragment");
+            if( fragment == null ) {
+                fragment = ChatFragment.newInstance();
+                final FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.root_main, fragment, "ChatFragment");
+            }
             if( fragment instanceof ChatFragment ) {
                 ((ChatFragment) fragment).openChatWithUser(user);
                 toggleSlidingMenu();
-            } else {
-                showToast("The chat has yet to be loaded.");
             }
-            listView.setActivated(true);
         }
+    }
+
+    private void setupAccountBox(final View view) {
+        ((TextView) view.findViewById(R.id.user_account)).setText(BattleChat.getSession().getUsername());
+        ((TextView) view.findViewById(R.id.user_email)).setText(BattleChat.getSession().getEmail());
+        ((ImageView) view.findViewById(R.id.gravatar)).setImageURI(
+            BattleChat.getFileUri(BattleChat.getSession().getUserId())
+        );
     }
 
     private void setupListView(final View view) {
@@ -112,16 +126,16 @@ public class SlidingMenuFragment extends AbstractListFragment {
         @Override
         protected void onPreExecute() {
             if( getListView().getCount() == 0 || mShow ) {
-                //toggleLoading(true);
+                toggleLoading(true);
             }
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                JSONObject result = BattleChatClient.post(
-                        HttpUris.Chat.FRIENDS,
-                        new BasicNameValuePair("post-check-sum", BattleChat.getSession().getChecksum())
+                final JSONObject result = BattleChatClient.post(
+                    HttpUris.Chat.FRIENDS,
+                    new BasicNameValuePair("post-check-sum", BattleChat.getSession().getChecksum())
                 );
 
                 if( result.has("error") ) {
@@ -145,7 +159,7 @@ public class SlidingMenuFragment extends AbstractListFragment {
                 showToast(mMessage);
                 logout();
             }
-            //toggleLoading(false);
+            toggleLoading(false);
             mReloadTask = null;
         }
 
@@ -220,6 +234,10 @@ public class SlidingMenuFragment extends AbstractListFragment {
                 return User.OFFLINE;
             }
         }
+    }
+
+    private void toggleLoading(final boolean show) {
+        getView().findViewById(R.id.status).setVisibility(show? View.VISIBLE : View.GONE);
     }
 
     private void toggleSlidingMenu() {

@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
@@ -31,9 +32,12 @@ import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.User;
 import com.ninetwozero.battlechat.misc.Keys;
 
+import java.io.File;
+
 import org.apache.http.cookie.Cookie;
 
 public class BattleChat extends Application {
+    public final static String TAG = "com.ninetwozero.battlechat";
     public final static String COOKIE_NAME = "beaker.session.id";
     public final static String COOKIE_DOMAIN = "battlelog.battlefield.com";
 
@@ -127,13 +131,13 @@ public class BattleChat extends Application {
         mNotificationManager.cancel(R.string.service_name);
 
         Notification notification = new NotificationCompat.Builder(c)
-                .setContentTitle(c.getString(R.string.text_notification_title))
-                .setContentText(c.getString(R.string.text_notification_subtitle_fail))
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
-                .build();
+            .setContentTitle(c.getString(R.string.text_notification_title))
+            .setContentText(c.getString(R.string.text_notification_subtitle_fail))
+            .setSmallIcon(R.drawable.ic_launcher)
+            .setWhen(System.currentTimeMillis())
+            .setAutoCancel(true)
+            .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
+            .build();
         mNotificationManager.notify(R.string.service_name, notification);
     }
 
@@ -150,5 +154,15 @@ public class BattleChat extends Application {
         ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo network = manager.getActiveNetworkInfo();
         return network != null && network.isConnected();
+    }
+
+    public static Uri getFileUri(final Object inFile) {
+        final String filename = String.valueOf(inFile);
+        final File file = new File(getContext().getExternalFilesDir(null), filename);
+        if( file.exists() ) {
+            return Uri.parse(file.getPath());
+        } else {
+            return Uri.parse("android.resource://com.ninetwozero.battlechat/drawable/default_avatar");
+        }
     }
 }
