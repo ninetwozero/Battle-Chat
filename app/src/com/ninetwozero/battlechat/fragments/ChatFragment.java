@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -41,15 +42,15 @@ import com.ninetwozero.battlechat.http.HttpHeaders;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.misc.Keys;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChatFragment extends AbstractListFragment {
 
@@ -68,7 +69,7 @@ public class ChatFragment extends AbstractListFragment {
     private SoundPool mSoundPool;
     private int mSoundId = 0;
 
-    private ChatFragment() {}
+    public ChatFragment() {}
 
     public static Fragment newInstance() {
         final ChatFragment fragment = new ChatFragment();
@@ -79,7 +80,6 @@ public class ChatFragment extends AbstractListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle icicle) {
         mInflater = inflater;
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         final View view = mInflater.inflate(R.layout.activity_chat, parent, false);
         initialize(view, icicle);
@@ -89,10 +89,21 @@ public class ChatFragment extends AbstractListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if( mUser != null ) {
+
+        final Bundle arguments = getArguments();
+        if( arguments.containsKey(ChatFragment.EXTRA_USER)) {
+            final User user = arguments.getParcelable(ChatFragment.EXTRA_USER);
+            openChatWithUser(user);
+        } else if( mUser == null ) {
             startTimer();
             setupSound();
         }
+    }
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -102,7 +113,9 @@ public class ChatFragment extends AbstractListFragment {
     }
 
     private void setChatTitle() {
-        getActivity().setTitle(String.format(getString(R.string.text_chat_title), mUser.getUsername()));
+        if( isAdded() && mUser != null ) {
+            getActivity().setTitle(String.format(getString(R.string.text_chat_title), mUser.getUsername()));
+        }
     }
 
     @Override
@@ -141,9 +154,10 @@ public class ChatFragment extends AbstractListFragment {
         if (in == null) {
             return;
         }
+
         final long chatId = in.getLong("chatId");
         final User user = in.getParcelable("user");
-        final List<Message> friends = in.getParcelableArrayList("messages");
+        final List<Message> messages = in.getParcelableArrayList("messages");
         final MessageListAdapter adapter = (MessageListAdapter) getListAdapter();
         final boolean firstRun = in.getBoolean("firstRun");
 
@@ -151,7 +165,9 @@ public class ChatFragment extends AbstractListFragment {
         mUser = user;
         mFirstRun = firstRun;
 
-        adapter.setItems(friends);
+        if( adapter != null ) {
+            adapter.setItems(messages);
+        }
     }
 
     private void reload(boolean show) {
@@ -176,6 +192,13 @@ public class ChatFragment extends AbstractListFragment {
         final ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
         setListAdapter(new MessageListAdapter(getActivity(), "N/A"));
+    }
+
+    private void loadChatIfInitialUserExists() {
+        if( mUser == null ) {
+            return;
+        }
+        reload(true);
     }
 
     private void updateUsernameInAdapter(final String username) {
@@ -432,6 +455,11 @@ public class ChatFragment extends AbstractListFragment {
         mUser = user;
         if( mUser == null ) {
             throw new IllegalStateException("User is null");
+        }
+
+        final View view = getView();
+        if( view == null ) {
+            return;
         }
 
         setChatTitle();

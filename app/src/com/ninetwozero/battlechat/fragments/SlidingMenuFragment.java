@@ -3,8 +3,10 @@ package com.ninetwozero.battlechat.fragments;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +24,14 @@ import com.ninetwozero.battlechat.http.BattleChatClient;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.interfaces.ActivityAccessInterface;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SlidingMenuFragment extends AbstractListFragment {
     private LayoutInflater mInflater;
@@ -57,6 +59,7 @@ public class SlidingMenuFragment extends AbstractListFragment {
         final UserListAdapter adapter = (UserListAdapter) getListView().getAdapter();
         final ArrayList<User> friends = (ArrayList<User>) adapter.getItems();
         out.putParcelableArrayList("friends", friends);
+        out.putBoolean("showingSlidingMenu", isMenuShowing());
 
         super.onSaveInstanceState(out);
     }
@@ -71,26 +74,46 @@ public class SlidingMenuFragment extends AbstractListFragment {
         if( in == null ){
             return;
         }
+
         final List<User> friends = in.getParcelableArrayList("friends");
+        final boolean show = in.getBoolean("showingSlidingMenu");
         final UserListAdapter adapter = (UserListAdapter) getListAdapter();
-        adapter.setItems(friends);
+        if( adapter != null ) {
+            adapter.setItems(friends);
+        }
+        toggleSlidingMenu(show);
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        final User user = (User) view.getTag();
+        final User user = ((UserListAdapter) getListAdapter()).getItem(position);
         if( user != null ) {
+
             final FragmentManager manager = getFragmentManager();
-            Fragment fragment = manager.findFragmentByTag("ChatFragment");
+            final Fragment fragment = manager.findFragmentByTag("ChatFragment");
             if( fragment == null ) {
-                fragment = ChatFragment.newInstance();
+                final Bundle arguments = new Bundle();
+                final Fragment newFragment = ChatFragment.newInstance();
                 final FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.root_main, fragment, "ChatFragment");
-            }
-            if( fragment instanceof ChatFragment ) {
-                ((ChatFragment) fragment).openChatWithUser(user);
+
+                arguments.putParcelable(ChatFragment.EXTRA_USER, user);
+                newFragment.setArguments(arguments);
+
+                transaction.replace(android.R.id.content, newFragment, "ChatFragment");
+                transaction.addToBackStack(null);
+                transaction.commit();
+
                 toggleSlidingMenu();
+            } else {
+                if( fragment instanceof ChatFragment ) {
+                    ((ChatFragment) fragment).openChatWithUser(user);
+                    toggleSlidingMenu();
+                }
             }
+            final SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+            preferences.putLong("recent_chat_userid", user.getId());
+            preferences.putString("recent_chat_username", user.getUsername());
+            preferences.commit();
         }
     }
 
@@ -237,10 +260,21 @@ public class SlidingMenuFragment extends AbstractListFragment {
     }
 
     private void toggleLoading(final boolean show) {
-        getView().findViewById(R.id.status).setVisibility(show? View.VISIBLE : View.GONE);
+        final View view = getView();
+        if( view != null ) {
+            view.findViewById(R.id.status).setVisibility(show? View.VISIBLE : View.GONE);
+        }
     }
 
     private void toggleSlidingMenu() {
         ((ActivityAccessInterface) getActivity()).toggleSlidingMenu();
+    }
+
+    private void toggleSlidingMenu(final boolean show) {
+        ((ActivityAccessInterface) getActivity()).toggleSlidingMenu(show);
+    }
+
+    private boolean isMenuShowing() {
+        return ((ActivityAccessInterface) getActivity()).isMenuShowing();
     }
 }

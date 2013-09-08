@@ -15,6 +15,9 @@
 package com.ninetwozero.battlechat.activities;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +28,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.abstractions.AbstractFragmentActivity;
+import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.fragments.ChatFragment;
+import com.ninetwozero.battlechat.fragments.StartupFragment;
 import com.ninetwozero.battlechat.http.HttpUris;
 import com.ninetwozero.battlechat.interfaces.ActivityAccessInterface;
 import com.ninetwozero.battlechat.services.BattleChatService;
@@ -34,13 +40,10 @@ import org.jsoup.Jsoup;
 
 public class MainActivity extends AbstractFragmentActivity implements ActivityAccessInterface {
     private SlidingMenu mSlidingMenu;
-
-	public final static String TAG = "MainActivity";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
         setup(savedInstanceState);
     }
 
@@ -62,6 +65,12 @@ public class MainActivity extends AbstractFragmentActivity implements ActivityAc
     private void setup(final Bundle icicle) {
         setupSlidingMenu();
         setupActionBar();
+
+        if( hasSelectedUserPreviously() ) {
+            showChatFragment();
+        } else {
+            showStartupFragment();
+        }
     }
 
     private void setupSlidingMenu() {
@@ -80,6 +89,35 @@ public class MainActivity extends AbstractFragmentActivity implements ActivityAc
     private void setupActionBar() {
         final ActionBar actionbar = getActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private boolean hasSelectedUserPreviously() {
+        return mSharedPreferences.getLong("recent_chat_userid", 0) != 0; // TODO: EXTRACT TO KEYS?
+    }
+
+    private void showStartupFragment() {
+        final FragmentManager manager = getFragmentManager();
+        final FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(android.R.id.content, StartupFragment.newInstance(), "StartupFragment");
+        transaction.commit();
+    }
+
+    private void showChatFragment() {
+        final FragmentManager manager = getFragmentManager();
+        final FragmentTransaction transaction = manager.beginTransaction();
+        final Fragment fragment = ChatFragment.newInstance();
+        final Bundle data = new Bundle();
+        final User user = new User(
+            mSharedPreferences.getLong("recent_chat_userid", 0),
+            mSharedPreferences.getString("recent_chat_username", "N/A")
+        );
+
+        data.putParcelable(ChatFragment.EXTRA_USER, user);
+        fragment.setArguments(data);
+
+        transaction.replace(android.R.id.content, fragment, "ChatFragment");
+        transaction.commit();
     }
 
     @Override
@@ -115,6 +153,20 @@ public class MainActivity extends AbstractFragmentActivity implements ActivityAc
     @Override
     public void toggleSlidingMenu() {
         mSlidingMenu.toggle(true);
+    }
+
+    @Override
+    public void toggleSlidingMenu(final boolean show) {
+        if( show ) {
+            mSlidingMenu.showMenu(true);
+        } else {
+            mSlidingMenu.showContent(true);
+        }
+    }
+
+    @Override
+    public boolean isMenuShowing() {
+        return mSlidingMenu.isMenuShowing();
     }
 
     private class LogoutTask extends AsyncTask<Void, Void, Boolean> {

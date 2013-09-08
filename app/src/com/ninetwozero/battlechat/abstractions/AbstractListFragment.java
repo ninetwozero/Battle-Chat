@@ -1,19 +1,29 @@
 package com.ninetwozero.battlechat.abstractions;
 
+import android.app.Activity;
 import android.app.ListFragment;
 
 import com.ninetwozero.battlechat.interfaces.ActivityAccessInterface;
 
 public abstract class AbstractListFragment extends ListFragment {
     protected void showToast(final int resource) {
-        showToast(getActivity().getString(resource));
+        final Activity activity = getActivity();
+        if( activity != null ) {
+            showToast(activity.getString(resource));
+        }
     }
 
     protected void showToast(final String message) {
-        ((ActivityAccessInterface) getActivity()).showToast(message);
+        final ActivityAccessInterface activity = (ActivityAccessInterface) getActivity();
+        if( activity != null ) {
+            activity.showToast(message);
+        }
     }
 
     protected void logout() {
-        ((ActivityAccessInterface) getActivity()).logoutFromWebsite();
+        final ActivityAccessInterface activity = (ActivityAccessInterface) getActivity();
+        if( activity != null ) {
+            activity.logoutFromWebsite();
+        }
     }
 }

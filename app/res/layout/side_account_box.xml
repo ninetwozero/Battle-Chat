@@ -11,6 +11,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/logged_in_as"
+      android:paddingBottom="4dp"
+      android:textAppearance="@android:style/TextAppearance.Holo.Small.Inverse"
   />
   <ImageView
       android:id="@+id/gravatar"
@@ -25,7 +27,8 @@
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/gravatar"
     android:textAppearance="@android:style/TextAppearance.Holo.Large.Inverse"
-    android:layout_marginLeft="8dp" />
+    android:layout_marginLeft="8dp"
+    android:layout_below="@id/heading_user" />
 
   <TextView
     android:id="@+id/user_email"
@@ -39,5 +42,6 @@
   <ImageView
     android:id="@+id/gravatar"
     android:layout_width="64dp"
-    android:layout_height="64dp"/>
+    android:layout_height="64dp"
+    android:layout_below="@id/heading_user"/>
 </RelativeLayout>

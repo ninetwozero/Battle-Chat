@@ -28,7 +28,6 @@
       android:layout_height="match_parent"
       android:gravity="center"
       android:orientation="vertical"
-      android:visibility="gone"
       android:layout_below="@id/account_box"
     >
 
@@ -45,6 +44,6 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-light"
         android:text="Fetching your friends..."
-        android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Holo.Small.Inverse" />
     </LinearLayout>
 </RelativeLayout>
