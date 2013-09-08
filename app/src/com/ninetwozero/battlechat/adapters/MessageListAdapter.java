@@ -15,6 +15,7 @@
 package com.ninetwozero.battlechat.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -51,7 +52,7 @@ public class MessageListAdapter extends AbstractListAdapter<Message> {
         }
 
         setText(convertView, R.id.username, message.getUsername(), fromOtherUser ? R.color.orange : R.color.blue);
-        setText(convertView, R.id.message, message.getMessage());
+        setText(convertView, R.id.message, Html.fromHtml(message.getMessage()));
         setText(convertView, R.id.timestamp, DateUtils.getRelativeTimeString(mContext, message.getTimestamp()));
         return convertView;
     }
