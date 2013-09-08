@@ -13,11 +13,13 @@
 -->
 <resources>
 
-  <style name="AppBaseTheme" parent="android:Theme.Light">
+  <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
     <item name="android:homeAsUpIndicator">@drawable/indicator</item>
   </style>
 
-  <style name="AppTheme" parent="AppBaseTheme"></style>
+  <style name="AppTheme" parent="AppBaseTheme">
+      <item name="android:homeAsUpIndicator">@drawable/indicator</item>
+  </style>
 
   <style name="LoginFormContainer">
     <item name="android:layout_width">match_parent</item>
