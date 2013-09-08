@@ -412,8 +412,11 @@ public class ChatFragment extends AbstractListFragment {
     }
 
     private void toggleLoading(boolean isLoading) {
-        final View view = getView().findViewById(R.id.status);
-        view.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        final View view = getView();
+        if( view == null ) {
+            return;
+        }
+        view.findViewById(R.id.status).setVisibility(isLoading ? View.VISIBLE : View.GONE);
     }
 
     private void setupSound() {
