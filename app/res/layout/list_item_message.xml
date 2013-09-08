@@ -40,6 +40,9 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/username"
     android:textIsSelectable="true"
-    android:textColor="#000000" />
+    android:textColor="#000000"
+    android:linksClickable="true"
+    android:autoLink="email|map|web"
+  />
 
 </RelativeLayout>

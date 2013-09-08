@@ -22,4 +22,5 @@
     android:paddingRight="8dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
+    android:textAppearance="@android:style/TextAppearance.Holo.Small.Inverse"
 />
