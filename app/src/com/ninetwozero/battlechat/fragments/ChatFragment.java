@@ -396,11 +396,16 @@ public class ChatFragment extends AbstractListFragment {
     }
 
     public void scrollToBottom() {
-        getListView().post(
+        if( getView() == null ) {
+            return;
+        }
+
+        final ListView listView = getListView();
+        listView.post(
                 new Runnable() {
                     @Override
                     public void run() {
-                        getListView().setSelection(getListAdapter().getCount() - 1);
+                        listView.setSelection(getListAdapter().getCount() - 1);
                     }
                 }
         );
