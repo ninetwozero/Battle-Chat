@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.1'
+    }
+}
+apply plugin: 'android'
+
+project.archivesBaseName = 'com.ninetwozero.battlechat'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion '18.1.0'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 17
+    }
+
+    lintOptions {
+        abortOnError false
+        xmlReport true
+        xmlOutput file("lint-report.xml")
+    }
+}
+
+dependencies {
+    compile project(':core')
+    compile 'com.android.support:support-v4:13.0.0',
+        'com.github.kevinsawicki:http-request:5.4.1',
+        'com.squareup:otto:1.3.4',
+        'com.google.code.gson:gson:2.2.4',
+        'com.squareup.picasso:picasso:2.1.1',
+        'org.jsoup:jsoup:1.7.3'
+}

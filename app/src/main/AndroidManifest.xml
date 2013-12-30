@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	This file is part of BattleChat
+
+    BattleChat is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    BattleChat is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:versionCode="20"
+  android:versionName="2.0"
+  package="com.ninetwozero.battlechat">
+
+  <uses-sdk
+    android:minSdkVersion="14"
+    android:targetSdkVersion="19"/>
+
+  <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
+  <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <!-- End of instrumentation only permissions -->
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+  <application
+    android:debuggable="true"
+    android:allowBackup="true"
+    android:icon="@drawable/ic_launcher"
+    android:label="@string/app_name"
+    android:name=".BattleChat"
+    android:theme="@style/AppTheme">
+
+    <activity
+      android:label="@string/app_name"
+      android:launchMode="singleTask"
+      android:name=".ui.LoginActivity"
+      android:windowSoftInputMode="adjustResize|stateVisible">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:label="@string/title_main"
+      android:name=".ui.MainActivity"
+      android:launchMode="singleTask"
+      />
+
+    <activity
+      android:label="@string/title_about"
+      android:name=".ui.about.AboutActivity"
+      android:parentActivityName=".ui.MainActivity"
+      android:theme="@style/AppThemeChildActivity"
+      >
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ui.MainActivity"
+        />
+    </activity>
+    <activity
+      android:label="@string/title_settings"
+      android:name=".ui.SettingsActivity"
+      android:parentActivityName=".ui.MainActivity"
+      android:theme="@style/AppThemeChildActivity"
+      >
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ui.MainActivity"
+        />
+    </activity>
+
+    <service
+      android:icon="@drawable/ic_launcher"
+      android:label="@string/service_name"
+      android:name=".services.BattleChatService"/>
+  </application>
+
+</manifest>

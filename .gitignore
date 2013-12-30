@@ -41,3 +41,7 @@ Thumbs.db
 session.key
 response.txt
 .pt
+
+# Gradle
+.gradle
+build/*

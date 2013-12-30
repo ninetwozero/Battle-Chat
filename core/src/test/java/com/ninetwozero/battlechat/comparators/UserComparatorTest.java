@@ -1,69 +1,58 @@
 package com.ninetwozero.battlechat.comparators;
 
-import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.json.chat.PresenceType;
+import com.ninetwozero.battlechat.json.chat.User;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-// TODO: We have to remove the Parcelable parts of User in able to run this at the moment (as regular JUNIT).
-// FIXME: When Junit supports individual bars per assertion, I'll refactor the ten methods into one with a loop
-
 public class UserComparatorTest {
 
-    private static List<User> mUsersAutomatic;
-    private static List<User> mUsersManual;
+    private static List<User> usersAutomatic;
+    private static List<User> usersManual;
 
     public UserComparatorTest() {
-        User user0 = new User(0, "Playing", User.PLAYING_MP);
-        User user1 = new User(100, "Jarl Ank", User.PLAYING_MP);
-        User user2 = new User(101, "Jarl Pank", User.PLAYING_MP);
-        User user3 = new User(0, "Online", User.ONLINE_WEB);
-        User user4 = new User(200, "Darl Ank", User.ONLINE_WEB);
-        User user5 = new User(201, "Jarl Stank", User.AWAY_WEB);
-        User user6 = new User(202, "Sarl Pank", User.ONLINE_WEB);
-        User user7 = new User(203, "Zarl Zank", User.AWAY_WEB);
-        User user8 = new User(0, "Offline", User.OFFLINE);
-        User user9 = new User(300, "Amk", User.OFFLINE);
-        User user10 = new User(301, "Ank", User.OFFLINE);
+        User user1 = new User("100", "Jarl Ank", "", PresenceType.PLAYING_MP);
+        User user2 = new User("101", "Jarl Pank", "", PresenceType.PLAYING_MP);
+        User user3 = new User("200", "Darl Ank", "", PresenceType.ONLINE_WEB);
+        User user4 = new User("202", "Sarl Pank", "", PresenceType.ONLINE_WEB);
+        User user5 = new User("201", "Jarl Stank", "", PresenceType.AWAY_WEB);
+        User user6 = new User("203", "Zarl Zank", "", PresenceType.AWAY_WEB);
+        User user7 = new User("300", "Amk", "", PresenceType.OFFLINE);
+        User user8 = new User("301", "Ank", "", PresenceType.OFFLINE);
 
-        mUsersAutomatic = new ArrayList<User>();
-        mUsersManual = new ArrayList<User>();
+        usersAutomatic = new ArrayList<User>();
+        usersManual = new ArrayList<User>();
 
-        mUsersAutomatic.add(user2);
-        mUsersAutomatic.add(user7);
-        mUsersAutomatic.add(user0);
-        mUsersAutomatic.add(user10);
-        mUsersAutomatic.add(user1);
-        mUsersAutomatic.add(user5);
-        mUsersAutomatic.add(user8);
-        mUsersAutomatic.add(user9);
-        mUsersAutomatic.add(user3);
-        mUsersAutomatic.add(user6);
-        mUsersAutomatic.add(user4);
+        usersAutomatic.add(user2);
+        usersAutomatic.add(user6);
+        usersAutomatic.add(user8);
+        usersAutomatic.add(user1);
+        usersAutomatic.add(user4);
+        usersAutomatic.add(user7);
+        usersAutomatic.add(user3);
+        usersAutomatic.add(user5);
 
-        mUsersManual.add(user0);
-        mUsersManual.add(user1);
-        mUsersManual.add(user2);
-        mUsersManual.add(user3);
-        mUsersManual.add(user4);
-        mUsersManual.add(user5);
-        mUsersManual.add(user6);
-        mUsersManual.add(user7);
-        mUsersManual.add(user8);
-        mUsersManual.add(user9);
-        mUsersManual.add(user10);
+        usersManual.add(user1);
+        usersManual.add(user2);
+        usersManual.add(user3);
+        usersManual.add(user4);
+        usersManual.add(user5);
+        usersManual.add(user6);
+        usersManual.add(user7);
+        usersManual.add(user8);
 
-        Collections.sort(mUsersAutomatic, new UserComparator());
+        Collections.sort(usersAutomatic, new UserComparator());
     }
 
     @Test
-    public void testThatAlgorithmWorks() {
-        for (int i = 0, max = mUsersAutomatic.size(); i < max; i++) {
-            Assert.assertEquals(mUsersManual.get(i), mUsersAutomatic.get(i));
+    public void autoSortShouldMatchOurManualSorting() {
+        for (int i = 0, max = usersAutomatic.size(); i < max; i++) {
+            Assert.assertEquals(usersManual.get(i), usersAutomatic.get(i));
         }
     }
 }
