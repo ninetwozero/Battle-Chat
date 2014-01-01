@@ -27,7 +27,7 @@
     android:summaryOn="@string/text_preference_beep_on"
     android:title="@string/text_preference_beep_title" />
 
-  <com.kmansoft.IntegerListPreference
+  <com.ninetwozero.battlechat.utils.IntegerListPreference
     android:defaultValue="25"
     android:key="chat_refresh_interval"
     android:title="@string/text_preference_interval_title"
