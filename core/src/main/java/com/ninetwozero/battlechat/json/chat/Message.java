@@ -17,13 +17,16 @@ package com.ninetwozero.battlechat.json.chat;
 import com.google.gson.annotations.SerializedName;
 
 public class Message {
-
     @SerializedName("fromUsername")
     private String username;
     @SerializedName("message")
     private String content;
     @SerializedName("timestamp")
     private long timestamp;
+
+    // Used for stupid group chats
+    private Type type;
+    private Object extra;
 
     public String getMessage() {
         return content;
@@ -35,5 +38,32 @@ public class Message {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public Type getType() { return type; }
+
+    public boolean hasExtra() {
+        return extra != null;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(final Object object) {
+        this.extra = object;
+    }
+
+    public void setType(final Type type) {
+        this.type = type;
+    }
+
+    public enum Type {
+        MESSAGE,
+        GROUP_MESSAGE,
+        INVITED_TO_GROUP,
+        JOINED_GROUP,
+        JOINED_GAME,
+        LEFT_GROUP
     }
 }

@@ -63,7 +63,6 @@ public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
     }
 
     private int resolveColorForStatus(final PresenceType type) {
-
         switch (type) {
             case PLAYING_COOP:
             case PLAYING_MP:
@@ -75,6 +74,9 @@ public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
             case ONLINE_TABLET:
             case ONLINE_ORIGIN:
                 return R.color.presence_online;
+            case GROUP_ORIGIN:
+            case GROUP_WEB:
+                return R.color.presence_group;
             case AWAY_WEB:
             case AWAY_ORIGIN:
                 return R.color.presence_away;
@@ -85,16 +87,19 @@ public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
 
     public static int resolveOnlineStatus(final PresenceType type) {
         switch (type) {
+            case PLAYING_COOP:
+            case PLAYING_MP:
+            case PLAYING_ORIGIN:
+                return R.string.label_playing;
             case ONLINE_MOBILE:
             case ONLINE_WEB:
             case ONLINE_GAME:
             case ONLINE_TABLET:
             case ONLINE_ORIGIN:
                 return R.string.label_online;
-            case PLAYING_COOP:
-            case PLAYING_MP:
-            case PLAYING_ORIGIN:
-                return R.string.label_playing;
+            case GROUP_ORIGIN:
+            case GROUP_WEB:
+                return R.string.label_group;
             case AWAY_WEB:
             case AWAY_ORIGIN:
                 return R.string.label_away;

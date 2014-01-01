@@ -25,6 +25,8 @@ public class Chat {
     private long chatId;
     @SerializedName("unreadCount")
     private int unreadCount;
+    @SerializedName("maxSlots")
+    private int maxSlots;
     @SerializedName("users")
     private List<User> users;
     @SerializedName("messages")
@@ -38,6 +40,10 @@ public class Chat {
 
     public int getUnreadCount() {
         return unreadCount;
+    }
+
+    public int getMaxSlots() {
+        return maxSlots;
     }
 
     public List<User> getUsers() {

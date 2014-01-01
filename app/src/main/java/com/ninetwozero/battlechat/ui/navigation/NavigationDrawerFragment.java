@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,9 @@ import com.ninetwozero.battlechat.comparators.UserComparator;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
+import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
+import com.ninetwozero.battlechat.json.chat.PresenceType;
 import com.ninetwozero.battlechat.json.chat.User;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.network.IntelLoader;
@@ -30,6 +33,9 @@ import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
+import org.jsoup.helper.StringUtil;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -94,12 +100,20 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
 
         // TODO: Load friends from DB && selectItemFromState(currentSelectedId); ?
         BusProvider.getInstance().register(this);
-        reload(true);
+        initialLoad();
     }
 
     @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
         reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
+    }
+
+    private void initialLoad() {
+        final LoaderManager manager = getLoaderManager();
+        final Bundle arguments = getArguments() == null ? new Bundle() : getArguments();
+
+        arguments.putBoolean(KEY_DISPLAY_OVERLAY, manager.getLoader(ID_LOADER) == null);
+        manager.initLoader(ID_LOADER, arguments, this);
     }
 
     private void reload(final boolean shouldDisplayLoadingOverlay) {
@@ -111,7 +125,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
 
         final Bundle arguments = getArguments() == null ? new Bundle() : getArguments();
         arguments.putBoolean(KEY_DISPLAY_OVERLAY, shouldDisplayLoadingOverlay);
-
         getLoaderManager().restartLoader(ID_LOADER, arguments, this);
     }
 
@@ -158,7 +171,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         preferences.apply();
 
         final FragmentManager manager = getFragmentManager();
-        final Fragment fragment = manager.findFragmentByTag("ChatListFragment");
+        final Fragment fragment = manager.findFragmentByTag(ChatFragment.TAG);
         if (fragment == null) {
             final Bundle data = new Bundle();
             data.putString(Keys.Profile.ID, user.getId());
@@ -166,7 +179,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
             data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
 
             final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_root, ChatFragment.newInstance(data), "ChatListFragment");
+            transaction.replace(R.id.activity_root, ChatFragment.newInstance(data), ChatFragment.TAG);
             transaction.commit();
         } else {
             BusProvider.getInstance().post(user);
@@ -209,11 +222,40 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
                 showToast(R.string.msg_unable_to_get_friends);
                 return;
             }
+
             Collections.sort(friends, new UserComparator());
             updateListAdapter(friends);
             ((NavigationDrawerListAdapter) getListAdapter()).setItems(friends);
         }
         showProgress(false);
+    }
+
+    /*
+        We can't really open a group chat like with the rest of the chats,
+        so we'll see if we keep it this way or just skip them
+     */
+    private List<User> fetchGroupChatsForComListing(final List<Chat> chats) {
+        final List<User> groupChatsForCom = new ArrayList<User>();
+        for (Chat chat : chats) {
+            if (chat.getMaxSlots() > 2) {
+                final String chatId = String.valueOf(chat.getChatId());
+                List<String> usernames = new ArrayList<String>();
+                for (User userObject : chat.getUsers()) {
+                    if (!userObject.getUsername().equals(Session.getUsername())) {
+                        usernames.add(userObject.getUsername());
+                    }
+                }
+                groupChatsForCom.add(
+                    new User(
+                        chatId,
+                        StringUtil.join(usernames, ", "),
+                        null,
+                        PresenceType.GROUP_WEB
+                    )
+                );
+            }
+        }
+        return groupChatsForCom;
     }
 
     protected void updateListAdapter(final List<User> friends) {
@@ -227,6 +269,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
 
     public static interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(final int position, final String title);
+
         void onNavigationDrawerItemSelected(final int position, final String title, final String subtitle);
 
         boolean isDrawerOpen();

@@ -46,6 +46,10 @@ public class UrlFactory {
         return createURL(String.format("comcenter/hideChat/%d/", chatId));
     }
 
+    public static URL buildLeaveGroupChatURL(final long chatId) {
+        return createURL(String.format("comcenter/leaveChat/%d/", chatId));
+    }
+
     private static URL createURL(final String path) {
         return prepareURL(HOST, path, null);
     }

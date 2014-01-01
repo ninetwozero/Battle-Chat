@@ -49,6 +49,11 @@ public class IntelLoader<T> extends AsyncTaskLoader<Result> {
         if (clazz == null) {
             return new Result<T>(Result.Status.SUCCESS, theResult, null);
         }
+
+        if (theResult.equalsIgnoreCase("Forbidden")) {
+            return new Result(Result.Status.FAILURE, "Unauthorized access");
+        }
+
         final JsonElement jsonRoot = new JsonParser().parse(theResult).getAsJsonObject().get("data");
         return new Result<T>(
             Result.Status.SUCCESS,

@@ -43,5 +43,5 @@ response.txt
 .pt
 
 # Gradle
-.gradle
+.gradle/*
 build/*

@@ -22,6 +22,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,9 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 public class ChatFragment extends BaseLoadingListFragment {
+    public static final String TAG = "ChatListFragment";
+
+    private static final String KEY_DISPLAY_OVERLAY = "showProgress";
     private static final int ID_LOADER_REFRESH = 3000;
     private static final int ID_LOADER_SEND = 3100;
     private static final int ID_LOADER_CLOSE = 3200;
@@ -86,6 +90,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         super.onResume();
         BusProvider.getInstance().register(this);
         handleArgumentsOnResume(getArguments());
+        initialLoad();
     }
 
     @Override
@@ -240,6 +245,12 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     }
 
+    private void initialLoad() {
+        final LoaderManager manager = getLoaderManager();
+        final boolean shouldDisplayLoader = manager.getLoader(ID_LOADER_REFRESH) == null;
+        manager.initLoader(ID_LOADER_REFRESH, getBundleForRefresh(shouldDisplayLoader), this);
+    }
+
     private void reload(final boolean show) {
         getLoaderManager().restartLoader(ID_LOADER_REFRESH, getBundleForRefresh(show), this);
     }
@@ -248,7 +259,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         final Bundle bundle = new Bundle();
         bundle.putString(Keys.Profile.ID, user.getId());
         bundle.putString(Keys.Chat.CHECKSUM, Session.getChecksum());
-        bundle.putBoolean("showProgress", showProgress);
+        bundle.putBoolean(KEY_DISPLAY_OVERLAY, showProgress);
         return bundle;
     }
 
@@ -271,12 +282,11 @@ public class ChatFragment extends BaseLoadingListFragment {
         if (data == null) {
             return;
         }
-        onUserSelected(
-            new User(
-                data.getString(Keys.Profile.ID),
-                data.getString(Keys.Profile.USERNAME),
-                data.getString(Keys.Profile.GRAVATAR_HASH)
-            )
+
+        user = new User(
+            data.getString(Keys.Profile.ID),
+            data.getString(Keys.Profile.USERNAME),
+            data.getString(Keys.Profile.GRAVATAR_HASH)
         );
     }
 

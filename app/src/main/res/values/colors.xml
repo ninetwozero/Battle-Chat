@@ -23,6 +23,7 @@
   <!-- Friend list colors -->
   <color name="presence_playing">#ee7fd3f9</color>
   <color name="presence_online">#bba0f9ae</color>
+  <color name="presence_group">#bbebf9a0</color>
   <color name="presence_away">#d0d0d0</color>
   <color name="presence_offline">#787878</color>
 

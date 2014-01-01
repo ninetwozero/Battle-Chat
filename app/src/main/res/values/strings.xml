@@ -51,6 +51,7 @@
   <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
   <string name="label_offline">Offline</string>
   <string name="label_online">Online</string>
+  <string name="label_group">Group</string>
   <string name="label_playing">Playing</string>
   <string name="msg_no_messages">No messages found. :-(</string>
   <string name="app_email">support@ninetwozero.com</string>
@@ -114,5 +115,10 @@
   <string name="desc_gravatar">Gravatar</string>
 
   <string name="text_main_loading">Loading friends&#8230;</string>
+
+  <string name="chat_group_invited" formatted="false">%s was invited</string>
+  <string name="chat_group_joined" formatted="false">%s joined the chat</string>
+  <string name="chat_group_left" formatted="false">%s left the chat</string>
+  <string name="chat_group_joinedgame" formatted="false">%s joined %s</string>
 
 </resources>

@@ -85,4 +85,11 @@ public class User {
                 presenceType == PresenceType.PLAYING_ORIGIN
         );
     }
+
+    public boolean isGroup() {
+        return (
+            presenceType == PresenceType.GROUP_ORIGIN ||
+            presenceType == PresenceType.GROUP_WEB
+        );
+    }
 }
