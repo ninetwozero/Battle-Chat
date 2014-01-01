@@ -44,4 +44,4 @@ response.txt
 
 # Gradle
 .gradle/*
-build/*
+*/build/*
