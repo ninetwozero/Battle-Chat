@@ -14,6 +14,7 @@
 
 package com.ninetwozero.battlechat.base.ui;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import com.ninetwozero.battlechat.ui.LoginActivity;
 
 public class BaseFragmentActivity extends FragmentActivity {
     protected SharedPreferences sharedPreferences;
+    protected String title;
+    protected String subtitle;
     private Toast toast;
 
     @Override
@@ -73,5 +76,23 @@ public class BaseFragmentActivity extends FragmentActivity {
     final protected void sendToLoginScreen() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    protected void setActionBarText(final int titleResource, final boolean overwrite) {
+        setActionBarText(getString(titleResource), null, overwrite);
+    }
+
+    protected void setActionBarText(final String newTitle, final String newSubtitle, final boolean overwrite) {
+        if (overwrite) {
+            this.title = newTitle;
+            this.subtitle = newSubtitle;
+        }
+
+        final ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.setTitle(newTitle);
+        actionBar.setSubtitle(newSubtitle);
     }
 }

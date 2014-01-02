@@ -41,8 +41,6 @@ public class MainActivity
     private ActionBarDrawerToggle drawerToggle;
     private View fragmentContainerView;
     private NavigationDrawerFragment navigationDrawer;
-    private String title;
-    private String subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -290,23 +288,5 @@ public class MainActivity
     public void onReceivedLogoutEvent(final UserLogoutEvent event) {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
-    }
-
-    private void setActionBarText(final int titleResource, final boolean overwrite) {
-        setActionBarText(getString(titleResource), null, overwrite);
-    }
-
-    private void setActionBarText(final String newTitle, final String newSubtitle, final boolean overwrite) {
-        if (overwrite) {
-            this.title = newTitle;
-            this.subtitle = newSubtitle;
-        }
-
-        final ActionBar actionBar = getActionBar();
-        if (actionBar == null) {
-            return;
-        }
-        actionBar.setTitle(newTitle);
-        actionBar.setSubtitle(newSubtitle);
     }
 }
