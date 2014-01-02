@@ -189,7 +189,6 @@ public class MainActivity
                 if (!navigationDrawer.isAdded()) {
                     return;
                 }
-                setActionBarText(title, subtitle, true);
             }
 
             @Override
@@ -202,7 +201,6 @@ public class MainActivity
                     userLearnedDrawer = true;
                     sharedPreferences.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
-                setActionBarText(R.string.label_friends, false);
             }
         };
 

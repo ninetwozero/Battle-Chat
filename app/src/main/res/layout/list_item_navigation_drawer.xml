@@ -16,7 +16,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="@dimen/spacing_m"
-  android:background="?android:attr/activatedBackgroundIndicator">
+  android:background="@drawable/navigation_drawer_selected_item_bg">
 
   <TextView
     android:id="@+id/username"

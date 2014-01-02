@@ -28,6 +28,7 @@
   <color name="presence_offline">#787878</color>
 
   <!-- Navigation Drawer colors -->
+  <color name="navigation_drawer_selected_bg">#1AFFFFFF</color>
   <color name="navigation_drawer_bg">#333333</color>
   <color name="navigation_listview_divider">#444444</color>
 
