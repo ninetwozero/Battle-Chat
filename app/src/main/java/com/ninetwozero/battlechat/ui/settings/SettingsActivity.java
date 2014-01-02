@@ -20,8 +20,6 @@ import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseActivity;
 
 public class SettingsActivity extends BaseActivity {
-
-    /* TODO: Why is the session being killed upon returning from the Settings? */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
