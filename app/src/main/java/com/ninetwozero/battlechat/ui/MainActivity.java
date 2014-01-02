@@ -8,7 +8,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -140,9 +139,6 @@ public class MainActivity
         this.title = title == null ? this.title : title;
         this.subtitle = null;
 
-        Log.d(getClass().getSimpleName(), "[1]");
-        Log.d(getClass().getSimpleName(), "drawerLayout => " + drawerLayout);
-        Log.d(getClass().getSimpleName(), "isRecreated  => " + isRecreated);
         if (drawerLayout != null && !isRecreated) {
             toggleNavigationDrawer(false);
         }
@@ -155,12 +151,10 @@ public class MainActivity
         this.title = title == null ? this.title : title;
         this.subtitle = subtitle == null ? this.subtitle : subtitle;
 
-        Log.d(getClass().getSimpleName(), "[2]");
-        Log.d(getClass().getSimpleName(), "drawerLayout => " + drawerLayout);
-        Log.d(getClass().getSimpleName(), "isRecreated  => " + isRecreated);
         if (drawerLayout != null && !isRecreated) {
             toggleNavigationDrawer(false);
         }
+
         isRecreated = false;
     }
 
