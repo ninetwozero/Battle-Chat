@@ -71,7 +71,7 @@
     </activity>
     <activity
       android:label="@string/title_settings"
-      android:name=".ui.SettingsActivity"
+      android:name=".ui.settings.SettingsActivity"
       android:parentActivityName=".ui.MainActivity"
       android:theme="@style/AppThemeChildActivity"
       >

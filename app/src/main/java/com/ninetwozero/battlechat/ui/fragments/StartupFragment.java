@@ -14,8 +14,8 @@
 
 package com.ninetwozero.battlechat.ui.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,10 @@ import android.view.ViewGroup;
 import com.ninetwozero.battlechat.R;
 
 public class StartupFragment extends Fragment {
-    public StartupFragment() {}
+    public static final String TAG = "StartupFragment";
+
+    public StartupFragment() {
+    }
 
     public static Fragment newInstance() {
         final StartupFragment fragment = new StartupFragment();
@@ -34,11 +37,5 @@ public class StartupFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, final Bundle icicle) {
         return inflater.inflate(R.layout.fragment_startup, parent, false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.title_main);
     }
 }

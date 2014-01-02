@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,9 @@ import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
+import com.ninetwozero.battlechat.ui.fragments.StartupFragment;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerFragment;
+import com.ninetwozero.battlechat.ui.settings.SettingsActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
@@ -46,10 +50,7 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupNavigationDrawer();
-        setupActionBar();
-        setupActionBarToggle();
-        setupActivityFromState(savedInstanceState);
+        initialize(savedInstanceState);
     }
 
     @Override
@@ -111,6 +112,8 @@ public class MainActivity
         if (isDrawerOpen()) {
             toggleNavigationDrawer(false);
         } else {
+            setActionBarText(R.string.title_main, true);
+            navigationDrawer.getListView().setItemChecked(-1, true);
             super.onBackPressed();
         }
     }
@@ -135,8 +138,11 @@ public class MainActivity
     @Override
     public void onNavigationDrawerItemSelected(final int position, final String title) {
         this.title = title == null ? this.title : title;
-        this.subtitle = "";
+        this.subtitle = null;
 
+        Log.d(getClass().getSimpleName(), "[1]");
+        Log.d(getClass().getSimpleName(), "drawerLayout => " + drawerLayout);
+        Log.d(getClass().getSimpleName(), "isRecreated  => " + isRecreated);
         if (drawerLayout != null && !isRecreated) {
             toggleNavigationDrawer(false);
         }
@@ -149,14 +155,27 @@ public class MainActivity
         this.title = title == null ? this.title : title;
         this.subtitle = subtitle == null ? this.subtitle : subtitle;
 
+        Log.d(getClass().getSimpleName(), "[2]");
+        Log.d(getClass().getSimpleName(), "drawerLayout => " + drawerLayout);
+        Log.d(getClass().getSimpleName(), "isRecreated  => " + isRecreated);
         if (drawerLayout != null && !isRecreated) {
             toggleNavigationDrawer(false);
         }
         isRecreated = false;
     }
 
+    private void initialize(final Bundle savedInstanceState) {
+        setupInitialFragment();
+        setupNavigationDrawer();
+        setupActionBar();
+        setupActionBarToggle();
+        setupActivityFromState(savedInstanceState);
+    }
+
     private void setupNavigationDrawer() {
-        navigationDrawer = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentByTag("NavigationDrawer");
+        navigationDrawer = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentByTag(
+            NavigationDrawerFragment.TAG
+        );
     }
 
     private void setupActionBarToggle() {
@@ -170,7 +189,7 @@ public class MainActivity
             this,
             drawerLayout,
             R.drawable.ic_navigation_drawer,
-            R.string.app_name,
+            R.string.label_friends,
             R.string.app_name
         ) {
             @Override
@@ -178,14 +197,7 @@ public class MainActivity
                 if (!navigationDrawer.isAdded()) {
                     return;
                 }
-
-                final ActionBar actionBar = getActionBar();
-                if (actionBar == null) {
-                    return;
-                }
-
-                actionBar.setTitle(title);
-                actionBar.setSubtitle(subtitle);
+                setActionBarText(title, subtitle, true);
             }
 
             @Override
@@ -198,6 +210,7 @@ public class MainActivity
                     userLearnedDrawer = true;
                     sharedPreferences.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
+                setActionBarText(R.string.label_friends, false);
             }
         };
 
@@ -220,7 +233,6 @@ public class MainActivity
         final ActionBar actionbar = getActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setDisplayShowHomeEnabled(true);
-        actionbar.setTitle("");
     }
 
     private void setupActivityFromState(final Bundle state) {
@@ -238,6 +250,14 @@ public class MainActivity
             drawerLayout.closeDrawer(fragmentContainerView);
             navigationDrawer.setMenuVisibility(false);
         }
+    }
+
+    private void setupInitialFragment() {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
+        transaction.commit();
+
+        setActionBarText(R.string.title_main, true);
     }
 
     private void startTimer() {
@@ -276,5 +296,23 @@ public class MainActivity
     public void onReceivedLogoutEvent(final UserLogoutEvent event) {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
+    }
+
+    private void setActionBarText(final int titleResource, final boolean overwrite) {
+        setActionBarText(getString(titleResource), null, overwrite);
+    }
+
+    private void setActionBarText(final String newTitle, final String newSubtitle, final boolean overwrite) {
+        if (overwrite) {
+            this.title = newTitle;
+            this.subtitle = newSubtitle;
+        }
+
+        final ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.setTitle(newTitle);
+        actionBar.setSubtitle(newSubtitle);
     }
 }

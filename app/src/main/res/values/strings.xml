@@ -120,5 +120,6 @@
   <string name="chat_group_joined" formatted="false">%s joined the chat</string>
   <string name="chat_group_left" formatted="false">%s left the chat</string>
   <string name="chat_group_joinedgame" formatted="false">%s joined %s</string>
+  <string name="label_friends">Friends</string>
 
 </resources>

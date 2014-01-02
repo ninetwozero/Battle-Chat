@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.ui;
+package com.ninetwozero.battlechat.ui.settings;
 
 import android.os.Bundle;
 

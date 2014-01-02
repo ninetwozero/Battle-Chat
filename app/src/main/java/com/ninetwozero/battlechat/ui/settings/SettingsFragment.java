@@ -14,7 +14,7 @@
  * /
  */
 
-package com.ninetwozero.battlechat.ui.fragments;
+package com.ninetwozero.battlechat.ui.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -30,6 +30,7 @@ import com.ninetwozero.battlechat.network.IntelLoader;
 import com.ninetwozero.battlechat.network.Result;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;
+import com.ninetwozero.battlechat.ui.fragments.StartupFragment;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
@@ -40,6 +41,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class NavigationDrawerFragment extends BaseLoadingListFragment {
+    public static final String TAG = "NavigationDrawerFragment";
+
     private static final int ID_LOADER = 2000;
     private static final String STATE_SELECTED_ID = "selectedId";
     private static final String KEY_DISPLAY_OVERLAY = "manual_reload";
@@ -179,7 +182,8 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
             data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
 
             final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_root, ChatFragment.newInstance(data), ChatFragment.TAG);
+            transaction.addToBackStack(StartupFragment.TAG);
+            transaction.add(R.id.activity_root, ChatFragment.newInstance(data), ChatFragment.TAG);
             transaction.commit();
         } else {
             BusProvider.getInstance().post(user);
