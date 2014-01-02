@@ -130,7 +130,7 @@ public class ChatFragment extends BaseLoadingListFragment {
                 new SimpleGetRequest(UrlFactory.buildCloseChatURL(chatId))
             );
         } else {
-            toggleLoading(args.getBoolean("showProgress", true));
+            toggleLoading(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
             return new IntelLoader<ChatContainer>(
                 getActivity(),
                 new SimplePostRequest(
@@ -392,6 +392,12 @@ public class ChatFragment extends BaseLoadingListFragment {
 
         actionBar.setTitle(user.getUsername());
         actionBar.setSubtitle(NavigationDrawerListAdapter.resolveOnlineStatus(user.getPresenceType()));
+    }
+
+    @Override
+    public void onStop() {
+        getLoaderManager().restartLoader(ID_LOADER_CLOSE, getBundleForClose(chatId), this);
+        super.onStop();
     }
 
     public void scrollToLatestMessage() {
