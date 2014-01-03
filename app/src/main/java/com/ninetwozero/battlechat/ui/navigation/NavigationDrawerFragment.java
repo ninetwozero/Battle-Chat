@@ -88,6 +88,12 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
+        final LoaderManager manager = getLoaderManager();
+        if (manager != null && manager.hasRunningLoaders()) {
+            manager.destroyLoader(ID_LOADER);
+        }
+
         callbacks = null;
     }
 
@@ -152,13 +158,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     private void setupListView(final View view) {
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    }
-
-    private void storePositionState(final int id) {
-        currentSelectedId = id;
-    }
-
-    private void selectItemFromState(final int id) {
     }
 
     @Override

@@ -227,8 +227,6 @@ public class LoginActivity extends Activity {
         if (event.getStatus()) {
             Session.saveToSharedPreferences(getApplicationContext());
             BattleChatService.scheduleRun(getApplicationContext());
-
-            showNotification();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         } else {
@@ -252,9 +250,5 @@ public class LoginActivity extends Activity {
         loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         disclaimerWrap.setVisibility(show ? View.GONE : View.VISIBLE);
         disclaimerView.setVisibility(show ? View.GONE : View.VISIBLE);
-    }
-
-    private void showNotification() {
-
     }
 }

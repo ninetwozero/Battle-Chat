@@ -171,8 +171,8 @@ public class BattleChatService extends Service {
     }
 
     private void showNotification(final boolean hasActiveSession) {
-        if (sharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true)) {
-            if (hasActiveSession) {
+        if (sharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, false)) {
+            if (hasActiveSession ) {
                 BattleChat.showLoggedInNotification(getApplicationContext());
             } else {
                 BattleChat.showLoggedOutNotification(getApplicationContext());
