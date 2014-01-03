@@ -42,6 +42,12 @@ import com.ninetwozero.battlechat.ui.about.AboutActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
+/*
+TODO:
+Revamp login look&feel
+Provide error messages inline (not toast)
+*/
+
 public class LoginActivity extends Activity {
 
     private boolean accept;
