@@ -55,6 +55,7 @@ public class MainActivity
         super.onResume();
 
         startTimer();
+        showNotification();
         BusProvider.getInstance().register(this);
     }
 
