@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
+import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.ui.fragments.StartupFragment;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerFragment;
 import com.ninetwozero.battlechat.ui.settings.SettingsActivity;
@@ -112,6 +114,18 @@ public class MainActivity
         } else {
             setActionBarText(R.string.title_main, true);
             navigationDrawer.getListView().setItemChecked(-1, true);
+
+            final FragmentManager manager = getSupportFragmentManager();
+            if (manager.findFragmentByTag(StartupFragment.TAG) == null) {
+                final FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(
+                    R.id.activity_root,
+                    StartupFragment.newInstance(),
+                    StartupFragment.TAG
+                );
+                transaction.commit();
+                return;
+            }
             super.onBackPressed();
         }
     }
@@ -244,11 +258,13 @@ public class MainActivity
     }
 
     private void setupInitialFragment() {
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
-        transaction.commit();
-
-        setActionBarText(R.string.title_main, true);
+        final FragmentManager manager = getSupportFragmentManager();
+        if (manager.findFragmentByTag(ChatFragment.TAG) == null) {
+            final FragmentTransaction transaction = manager.beginTransaction();
+            transaction.add(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
+            transaction.commit();
+            setActionBarText(R.string.title_main, true);
+        }
     }
 
     private void startTimer() {
