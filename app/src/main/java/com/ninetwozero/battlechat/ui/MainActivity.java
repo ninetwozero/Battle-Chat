@@ -36,7 +36,6 @@ public class MainActivity
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String STATE_DRAWER_OPENED = "isDrawerOpened";
 
-    private boolean isRecreated = false;
     private Timer timer;
     private boolean userLearnedDrawer;
     private DrawerLayout drawerLayout;
@@ -152,11 +151,9 @@ public class MainActivity
         this.title = title == null ? this.title : title;
         this.subtitle = null;
 
-        if (drawerLayout != null && !isRecreated) {
+        if (drawerLayout != null) {
             toggleNavigationDrawer(false);
         }
-
-        isRecreated = false;
     }
 
     @Override
@@ -164,11 +161,9 @@ public class MainActivity
         this.title = title == null ? this.title : title;
         this.subtitle = subtitle == null ? this.subtitle : subtitle;
 
-        if (drawerLayout != null && !isRecreated) {
+        if (drawerLayout != null) {
             toggleNavigationDrawer(false);
         }
-
-        isRecreated = false;
     }
 
     private void initialize(final Bundle savedInstanceState) {
@@ -243,7 +238,6 @@ public class MainActivity
     private void setupActivityFromState(final Bundle state) {
         if (state != null) {
             toggleNavigationDrawer(state.getBoolean(STATE_DRAWER_OPENED, false));
-            isRecreated = true;
         }
     }
 
@@ -261,7 +255,7 @@ public class MainActivity
         final FragmentManager manager = getSupportFragmentManager();
         if (manager.findFragmentByTag(ChatFragment.TAG) == null) {
             final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
+            transaction.replace(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
             transaction.commit();
             setActionBarText(R.string.title_main, true);
         }
