@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
+import com.ninetwozero.battlechat.utils.BusProvider;
 
 public class StartupFragment extends Fragment {
     public static final String TAG = "StartupFragment";
@@ -36,6 +38,19 @@ public class StartupFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup parent, final Bundle icicle) {
-        return inflater.inflate(R.layout.fragment_startup, parent, false);
+        final View view = inflater.inflate(R.layout.fragment_startup, parent, false);
+        initialize(view);
+        return view;
+    }
+
+    private void initialize(final View view) {
+        view.findViewById(R.id.startup_button).setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BusProvider.getInstance().post(new ToggleNavigationDrawerRequest(true));
+                }
+            }
+        );
     }
 }

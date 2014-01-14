@@ -14,11 +14,15 @@
 
 package com.ninetwozero.battlechat.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -30,7 +34,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
@@ -48,9 +51,9 @@ Revamp login look&feel
 Provide error messages inline (not toast)
 */
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity {
+    private static final String RESET_PASSWORD_LINK = "https://signin.ea.com/p/web/resetPassword";
 
-    private boolean accept;
     private String email;
     private String password;
     private SharedPreferences sharedPreferences;
@@ -62,7 +65,7 @@ public class LoginActivity extends Activity {
     private View loginStatusView;
     private View disclaimerView;
     private View disclaimerWrap;
-    private View networkText;
+    private TextView alertText;
     private TextView loginStatusMessageView;
 
     @Override
@@ -85,18 +88,26 @@ public class LoginActivity extends Activity {
         BusProvider.getInstance().unregister(this);
     }
 
-    private void getDataFromBundle(final Bundle in) {
-        if (in == null) {
-            return;
-        }
-        accept = in.getBoolean("accept", false);
-    }
-
     private void initialize(final Bundle data) {
         setupFromPreexistingData();
-        getDataFromBundle(data);
         setupLayout();
+        displayEula();
 
+    }
+
+    private void displayEula() {
+        if (!sharedPreferences.getBoolean(EulaFragment.USER_ACCEPTED_EULA, false)) {
+            final FragmentManager manager = getSupportFragmentManager();
+            final FragmentTransaction transaction = manager.beginTransaction();
+            final Fragment previousDialog = manager.findFragmentByTag(EulaFragment.TAG);
+            if (previousDialog != null) {
+                transaction.remove(previousDialog);
+            }
+
+            final EulaFragment eulaFragment = EulaFragment.newInstance();
+            eulaFragment.setCancelable(false);
+            eulaFragment.show(transaction, EulaFragment.TAG);
+        }
     }
 
     private void setupFromPreexistingData() {
@@ -107,6 +118,7 @@ public class LoginActivity extends Activity {
             finish();
         }
         email = sharedPreferences.getString(Keys.Session.EMAIL, "");
+        password = sharedPreferences.getString(Keys.Session.PASSWORD, "");
     }
 
     private boolean alreadyHasCookie() {
@@ -118,6 +130,7 @@ public class LoginActivity extends Activity {
         emailView.setText(email);
 
         passwordView = (EditText) findViewById(R.id.password);
+        passwordView.setText(password);
         passwordView.setOnEditorActionListener(
             new OnEditorActionListener() {
                 @Override
@@ -131,40 +144,21 @@ public class LoginActivity extends Activity {
             }
         );
 
-        networkText = findViewById(R.id.text_network);
-        disclaimerView = findViewById(R.id.text_disclaimer);
-        disclaimerWrap = findViewById(R.id.wrap_disclaimer);
+        alertText = (TextView) findViewById(R.id.login_alert);
         loginFormView = findViewById(R.id.login_form);
         loginStatusView = findViewById(R.id.login_status);
         loginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
-        checkbox = (CheckBox) findViewById(R.id.checkbox_accept);
         findViewById(R.id.sign_in_button).setOnClickListener(
             new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (BattleChat.isConnectedToNetwork()) {
+                        clearErrorMessage();
                         doLogin();
                     }
                 }
             }
         );
-
-        findViewById(R.id.checkbox_accept).setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final CheckBox checkbox = (CheckBox) view;
-                    toggleDisclaimer(checkbox.isChecked());
-                }
-            }
-        );
-        toggleDisclaimer(accept);
-    }
-
-    @Override
-    public void onSaveInstanceState(final Bundle out) {
-        out.putBoolean("accept", checkbox.isChecked());
-        super.onSaveInstanceState(out);
     }
 
     @Override
@@ -178,6 +172,8 @@ public class LoginActivity extends Activity {
         if (item.getItemId() == R.id.menu_about) {
             startActivity(new Intent(this, AboutActivity.class));
             return true;
+        } else if (item.getItemId() == R.id.menu_reset_password) {
+            startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(RESET_PASSWORD_LINK)));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -191,7 +187,6 @@ public class LoginActivity extends Activity {
 
         boolean cancel = false;
         View focusView = null;
-
         if (TextUtils.isEmpty(password)) {
             passwordView.setError(getString(R.string.error_field_required));
             focusView = passwordView;
@@ -236,25 +231,27 @@ public class LoginActivity extends Activity {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         } else {
-            Toast.makeText(getApplicationContext(), event.getMessage(), Toast.LENGTH_SHORT).show();
+            displayErrorMessage(event.getMessage());
         }
     }
 
-    private void toggleDisclaimer(final boolean showLoginForm) {
-        checkbox.setChecked(showLoginForm);
-        loginFormView.setVisibility(showLoginForm ? View.VISIBLE : View.GONE);
-        disclaimerView.setVisibility(showLoginForm ? View.GONE : View.VISIBLE);
+    private void displayNetworkNotice(final boolean isConnected) {
+        alertText.setVisibility(isConnected ? View.GONE : View.VISIBLE);
+        findViewById(R.id.sign_in_button).setEnabled(isConnected);
     }
 
-    private void displayNetworkNotice(final boolean isConnected) {
-        networkText.setVisibility(isConnected ? View.GONE : View.VISIBLE);
-        findViewById(R.id.sign_in_button).setEnabled(isConnected);
+    private void displayErrorMessage(final String error) {
+        alertText.setVisibility(View.VISIBLE);
+        alertText.setText(error);
+    }
+
+    private void clearErrorMessage() {
+        alertText.setVisibility(View.GONE);
+        alertText.setText("");
     }
 
     private void showProgress(final boolean show) {
         loginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
         loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        disclaimerWrap.setVisibility(show ? View.GONE : View.VISIBLE);
-        disclaimerView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 }

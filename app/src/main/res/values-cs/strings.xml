@@ -77,10 +77,6 @@
   <string name="text_time_year">před 1 rokem</string>
   <string name="text_time_year_p">před %s roky</string>
   <string name="menu_about">O aplikaci</string>
-  <string name="text_login_disclaimer">Tato aplikace nebyla vytvořena, ani schválena EA/DICE. Battlefield je
-    registrovaná ochranná známka EA Digital Illusions CE AB. Žádné informace o uživateli nejsou ukládány a/nebo sdíleny
-    s třetími stranami.
-  </string>
   <string name="text_login_accept_terms">Souhlasím s podmínkami používání.</string>
   <string name="text_preference_notification_title">Ukazovat notifikaci se statusem</string>
   <string name="text_preference_notification_on">Notifikace bude viditelná.</string>

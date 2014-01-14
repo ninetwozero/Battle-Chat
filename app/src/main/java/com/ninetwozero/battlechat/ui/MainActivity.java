@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseFragmentActivity;
+import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.misc.Keys;
@@ -164,6 +165,11 @@ public class MainActivity
         if (drawerLayout != null) {
             toggleNavigationDrawer(false);
         }
+    }
+
+    @Subscribe
+    public void onStartupFragmentButtonClick(final ToggleNavigationDrawerRequest request) {
+        toggleNavigationDrawer(request.isShouldOpen());
     }
 
     private void initialize(final Bundle savedInstanceState) {

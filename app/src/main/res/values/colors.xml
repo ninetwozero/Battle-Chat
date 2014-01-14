@@ -16,9 +16,11 @@
   <color name="green">#309030</color>
   <color name="darkgreen">#ff63975f</color>
   <color name="blue">#ff3faaeb</color>
+  <color name="ligherblue">#ff42b3f7</color>
   <color name="dirtywhite">#EEEEEE</color>
   <color name="grey">#848484</color>
   <color name="orange">#e7ab0a</color>
+  <color name="darkgrey">#646464</color>
 
   <!-- Friend list colors -->
   <color name="presence_playing">#ee7fd3f9</color>

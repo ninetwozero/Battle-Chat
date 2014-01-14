@@ -25,10 +25,13 @@
   <dimen name="spacing_s">4dp</dimen>
   <dimen name="spacing_m">8dp</dimen>
   <dimen name="spacing_l">16dp</dimen>
+  <dimen name="spacing_xl">32dp</dimen>
 
   <dimen name="navigation_drawer_width">320dp</dimen>
   <dimen name="chat_avatar_size">48dp</dimen>
   <dimen name="chat_button_size">48dp</dimen>
+  <dimen name="spacing_xxs">1dp</dimen>
+  <dimen name="startup_logo_size">64dp</dimen>
 
   <integer name="num_cols">1</integer>
 

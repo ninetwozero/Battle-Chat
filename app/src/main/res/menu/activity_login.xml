@@ -19,4 +19,9 @@
     android:showAsAction="never"
     android:title="@string/menu_about"></item>
 
+  <item
+    android:id="@+id/menu_reset_password"
+    android:showAsAction="never"
+    android:title="@string/menu_reset_password"></item>
+
 </menu>
