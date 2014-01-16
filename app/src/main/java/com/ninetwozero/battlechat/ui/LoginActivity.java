@@ -25,13 +25,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -60,11 +59,8 @@ public class LoginActivity extends FragmentActivity {
 
     private EditText emailView;
     private EditText passwordView;
-    private CheckBox checkbox;
     private View loginFormView;
     private View loginStatusView;
-    private View disclaimerView;
-    private View disclaimerWrap;
     private TextView alertText;
     private TextView loginStatusMessageView;
 
@@ -126,6 +122,11 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void setupLayout() {
+        setupForm();
+        setupMenu();
+    }
+
+    private void setupForm() {
         emailView = (EditText) findViewById(R.id.email);
         emailView.setText(email);
 
@@ -161,21 +162,37 @@ public class LoginActivity extends FragmentActivity {
         );
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_login, menu);
-        return true;
-    }
+    private void setupMenu() {
+        findViewById(R.id.button_menu).setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final PopupMenu menu = new PopupMenu(LoginActivity.this, view);
+                    menu.setOnMenuItemClickListener(
+                        new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                Intent intent = null;
+                                if (item.getItemId() == R.id.menu_about) {
+                                    intent = new Intent(LoginActivity.this, AboutActivity.class);
+                                } else if (item.getItemId() == R.id.menu_reset_password) {
+                                    intent = new Intent(Intent.ACTION_VIEW).setData(
+                                        Uri.parse(RESET_PASSWORD_LINK)
+                                    );
+                                }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.menu_about) {
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
-        } else if (item.getItemId() == R.id.menu_reset_password) {
-            startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(RESET_PASSWORD_LINK)));
-        }
-        return super.onOptionsItemSelected(item);
+                                if (intent != null) {
+                                    startActivity(intent);
+                                }
+                                return true;
+                            }
+                        }
+                    );
+                    menu.inflate(R.menu.activity_login);
+                    menu.show();
+                }
+            }
+        );
     }
 
     public void doLogin() {

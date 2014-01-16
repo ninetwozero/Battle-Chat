@@ -21,15 +21,13 @@
     <item name="android:homeAsUpIndicator">@drawable/ic_navigation_drawer</item>
   </style>
 
-  <style name="AppThemeChildActivity" parent="android:Theme.Holo.Light" />
+  <style name="AppThemeChildActivity" parent="android:Theme.Holo.Light"/>
 
   <style name="LoginFormContainer">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:padding">16dp</item>
     <item name="android:layout_centerInParent">true</item>
   </style>
-
 
   <style name="separator">
     <item name="android:layout_width">fill_parent</item>
@@ -63,5 +61,22 @@
   <style name="RightMessageBox" parent="ChatMessageBox">
     <item name="android:background">@drawable/bubble_background_r</item>
     <item name="android:paddingRight">@dimen/spacing_l</item>
+  </style>
+
+  <!-- Buttons -->
+  <style name="BaseButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:text">@string/startup_start_new</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@android:color/white</item>
+  </style>
+
+  <style name="BlueButton" parent="BaseButton">
+    <item name="android:background">@drawable/blue_button_background</item>
+  </style>
+
+  <style name="RedButton" parent="BaseButton">
+    <item name="android:background">@drawable/red_button_background</item>
   </style>
 </resources>

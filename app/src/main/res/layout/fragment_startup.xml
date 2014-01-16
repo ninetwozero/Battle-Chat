@@ -62,13 +62,9 @@
     />
 
   <Button
+    style="@style/BlueButton"
     android:id="@+id/startup_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     android:text="@string/startup_start_new"
-    android:background="@drawable/blue_button_background"
-    android:textSize="18sp"
-    android:textColor="@android:color/white"
     android:layout_below="@id/startup_maintext"
     android:layout_centerHorizontal="true"
     android:layout_alignLeft="@id/startup_title"

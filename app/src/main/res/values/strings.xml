@@ -132,5 +132,6 @@
     Let\'s fix that.
   </string>
   <string name="startup_start_new">Start a new chat</string>
+  <string name="cdesc_action_item">Action item</string>
 
 </resources>

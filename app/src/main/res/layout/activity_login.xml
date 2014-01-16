@@ -15,7 +15,22 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="#333">
+
+  <ImageView
+    android:id="@+id/button_menu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/cdesc_action_item"
+    android:padding="@dimen/spacing_m"
+    android:src="@drawable/ic_menu_overflow_white"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/action_item_background"
+    android:alpha="0.8"
+    android:clickable="true"
+    />
 
   <!-- Login form -->
 
@@ -29,25 +44,35 @@
       android:id="@+id/login_alert"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="#FFFFFF"
       android:text="@string/msg_no_network"
       android:layout_marginBottom="10dp"
       android:gravity="center"
       android:visibility="gone"/>
 
+    <ImageView
+      android:id="@+id/logo"
+      android:layout_width="@dimen/startup_logo_size"
+      android:layout_height="@dimen/startup_logo_size"
+      android:src="@drawable/ic_launcher_web"
+      android:contentDescription="@string/cdesc_logo"
+      android:alpha="0.7"
+      android:layout_marginBottom="@dimen/spacing_l"
+      />
+
     <EditText
       android:id="@+id/email"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/login_form_element_width"
       android:layout_height="wrap_content"
       android:hint="@string/prompt_email"
       android:inputType="textEmailAddress"
       android:maxLines="1"
       android:singleLine="true"
-      android:text="@string/app_email"/>
+      android:text="@string/app_email"
+      />
 
     <EditText
       android:id="@+id/password"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/login_form_element_width"
       android:layout_height="wrap_content"
       android:hint="@string/prompt_password"
       android:imeActionId="@+id/login"
@@ -59,12 +84,13 @@
       android:text=""/>
 
     <Button
+      style="@style/RedButton"
       android:id="@+id/sign_in_button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="right"
+      android:layout_width="@dimen/login_form_element_width"
+      android:layout_gravity="center_horizontal"
       android:paddingLeft="@dimen/spacing_xl"
       android:paddingRight="@dimen/spacing_xl"
+      android:layout_marginTop="@dimen/spacing_l"
       android:text="@string/action_sign_in_short"/>
   </LinearLayout>
 
