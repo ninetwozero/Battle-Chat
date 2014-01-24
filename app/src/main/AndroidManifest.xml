@@ -57,6 +57,7 @@
       android:label="@string/title_main"
       android:name=".ui.MainActivity"
       android:launchMode="singleTask"
+      android:windowSoftInputMode="adjustPan|stateUnchanged"
       />
 
     <activity

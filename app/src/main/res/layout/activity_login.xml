@@ -28,7 +28,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentRight="true"
     android:background="@drawable/action_item_background"
-    android:alpha="0.8"
+    android:alpha="0.2"
     android:clickable="true"
     />
 

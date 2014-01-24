@@ -30,7 +30,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
@@ -222,7 +221,7 @@ public class ChatFragment extends BaseLoadingListFragment {
     @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
         if (chatId > 0) {
-            reload(false);
+            reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
         }
     }
 
@@ -317,15 +316,10 @@ public class ChatFragment extends BaseLoadingListFragment {
         getLoaderManager().restartLoader(ID_LOADER_SEND, getBundleForSend(chatId, message), this);
     }
 
-    private void toggleButton(boolean enable) {
+    private void toggleButton(final boolean enable) {
         final View button = getView().findViewById(R.id.button_send);
-        if (enable) {
-            button.setEnabled(true);
-            button.setAlpha(1.0f);
-        } else {
-            button.setEnabled(false);
-            button.setAlpha(0.5f);
-        }
+        button.setEnabled(enable);
+        button.setAlpha(enable ? 1.0f : 0.5f);
     }
 
     private void clearInput() {
@@ -333,7 +327,10 @@ public class ChatFragment extends BaseLoadingListFragment {
         if (view == null) {
             return;
         }
-        ((TextView) view.findViewById(R.id.input_message)).setText("");
+
+        final EditText input = (EditText) view.findViewById(R.id.input_message);
+        input.setText("");
+        input.setError(null);
     }
 
     private void notifyWithSound() {
