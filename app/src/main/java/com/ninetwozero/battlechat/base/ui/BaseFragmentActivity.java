@@ -26,6 +26,7 @@ import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.ui.LoginActivity;
+import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 public class BaseFragmentActivity extends FragmentActivity {
     protected SharedPreferences sharedPreferences;
@@ -67,9 +68,9 @@ public class BaseFragmentActivity extends FragmentActivity {
 
     protected void showNotification() {
         if (sharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, false)) {
-            BattleChat.showLoggedInNotification(getApplicationContext());
+            NotificationHelper.showLoggedInNotification(getApplicationContext());
         } else {
-            BattleChat.clearNotification(getApplicationContext());
+            NotificationHelper.clearNotification(getApplicationContext());
         }
     }
 

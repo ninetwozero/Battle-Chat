@@ -43,6 +43,7 @@ import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.exception.Failure;
 import com.ninetwozero.battlechat.utils.BusProvider;
+import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,9 +174,9 @@ public class BattleChatService extends Service {
     private void showNotification(final boolean hasActiveSession) {
         if (sharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, false)) {
             if (hasActiveSession ) {
-                BattleChat.showLoggedInNotification(getApplicationContext());
+                NotificationHelper.showLoggedInNotification(getApplicationContext());
             } else {
-                BattleChat.showLoggedOutNotification(getApplicationContext());
+                NotificationHelper.showLoggedOutNotification(getApplicationContext());
             }
         }
     }

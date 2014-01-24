@@ -26,6 +26,7 @@ import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.LoginRequestFactory;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.network.LoginHtmlParser;
+import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 import org.jsoup.Connection;
 
@@ -67,7 +68,7 @@ public abstract class BaseLoginTask extends AsyncTask<String, Void, Boolean> {
 
     protected void showNotification() {
         if (sharedPreferences.getBoolean(Keys.Settings.PERSISTENT_NOTIFICATION, true)) {
-            BattleChat.showLoggedInNotification(context);
+            NotificationHelper.showLoggedInNotification(context);
         }
     }
 

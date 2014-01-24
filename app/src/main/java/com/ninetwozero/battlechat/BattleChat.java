@@ -16,19 +16,12 @@ package com.ninetwozero.battlechat;
 
 import android.app.ActivityManager;
 import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.NotificationCompat;
 
-import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.misc.Keys;
-import com.ninetwozero.battlechat.ui.LoginActivity;
 
 public class BattleChat extends Application {
     public final static String TAG = "com.ninetwozero.battlechat";
@@ -38,49 +31,6 @@ public class BattleChat extends Application {
 
     public static Context getContext() {
         return instance;
-    }
-
-    public static void showLoggedInNotification(final Context c) {
-        if (c == null) {
-            return;
-        }
-
-        final String subtitle = String.format(
-            c.getString(R.string.text_notification_subtitle_ok),
-            Session.getUsername()
-        );
-
-        final NotificationManager notificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.service_name);
-
-        Notification notification = new NotificationCompat.Builder(c)
-            .setContentTitle(c.getString(R.string.text_notification_title))
-            .setContentText(subtitle)
-            .setSmallIcon(R.drawable.ic_launcher)
-            .setOngoing(true)
-            .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
-            .build();
-        notificationManager.notify(R.string.service_name, notification);
-    }
-
-    public static void showLoggedOutNotification(final Context c) {
-        final NotificationManager notificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.service_name);
-
-        Notification notification = new NotificationCompat.Builder(c)
-            .setContentTitle(c.getString(R.string.text_notification_title))
-            .setContentText(c.getString(R.string.text_notification_subtitle_fail))
-            .setSmallIcon(R.drawable.ic_launcher)
-            .setWhen(System.currentTimeMillis())
-            .setAutoCancel(true)
-            .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
-            .build();
-        notificationManager.notify(R.string.service_name, notification);
-    }
-
-    public static void clearNotification(final Context c) {
-        final NotificationManager notificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.service_name);
     }
 
     public static boolean hasStoredCookie(final SharedPreferences preferences) {

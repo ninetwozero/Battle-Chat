@@ -19,11 +19,11 @@ package com.ninetwozero.battlechat.base.asynctasks;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.services.BattleChatService;
+import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 public class BaseLogoutTask extends AsyncTask<Void, Void, Void> {
     private Context context;
@@ -45,7 +45,7 @@ public class BaseLogoutTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void results) {
         Session.clearSession(context);
-        BattleChat.clearNotification(context);
+        NotificationHelper.clearNotification(context);
         BattleChatService.unscheduleRun(context);
     }
 }
