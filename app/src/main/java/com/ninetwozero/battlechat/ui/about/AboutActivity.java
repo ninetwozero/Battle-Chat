@@ -16,6 +16,7 @@ package com.ninetwozero.battlechat.ui.about;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,13 +33,16 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         setupVersion();
-         setupLink();
+        setupLink();
     }
 
     private void setupVersion() {
         String versionNumber = "Unknown";
         try {
-            versionNumber = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            final PackageManager manager = getPackageManager();
+            if (manager != null) {
+                versionNumber = manager.getPackageInfo(getPackageName(), 0).versionName;
+            }
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -47,24 +51,24 @@ public class AboutActivity extends Activity {
 
     private void setupLink() {
         findViewById(R.id.link).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://www.ninetwozero.com")));
-                    }
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://www.ninetwozero.com")));
                 }
+            }
         );
         findViewById(R.id.email).setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_SEND).putExtra(
-                                Intent.EXTRA_EMAIL,
-                                new String[]{"support@ninetwozero.com"}
-                        ).setType("plain/text");
-                        startActivity(Intent.createChooser(intent, "Send an e-mail..."));
-                    }
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SEND).putExtra(
+                        Intent.EXTRA_EMAIL,
+                        new String[]{"support@ninetwozero.com"}
+                    ).setType("plain/text");
+                    startActivity(Intent.createChooser(intent, "Send an e-mail..."));
                 }
+            }
         );
     }
 }

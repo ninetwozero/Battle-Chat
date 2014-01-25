@@ -44,10 +44,12 @@ public class BattleChat extends Application {
     }
 
     public static boolean isServiceRunning(final String className) {
-        ActivityManager manager = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (className.equals(service.service.getClassName())) {
-                return true;
+        final ActivityManager manager = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager != null) {
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (className.equals(service.service.getClassName())) {
+                    return true;
+                }
             }
         }
         return false;

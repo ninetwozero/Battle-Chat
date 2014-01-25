@@ -21,7 +21,7 @@ public class TriggerRefreshEvent {
         MANUAL,
         AUTOMATIC
     }
-    private Type type;
+    private final Type type;
 
     public TriggerRefreshEvent(final Type type) {
         this.type = type;

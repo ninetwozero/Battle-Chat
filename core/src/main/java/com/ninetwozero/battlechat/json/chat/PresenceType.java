@@ -21,7 +21,7 @@ public enum PresenceType {
     OFFLINE(0);
 
     private final static int AWAY_BITMASK = 65536;
-    private int listPriority;
+    private final int listPriority;
     PresenceType(final int listPriority) {
         this.listPriority = listPriority;
     }

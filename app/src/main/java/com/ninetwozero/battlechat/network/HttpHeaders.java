@@ -49,7 +49,7 @@ public class HttpHeaders {
                 new BasicHeader("Accept-Charset", "utf-8,ISO-8859-1;")
         };
 
-        public final static Header[] getHeaders(int id) {
+        public static Header[] getHeaders(int id) {
             switch (id) {
                 case NORMAL:
                     return NORMAL_HEADERS;
@@ -87,7 +87,7 @@ public class HttpHeaders {
                 new BasicHeader("X-JSON", "1"),
         };
 
-        public final static Header[] getHeaders(int id) {
+        public static Header[] getHeaders(int id) {
             switch (id) {
                 case NORMAL:
                     return NORMAL_HEADERS;

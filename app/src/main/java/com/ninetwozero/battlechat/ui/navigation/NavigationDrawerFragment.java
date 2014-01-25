@@ -49,7 +49,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     private boolean shouldReloadOnAttach = false;
     private boolean shouldReloadWithLoadingScreen = false;
     private int currentSelectedId = 0;
-    private ListView listView;
     private NavigationDrawerCallbacks callbacks;
 
     public NavigationDrawerFragment() {
@@ -80,7 +79,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         if (shouldReloadOnAttach) {
             shouldReloadWithLoadingScreen = false;
             shouldReloadOnAttach = false;
-            reload(shouldReloadWithLoadingScreen);
+            reload(false);
         }
     }
 
@@ -155,7 +154,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     }
 
     private void setupListView(final View view) {
-        listView = (ListView) view.findViewById(android.R.id.list);
+        final ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
@@ -187,7 +186,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         }
 
         callbacks.onNavigationDrawerItemSelected(
-            position,
             user.getUsername(),
             getString(NavigationDrawerListAdapter.resolveOnlineStatus(user.getPresenceType()))
         );
@@ -269,9 +267,9 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     }
 
     public static interface NavigationDrawerCallbacks {
-        void onNavigationDrawerItemSelected(final int position, final String title);
+        void onNavigationDrawerItemSelected(final String title);
 
-        void onNavigationDrawerItemSelected(final int position, final String title, final String subtitle);
+        void onNavigationDrawerItemSelected(final String title, final String subtitle);
 
         boolean isDrawerOpen();
     }

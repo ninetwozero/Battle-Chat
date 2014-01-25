@@ -37,7 +37,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (BattleChat.hasStoredCookie(sharedPreferences)) {
             setupBattleChatClient();
             showNotification();
@@ -56,7 +57,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
             toast = null;
         }
 
-        toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
     }
 

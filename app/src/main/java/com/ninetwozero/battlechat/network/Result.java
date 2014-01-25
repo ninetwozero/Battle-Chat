@@ -1,8 +1,8 @@
 package com.ninetwozero.battlechat.network;
 
 public class Result<T> {
-    private Status status;
-    private String message;
+    private final Status status;
+    private final String message;
     private T data;
 
     public Result(final Status status, final String message) {
@@ -42,6 +42,6 @@ public class Result<T> {
         FAILURE,
         ERROR,
         NETWORK_FAILURE(),
-        CANCELLED();
+        CANCELLED()
     }
 }

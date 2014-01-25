@@ -34,7 +34,7 @@ import java.util.List;
 
 public class MessageListAdapter extends BaseListAdapter<Message> {
 
-    private String self;
+    private final String self;
     private User user;
 
     public MessageListAdapter(final Context context, final String self, final List<Message> items) {
@@ -83,7 +83,7 @@ public class MessageListAdapter extends BaseListAdapter<Message> {
         if (message.getType() == Message.Type.MESSAGE) {
             displayAvatar(convertView, ownMessage);
             setText(convertView, R.id.message, String.valueOf(Html.fromHtml(message.getMessage())));
-            setText(convertView, R.id.timestamp, DateTimeUtils.toRelative(context, message.getTimestamp()));
+            setText(convertView, R.id.timestamp, DateTimeUtils.toRelative(message.getTimestamp()));
         } else {
             handleGroupChatSpecifics(convertView, message);
         }

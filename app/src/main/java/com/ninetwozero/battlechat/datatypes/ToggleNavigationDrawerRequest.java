@@ -17,7 +17,7 @@
 package com.ninetwozero.battlechat.datatypes;
 
 public class ToggleNavigationDrawerRequest {
-    private boolean shouldOpen;
+    private final boolean shouldOpen;
     public ToggleNavigationDrawerRequest(boolean shouldOpen) {
         this.shouldOpen = shouldOpen;
     }

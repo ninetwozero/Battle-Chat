@@ -26,7 +26,7 @@ import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 public class BaseLogoutTask extends AsyncTask<Void, Void, Void> {
-    private Context context;
+    private final Context context;
 
     public BaseLogoutTask(final Context context) {
         this.context = context;

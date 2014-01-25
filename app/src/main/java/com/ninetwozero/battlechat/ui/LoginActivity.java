@@ -68,7 +68,7 @@ public class LoginActivity extends FragmentActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initialize(savedInstanceState);
+        initialize();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class LoginActivity extends FragmentActivity {
         BusProvider.getInstance().unregister(this);
     }
 
-    private void initialize(final Bundle data) {
+    private void initialize() {
         setupFromPreexistingData();
         setupLayout();
         displayEula();
@@ -108,7 +108,7 @@ public class LoginActivity extends FragmentActivity {
 
     private void setupFromPreexistingData() {
         setTitle(R.string.title_login);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (alreadyHasCookie() && BattleChat.isConnectedToNetwork()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -260,6 +260,11 @@ public class LoginActivity extends FragmentActivity {
     private void displayErrorMessage(final String error) {
         alertText.setVisibility(View.VISIBLE);
         alertText.setText(error);
+    }
+
+    private void displayErrorMessage(final int errorResource) {
+        alertText.setVisibility(View.VISIBLE);
+        alertText.setText(errorResource);
     }
 
     private void clearErrorMessage() {

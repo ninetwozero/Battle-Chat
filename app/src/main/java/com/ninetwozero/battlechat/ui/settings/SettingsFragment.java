@@ -16,6 +16,7 @@
 
 package com.ninetwozero.battlechat.ui.settings;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -26,31 +27,10 @@ import com.ninetwozero.battlechat.R;
 
 import java.util.Map;
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onPause() {
-        PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(this);
-        super.onPause();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Map<String, ?> preferences = sharedPreferences.getAll();
-        Log.d(getClass().getSimpleName(), "Key being removed: " + key);
-        for (String preferenceKey : preferences.keySet()) {
-            Log.d(getClass().getSimpleName(), preferenceKey + " => " + preferences.get(preferenceKey));
-        }
     }
 }

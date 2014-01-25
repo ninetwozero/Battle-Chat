@@ -32,8 +32,8 @@ import org.jsoup.Connection;
 
 public abstract class BaseLoginTask extends AsyncTask<String, Void, Boolean> {
     protected String message;
-    protected SharedPreferences sharedPreferences;
-    private Context context;
+    protected final SharedPreferences sharedPreferences;
+    private final Context context;
     private String suppliedEmail;
     private String suppliedPassword;
 

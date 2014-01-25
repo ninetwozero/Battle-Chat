@@ -105,7 +105,7 @@ public class BattleChatService extends Service {
 
     @Override
     public void onCreate() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -147,11 +147,15 @@ public class BattleChatService extends Service {
                 chatInformationTask.execute();
             }
         } else if (action == ACTION_LOGIN) {
-            userLoginTask = new UserLoginTask(getApplicationContext(), originatedFromActivity);
-            userLoginTask.execute(email, password);
+            if (userLoginTask == null) {
+                userLoginTask = new UserLoginTask(getApplicationContext(), originatedFromActivity);
+                userLoginTask.execute(email, password);
+            }
         } else if (action == ACTION_LOGOUT) {
-            userLogoutTask = new UserLogoutTask(getApplicationContext(), originatedFromActivity);
-            userLogoutTask.execute();
+            if (userLogoutTask == null) {
+                userLogoutTask = new UserLogoutTask(getApplicationContext(), originatedFromActivity);
+                userLogoutTask.execute();
+            }
         }
     }
 
@@ -250,7 +254,7 @@ public class BattleChatService extends Service {
     }
 
     private class UserLoginTask extends BaseLoginTask {
-        private boolean calledFromActivity;
+        private final boolean calledFromActivity;
 
         public UserLoginTask(final Context context, final boolean calledFromActivity) {
             super(context);
@@ -275,7 +279,7 @@ public class BattleChatService extends Service {
     }
 
     private class UserLogoutTask extends BaseLogoutTask {
-        private boolean calledFromActivity;
+        private final boolean calledFromActivity;
 
         public UserLogoutTask(final Context context, final boolean calledFromActivity) {
             super(context);

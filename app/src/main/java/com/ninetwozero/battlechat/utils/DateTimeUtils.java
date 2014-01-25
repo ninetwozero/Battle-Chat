@@ -23,7 +23,7 @@ public class DateTimeUtils {
     public static String toLiteral(final int seconds) {
         final StringBuilder stringBuilder = new StringBuilder();
         int secondsKeeper = seconds;
-        int count = 0;
+        int count;
         int numOutputs = 0;
 
         for (int key : literalMapping.keySet()) {
@@ -39,7 +39,7 @@ public class DateTimeUtils {
         return stringBuilder.toString().trim();
     }
 
-    public static String toRelative(final Context context, final long timeInSeconds) {
+    public static String toRelative(final long timeInSeconds) {
         return DateUtils.getRelativeTimeSpanString(timeInSeconds*1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
             //timeInSeconds * 1000, SystemClock.currentThreadTimeMillis(), DateUtils.SECOND_IN_MILLIS);
     }

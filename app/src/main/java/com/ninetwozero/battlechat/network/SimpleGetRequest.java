@@ -16,11 +16,10 @@ public class SimpleGetRequest extends BaseSimpleRequest {
     }
 
     protected HttpRequest getHttpRequest() {
-        final HttpRequest request = HttpRequest.get(requestUrl)
+        return HttpRequest.get(requestUrl)
             .readTimeout(READ_TIMEOUT)
             .connectTimeout(CONNECT_TIMEOUT)
             .header("X-Requested-With", "XMLHttpRequest")
             .header("Cookie", Session.getCookieName() + "=" + Session.getCookieValue());
-        return request;
     }
 }

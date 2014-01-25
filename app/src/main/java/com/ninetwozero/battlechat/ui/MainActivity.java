@@ -17,7 +17,6 @@ import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseFragmentActivity;
 import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
-import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
@@ -148,7 +147,7 @@ public class MainActivity
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(final int position, final String title) {
+    public void onNavigationDrawerItemSelected(final String title) {
         this.title = title == null ? this.title : title;
         this.subtitle = null;
 
@@ -158,7 +157,7 @@ public class MainActivity
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(final int position, final String title, final String subtitle) {
+    public void onNavigationDrawerItemSelected(final String title, final String subtitle) {
         this.title = title == null ? this.title : title;
         this.subtitle = subtitle == null ? this.subtitle : subtitle;
 
@@ -202,9 +201,6 @@ public class MainActivity
         ) {
             @Override
             public void onDrawerClosed(View drawerView) {
-                if (!navigationDrawer.isAdded()) {
-                    return;
-                }
             }
 
             @Override
@@ -236,9 +232,13 @@ public class MainActivity
     }
 
     private void setupActionBar() {
-        final ActionBar actionbar = getActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setDisplayShowHomeEnabled(true);
+        final ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     private void setupActivityFromState(final Bundle state) {
@@ -300,7 +300,7 @@ public class MainActivity
     }
 
     @Subscribe
-    public void onReceivedLogoutEvent(final UserLogoutEvent event) {
+    public void onReceivedLogoutEvent() {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SimplePostRequest extends BaseSimpleRequest {
-    private Bundle postData;
+    private final Bundle postData;
 
     public SimplePostRequest(final String requestUrl, final Bundle postData) {
         super(requestUrl);
@@ -23,13 +23,12 @@ public class SimplePostRequest extends BaseSimpleRequest {
     }
 
     protected HttpRequest getHttpRequest() {
-        HttpRequest request = HttpRequest.post(requestUrl)
+        return HttpRequest.post(requestUrl)
             .readTimeout(READ_TIMEOUT)
             .connectTimeout(CONNECT_TIMEOUT)
             .header("X-Requested-With", "XMLHttpRequest")
             .header("Cookie", Session.getCookieName() + "=" + Session.getCookieValue())
             .form(fetchBundleAsMap(postData));
-        return request;
     }
 
     private Map<String, String> fetchBundleAsMap(final Bundle postData) {

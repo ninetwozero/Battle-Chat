@@ -15,11 +15,11 @@
 package com.ninetwozero.battlechat.json.chat;
 
 public class User {
-    private String id;
-    private String username;
-    private String gravatarHash;
+    private final String id;
+    private final String username;
+    private final String gravatarHash;
     private UserPresence presence;
-    private PresenceType presenceType;
+    private final PresenceType presenceType;
 
     public User(final String id, final String username, final String gravatar) {
         this.id = id;
