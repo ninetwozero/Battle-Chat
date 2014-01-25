@@ -28,7 +28,7 @@ import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.ui.LoginActivity;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 
-public class BaseFragmentActivity extends FragmentActivity {
+public abstract class BaseFragmentActivity extends FragmentActivity {
     protected SharedPreferences sharedPreferences;
     protected String title;
     protected String subtitle;

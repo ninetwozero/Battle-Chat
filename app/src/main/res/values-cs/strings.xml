@@ -40,8 +40,6 @@
   <string name="msg_message_ok">Zpráva odeslána!</string>
   <string name="msg_message_fail">Zpráva nemohla být odeslána!</string>
   <string name="msg_chat_refresh_fail">Nepodařilo se obnovit chat. Zkuste se znovu přihlásit.</string>
-  <string name="label_sending">Odesílání…</string>
-  <string name="label_send">Odeslat</string>
   <string name="msg_chat_send_message_error">Musíte vyplnit zprávu.</string>
   <string name="msg_chat_send_multiple_error">Už zprávu odesíláte!</string>
   <string name="msg_chat_load_fail">Nastala chyba: Nemůžete chatovat s tímto uživatelem.</string>
@@ -64,18 +62,6 @@
   <string name="login_progress_signing_in">Přihlašuji&#8230;</string>
   <string name="error_invalid_email">Emailová adresa je neplatná</string>
   <string name="error_field_required">Toto pole je vyžadováno</string>
-  <string name="text_time_second">před 1 sekundou</string>
-  <string name="text_time_second_p">před %s sekundami</string>
-  <string name="text_time_min">před 1 minutou</string>
-  <string name="text_time_min_p">před %s minutami</string>
-  <string name="text_time_hour">před 1 hodinou</string>
-  <string name="text_time_hour_p">před %s hodinami</string>
-  <string name="text_time_day">před 1 dnem</string>
-  <string name="text_time_day_p">před %s dny</string>
-  <string name="text_time_week">před 1 týdnem</string>
-  <string name="text_time_week_p">před %s týdny</string>
-  <string name="text_time_year">před 1 rokem</string>
-  <string name="text_time_year_p">před %s roky</string>
   <string name="menu_about">O aplikaci</string>
   <string name="text_login_accept_terms">Souhlasím s podmínkami používání.</string>
   <string name="text_preference_notification_title">Ukazovat notifikaci se statusem</string>

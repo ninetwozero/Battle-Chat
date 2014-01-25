@@ -18,10 +18,6 @@
   android:versionName="2.0"
   package="com.ninetwozero.battlechat">
 
-  <uses-sdk
-    android:minSdkVersion="14"
-    android:targetSdkVersion="19"/>
-
   <!-- Used by instrumentation tests only. Do not include in production apps unless necessary! -->
   <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>

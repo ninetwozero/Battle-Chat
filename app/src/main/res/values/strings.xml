@@ -40,12 +40,10 @@
   <string name="msg_message_ok">Message sent!</string>
   <string name="msg_message_fail">Message could not be sent!</string>
   <string name="msg_chat_refresh_fail">Could not reload chat. Please try to relogin.</string>
-  <string name="label_sending">Sending…</string>
-  <string name="label_send">Send</string>
   <string name="msg_chat_send_message_error">You need to enter a message.</string>
   <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
   <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
-  <string name="msg_chat_load_error">An error occured: The website is being stupid.</string>
+  <string name="msg_chat_load_error">An error occurred: The website is being stupid.</string>
   <string name="text_notification_title">Battle Chat status</string>
   <string name="text_notification_subtitle_ok">Signed in as %s. Tap to open.</string>
   <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
@@ -66,18 +64,6 @@
   <string name="login_progress_signing_in">Signing in&#8230;</string>
   <string name="error_invalid_email">This email address is invalid</string>
   <string name="error_field_required">This field is required</string>
-  <string name="text_time_second">1 second ago</string>
-  <string name="text_time_second_p">%s seconds ago</string>
-  <string name="text_time_min">1 minute ago</string>
-  <string name="text_time_min_p">%s minutes ago</string>
-  <string name="text_time_hour">1 hour ago</string>
-  <string name="text_time_hour_p">%s hours ago</string>
-  <string name="text_time_day">1 day ago</string>
-  <string name="text_time_day_p">%s days ago</string>
-  <string name="text_time_week">1 week ago</string>
-  <string name="text_time_week_p">%s weeks ago</string>
-  <string name="text_time_year">1 year ago</string>
-  <string name="text_time_year_p">%s years ago</string>
   <string name="menu_about">About</string>
   <string name="text_login_accept_terms">I accept the terms and conditions.</string>
   <string name="text_preference_notification_title">Display status notification</string>
@@ -112,10 +98,10 @@
 
   <string name="text_main_loading">Loading friends&#8230;</string>
 
-  <string name="chat_group_invited" formatted="false">%s was invited</string>
-  <string name="chat_group_joined" formatted="false">%s joined the chat</string>
-  <string name="chat_group_left" formatted="false">%s left the chat</string>
-  <string name="chat_group_joinedgame" formatted="false">%s joined %s</string>
+  <string name="chat_group_invited" formatted="true">%s was invited</string>
+  <string name="chat_group_joined" formatted="true">%s joined the chat</string>
+  <string name="chat_group_left" formatted="true">%s left the chat</string>
+  <string name="chat_group_joinedgame" formatted="true">%s joined %s</string>
   <string name="label_friends">Friends</string>
   <string name="menu_reset_password">Reset password</string>
   <string name="accept">Accept</string>
@@ -133,5 +119,6 @@
   </string>
   <string name="startup_start_new">Start a new chat</string>
   <string name="cdesc_action_item">Action item</string>
+  <string name="cdesc_button_send">Send button</string>
 
 </resources>
