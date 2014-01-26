@@ -85,7 +85,7 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void initialize() {
-        setupFromPreexistingData();
+        setupFromPreExistingData();
         setupLayout();
         displayEula();
 
@@ -106,7 +106,7 @@ public class LoginActivity extends FragmentActivity {
         }
     }
 
-    private void setupFromPreexistingData() {
+    private void setupFromPreExistingData() {
         setTitle(R.string.title_login);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (alreadyHasCookie() && BattleChat.isConnectedToNetwork()) {

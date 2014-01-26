@@ -209,9 +209,15 @@ public class BattleChatService extends Service {
                 for (Chat chat : unreadChats) {
                     for (User user : chat.getUsers()) {
                         if (!user.getId().equals(Session.getUserId())) {
-                            Log.d(TAG, "Chat with " + user.getUsername());
+                            Log.d(
+                                TAG,
+                                String.format(
+                                    "Chat with %s has %s unread messages",
+                                    user.getUsername(),
+                                    chat.getUnreadCount()
+                                )
+                            );
                         }
-                        Log.d(TAG, "Unread count: " + chat.getUnreadCount());
                     }
                 }
                 return FLAG_SUCCESS;
@@ -242,6 +248,8 @@ public class BattleChatService extends Service {
 
         @Override
         protected void onPostExecute(final Integer statusCode) {
+            chatInformationTask = null;
+            
             if (statusCode == FLAG_SUCCESS && Session.hasSession()) {
                 onLoginSuccess();
             } else if (statusCode == FLAG_RETRY_LOGIN) {
@@ -263,6 +271,7 @@ public class BattleChatService extends Service {
 
         @Override
         protected void onPostExecute(final Boolean success) {
+            userLoginTask = null;
             if (calledFromActivity) {
                 BusProvider.getInstance().post(new UserLoginEvent(success, message));
             } else {
@@ -289,6 +298,7 @@ public class BattleChatService extends Service {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(null);
+            userLogoutTask = null;
 
             if (calledFromActivity) {
                 BusProvider.getInstance().post(new UserLogoutEvent());
