@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseFragmentActivity;
 import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
+import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.misc.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
@@ -33,6 +35,8 @@ import java.util.TimerTask;
 public class MainActivity
     extends BaseFragmentActivity
     implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    public static final String TAG = "MainActivity";
+
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String STATE_DRAWER_OPENED = "isDrawerOpened";
 
@@ -300,7 +304,8 @@ public class MainActivity
     }
 
     @Subscribe
-    public void onReceivedLogoutEvent() {
+    public void onReceivedLogoutEvent(final UserLogoutEvent event) {
+        Log.d(TAG, "Received logout event: " + event);
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }

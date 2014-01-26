@@ -42,12 +42,14 @@
 
     <TextView
       android:id="@+id/login_alert"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_width="wrap_content"
+      android:maxWidth="@dimen/error_message_size"
+      android:layout_height="wrap_content"
       android:text="@string/msg_no_network"
-      android:layout_marginBottom="10dp"
       android:gravity="center"
-      android:visibility="gone"/>
+      android:drawableLeft="@drawable/ic_menu_warning"
+      android:layout_marginBottom="@dimen/spacing_l"
+      />
 
     <ImageView
       android:id="@+id/logo"

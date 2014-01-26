@@ -100,6 +100,12 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     @Override
+    public void onStop() {
+        getLoaderManager().restartLoader(ID_LOADER_CLOSE, getBundleForClose(chatId), this);
+        super.onStop();
+    }
+
+    @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -389,12 +395,6 @@ public class ChatFragment extends BaseLoadingListFragment {
 
         actionBar.setTitle(user.getUsername());
         actionBar.setSubtitle(NavigationDrawerListAdapter.resolveOnlineStatus(user.getPresenceType()));
-    }
-
-    @Override
-    public void onStop() {
-        getLoaderManager().restartLoader(ID_LOADER_CLOSE, getBundleForClose(chatId), this);
-        super.onStop();
     }
 
     public void scrollToLatestMessage() {
