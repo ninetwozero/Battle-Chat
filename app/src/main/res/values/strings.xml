@@ -119,5 +119,21 @@
   <string name="R.string.error_broken_form">Broken form! Please restart the app.</string>
   <string name="cdesc_warning_icon">Warning</string>
   <string name="msg_no_network">This app requires Internet access - are you connected?</string>
+  <string name="title_about_app">App</string>
+  <string name="title_about_author">Developer</string>
+  <string name="title_about_collaborators">Collaborators</string>
+  <string name="title_about_open_source">Open Source</string>
+  <string name="text_about_author_job_title">Software Developer at ninetwozero.com</string>
+  <string name="text_about_author_name">Karl Lindmark</string>
+  <string name="text_about_author_heading_contact">Ways to contact me</string>
+  <string name="text_about_author_heading_whoami">Who am I?</string>
+  <string name="web">www.ninetwozero.com</string>
+  <string name="text_about_author_visit_website">Visit my website</string>
+  <string name="text_about_author_send_email">Send me an good \'ol fashion e-mail</string>
+  <string name="account_email">support@ninetwozero.com</string>
+  <string name="account_twitter">\@karllindmark</string>
+  <string name="text_about_author_tweet_twitter">Tweet with me on Twitter</string>
+  <string name="account_googleplus">+KarlLindmark</string>
+  <string name="text_about_author_circle_gplus">Circle me on Google+</string>
 
 </resources>

@@ -249,7 +249,7 @@ public class BattleChatService extends Service {
         @Override
         protected void onPostExecute(final Integer statusCode) {
             chatInformationTask = null;
-            
+
             if (statusCode == FLAG_SUCCESS && Session.hasSession()) {
                 onLoginSuccess();
             } else if (statusCode == FLAG_RETRY_LOGIN) {

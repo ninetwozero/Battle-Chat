@@ -12,8 +12,21 @@
     GNU General Public License for more details.
 -->
 
-<TextView
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  style="@style/RegularHeadingOverCard"
-  android:id="@+id/text1"
-  />
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  >
+  <LinearLayout
+    style="@style/RegularCard"
+    >
+    <TextView
+      android:id="@+id/title"
+      style="@style/RegularCardTitle"
+      />
+    <TextView
+      android:id="@+id/subtitle"
+      style="@style/RegularCardSubtitle"
+      />
+  </LinearLayout>
+</FrameLayout>

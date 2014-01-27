@@ -14,61 +14,86 @@
 
 package com.ninetwozero.battlechat.ui.about;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
 import com.ninetwozero.battlechat.R;
 
-public class AboutActivity extends Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AboutActivity extends FragmentActivity implements ActionBar.TabListener {
+    private final int[] TITLES = new int[] {
+        R.string.title_about_app,
+        R.string.title_about_author,
+        R.string.title_about_collaborators,
+        R.string.title_about_open_source
+    };
+
+    private ViewPager viewPager;
+    private AboutFragmentAdapter viewPagerAdapter;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        setupVersion();
-        setupLink();
+        initialize();
     }
 
-    private void setupVersion() {
-        String versionNumber = "Unknown";
-        try {
-            final PackageManager manager = getPackageManager();
-            if (manager != null) {
-                versionNumber = manager.getPackageInfo(getPackageName(), 0).versionName;
+    @Override
+    public void onTabSelected(final ActionBar.Tab tab, final FragmentTransaction fragmentTransaction) {
+        viewPager.setCurrentItem(tab.getPosition(), true);
+    }
+
+    @Override
+    public void onTabUnselected(final ActionBar.Tab tab, final FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onTabReselected(final ActionBar.Tab tab, final FragmentTransaction fragmentTransaction) {
+    }
+
+    private void initialize() {
+        setupViewPagerAdapter();
+        setupViewPager();
+        setupActionBar();
+    }
+
+    private void setupViewPagerAdapter() {
+        viewPagerAdapter = new AboutFragmentAdapter(getSupportFragmentManager(), generateFragmentList());
+    }
+
+    private List<Fragment> generateFragmentList() {
+        final List<Fragment> fragments = new ArrayList<Fragment>();
+        fragments.add(AppInformationFragment.newInstance());
+        fragments.add(AuthorInformationFragment.newInstance());
+        return fragments;
+    }
+
+    private void setupViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOnPageChangeListener(
+            new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    getActionBar().setSelectedNavigationItem(position);
+                }
             }
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
+        );
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    private void setupActionBar() {
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        for (int i = 0, max = TITLES.length; i < max; i++) {
+            actionBar.addTab(actionBar.newTab().setText(TITLES[i]).setTabListener(this));
         }
-        ((TextView) findViewById(R.id.version)).setText(versionNumber);
-    }
-
-    private void setupLink() {
-        findViewById(R.id.link).setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://www.ninetwozero.com")));
-                }
-            }
-        );
-        findViewById(R.id.email).setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_SEND).putExtra(
-                        Intent.EXTRA_EMAIL,
-                        new String[]{"support@ninetwozero.com"}
-                    ).setType("plain/text");
-                    startActivity(Intent.createChooser(intent, "Send an e-mail..."));
-                }
-            }
-        );
     }
 }
