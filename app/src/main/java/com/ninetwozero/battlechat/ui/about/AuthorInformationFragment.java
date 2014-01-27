@@ -1,36 +1,20 @@
-/*
- *
- * 	This file is part of BattleChat
- *
- * 	BattleChat is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
- *
- * 	BattleChat is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
- * /
- */
-
-/*
- *
- * 	This file is part of BattleChat
- *
- * 	BattleChat is free software: you can redistribute it and/or modify
- * 	it under the terms of the GNU General Public License as published by
- * 	the Free Software Foundation, either version 3 of the License, or
- * 	(at your option) any later version.
- *
- * 	BattleChat is distributed in the hope that it will be useful,
- * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 	GNU General Public License for more details.
- * /
- */
-
 package com.ninetwozero.battlechat.ui.about;
+
+/*
+ *
+ * 	This file is part of BattleChat
+ *
+ * 	BattleChat is free software: you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation, either version 3 of the License, or
+ * 	(at your option) any later version.
+ *
+ * 	BattleChat is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
+ *
+ */
 
 import android.content.Intent;
 import android.net.Uri;
@@ -76,13 +60,14 @@ public class AuthorInformationFragment extends ListFragment {
         }
 
         startActivity(
-            new Intent(Intent.ACTION_VIEW).setData(Uri.parse(row.getUrl()))
+            Intent.createChooser(
+                new Intent(Intent.ACTION_VIEW).setData(Uri.parse(row.getUrl())),
+                "Select an app"
+            )
         );
     }
 
     private void initialize(final View view) {
-        final ListView listView = (ListView) view.findViewById(android.R.id.list);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         setListAdapter(new AuthorInformationAdapter(getActivity(), getItemsForList()));
     }
 

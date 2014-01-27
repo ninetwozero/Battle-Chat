@@ -17,9 +17,6 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="@dimen/spacing_m"
-  android:paddingLeft="@dimen/spacing_m"
-  android:paddingRight="@dimen/spacing_m"
   android:background="#DDD"
   android:orientation="vertical"
   >
@@ -28,8 +25,10 @@
     android:id="@android:id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:dividerHeight="@dimen/spacing_m"
+    android:dividerHeight="0dp"
     android:divider="@android:color/transparent"
+    android:listSelector="@android:color/transparent"
+    android:paddingTop="@dimen/spacing_m"
     />
 
   <TextView

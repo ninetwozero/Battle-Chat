@@ -84,6 +84,16 @@ public class AuthorInformationAdapter extends BaseAdapter {
         return convertView;
     }
 
+    @Override
+    public boolean areAllItemsEnabled() {
+       return false;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return getItem(position).getType() == AuthorInfoRow.Type.ITEM;
+    }
+
     private int fetchLayoutResource(final AuthorInfoRow.Type type) {
         if (type == AuthorInfoRow.Type.HEADER) {
             return R.layout.list_item_heading;
