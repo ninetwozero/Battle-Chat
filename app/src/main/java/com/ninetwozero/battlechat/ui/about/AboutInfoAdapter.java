@@ -24,16 +24,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.interfaces.AuthorInfoRow;
+import com.ninetwozero.battlechat.interfaces.AboutInfoRow;
 
 import java.util.List;
 
-public class AuthorInformationAdapter extends BaseAdapter {
+public class AboutInfoAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private List<AuthorInfoRow> items;
+    private List<AboutInfoRow> items;
 
-    public AuthorInformationAdapter(final Context context, final List<AuthorInfoRow> items) {
+    public AboutInfoAdapter(final Context context, final List<AboutInfoRow> items) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.items = items;
@@ -45,13 +45,13 @@ public class AuthorInformationAdapter extends BaseAdapter {
     }
 
     @Override
-    public AuthorInfoRow getItem(final int position) {
+    public AboutInfoRow getItem(final int position) {
         return items == null ? null : items.get(position);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).getType() == AuthorInfoRow.Type.HEADER) {
+        if (getItem(position).getType() == AboutInfoRow.Type.HEADER) {
             return 0;
         } else {
             return 1;
@@ -60,7 +60,7 @@ public class AuthorInformationAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return AuthorInfoRow.Type.values().length;
+        return AboutInfoRow.Type.values().length;
     }
 
     @Override
@@ -70,12 +70,12 @@ public class AuthorInformationAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final AuthorInfoRow row = getItem(position);
+        final AboutInfoRow row = getItem(position);
         if (convertView == null) {
             convertView = inflater.inflate(fetchLayoutResource(row.getType()), parent, false);
         }
 
-        if (row.getType() == AuthorInfoRow.Type.HEADER) {
+        if (row.getType() == AboutInfoRow.Type.HEADER) {
             ((TextView) convertView.findViewById(R.id.text1)).setText(row.getTitle());
         } else {
             ((TextView) convertView.findViewById(R.id.title)).setText(row.getTitle());
@@ -91,11 +91,11 @@ public class AuthorInformationAdapter extends BaseAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return getItem(position).getType() == AuthorInfoRow.Type.ITEM;
+        return getItem(position).getType() == AboutInfoRow.Type.ITEM;
     }
 
-    private int fetchLayoutResource(final AuthorInfoRow.Type type) {
-        if (type == AuthorInfoRow.Type.HEADER) {
+    private int fetchLayoutResource(final AboutInfoRow.Type type) {
+        if (type == AboutInfoRow.Type.HEADER) {
             return R.layout.list_item_heading;
         } else {
             return R.layout.list_item_two_line_card;

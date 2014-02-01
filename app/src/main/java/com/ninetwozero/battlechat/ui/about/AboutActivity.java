@@ -69,8 +69,9 @@ public class AboutActivity extends FragmentActivity implements ActionBar.TabList
 
     private List<Fragment> generateFragmentList() {
         final List<Fragment> fragments = new ArrayList<Fragment>();
-        fragments.add(AppInformationFragment.newInstance());
-        fragments.add(AuthorInformationFragment.newInstance());
+        fragments.add(AppInfoFragment.newInstance());
+        fragments.add(AuthorInfoFragment.newInstance());
+        fragments.add(CollaboratorInfoFragment.newInstance());
         return fragments;
     }
 

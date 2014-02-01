@@ -92,17 +92,17 @@ public class LoginActivity extends FragmentActivity {
     }
 
     private void displayEula() {
-        if (!sharedPreferences.getBoolean(EulaFragment.USER_ACCEPTED_EULA, false)) {
+        if (!sharedPreferences.getBoolean(EulaDialogFragment.USER_ACCEPTED_EULA, false)) {
             final FragmentManager manager = getSupportFragmentManager();
             final FragmentTransaction transaction = manager.beginTransaction();
-            final Fragment previousDialog = manager.findFragmentByTag(EulaFragment.TAG);
+            final Fragment previousDialog = manager.findFragmentByTag(EulaDialogFragment.TAG);
             if (previousDialog != null) {
                 transaction.remove(previousDialog);
             }
 
-            final EulaFragment eulaFragment = EulaFragment.newInstance();
+            final EulaDialogFragment eulaFragment = EulaDialogFragment.newInstance();
             eulaFragment.setCancelable(false);
-            eulaFragment.show(transaction, EulaFragment.TAG);
+            eulaFragment.show(transaction, EulaDialogFragment.TAG);
         }
     }
 

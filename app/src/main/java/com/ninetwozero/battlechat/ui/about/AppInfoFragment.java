@@ -27,15 +27,15 @@ import android.widget.TextView;
 
 import com.ninetwozero.battlechat.R;
 
-public class AppInformationFragment extends Fragment {
+public class AppInfoFragment extends Fragment {
 
-    public static AppInformationFragment newInstance() {
-        final AppInformationFragment fragment = new AppInformationFragment();
+    public static AppInfoFragment newInstance() {
+        final AppInfoFragment fragment = new AppInfoFragment();
         fragment.setArguments(new Bundle());
         return fragment;
     }
 
-    public AppInformationFragment() {
+    public AppInfoFragment() {
 
     }
 

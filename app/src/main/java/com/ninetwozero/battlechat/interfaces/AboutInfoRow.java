@@ -16,19 +16,19 @@
 
 package com.ninetwozero.battlechat.interfaces;
 
-public class AuthorInfoRow {
+public class AboutInfoRow {
     private int title;
     private int subTitle;
     private String url;
     private Type type;
 
-    public AuthorInfoRow(final int title) {
+    public AboutInfoRow(final int title) {
         this.title = title;
         this.type = Type.HEADER;
     }
 
 
-    public AuthorInfoRow(final int title, final int subTitle, final String url) {
+    public AboutInfoRow(final int title, final int subTitle, final String url) {
         this.title = title;
         this.subTitle = subTitle;
         this.url = url;

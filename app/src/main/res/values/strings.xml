@@ -136,4 +136,25 @@
   <string name="account_googleplus">+KarlLindmark</string>
   <string name="text_about_author_circle_gplus">Circle me on Google+</string>
 
+  <!-- Collab labels -->
+  <string name="collab_label_code">Code</string>
+  <string name="collab_label_design">Look &amp; Feel</string>
+  <string name="collab_label_misc">Miscellaneous</string>
+
+  <!-- Collaborators -->
+  <string name="collab_name_peter">Peter Mikloško</string>
+  <string name="collab_desc_peter">Partner in Crime on BF4 Intel</string>
+  <string name="collab_name_humphreybc">Benjamin Humphrey</string>
+  <string name="collab_desc_humphreybc">Re-designed the login UI + startup screen</string>
+  <string name="collab_name_dbagjones">Stephen Beaudet</string>
+  <string name="collab_desc_dbagjones">Created the awesome logo</string>
+  <string name="collab_name_lindyhop">Alexander Lindström</string>
+  <string name="collab_desc_lindyhop">Quality Assurance</string>
+  <string name="collab_name_stillesjo">Alexander Stillesjö</string>
+  <string name="collab_desc_stillesjo">Quality Assurance</string>
+  <string name="collab_name_dapil">Daniel Peukert</string>
+  <string name="collab_desc_dapil">Translated the app into Czech</string>
+  <string name="collab_name_gk">Gustav Karlsson</string>
+  <string name="collab_desc_gk">Quality Assurance</string>
+
 </resources>

@@ -28,12 +28,12 @@ import android.view.LayoutInflater;
 
 import com.ninetwozero.battlechat.R;
 
-public class EulaFragment extends DialogFragment implements DialogInterface.OnClickListener {
-    public static final String TAG = "EulaFragment";
+public class EulaDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+    public static final String TAG = "EulaDialogFragment";
     public static final String USER_ACCEPTED_EULA = "has_user_accepted_eula";
 
-    static EulaFragment newInstance() {
-        final EulaFragment fragment = new EulaFragment();
+    static EulaDialogFragment newInstance() {
+        final EulaDialogFragment fragment = new EulaDialogFragment();
         fragment.setArguments(new Bundle());
         return fragment;
     }
