@@ -64,27 +64,4 @@ public class AppInfoFragment extends Fragment {
         }
         ((TextView) view.findViewById(R.id.version)).setText(versionNumber);
     }
-
-    /*private void setupLink(final View view) {
-        view.findViewById(R.id.link).setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://www.ninetwozero.com")));
-                }
-            }
-        );
-        view.findViewById(R.id.email).setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_SEND).putExtra(
-                        Intent.EXTRA_EMAIL,
-                        new String[]{"support@ninetwozero.com"}
-                    ).setType("plain/text");
-                    startActivity(Intent.createChooser(intent, "Send an e-mail..."));
-                }
-            }
-        );
-    }*/
 }

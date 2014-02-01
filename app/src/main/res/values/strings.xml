@@ -116,7 +116,7 @@
   <string name="startup_start_new">Start a new chat</string>
   <string name="cdesc_action_item">Action item</string>
   <string name="cdesc_button_send">Send button</string>
-  <string name="R.string.error_broken_form">Broken form! Please restart the app.</string>
+  <string name="error_broken_form">Broken form! Please restart the app.</string>
   <string name="cdesc_warning_icon">Warning</string>
   <string name="msg_no_network">This app requires Internet access - are you connected?</string>
   <string name="title_about_app">App</string>
@@ -170,7 +170,7 @@
   <string name="opensource_subtitle_httprequest">Convenience library for HttpURLConnection</string>
   <string name="opensource_title_jsoup">jsoup</string>
   <string name="opensource_subtitle_jsoup">Html Parsing Library</string>
-  <string name="opensource_title_otto">Otto The Bus Driver</string>
+  <string name="opensource_title_otto">Otto</string>
   <string name="opensource_subtitle_otto">Android MessageBus implementation</string>
   <string name="opensource_title_picasso">Picasso</string>
   <string name="opensource_subtitle_picasso">Awesome Image Loading Library</string>
