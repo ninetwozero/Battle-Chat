@@ -157,4 +157,21 @@
   <string name="collab_name_gk">Gustav Karlsson</string>
   <string name="collab_desc_gk">Quality Assurance</string>
 
+  <!-- Open Source labels -->
+  <string name="opensource_label_self">This app</string>
+  <string name="opensource_label_libs">Libraries</string>
+
+  <!-- Open Source information -->
+  <string name="opensource_title_self">Battle Chat</string>
+  <string name="opensource_subtitle_self">Licensed under GPL3, source code available on Github</string>
+  <string name="opensource_title_gson">Gson</string>
+  <string name="opensource_subtitle_gson">JSON parsing made easier</string>
+  <string name="opensource_title_httprequest">Http Request</string>
+  <string name="opensource_subtitle_httprequest">Convenience library for HttpURLConnection</string>
+  <string name="opensource_title_jsoup">jsoup</string>
+  <string name="opensource_subtitle_jsoup">Html Parsing Library</string>
+  <string name="opensource_title_otto">Otto The Bus Driver</string>
+  <string name="opensource_subtitle_otto">Android MessageBus implementation</string>
+  <string name="opensource_title_picasso">Picasso</string>
+  <string name="opensource_subtitle_picasso">Awesome Image Loading Library</string>
 </resources>
