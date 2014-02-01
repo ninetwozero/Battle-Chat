@@ -39,4 +39,8 @@
   <!-- Action items -->
   <color name="action_item_bg">#99FFFFFF</color>
 
+  <!-- Misc background colors -->
+  <color name="login_activity_bg">#333333</color>
+  <color name="card_activity_bg">#DDDDDD</color>
+
 </resources>
