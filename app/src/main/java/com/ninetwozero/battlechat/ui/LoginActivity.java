@@ -44,12 +44,6 @@ import com.ninetwozero.battlechat.ui.about.AboutActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
-/*
-TODO:
-Revamp login look&feel
-Provide error messages inline (not toast)
-*/
-
 public class LoginActivity extends FragmentActivity {
     private static final String RESET_PASSWORD_LINK = "https://signin.ea.com/p/web/resetPassword";
 
