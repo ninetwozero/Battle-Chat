@@ -27,7 +27,6 @@ public class AboutInfoRow {
         this.type = Type.HEADER;
     }
 
-
     public AboutInfoRow(final int title, final int subTitle, final String url) {
         this.title = title;
         this.subTitle = subTitle;

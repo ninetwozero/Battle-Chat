@@ -29,6 +29,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.base.asynctasks.BaseLoginTask;
 import com.ninetwozero.battlechat.base.asynctasks.BaseLogoutTask;
 import com.ninetwozero.battlechat.datatypes.Session;
@@ -39,7 +40,6 @@ import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.exception.Failure;
 import com.ninetwozero.battlechat.utils.BusProvider;
@@ -207,24 +207,22 @@ public class BattleChatService extends Service {
 
                 Log.d(TAG, "Number of unread chats: " + unreadChats.size());
                 for (Chat chat : unreadChats) {
-                    for (User user : chat.getUsers()) {
-                        if (!user.getId().equals(Session.getUserId())) {
-                            Log.d(
-                                TAG,
-                                String.format(
-                                    "Chat with %s has %s unread messages",
-                                    user.getUsername(),
-                                    chat.getUnreadCount()
-                                )
-                            );
-                        }
-                    }
+                    logUnreadChatInLogcat(chat);
                 }
                 return FLAG_SUCCESS;
             } catch (Failure ex) {
                 Log.e(TAG, "Failure: " + ex.getMessage());
                 return FLAG_RETRY_LOGIN;
             }
+        }
+
+        private ComCenterRequest createComCenterRequestFromJson(final String json) {
+            final Gson gson = GsonFactory.getInstance();
+            final JsonParser parser = new JsonParser();
+            return gson.fromJson(
+                parser.parse(json).getAsJsonObject().get("data"),
+                ComCenterRequest.class
+            );
         }
 
         private List<Chat> findUnreadChats(final List<Chat> chats) {
@@ -237,13 +235,19 @@ public class BattleChatService extends Service {
             return unreadChats;
         }
 
-        private ComCenterRequest createComCenterRequestFromJson(final String json) {
-            final Gson gson = GsonFactory.getInstance();
-            final JsonParser parser = new JsonParser();
-            return gson.fromJson(
-                parser.parse(json).getAsJsonObject().get("data"),
-                ComCenterRequest.class
-            );
+        private void logUnreadChatInLogcat(final Chat chat) {
+            for (User user : chat.getUsers()) {
+                if (!user.getId().equals(Session.getUserId())) {
+                    Log.d(
+                        TAG,
+                        String.format(
+                            "Chat with %s has %s unread messages",
+                            user.getUsername(),
+                            chat.getUnreadCount()
+                        )
+                    );
+                }
+            }
         }
 
         @Override

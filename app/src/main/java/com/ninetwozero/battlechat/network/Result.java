@@ -28,20 +28,11 @@ public class Result<T> {
         return data;
     }
 
-    @Override
-    public String toString() {
-        return "Result{" +
-            "status=" + status +
-            ", message='" + message + '\'' +
-            ", data=" + data +
-            '}';
-    }
-
     public enum Status {
         SUCCESS,
         FAILURE,
         ERROR,
-        NETWORK_FAILURE(),
-        CANCELLED()
+        NETWORK_FAILURE,
+        CANCELLED
     }
 }

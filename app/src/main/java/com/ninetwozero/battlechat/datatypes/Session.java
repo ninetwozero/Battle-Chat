@@ -115,7 +115,6 @@ public class Session {
 
         editor.remove(Keys.Session.USER_ID);
         editor.remove(Keys.Session.USERNAME);
-        // editor.remove(Keys.Session.EMAIL);
         editor.remove(Keys.Session.PASSWORD);
         editor.remove(Keys.Session.GRAVATAR);
         editor.remove(Keys.Session.COOKIE_NAME);
