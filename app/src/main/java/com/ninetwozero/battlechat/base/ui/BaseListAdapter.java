@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseListAdapter<T> extends BaseAdapter {
+    private static final int NO_COLOR = -1;
 
     protected final Context context;
     protected List<T> items;
@@ -63,25 +64,25 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
     final public void setText(final View container, final int resourceId, final String text) {
-        setText(container, resourceId, text, -1);
+        setText(container, resourceId, text, NO_COLOR);
     }
 
     final public void setText(final View container, final int resourceId, final String text, final int colorResource) {
         TextView textView = (TextView) container.findViewById(resourceId);
         textView.setText(text);
-        if (colorResource > -1) {
+        if (colorResource > NO_COLOR) {
             textView.setTextColor(context.getResources().getColor(colorResource));
         }
     }
 
     final public void setText(final View container, final int resourceId, final int text) {
-        setText(container, resourceId, text, -1);
+        setText(container, resourceId, text, NO_COLOR);
     }
 
     final public void setText(final View container, final int resourceId, final int text, final int colorResource) {
         TextView textView = (TextView) container.findViewById(resourceId);
         textView.setText(text);
-        if (colorResource > -1) {
+        if (colorResource > NO_COLOR) {
             textView.setTextColor(context.getResources().getColor(colorResource));
         }
     }
