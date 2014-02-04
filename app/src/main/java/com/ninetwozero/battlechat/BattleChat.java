@@ -21,8 +21,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.ninetwozero.battlechat.misc.Keys;
-
 public class BattleChat extends Application {
     public final static String TAG = "com.ninetwozero.battlechat";
     public final static String COOKIE_NAME = "beaker.session.id";

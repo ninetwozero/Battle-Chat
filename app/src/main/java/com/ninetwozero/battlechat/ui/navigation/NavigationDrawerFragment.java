@@ -25,7 +25,7 @@ import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.PresenceType;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.network.IntelLoader;
 import com.ninetwozero.battlechat.network.Result;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;

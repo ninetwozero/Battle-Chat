@@ -19,7 +19,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.Keys;
 
 public class Session {
     private static final Bundle sessionData;

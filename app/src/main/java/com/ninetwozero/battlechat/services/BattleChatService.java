@@ -39,7 +39,7 @@ import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.exception.Failure;
 import com.ninetwozero.battlechat.utils.BusProvider;

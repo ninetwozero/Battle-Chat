@@ -38,7 +38,7 @@ import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.UserLoginEvent;
-import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;

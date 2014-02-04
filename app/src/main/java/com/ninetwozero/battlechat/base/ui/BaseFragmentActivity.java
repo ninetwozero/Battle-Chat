@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.datatypes.Session;
-import com.ninetwozero.battlechat.misc.Keys;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.ui.LoginActivity;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 

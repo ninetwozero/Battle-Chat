@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.misc;
+package com.ninetwozero.battlechat;
 
 public class Keys {
 
