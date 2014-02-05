@@ -28,7 +28,7 @@ import java.util.List;
 
 public class AboutActivity extends FragmentActivity implements ActionBar.TabListener {
     private final int[] TITLES = new int[] {
-        R.string.title_about_app,
+        R.string.title_about_changelog,
         R.string.title_about_author,
         R.string.title_about_collaborators,
         R.string.title_about_open_source

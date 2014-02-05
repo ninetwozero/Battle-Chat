@@ -117,7 +117,7 @@
   <string name="error_broken_form">Broken form! Please restart the app.</string>
   <string name="cdesc_warning_icon">Warning</string>
   <string name="msg_no_network">This app requires Internet access - are you connected?</string>
-  <string name="title_about_app">App</string>
+  <string name="title_about_changelog">Changelog</string>
   <string name="title_about_author">Developer</string>
   <string name="title_about_collaborators">Collaborators</string>
   <string name="title_about_open_source">Open Source</string>
@@ -172,4 +172,5 @@
   <string name="opensource_subtitle_otto">Android MessageBus implementation</string>
   <string name="opensource_title_picasso">Picasso</string>
   <string name="opensource_subtitle_picasso">Awesome Image Loading Library</string>
+  <string name="label_about_changelog_for">Changelog for</string>
 </resources>
