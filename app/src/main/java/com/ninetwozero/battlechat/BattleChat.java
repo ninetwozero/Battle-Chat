@@ -22,9 +22,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class BattleChat extends Application {
-    public final static String TAG = "com.ninetwozero.battlechat";
-    public final static String COOKIE_NAME = "beaker.session.id";
-    public final static String COOKIE_DOMAIN = "battlelog.battlefield.com";
+    public static final String TAG = "com.ninetwozero.battlechat";
+    public static final String COOKIE_NAME = "beaker.session.id";
+    public static final String COOKIE_DOMAIN = "battlelog.battlefield.com";
+    public static final String BUGSENSE_KEY = "c07b42d4";
+    
     private static BattleChat instance;
 
     public static Context getContext() {

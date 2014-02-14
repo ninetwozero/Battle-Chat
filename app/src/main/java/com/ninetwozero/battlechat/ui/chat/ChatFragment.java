@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.datatypes.NoResultExpected;
@@ -41,7 +42,6 @@ import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ChatContainer;
 import com.ninetwozero.battlechat.json.chat.Message;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.network.IntelLoader;
 import com.ninetwozero.battlechat.network.Result;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;

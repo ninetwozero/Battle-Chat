@@ -14,12 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseFragmentActivity;
 import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
-import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;

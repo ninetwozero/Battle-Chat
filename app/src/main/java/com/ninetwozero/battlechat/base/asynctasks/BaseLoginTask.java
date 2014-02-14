@@ -22,9 +22,9 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.LoginRequestFactory;
-import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.network.LoginHtmlParser;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 

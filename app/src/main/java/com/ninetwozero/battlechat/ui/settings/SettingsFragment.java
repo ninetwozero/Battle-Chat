@@ -16,16 +16,10 @@
 
 package com.ninetwozero.battlechat.ui.settings;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.ninetwozero.battlechat.R;
-
-import java.util.Map;
 
 public class SettingsFragment extends PreferenceFragment {
     @Override

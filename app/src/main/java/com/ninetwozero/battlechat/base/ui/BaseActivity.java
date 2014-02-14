@@ -16,26 +16,25 @@
 
 package com.ninetwozero.battlechat.base.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-public abstract class BaseActivity extends Activity {
+import com.bugsense.trace.BugSenseHandler;
+import com.ninetwozero.battlechat.BattleChat;
+
+public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
+        BugSenseHandler.initAndStartSession(this, BattleChat.BUGSENSE_KEY);
     }
 
-    protected void setupActionBar() {
-        final ActionBar actionBar = getActionBar();
-        if (actionBar == null) {
-            return;
-        }
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected void onDestroy() {
+        BugSenseHandler.closeSession(this);
+        super.onDestroy();
     }
 
     @Override

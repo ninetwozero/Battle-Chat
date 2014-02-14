@@ -14,12 +14,12 @@
 
 package com.ninetwozero.battlechat.ui.settings;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.base.ui.BaseActivity;
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

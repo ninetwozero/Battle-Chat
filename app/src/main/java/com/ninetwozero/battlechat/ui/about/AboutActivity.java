@@ -18,15 +18,15 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.base.ui.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutActivity extends FragmentActivity implements ActionBar.TabListener {
+public class AboutActivity extends BaseActivity implements ActionBar.TabListener {
     private final int[] TITLES = new int[] {
         R.string.title_about_changelog,
         R.string.title_about_author,

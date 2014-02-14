@@ -20,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -35,16 +34,17 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
+import com.ninetwozero.battlechat.base.ui.BaseActivity;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.UserLoginEvent;
-import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.services.BattleChatService;
 import com.ninetwozero.battlechat.ui.about.AboutActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
-public class LoginActivity extends FragmentActivity {
+public class LoginActivity extends BaseActivity {
     private static final String RESET_PASSWORD_LINK = "https://signin.ea.com/p/web/resetPassword";
 
     private String email;
