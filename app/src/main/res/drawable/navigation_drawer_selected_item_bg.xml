@@ -17,5 +17,13 @@
     android:state_activated="true"
     android:drawable="@color/navigation_drawer_selected_bg"
     />
+  <item
+    android:state_pressed="true"
+    android:drawable="@color/navigation_drawer_selected_bg"
+    />
+  <item
+    android:state_focused="true"
+    android:drawable="@color/navigation_drawer_selected_bg"
+    />
   <item android:drawable="@android:color/transparent"/>
 </selector>

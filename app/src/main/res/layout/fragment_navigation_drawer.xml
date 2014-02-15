@@ -55,6 +55,7 @@
     android:divider="@color/navigation_listview_divider"
     android:dividerHeight="1px"
     android:layout_below="@id/wrap_login_name"
+    android:listSelector="@drawable/navigation_drawer_selected_item_bg"
     />
 
   <TextView
