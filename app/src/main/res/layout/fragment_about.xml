@@ -12,22 +12,28 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 -->
-<FrameLayout
+
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:padding="@dimen/spacing_s"
+  android:layout_height="match_parent"
+  android:background="@color/card_activity_bg"
   >
-  <LinearLayout
-    style="@style/RegularCard"
-    >
-    <TextView
-      android:id="@+id/title"
-      style="@style/RegularCardTitle"
-      />
-    <TextView
-      android:id="@+id/subtitle"
-      style="@style/RegularCardSubtitle"
-      />
-  </LinearLayout>
-</FrameLayout>
+
+  <com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView
+    android:id="@android:id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:numColumns="@integer/about_column_count"
+    android:listSelector="@android:color/transparent"
+    android:padding="@dimen/spacing_s"
+    />
+
+  <TextView
+    android:id="@android:id/empty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    />
+</RelativeLayout>

@@ -19,12 +19,13 @@ package com.ninetwozero.battlechat.ui.about;
 import android.os.Bundle;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.interfaces.AboutInfoRow;
+import com.ninetwozero.battlechat.datatypes.HeaderAboutRow;
+import com.ninetwozero.battlechat.datatypes.SimpleAboutRow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollaboratorInfoFragment extends BaseAboutListFragment {
+public class CollaboratorInfoFragment extends BaseAboutFragment {
 
     public static CollaboratorInfoFragment newInstance() {
         final CollaboratorInfoFragment fragment = new CollaboratorInfoFragment();
@@ -37,55 +38,61 @@ public class CollaboratorInfoFragment extends BaseAboutListFragment {
     }
 
     @Override
-    protected List<AboutInfoRow> getItemsForList() {
-        final List<AboutInfoRow> items = new ArrayList<AboutInfoRow>();
-        items.add(new AboutInfoRow(R.string.collab_label_code));
+    protected List<HeaderAboutRow> getHeadersForList() {
+        final List<HeaderAboutRow> items = new ArrayList<HeaderAboutRow>();
+        items.add(new HeaderAboutRow(R.string.collab_label_code, 1));
+        items.add(new HeaderAboutRow(R.string.collab_label_design, 2));
+        items.add(new HeaderAboutRow(R.string.collab_label_misc, 4));
+        return items;
+    }
+
+    @Override
+    protected List<SimpleAboutRow> getItemsForList() {
+        final List<SimpleAboutRow> items = new ArrayList<SimpleAboutRow>();
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_peter,
                 R.string.collab_desc_peter,
                 "http://peterscorner.co.uk"
             )
         );
-        items.add(new AboutInfoRow(R.string.collab_label_design));
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_humphreybc,
                 R.string.collab_desc_humphreybc,
                 "http://humphreybc.com"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_dbagjones,
                 R.string.collab_desc_dbagjones,
                 "https://www.twitter.com/dbagjones"
             )
         );
-        items.add(new AboutInfoRow(R.string.collab_label_misc));
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_lindyhop,
                 R.string.collab_desc_lindyhop,
                 "http://xanderapps.com"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_stillesjo,
                 R.string.collab_desc_stillesjo,
                 "http://stillesjo.org"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_dapil,
                 R.string.collab_desc_dapil,
                 "http://www.danielpeukert.cz/"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.collab_name_gk,
                 R.string.collab_desc_gk,
                 "http://www.gustavkarlsson.se"

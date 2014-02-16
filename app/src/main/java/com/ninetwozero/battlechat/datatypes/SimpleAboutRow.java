@@ -14,28 +14,18 @@
  * /
  */
 
-package com.ninetwozero.battlechat.interfaces;
+package com.ninetwozero.battlechat.datatypes;
 
-public class AboutInfoRow {
-    private int title;
+import com.ninetwozero.battlechat.base.BaseAboutRow;
+
+public class SimpleAboutRow extends BaseAboutRow {
     private int subTitle;
     private String url;
-    private Type type;
 
-    public AboutInfoRow(final int title) {
-        this.title = title;
-        this.type = Type.HEADER;
-    }
-
-    public AboutInfoRow(final int title, final int subTitle, final String url) {
-        this.title = title;
+    public SimpleAboutRow(final int title, final int subTitle, final String url) {
+        super(title, Type.ITEM);
         this.subTitle = subTitle;
         this.url = url;
-        this.type = Type.ITEM;
-    }
-
-    public int getTitle() {
-        return title;
     }
 
     public int getSubTitle() {
@@ -43,13 +33,4 @@ public class AboutInfoRow {
     }
 
     public String getUrl() { return url; }
-
-    public Type getType() {
-        return type;
-    }
-
-    public static enum Type {
-        HEADER,
-        ITEM
-    }
 }

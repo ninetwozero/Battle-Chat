@@ -19,12 +19,13 @@ package com.ninetwozero.battlechat.ui.about;
 import android.os.Bundle;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.interfaces.AboutInfoRow;
+import com.ninetwozero.battlechat.datatypes.HeaderAboutRow;
+import com.ninetwozero.battlechat.datatypes.SimpleAboutRow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorInfoFragment extends BaseAboutListFragment {
+public class AuthorInfoFragment extends BaseAboutFragment {
 
     public static AuthorInfoFragment newInstance() {
         final AuthorInfoFragment fragment = new AuthorInfoFragment();
@@ -37,40 +38,46 @@ public class AuthorInfoFragment extends BaseAboutListFragment {
     }
 
     @Override
-    protected List<AboutInfoRow> getItemsForList() {
-        final List<AboutInfoRow> items = new ArrayList<AboutInfoRow>();
-        items.add(new AboutInfoRow(R.string.text_about_author_heading_whoami));
+    protected List<HeaderAboutRow> getHeadersForList() {
+        final List<HeaderAboutRow> items = new ArrayList<HeaderAboutRow>();
+        items.add(new HeaderAboutRow(R.string.text_about_author_heading_whoami, 1));
+        items.add(new HeaderAboutRow(R.string.text_about_author_heading_contact, 4));
+        return items;
+    }
+
+    @Override
+    protected List<SimpleAboutRow> getItemsForList() {
+        final List<SimpleAboutRow> items = new ArrayList<SimpleAboutRow>();
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.text_about_author_name,
                 R.string.text_about_author_job_title,
                 "http://linkedin.com/in/ninetwozero"
             )
         );
-        items.add(new AboutInfoRow(R.string.text_about_author_heading_contact));
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.web,
                 R.string.text_about_author_visit_website,
                 "http://www.ninetwozero.com"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.account_email,
                 R.string.text_about_author_send_email,
                 "mailto:support@ninetwozero.com"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.account_twitter,
                 R.string.text_about_author_tweet_twitter,
                 "https://www.twitter.com/karllindmark"
             )
         );
         items.add(
-            new AboutInfoRow(
+            new SimpleAboutRow(
                 R.string.account_googleplus,
                 R.string.text_about_author_circle_gplus,
                 "https://plus.google.com/+KarlLindmark"

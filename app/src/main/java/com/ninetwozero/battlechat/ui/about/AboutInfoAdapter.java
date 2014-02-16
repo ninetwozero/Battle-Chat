@@ -24,18 +24,22 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.interfaces.AboutInfoRow;
+import com.ninetwozero.battlechat.datatypes.HeaderAboutRow;
+import com.ninetwozero.battlechat.datatypes.SimpleAboutRow;
+import com.tonicartos.widget.stickygridheaders.StickyGridHeadersBaseAdapter;
 
 import java.util.List;
 
-public class AboutInfoAdapter extends BaseAdapter {
+public class AboutInfoAdapter extends BaseAdapter implements StickyGridHeadersBaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private List<AboutInfoRow> items;
+    private List<HeaderAboutRow> headers;
+    private List<SimpleAboutRow> items;
 
-    public AboutInfoAdapter(final Context context, final List<AboutInfoRow> items) {
+    public AboutInfoAdapter(final Context context, final List<HeaderAboutRow> headers, final List<SimpleAboutRow> items) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.headers = headers;
         this.items = items;
     }
 
@@ -44,23 +48,13 @@ public class AboutInfoAdapter extends BaseAdapter {
         return items == null ? 0 : items.size();
     }
 
+    public HeaderAboutRow getHeader(final int position) {
+        return headers == null ? null : headers.get(position);
+    }
+
     @Override
-    public AboutInfoRow getItem(final int position) {
+    public SimpleAboutRow getItem(final int position) {
         return items == null ? null : items.get(position);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (getItem(position).getType() == AboutInfoRow.Type.HEADER) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return AboutInfoRow.Type.values().length;
     }
 
     @Override
@@ -69,18 +63,35 @@ public class AboutInfoAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
-        final AboutInfoRow row = getItem(position);
+    public int getCountForHeader(final int position) {
+        return headers == null ? 0 : headers.get(position).getChildCount();
+    }
+
+    @Override
+    public int getNumHeaders() {
+        return headers == null ? 0 : headers.size();
+    }
+
+    @Override
+    public View getHeaderView(final int position, View convertView, final ViewGroup parent) {
+        final HeaderAboutRow row = getHeader(position);
         if (convertView == null) {
-            convertView = inflater.inflate(fetchLayoutResource(row.getType()), parent, false);
+            convertView = inflater.inflate(R.layout.list_item_heading, parent, false);
         }
 
-        if (row.getType() == AboutInfoRow.Type.HEADER) {
-            ((TextView) convertView.findViewById(R.id.text1)).setText(row.getTitle());
-        } else {
-            ((TextView) convertView.findViewById(R.id.title)).setText(row.getTitle());
-            ((TextView) convertView.findViewById(R.id.subtitle)).setText(row.getSubTitle());
+        ((TextView) convertView.findViewById(R.id.text1)).setText(row.getTitle());
+        return convertView;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        final SimpleAboutRow row = getItem(position);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.list_item_two_line_card, parent, false);
         }
+
+        ((TextView) convertView.findViewById(R.id.title)).setText(row.getTitle());
+        ((TextView) convertView.findViewById(R.id.subtitle)).setText(row.getSubTitle());
         return convertView;
     }
 
@@ -91,14 +102,6 @@ public class AboutInfoAdapter extends BaseAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return getItem(position).getType() == AboutInfoRow.Type.ITEM;
-    }
-
-    private int fetchLayoutResource(final AboutInfoRow.Type type) {
-        if (type == AboutInfoRow.Type.HEADER) {
-            return R.layout.list_item_heading;
-        } else {
-            return R.layout.list_item_two_line_card;
-        }
+        return getItem(position).getType() == SimpleAboutRow.Type.ITEM;
     }
 }

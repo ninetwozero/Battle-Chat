@@ -41,5 +41,6 @@ dependencies {
         'com.google.code.gson:gson:2.2.4',
         'com.squareup.picasso:picasso:2.1.1',
         'org.jsoup:jsoup:1.7.3',
-        'com.bugsense.trace:bugsense:3.6'
+        'com.bugsense.trace:bugsense:3.6',
+        'com.tonicartos:stickygridheaders:1.0.1'
 }
