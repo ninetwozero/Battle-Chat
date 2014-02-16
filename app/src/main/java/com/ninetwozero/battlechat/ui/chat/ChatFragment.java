@@ -24,12 +24,15 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
@@ -296,6 +299,18 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private void setupForm(final View view) {
+        ((EditText) view.findViewById(R.id.input_message)).setOnEditorActionListener(
+            new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == EditorInfo.IME_ACTION_SEND) {
+                        onSend();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        );
         view.findViewById(R.id.button_send).setOnClickListener(
             new OnClickListener() {
                 @Override

@@ -1,23 +1,27 @@
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/drawer_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".MainActivity"
   >
-  <FrameLayout
-    android:id="@+id/content_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
 
   <fragment
-    android:id="@+id/navigation_drawer"
+    android:id="@+id/friends_list"
     android:layout_width="@dimen/navigation_drawer_width"
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:tag="NavigationDrawerFragment"
     android:name="com.ninetwozero.battlechat.ui.navigation.NavigationDrawerFragment"
-  />
+    />
 
-</android.support.v4.widget.DrawerLayout>
+  <FrameLayout
+    android:id="@+id/content_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+  <FrameLayout
+    android:id="@+id/content_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
+
+</LinearLayout>

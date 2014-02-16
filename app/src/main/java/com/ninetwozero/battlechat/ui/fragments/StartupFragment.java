@@ -44,13 +44,16 @@ public class StartupFragment extends Fragment {
     }
 
     private void initialize(final View view) {
-        view.findViewById(R.id.startup_button).setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    BusProvider.getInstance().post(new ToggleNavigationDrawerRequest(true));
+        final View startupButton = view.findViewById(R.id.startup_button);
+        if (startupButton != null) {
+            startupButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BusProvider.getInstance().post(new ToggleNavigationDrawerRequest(true));
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 }

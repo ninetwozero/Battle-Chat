@@ -19,7 +19,9 @@ import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.comparators.UserComparator;
+import com.ninetwozero.battlechat.datatypes.NavigationDrawerIsAttachedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
+import com.ninetwozero.battlechat.datatypes.StartChatWithRandomFriendEvent;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
@@ -38,6 +40,7 @@ import org.jsoup.helper.StringUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class NavigationDrawerFragment extends BaseLoadingListFragment {
     public static final String TAG = "NavigationDrawerFragment";
@@ -81,6 +84,8 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
             shouldReloadOnAttach = false;
             reload(false);
         }
+
+        BusProvider.getInstance().post(new NavigationDrawerIsAttachedEvent());
     }
 
     @Override
@@ -109,6 +114,70 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         BusProvider.getInstance().register(this);
         initialLoad();
     }
+
+    @Override
+    public void onListItemClick(final ListView listView, final View view, final int position, final long id) {
+        final User user = ((NavigationDrawerListAdapter) getListAdapter()).getItem(position);
+        if (user == null) {
+            return;
+        }
+
+        final SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+        preferences.putString("recent_chat_userid", user.getId());
+        preferences.putString("recent_chat_username", user.getUsername());
+        preferences.apply();
+
+        final FragmentManager manager = getFragmentManager();
+        final Fragment fragment = manager.findFragmentByTag(ChatFragment.TAG);
+        if (fragment == null) {
+            final Bundle data = new Bundle();
+            data.putString(Keys.Profile.ID, user.getId());
+            data.putString(Keys.Profile.USERNAME, user.getUsername());
+            data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
+
+            final FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.content_root, ChatFragment.newInstance(data), ChatFragment.TAG);
+            transaction.commit();
+        } else {
+            BusProvider.getInstance().post(user);
+        }
+
+        callbacks.onNavigationDrawerItemSelected(
+            user.getUsername(),
+            getString(NavigationDrawerListAdapter.resolveOnlineStatus(user.getPresenceType()))
+        );
+    }
+
+    @Override
+    public Loader<Result> onCreateLoader(final int id, final Bundle args) {
+        final ListView listView = getListView();
+        if (listView == null || listView.getCount() == 0 || args.getBoolean(KEY_DISPLAY_OVERLAY)) {
+            showProgress(true);
+        }
+        return new IntelLoader<ComCenterRequest>(
+            getActivity(),
+            new SimpleGetRequest(UrlFactory.buildFriendListURL()),
+            ComCenterRequest.class
+        );
+    }
+
+    @Override
+    protected void onLoadSuccess(final int loader, final Result result) {
+        if (loader == ID_LOADER) {
+            final ComCenterRequest comCenter = (ComCenterRequest) result.getData();
+            final List<User> friends = comCenter.getInformation().getFriends();
+            if (friends == null) {
+                showToast(R.string.msg_unable_to_get_friends);
+                return;
+            }
+
+            Collections.sort(friends, new UserComparator());
+            updateListAdapter(friends);
+            ((NavigationDrawerListAdapter) getListAdapter()).setItems(friends);
+        }
+        showProgress(false);
+    }
+
 
     @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
@@ -158,75 +227,12 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
-    @Override
-    public void onListItemClick(final ListView listView, final View view, final int position, final long id) {
-        final User user = ((NavigationDrawerListAdapter) getListAdapter()).getItem(position);
-        if (user == null) {
-            return;
-        }
-
-        final SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        preferences.putString("recent_chat_userid", user.getId());
-        preferences.putString("recent_chat_username", user.getUsername());
-        preferences.apply();
-
-        final FragmentManager manager = getFragmentManager();
-        final Fragment fragment = manager.findFragmentByTag(ChatFragment.TAG);
-        if (fragment == null) {
-            final Bundle data = new Bundle();
-            data.putString(Keys.Profile.ID, user.getId());
-            data.putString(Keys.Profile.USERNAME, user.getUsername());
-            data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
-
-            final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_root, ChatFragment.newInstance(data), ChatFragment.TAG);
-            transaction.commit();
-        } else {
-            BusProvider.getInstance().post(user);
-        }
-
-        callbacks.onNavigationDrawerItemSelected(
-            user.getUsername(),
-            getString(NavigationDrawerListAdapter.resolveOnlineStatus(user.getPresenceType()))
-        );
-    }
-
     private void showProgress(final boolean show) {
         final View view = getView();
         if (view == null) {
             return;
         }
         view.findViewById(R.id.wrap_loading).setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public Loader<Result> onCreateLoader(final int id, final Bundle args) {
-        final ListView listView = getListView();
-        if (listView == null || listView.getCount() == 0 || args.getBoolean(KEY_DISPLAY_OVERLAY)) {
-            showProgress(true);
-        }
-        return new IntelLoader<ComCenterRequest>(
-            getActivity(),
-            new SimpleGetRequest(UrlFactory.buildFriendListURL()),
-            ComCenterRequest.class
-        );
-    }
-
-    @Override
-    protected void onLoadSuccess(final int loader, final Result result) {
-        if (loader == ID_LOADER) {
-            final ComCenterRequest comCenter = (ComCenterRequest) result.getData();
-            final List<User> friends = comCenter.getInformation().getFriends();
-            if (friends == null) {
-                showToast(R.string.msg_unable_to_get_friends);
-                return;
-            }
-
-            Collections.sort(friends, new UserComparator());
-            updateListAdapter(friends);
-            ((NavigationDrawerListAdapter) getListAdapter()).setItems(friends);
-        }
-        showProgress(false);
     }
 
     /*

@@ -1,0 +1,3 @@
+<resources>
+  <bool name="main_is_dualpane">true</bool>
+</resources>

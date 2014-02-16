@@ -46,6 +46,7 @@ public class MainActivity
     private ActionBarDrawerToggle drawerToggle;
     private View fragmentContainerView;
     private NavigationDrawerFragment navigationDrawer;
+    private boolean shouldShowDualPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
 
         initialize(savedInstanceState);
+
     }
 
     @Override
@@ -112,31 +114,33 @@ public class MainActivity
 
     @Override
     public void onBackPressed() {
-        if (isDrawerOpen()) {
-            toggleNavigationDrawer(false);
-        } else {
-            setActionBarText(R.string.title_main, true);
-            navigationDrawer.getListView().setItemChecked(-1, true);
-
-            final FragmentManager manager = getSupportFragmentManager();
-            if (manager.findFragmentByTag(StartupFragment.TAG) == null) {
-                final FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(
-                    R.id.activity_root,
-                    StartupFragment.newInstance(),
-                    StartupFragment.TAG
-                );
-                transaction.commit();
-                return;
+        if (!shouldShowDualPane) {
+            if (isDrawerOpen()) {
+                toggleNavigationDrawer(false);
+            } else {
+                navigationDrawer.getListView().setItemChecked(-1, true);
             }
-            super.onBackPressed();
         }
+
+        setActionBarText(R.string.title_main, true);
+        final FragmentManager manager = getSupportFragmentManager();
+        if (manager.findFragmentByTag(StartupFragment.TAG) == null) {
+            final FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(
+                R.id.content_root,
+                StartupFragment.newInstance(),
+                StartupFragment.TAG
+            );
+            transaction.commit();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(STATE_DRAWER_OPENED, isDrawerOpen());
+        outState.putBoolean(STATE_DRAWER_OPENED, isDrawerOpen() || shouldShowDualPane);
     }
 
     @Override
@@ -171,16 +175,31 @@ public class MainActivity
     }
 
     @Subscribe
-    public void onStartupFragmentButtonClick(final ToggleNavigationDrawerRequest request) {
+    public void onRequestToToggleTheNavigationDrawer(final ToggleNavigationDrawerRequest request) {
         toggleNavigationDrawer(request.isShouldOpen());
     }
 
     private void initialize(final Bundle savedInstanceState) {
+        loadSettingsFromXml();
         setupInitialFragment();
-        setupNavigationDrawer();
-        setupActionBar();
-        setupActionBarToggle();
+        if (shouldShowDualPane) {
+            setupDualPaneLayout(savedInstanceState);
+        } else {
+            setupNavigationDrawer();
+            setupActionBar();
+            setupActionBarToggle();
+        }
         setupActivityFromState(savedInstanceState);
+    }
+
+    private void loadSettingsFromXml() {
+        shouldShowDualPane = getResources().getBoolean(R.bool.main_is_dualpane);
+    }
+
+    private void setupDualPaneLayout(final Bundle savedInstanceState) {
+        if (findViewById(R.id.friends_list) != null) {
+            // TODO: Set up the menu???
+        }
     }
 
     private void setupNavigationDrawer() {
@@ -247,7 +266,9 @@ public class MainActivity
 
     private void setupActivityFromState(final Bundle state) {
         if (state != null) {
-            toggleNavigationDrawer(state.getBoolean(STATE_DRAWER_OPENED, false));
+            if (!shouldShowDualPane) {
+                toggleNavigationDrawer(state.getBoolean(STATE_DRAWER_OPENED, false));
+            }
         }
     }
 
@@ -265,7 +286,7 @@ public class MainActivity
         final FragmentManager manager = getSupportFragmentManager();
         if (manager.findFragmentByTag(ChatFragment.TAG) == null) {
             final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_root, StartupFragment.newInstance(), StartupFragment.TAG);
+            transaction.replace(R.id.content_root, StartupFragment.newInstance(), StartupFragment.TAG);
             transaction.commit();
             setActionBarText(R.string.title_main, true);
         }

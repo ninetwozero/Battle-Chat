@@ -37,13 +37,13 @@
   <string name="menu_exit">Log out</string>
   <string name="msg_message_ok">Message sent!</string>
   <string name="msg_message_fail">Message could not be sent!</string>
-  <string name="msg_chat_refresh_fail">Could not reload chat. Please try to relogin.</string>
+  <string name="msg_chat_refresh_fail">Could not reload chat. Please try to re-login.</string>
   <string name="msg_chat_send_message_error">You need to enter a message.</string>
   <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
   <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
   <string name="msg_chat_load_error">An error occurred: The website is being stupid.</string>
   <string name="text_notification_title">Battle Chat status</string>
-  <string name="text_notification_subtitle_ok">Signed in as %s. Tap to open.</string>
+  <string name="text_notification_subtitle_ok">Signed in as %1$s. Tap to open.</string>
   <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
   <string name="label_offline">Offline</string>
   <string name="label_online">Online</string>
@@ -77,7 +77,7 @@
   <string name="text_about_by">By Karl Lindmark</string>
   <string name="text_about_email">support@ninetwozero.com</string>
   <string name="text_about_version">1.0</string>
-  <string name="text_chat_title">Chatting with %s</string>
+  <string name="text_chat_title">Chatting with %1$s</string>
   <string name="title_login">Login</string>
 
   <!-- new strings -->
@@ -92,10 +92,10 @@
 
   <string name="text_main_loading">Loading friends&#8230;</string>
 
-  <string name="chat_group_invited" formatted="false">%s was invited</string>
-  <string name="chat_group_joined" formatted="false">%s joined the chat</string>
-  <string name="chat_group_left" formatted="false">%s left the chat</string>
-  <string name="chat_group_joinedgame" formatted="false">%s joined %s</string>
+  <string name="chat_group_invited">%1$s was invited</string>
+  <string name="chat_group_joined">%1$s joined the chat</string>
+  <string name="chat_group_left">%1$s left the chat</string>
+  <string name="chat_group_joinedgame">%1$s joined %2$s</string>
   <string name="label_friends">Friends</string>
   <string name="menu_reset_password">Reset password</string>
   <string name="accept">Accept</string>
@@ -111,7 +111,9 @@
   <string name="startup_main_information">Looks like you don\'t have any chats open at the moment.
     Let\'s fix that.
   </string>
+  <string name="startup_second_information">Just select a friend to the left to start chatting. :-)</string>
   <string name="startup_start_new">Start a new chat</string>
+  <string name="startup_start_random">Start a random chat</string>
   <string name="cdesc_action_item">Action item</string>
   <string name="cdesc_button_send">Send button</string>
   <string name="error_broken_form">Broken form! Please restart the app.</string>
@@ -161,7 +163,8 @@
 
   <!-- Open Source information -->
   <string name="opensource_title_self">Battle Chat</string>
-  <string name="opensource_subtitle_self">Licensed under GPL3, source code available on Github</string>
+  <string name="opensource_subtitle_self">Licensed under GPL3, source code available on Github
+  </string>
   <string name="opensource_title_gson">Gson</string>
   <string name="opensource_subtitle_gson">JSON parsing made easier</string>
   <string name="opensource_title_httprequest">Http Request</string>

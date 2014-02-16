@@ -44,6 +44,7 @@
       android:layout_toLeftOf="@id/button_send"
       android:inputType="text"
       android:layout_alignBottom="@id/button_send"
+      android:imeOptions="actionSend"
       />
   </RelativeLayout>
 
