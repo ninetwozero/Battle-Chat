@@ -9,17 +9,16 @@ import android.webkit.WebView;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseFragment;
 
-public class OpenSourceInfoFragment extends BaseFragment {
+public class CreditListFragment extends BaseFragment {
 
-    public static OpenSourceInfoFragment newInstance(final Bundle data) {
-        final OpenSourceInfoFragment fragment = new OpenSourceInfoFragment();
+    public static CreditListFragment newInstance(final Bundle data) {
+        final CreditListFragment fragment = new CreditListFragment();
         fragment.setArguments(data);
         return fragment;
     }
 
-    public OpenSourceInfoFragment() {
+    public CreditListFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle state) {
@@ -33,6 +32,6 @@ public class OpenSourceInfoFragment extends BaseFragment {
 
     private void initialize(View view) {
         final WebView webView = (WebView) view.findViewById(R.id.webview);
-        webView.loadUrl("file:///android_asset/licenses.htm");
+        webView.loadUrl("file:///android_asset/credits.htm");
     }
 }

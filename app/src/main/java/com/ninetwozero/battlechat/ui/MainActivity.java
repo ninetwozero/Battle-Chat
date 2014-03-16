@@ -21,7 +21,7 @@ import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
 import com.ninetwozero.battlechat.services.BattleChatService;
-import com.ninetwozero.battlechat.ui.about.AboutActivity;
+import com.ninetwozero.battlechat.ui.about.AppInfoActivity;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.ui.fragments.StartupFragment;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerFragment;
@@ -87,7 +87,7 @@ public class MainActivity
                 toggleNavigationDrawer(!isDrawerOpen());
                 return true;
             case R.id.menu_about:
-                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
                 return true;
             case R.id.menu_refresh:
                 BusProvider.getInstance().post(new TriggerRefreshEvent(TriggerRefreshEvent.Type.MANUAL));

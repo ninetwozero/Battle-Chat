@@ -40,7 +40,7 @@ import com.ninetwozero.battlechat.base.ui.BaseActivity;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.UserLoginEvent;
 import com.ninetwozero.battlechat.services.BattleChatService;
-import com.ninetwozero.battlechat.ui.about.AboutActivity;
+import com.ninetwozero.battlechat.ui.about.AppInfoActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
@@ -168,7 +168,7 @@ public class LoginActivity extends BaseActivity {
                             public boolean onMenuItemClick(MenuItem item) {
                                 Intent intent = null;
                                 if (item.getItemId() == R.id.menu_about) {
-                                    intent = new Intent(LoginActivity.this, AboutActivity.class);
+                                    intent = new Intent(LoginActivity.this, AppInfoActivity.class);
                                 } else if (item.getItemId() == R.id.menu_reset_password) {
                                     intent = new Intent(Intent.ACTION_VIEW).setData(
                                         Uri.parse(RESET_PASSWORD_LINK)

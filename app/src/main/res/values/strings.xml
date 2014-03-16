@@ -50,7 +50,6 @@
   <string name="label_group">Group</string>
   <string name="label_playing">Playing</string>
   <string name="msg_no_messages">No messages found. :-(</string>
-  <string name="app_email">support@ninetwozero.com</string>
   <string name="msg_no_friends">No friends found. :-(</string>
   <string name="title_settings">Settings</string>
   <string name="title_chat">Chat</string>
@@ -119,27 +118,21 @@
   <string name="error_broken_form">Broken form! Please restart the app.</string>
   <string name="cdesc_warning_icon">Warning</string>
   <string name="msg_no_network">This app requires Internet access - are you connected?</string>
-  <string name="title_about_changelog">Changelog</string>
-  <string name="title_about_author">Developer</string>
-  <string name="title_about_collaborators">Collaborators</string>
-  <string name="title_about_open_source">Open Source</string>
-  <string name="text_about_author_job_title">Software Developer at ninetwozero.com</string>
-  <string name="text_about_author_name">Karl Lindmark</string>
-  <string name="text_about_author_heading_contact">Ways to contact me</string>
-  <string name="text_about_author_heading_whoami">Who am I?</string>
-  <string name="web">www.ninetwozero.com</string>
-  <string name="text_about_author_visit_website">Visit my website</string>
-  <string name="text_about_author_send_email">Send me an good \'ol fashion e-mail</string>
-  <string name="account_email">support@ninetwozero.com</string>
-  <string name="account_twitter">\@karllindmark</string>
-  <string name="text_about_author_tweet_twitter">Tweet with me on Twitter</string>
-  <string name="account_googleplus">+KarlLindmark</string>
-  <string name="text_about_author_circle_gplus">Circle me on Google+</string>
 
-  <!-- Collab labels -->
-  <string name="collab_label_code">Code</string>
-  <string name="collab_label_design">Look &amp; Feel</string>
-  <string name="collab_label_misc">Miscellaneous</string>
+  <!-- ABOUT -->
+  <string name="label_about">About</string>
+  <string name="label_updates">Changelog</string>
+  <string name="label_credits">Credits</string>
+  <string name="label_opensource">Licenses</string>
+  <string name="app_email">support@ninetwozero.com</string>
+
+  <string name="msg_info_join_gplus">Join our community on G+</string>
+  <string name="msg_info_join_tweet">Tweet with us</string>
+  <string name="msg_info_email">Send us an e-mail</string>
+  <string name="msg_about_help_text">If you ever encounter any issues with Battle Chat, you can count on us
+    to help. Just tap one of the buttons below to get started!
+  </string>
+  <string name="msg_about_help_heading">Need help?</string>
 
   <!-- Collaborators -->
   <string name="collab_name_peter">Peter Mikloško</string>
@@ -156,24 +149,4 @@
   <string name="collab_desc_dapil">Translated the app into Czech</string>
   <string name="collab_name_gk">Gustav Karlsson</string>
   <string name="collab_desc_gk">Quality Assurance</string>
-
-  <!-- Open Source labels -->
-  <string name="opensource_label_self">This app</string>
-  <string name="opensource_label_libs">Libraries</string>
-
-  <!-- Open Source information -->
-  <string name="opensource_title_self">Battle Chat</string>
-  <string name="opensource_subtitle_self">Licensed under GPL3, source code available on Github
-  </string>
-  <string name="opensource_title_gson">Gson</string>
-  <string name="opensource_subtitle_gson">JSON parsing made easier</string>
-  <string name="opensource_title_httprequest">Http Request</string>
-  <string name="opensource_subtitle_httprequest">Convenience library for HttpURLConnection</string>
-  <string name="opensource_title_jsoup">jsoup</string>
-  <string name="opensource_subtitle_jsoup">Html Parsing Library</string>
-  <string name="opensource_title_otto">Otto</string>
-  <string name="opensource_subtitle_otto">Android MessageBus implementation</string>
-  <string name="opensource_title_picasso">Picasso</string>
-  <string name="opensource_subtitle_picasso">Awesome Image Loading Library</string>
-  <string name="label_about_changelog_for">Changelog for</string>
 </resources>

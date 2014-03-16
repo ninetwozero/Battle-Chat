@@ -1,46 +1,27 @@
-/*
-	This file is part of BattleChat
-
-	BattleChat is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	BattleChat is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-*/
-
-package com.ninetwozero.battlechat.ui.about;
+package com.ninetwozero.battlechat.base.ui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.base.ui.BaseActivity;
+import com.ninetwozero.battlechat.ui.adapters.ViewPagerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AboutActivity extends BaseActivity implements ActionBar.TabListener {
-    private final int[] TITLES = new int[] {
-        R.string.title_about_changelog,
-        R.string.title_about_author,
-        R.string.title_about_collaborators,
-        R.string.title_about_open_source
-    };
+public abstract class BaseTabActivity extends BaseActivity implements ActionBar.TabListener {
+    public static final String INTENT_EXTRA = "extra";
 
     private ViewPager viewPager;
-    private AboutFragmentAdapter viewPagerAdapter;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.generic_multi_tab_activity);
         initialize();
     }
 
@@ -64,20 +45,21 @@ public class AboutActivity extends BaseActivity implements ActionBar.TabListener
     }
 
     private void setupViewPagerAdapter() {
-        viewPagerAdapter = new AboutFragmentAdapter(getSupportFragmentManager(), generateFragmentList());
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), generateFragmentList());
     }
 
     private List<Fragment> generateFragmentList() {
-        final List<Fragment> fragments = new ArrayList<Fragment>();
-        fragments.add(AppInfoFragment.newInstance());
-        fragments.add(AuthorInfoFragment.newInstance());
-        fragments.add(CollaboratorInfoFragment.newInstance());
-        fragments.add(OpenSourceInfoFragment.newInstance());
-        return fragments;
+        final Bundle dataBundle = getBundleFromIntent(getIntent());
+        return fetchFragmentsForActivity(dataBundle);
+    }
+
+    private Bundle getBundleFromIntent(final Intent intent) {
+        return intent.hasExtra(INTENT_EXTRA) ? intent.getBundleExtra(INTENT_EXTRA) : new Bundle();
     }
 
     private void setupViewPager() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(getOffscreenPageLimit());
         viewPager.setOnPageChangeListener(
             new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -90,12 +72,17 @@ public class AboutActivity extends BaseActivity implements ActionBar.TabListener
     }
 
     private void setupActionBar() {
+        final int[] titles = getTitleResources();
         final ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for (int i = 0, max = TITLES.length; i < max; i++) {
-            actionBar.addTab(actionBar.newTab().setText(TITLES[i]).setTabListener(this));
+        for (int i = 0, max = titles.length; i < max; i++) {
+            actionBar.addTab(actionBar.newTab().setText(titles[i]).setTabListener(this));
         }
     }
+
+    protected abstract int[] getTitleResources();
+    protected abstract List<Fragment> fetchFragmentsForActivity(final Bundle profileBundle);
+    protected abstract int getOffscreenPageLimit();
 }
