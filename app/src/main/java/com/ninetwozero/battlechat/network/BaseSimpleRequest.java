@@ -1,54 +1,74 @@
 package com.ninetwozero.battlechat.network;
 
-import com.github.kevinsawicki.http.HttpRequest;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.ninetwozero.battlechat.datatypes.Session;
+import com.ninetwozero.battlechat.factories.GsonProvider;
 import com.ninetwozero.battlechat.network.exception.Failure;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
+public abstract class BaseSimpleRequest<T> extends Request<T> {
+    protected RequestType requestType;
+    protected Gson gson = GsonProvider.getInstance();
 
-public abstract class BaseSimpleRequest {
-    protected static final int CONNECT_TIMEOUT = 5000;
-    protected  static final int READ_TIMEOUT = 15000;
-    protected final String requestUrl;
-
-    public BaseSimpleRequest(final String requestUrl) {
-        this.requestUrl = requestUrl;
+    public BaseSimpleRequest(
+        final int method, final URL url, final RequestType requestType, final Response.ErrorListener errorListener
+    ) {
+        super(method, url.toString(), errorListener);
+        this.requestType = requestType;
     }
 
-    public BaseSimpleRequest(final URL requestUrl) {
-        this.requestUrl = requestUrl.toString();
-    }
-
-    public String execute() throws Failure {
-        if (requestUrl != null) {
-            try {
-                HttpRequest httpRequest = getHttpRequest();
-                return fromStream(httpRequest.buffer());
-            } catch (IOException e) {
-                throw new Failure(e);
-            } catch (HttpRequest.HttpRequestException e) {
-                throw new Failure(e);
-            }
-        } else {
-            throw new Failure("Provided URL is null - cannot execute request!");
+    @Override
+    protected Response<T> parseNetworkResponse(NetworkResponse response) {
+        try {
+            final String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            checkForJsonInlinedErrors(json);
+            return Response.success(doParse(json), HttpHeaderParser.parseCacheHeaders(response));
+        } catch (UnsupportedEncodingException e) {
+            return Response.error(new ParseError(e));
+        } catch (JsonSyntaxException je) {
+            return Response.error(new ParseError(je));
+        } catch (Failure ex) {
+            return Response.error(new ParseError(ex));
         }
     }
 
-    private String fromStream(final InputStream in) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        final StringBuilder out = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            out.append(line);
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        final Map<String, String> map = new HashMap<String, String>();
+        map.put("X-Requested-With", "XMLHttpRequest");
+        map.put("Cookie", "beaker.session.id=" + Session.getCookieValue());
+
+        if (requestType == RequestType.FROM_NAVIGATION) {
+            map.put("X-AjaxNavigation", "1");
         }
-        in.close();
-        reader.close();
-        return out.toString();
+
+        return map;
     }
 
-    protected abstract HttpRequest getHttpRequest();
-}
+    private void checkForJsonInlinedErrors(final String jsonString) throws Failure {
+        if (jsonString.contains("\"type\":\"error\"")) {
+            final JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
+            throw new Failure(json.get("message").getAsString());
+        }
+    }
+
+    public enum RequestType {
+        NORMAL,
+        FROM_NAVIGATION
+    }
+
+    protected abstract T doParse(final String json);
+}        

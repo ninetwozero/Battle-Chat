@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +20,13 @@ import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.comparators.UserComparator;
 import com.ninetwozero.battlechat.datatypes.NavigationDrawerIsAttachedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
-import com.ninetwozero.battlechat.datatypes.StartChatWithRandomFriendEvent;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
+import com.ninetwozero.battlechat.json.chat.ComCenterInformation;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.PresenceType;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.network.IntelLoader;
-import com.ninetwozero.battlechat.network.Result;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.utils.BusProvider;
@@ -40,7 +37,6 @@ import org.jsoup.helper.StringUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class NavigationDrawerFragment extends BaseLoadingListFragment {
     public static final String TAG = "NavigationDrawerFragment";
@@ -89,6 +85,12 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        startLoadingData();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
 
@@ -106,13 +108,45 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         super.onSaveInstanceState(outState);
     }
 
+    // TODO: Load friends from DB && selectItemFromState(currentSelectedId); ?
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void startLoadingData() {
+        doLoadData(new Bundle());
+    }
 
-        // TODO: Load friends from DB && selectItemFromState(currentSelectedId); ?
-        BusProvider.getInstance().register(this);
-        initialLoad();
+    private void doLoadData(final Bundle arguments) {
+        final ListView listView = getListView();
+        if (listView == null || listView.getCount() == 0 || arguments.getBoolean(KEY_DISPLAY_OVERLAY)) {
+            showProgress(true);
+        }
+        requestQueue.add(
+            new SimpleGetRequest<List<User>>(
+                UrlFactory.buildFriendListURL(),
+                this
+            ) {
+                @Override
+                protected List<User> doParse(String json) {
+                    final ComCenterRequest comCenter = fromJson(json, ComCenterRequest.class);
+                    final ComCenterInformation comCenterInformation = comCenter.getInformation();
+                    if (comCenterInformation == null) {
+                        return null;
+                    }
+
+                    final List<User> friends = comCenterInformation.getFriends();
+                    if (friends == null) {
+                        return null;
+                    }
+                    Collections.sort(friends, new UserComparator());
+                    return friends;
+                }
+
+                @Override
+                protected void deliverResponse(List<User> response) {
+                    updateListAdapter(response);
+                    showProgress(false);
+                }
+            }
+        );
     }
 
     @Override
@@ -148,48 +182,9 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         );
     }
 
-    @Override
-    public Loader<Result> onCreateLoader(final int id, final Bundle args) {
-        final ListView listView = getListView();
-        if (listView == null || listView.getCount() == 0 || args.getBoolean(KEY_DISPLAY_OVERLAY)) {
-            showProgress(true);
-        }
-        return new IntelLoader<ComCenterRequest>(
-            getActivity(),
-            new SimpleGetRequest(UrlFactory.buildFriendListURL()),
-            ComCenterRequest.class
-        );
-    }
-
-    @Override
-    protected void onLoadSuccess(final int loader, final Result result) {
-        if (loader == ID_LOADER) {
-            final ComCenterRequest comCenter = (ComCenterRequest) result.getData();
-            final List<User> friends = comCenter.getInformation().getFriends();
-            if (friends == null) {
-                showToast(R.string.msg_unable_to_get_friends);
-                return;
-            }
-
-            Collections.sort(friends, new UserComparator());
-            updateListAdapter(friends);
-            ((NavigationDrawerListAdapter) getListAdapter()).setItems(friends);
-        }
-        showProgress(false);
-    }
-
-
     @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
         reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
-    }
-
-    private void initialLoad() {
-        final LoaderManager manager = getLoaderManager();
-        final Bundle arguments = getArguments() == null ? new Bundle() : getArguments();
-
-        arguments.putBoolean(KEY_DISPLAY_OVERLAY, manager.getLoader(ID_LOADER) == null);
-        manager.initLoader(ID_LOADER, arguments, this);
     }
 
     private void reload(final boolean shouldDisplayLoadingOverlay) {
@@ -201,7 +196,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
 
         final Bundle arguments = getArguments() == null ? new Bundle() : getArguments();
         arguments.putBoolean(KEY_DISPLAY_OVERLAY, shouldDisplayLoadingOverlay);
-        getLoaderManager().restartLoader(ID_LOADER, arguments, this);
+        doLoadData(arguments);
     }
 
     private void initialize(final View view, final Bundle state) {

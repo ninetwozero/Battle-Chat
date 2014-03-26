@@ -67,21 +67,21 @@ public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
             case PLAYING_COOP:
             case PLAYING_MP:
             case PLAYING_ORIGIN:
-                return R.color.presence_playing;
+                return R.color.presence_playing_state;
             case ONLINE_MOBILE:
             case ONLINE_WEB:
             case ONLINE_GAME:
             case ONLINE_TABLET:
             case ONLINE_ORIGIN:
-                return R.color.presence_online;
+                return R.color.presence_online_state;
             case GROUP_ORIGIN:
             case GROUP_WEB:
-                return R.color.presence_group;
+                return R.color.presence_group_state;
             case AWAY_WEB:
             case AWAY_ORIGIN:
-                return R.color.presence_away;
+                return R.color.presence_away_state;
             default:
-                return R.color.presence_offline;
+                return R.color.presence_offline_state;
         }
     }
 

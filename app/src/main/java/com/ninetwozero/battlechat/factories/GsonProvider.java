@@ -23,8 +23,17 @@ import com.ninetwozero.battlechat.json.chat.User;
 import com.ninetwozero.battlechat.utils.MessageDeserializer;
 import com.ninetwozero.battlechat.utils.UserDeserializer;
 
-public class GsonFactory {
+public class GsonProvider {
+    private static Gson instance;
+
     public static Gson getInstance() {
+        if (instance == null) {
+            instance = createNewInstance();
+        }
+        return instance;
+    }
+
+    private static Gson createNewInstance() {
         return new GsonBuilder().registerTypeAdapter(
             User.class, new UserDeserializer()
         ).registerTypeAdapter(

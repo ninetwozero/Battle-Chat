@@ -20,12 +20,15 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.ninetwozero.battlechat.BattleChat;
@@ -35,13 +38,12 @@ import com.ninetwozero.battlechat.base.asynctasks.BaseLogoutTask;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.UserLoginEvent;
 import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
-import com.ninetwozero.battlechat.factories.GsonFactory;
+import com.ninetwozero.battlechat.factories.GsonProvider;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.User;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
-import com.ninetwozero.battlechat.network.exception.Failure;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 
@@ -65,10 +67,11 @@ public class BattleChatService extends Service {
     private int action;
     private String email;
     private String password;
-    private ChatInformationTask chatInformationTask;
-    private UserLoginTask userLoginTask;
-    private UserLogoutTask userLogoutTask;
     private SharedPreferences sharedPreferences;
+
+    private int chatInformationStatusCode = -1;
+    private RequestQueue requestQueue;
+    private BaseLoginTask userLoginTask;
 
     public static PendingIntent getPendingIntent(final Context c) {
         return PendingIntent.getService(c, 0, getIntent(c), PendingIntent.FLAG_CANCEL_CURRENT);
@@ -106,6 +109,7 @@ public class BattleChatService extends Service {
     @Override
     public void onCreate() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        requestQueue = Volley.newRequestQueue(this);
     }
 
     @Override
@@ -142,21 +146,85 @@ public class BattleChatService extends Service {
 
         if (action == ACTION_SYNC) {
             reloadSession();
-            if (chatInformationTask == null) {
-                chatInformationTask = new ChatInformationTask();
-                chatInformationTask.execute();
-            }
+            requestQueue.add(fetchRequestForChatInformation());
         } else if (action == ACTION_LOGIN) {
-            if (userLoginTask == null) {
-                userLoginTask = new UserLoginTask(getApplicationContext(), originatedFromActivity);
-                userLoginTask.execute(email, password);
-            }
+            userLoginTask = new UserLoginTask(getApplicationContext(), originatedFromActivity);
+            userLoginTask.execute(email, password);
         } else if (action == ACTION_LOGOUT) {
-            if (userLogoutTask == null) {
-                userLogoutTask = new UserLogoutTask(getApplicationContext(), originatedFromActivity);
-                userLogoutTask.execute();
-            }
+            requestQueue.add(new UserLogoutTask(getApplicationContext(), originatedFromActivity));
         }
+    }
+
+    private SimpleGetRequest<Integer> fetchRequestForChatInformation() {
+        return new SimpleGetRequest<Integer>(
+            UrlFactory.buildFriendListURL(),
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (chatInformationStatusCode == FLAG_RETRY_LOGIN) {
+                        Log.i(TAG, "Our session has expired - trying to login again.");
+                        onLoginExpired(email, password);
+                    } else {
+                        stopServiceAfterFailedRequests();
+                    }
+                }
+            }
+        ) {
+            @Override
+            protected Integer doParse(String json) {
+                Log.i(TAG, "Talking to the website...");
+                final ComCenterRequest comCenter = createComCenterRequestFromJson(json);
+                final List<Chat> unreadChats = findUnreadChats(comCenter.getInformation().getChats());
+
+                Log.d(TAG, "Number of unread chats: " + unreadChats.size());
+                for (Chat chat : unreadChats) {
+                    logUnreadChatInLogcat(chat);
+                }
+                chatInformationStatusCode = FLAG_SUCCESS;
+                return unreadChats.size();
+            }
+
+            private ComCenterRequest createComCenterRequestFromJson(final String json) {
+                final Gson gson = GsonProvider.getInstance();
+                final JsonParser parser = new JsonParser();
+                return gson.fromJson(
+                    parser.parse(json).getAsJsonObject().get("data"),
+                    ComCenterRequest.class
+                );
+            }
+
+            private List<Chat> findUnreadChats(final List<Chat> chats) {
+                final List<Chat> unreadChats = new ArrayList<Chat>();
+                for (Chat chat : chats) {
+                    if (chat.getUnreadCount() > 0) {
+                        unreadChats.add(chat);
+                    }
+                }
+                return unreadChats;
+            }
+
+            private void logUnreadChatInLogcat(final Chat chat) {
+                for (User user : chat.getUsers()) {
+                    if (!user.getId().equals(Session.getUserId())) {
+                        Log.d(
+                            TAG,
+                            String.format(
+                                "Chat with %s has %s unread messages",
+                                user.getUsername(),
+                                chat.getUnreadCount()
+                            )
+                        );
+                    }
+                }
+            }
+
+            @Override
+            protected void deliverResponse(Integer response) {
+                if (chatInformationStatusCode == FLAG_SUCCESS && Session.hasSession()) {
+                    onLoginSuccess();
+                }
+            }
+        };
     }
 
     private void reloadSession() {
@@ -196,75 +264,6 @@ public class BattleChatService extends Service {
         userLoginTask.execute(email, password);
     }
 
-    public class ChatInformationTask extends AsyncTask<Void, Void, Integer> {
-        @Override
-        protected Integer doInBackground(final Void... params) {
-            try {
-                Log.i(TAG, "Talking to the website...");
-                final SimpleGetRequest request = new SimpleGetRequest(UrlFactory.buildFriendListURL());
-                final ComCenterRequest comCenter = createComCenterRequestFromJson(request.execute());
-                final List<Chat> unreadChats = findUnreadChats(comCenter.getInformation().getChats());
-
-                Log.d(TAG, "Number of unread chats: " + unreadChats.size());
-                for (Chat chat : unreadChats) {
-                    logUnreadChatInLogcat(chat);
-                }
-                return FLAG_SUCCESS;
-            } catch (Failure ex) {
-                Log.e(TAG, "Failure: " + ex.getMessage());
-                return FLAG_RETRY_LOGIN;
-            }
-        }
-
-        private ComCenterRequest createComCenterRequestFromJson(final String json) {
-            final Gson gson = GsonFactory.getInstance();
-            final JsonParser parser = new JsonParser();
-            return gson.fromJson(
-                parser.parse(json).getAsJsonObject().get("data"),
-                ComCenterRequest.class
-            );
-        }
-
-        private List<Chat> findUnreadChats(final List<Chat> chats) {
-            final List<Chat> unreadChats = new ArrayList<Chat>();
-            for (Chat chat : chats) {
-                if (chat.getUnreadCount() > 0) {
-                    unreadChats.add(chat);
-                }
-            }
-            return unreadChats;
-        }
-
-        private void logUnreadChatInLogcat(final Chat chat) {
-            for (User user : chat.getUsers()) {
-                if (!user.getId().equals(Session.getUserId())) {
-                    Log.d(
-                        TAG,
-                        String.format(
-                            "Chat with %s has %s unread messages",
-                            user.getUsername(),
-                            chat.getUnreadCount()
-                        )
-                    );
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(final Integer statusCode) {
-            chatInformationTask = null;
-
-            if (statusCode == FLAG_SUCCESS && Session.hasSession()) {
-                onLoginSuccess();
-            } else if (statusCode == FLAG_RETRY_LOGIN) {
-                Log.i(TAG, "Our session has expired - trying to login again.");
-                onLoginExpired(email, password);
-            } else {
-                stopServiceAfterFailedRequests();
-            }
-        }
-    }
-
     private class UserLoginTask extends BaseLoginTask {
         private final boolean calledFromActivity;
 
@@ -300,9 +299,8 @@ public class BattleChatService extends Service {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(null);
-            userLogoutTask = null;
+        protected void deliverResponse(Object response) {
+            super.deliverResponse(response);
 
             if (calledFromActivity) {
                 BusProvider.getInstance().post(new UserLogoutEvent());
@@ -311,6 +309,5 @@ public class BattleChatService extends Service {
                 stopSelf();
             }
         }
-
     }
 }

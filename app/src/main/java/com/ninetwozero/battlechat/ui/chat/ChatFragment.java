@@ -22,8 +22,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +33,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
-import com.ninetwozero.battlechat.datatypes.NoResultExpected;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
@@ -45,12 +46,8 @@ import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ChatContainer;
 import com.ninetwozero.battlechat.json.chat.Message;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.network.IntelLoader;
-import com.ninetwozero.battlechat.network.Result;
-import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.SimplePostRequest;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerListAdapter;
-import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -90,22 +87,26 @@ public class ChatFragment extends BaseLoadingListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        BusProvider.getInstance().register(this);
+
         handleArgumentsOnResume(getArguments());
-        initialLoad();
+        startLoadingData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        BusProvider.getInstance().unregister(this);
         stopSound();
     }
 
     @Override
     public void onStop() {
-        getLoaderManager().restartLoader(ID_LOADER_CLOSE, getBundleForClose(chatId), this);
+        requestQueue.add(fetchRequestForChatClose(getBundleForClose(chatId)));
         super.onStop();
+    }
+
+    @Override
+    protected void startLoadingData() {
+        doRequest(ID_LOADER_REFRESH, getArguments());
     }
 
     @Override
@@ -124,84 +125,123 @@ public class ChatFragment extends BaseLoadingListFragment {
         super.onSaveInstanceState(out);
     }
 
-    @Override
-    public Loader<Result> onCreateLoader(final int id, final Bundle args) {
+    private void doRequest(final int id, final Bundle args) {
         if (id == ID_LOADER_SEND) {
             toggleButton(false);
-            return new IntelLoader<NoResultExpected>(
-                getActivity(),
-                new SimplePostRequest(UrlFactory.buildPostToChatURL(), args)
-            );
+            requestQueue.add(fetchRequestForSend(args));
         } else if (id == ID_LOADER_CLOSE) {
-            return new IntelLoader<NoResultExpected>(
-                getActivity(),
-                new SimpleGetRequest(UrlFactory.buildCloseChatURL(chatId))
-            );
+            requestQueue.add(fetchRequestForChatClose(args));
         } else {
             toggleLoading(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
-            return new IntelLoader<ChatContainer>(
-                getActivity(),
-                new SimplePostRequest(
-                    UrlFactory.buildOpenChatURL(args.getString(Keys.Profile.ID)),
-                    args
-                ),
-                ChatContainer.class
-            );
+            requestQueue.add(fetchRequestForRefresh(args));
         }
     }
 
-    @Override
-    protected void onLoadFailed(final int id, final Result result) {
-        if (id == ID_LOADER_SEND) {
-            showToast(R.string.msg_chat_send_message_error);
-        } else if (id == ID_LOADER_REFRESH) {
-            showToast(R.string.msg_chat_load_error);
-        }
-    }
-
-    @Override
-    protected void onLoadSuccess(final int id, final Result result) {
-        if (id == ID_LOADER_SEND) {
-            getLoaderManager().destroyLoader(id);
-            clearInput();
-            toggleButton(true);
-            reload(false);
-        } else if (id == ID_LOADER_REFRESH) {
-            onSuccessfulRefresh(result);
-        }
-    }
-
-    private void onSuccessfulRefresh(final Result result) {
-        final ChatContainer container = (ChatContainer) result.getData();
-        final Chat chat = container.getChat();
-        if (chat == null) {
-            showToast(R.string.msg_chat_refresh_fail);
-            return;
-        }
-
-        if (chat.getChatId() != chatId && chatId != 0) {
-            getLoaderManager().restartLoader(ID_LOADER_CLOSE, getBundleForClose(chatId), this);
-        }
-
-        this.chatId = chat.getChatId();
-        for (User user : chat.getUsers()) {
-            if (!user.getId().equals(Session.getUserId())) {
-                this.user = user;
-                break;
+    private Request<Object> fetchRequestForSend(Bundle args) {
+        return new SimplePostRequest<Object>(
+            UrlFactory.buildPostToChatURL(),
+            args,
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ChatFragment.this.onErrorResponse(error);
+                    showToast(R.string.msg_chat_send_message_error);
+                }
             }
-        }
+        ) {
+            @Override
+            protected Object doParse(String json) {
+                return json;
+            }
 
-        if (chat.getUnreadCount() > 0) {
-            notifyWithSound();
-        }
+            @Override
+            protected void deliverResponse(Object response) {
+                clearInput();
+                toggleButton(true);
+                reload(false);
+            }
+        };
+    }
 
-        final boolean doScroll = shouldScrollToLatestMessage();
-        updateListAdapter(user, chat.getMessages());
-        updateActionBarWithPresence(user);
-        if (doScroll) {
-            scrollToLatestMessage();
-        }
-        toggleLoading(false);
+    private Request<Chat> fetchRequestForRefresh(Bundle args) {
+        return new SimplePostRequest<Chat>(
+            UrlFactory.buildOpenChatURL(args.getString(Keys.Profile.ID)),
+            args,
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    ChatFragment.this.onErrorResponse(error);
+                    showToast(R.string.msg_chat_load_error);
+                }
+            }
+        ) {
+            @Override
+            protected Chat doParse(String json) {
+                final ChatContainer container = fromJson(json, ChatContainer.class);
+                final Chat chat = container.getChat();
+                if (chat == null) {
+                    Log.d("YOLO", "Chat is NULL");
+                    return null;
+                }
+
+                if (chat.getChatId() != chatId && chatId != 0) {
+                    doRequest(ID_LOADER_CLOSE, getBundleForClose(chatId));
+                }
+
+                chatId = chat.getChatId();
+                for (User chatUser : chat.getUsers()) {
+                    if (!chatUser.getId().equals(Session.getUserId())) {
+                        user = chatUser;
+                        break;
+                    }
+                }
+                return chat;
+            }
+
+            @Override
+            protected void deliverResponse(Chat chat) {
+                if (chat == null) {
+                    showToast(R.string.msg_chat_refresh_fail);
+                    return;
+                }
+
+                if (chat.getUnreadCount() > 0) {
+                    notifyWithSound();
+                }
+
+                final boolean doScroll = shouldScrollToLatestMessage();
+                updateListAdapter(user, chat.getMessages());
+                updateActionBarWithPresence(user);
+                if (doScroll) {
+                    scrollToLatestMessage();
+                }
+                toggleLoading(false);
+            }
+        };
+    }
+
+    private Request<Object> fetchRequestForChatClose(Bundle args) {
+        return new SimplePostRequest<Object>(
+            UrlFactory.buildCloseChatURL(chatId),
+            args,
+            this
+        ) {
+            @Override
+            protected Object doParse(String json) {
+                return json;
+            }
+
+            @Override
+            protected void deliverResponse(Object response) {
+
+            }
+        };
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        super.onErrorResponse(error);
+        showToast(error.getMessage());
     }
 
     private boolean shouldScrollToLatestMessage() {
@@ -244,7 +284,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         if (state == null) {
             return;
         }
-        this.chatId = state.getLong(Keys.Chat.CHAT_ID);
+        this.chatId = state.getLong(Keys.Chat.CHAT_ID, 0L);
         this.user = new User(
             state.getString(Keys.Profile.ID),
             state.getString(Keys.Profile.USERNAME),
@@ -253,14 +293,8 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     }
 
-    private void initialLoad() {
-        final LoaderManager manager = getLoaderManager();
-        final boolean shouldDisplayLoader = manager.getLoader(ID_LOADER_REFRESH) == null;
-        manager.initLoader(ID_LOADER_REFRESH, getBundleForRefresh(shouldDisplayLoader), this);
-    }
-
     private void reload(final boolean show) {
-        getLoaderManager().restartLoader(ID_LOADER_REFRESH, getBundleForRefresh(show), this);
+        doRequest(ID_LOADER_REFRESH, getBundleForRefresh(show));
     }
 
     private Bundle getBundleForRefresh(final boolean showProgress) {
@@ -334,7 +368,7 @@ public class ChatFragment extends BaseLoadingListFragment {
             field.requestFocus();
             return;
         }
-        getLoaderManager().restartLoader(ID_LOADER_SEND, getBundleForSend(chatId, message), this);
+        doRequest(ID_LOADER_SEND, getBundleForSend(chatId, message));
     }
 
     private void toggleButton(final boolean enable) {
