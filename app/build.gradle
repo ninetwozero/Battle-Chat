@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.3'
+        classpath 'com.android.tools.build:gradle:0.9.1'
     }
 }
 apply plugin: 'android'
@@ -19,9 +19,12 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.1'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
+        packageName 'com.ninetwozero.battlechat'
+        versionCode 1614200
+        versionName '2.0'
         minSdkVersion 14
         targetSdkVersion 19
     }
@@ -41,6 +44,6 @@ dependencies {
         'com.google.code.gson:gson:2.2.4',
         'com.squareup.picasso:picasso:2.1.1',
         'org.jsoup:jsoup:1.7.3',
-        'com.bugsense.trace:bugsense:3.6',
+        'com.bugsense.trace:bugsense:3.6.1',
         'com.tonicartos:stickygridheaders:1.0.1'
 }
