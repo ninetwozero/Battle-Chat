@@ -22,7 +22,6 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +45,7 @@ import com.ninetwozero.battlechat.json.chat.Chat;
 import com.ninetwozero.battlechat.json.chat.ChatContainer;
 import com.ninetwozero.battlechat.json.chat.Message;
 import com.ninetwozero.battlechat.json.chat.User;
+import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.SimplePostRequest;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerListAdapter;
 import com.squareup.otto.Subscribe;
@@ -164,9 +164,8 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private Request<Chat> fetchRequestForRefresh(Bundle args) {
-        return new SimplePostRequest<Chat>(
+        return new SimpleGetRequest<Chat>(
             UrlFactory.buildOpenChatURL(args.getString(Keys.Profile.ID)),
-            args,
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -180,7 +179,6 @@ public class ChatFragment extends BaseLoadingListFragment {
                 final ChatContainer container = fromJson(json, ChatContainer.class);
                 final Chat chat = container.getChat();
                 if (chat == null) {
-                    Log.d("YOLO", "Chat is NULL");
                     return null;
                 }
 

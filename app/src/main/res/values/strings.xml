@@ -41,7 +41,7 @@
   <string name="msg_chat_send_message_error">You need to enter a message.</string>
   <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
   <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
-  <string name="msg_chat_load_error">An error occurred: The website is being stupid.</string>
+  <string name="msg_chat_load_error">An error occurred: Unable to refresh the chat.</string>
   <string name="text_notification_title">Battle Chat status</string>
   <string name="text_notification_subtitle_ok">Signed in as %1$s. Tap to open.</string>
   <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
