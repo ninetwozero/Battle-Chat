@@ -120,6 +120,8 @@ public class MainActivity
             } else {
                 navigationDrawer.getListView().setItemChecked(-1, true);
             }
+        } else {
+            navigationDrawer.getListView().setItemChecked(-1, true);
         }
 
         setActionBarText(R.string.title_main, true);
@@ -182,24 +184,16 @@ public class MainActivity
     private void initialize(final Bundle savedInstanceState) {
         loadSettingsFromXml();
         setupInitialFragment();
-        if (shouldShowDualPane) {
-            setupDualPaneLayout(savedInstanceState);
-        } else {
-            setupNavigationDrawer();
+        if (!shouldShowDualPane) {
             setupActionBar();
             setupActionBarToggle();
         }
+        setupNavigationDrawer();
         setupActivityFromState(savedInstanceState);
     }
 
     private void loadSettingsFromXml() {
         shouldShowDualPane = getResources().getBoolean(R.bool.main_is_dualpane);
-    }
-
-    private void setupDualPaneLayout(final Bundle savedInstanceState) {
-        if (findViewById(R.id.friends_list) != null) {
-            // TODO: Set up the menu???
-        }
     }
 
     private void setupNavigationDrawer() {

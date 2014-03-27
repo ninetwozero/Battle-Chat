@@ -83,7 +83,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         TextView textView = (TextView) container.findViewById(resourceId);
         textView.setText(text);
         if (colorResource > NO_COLOR) {
-            textView.setTextColor(context.getResources().getColor(colorResource));
+            textView.setTextColor(context.getResources().getColorStateList(colorResource));
         }
     }
 

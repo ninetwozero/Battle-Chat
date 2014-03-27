@@ -14,7 +14,7 @@
 -->
 <resources>
   <integer name="num_cols">2</integer>
-  <dimen name="navigation_drawer_width">400dp</dimen>
+  <dimen name="navigation_drawer_width">320dp</dimen>
 
   <dimen name="startup_logo_size">240dp</dimen>
   <dimen name="error_message_size">580dp</dimen>
