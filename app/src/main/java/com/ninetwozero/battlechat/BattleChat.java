@@ -21,6 +21,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.ninetwozero.battlechat.database.models.MessageDAO;
+
+import se.emilsjolander.sprinkles.Migration;
+import se.emilsjolander.sprinkles.Sprinkles;
+
 public class BattleChat extends Application {
     public static final String TAG = "com.ninetwozero.battlechat";
     public static final String COOKIE_NAME = "beaker.session.id";
@@ -59,5 +64,14 @@ public class BattleChat extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        Sprinkles sprinkles = Sprinkles.init(getApplicationContext());
+        sprinkles.addMigration(fetchInitialMigrations());
+    }
+
+    private Migration fetchInitialMigrations() {
+        final Migration migration = new Migration();
+        migration.createTable(MessageDAO.class);
+        return migration;
     }
 }

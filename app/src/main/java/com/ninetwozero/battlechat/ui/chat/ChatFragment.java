@@ -16,6 +16,7 @@ package com.ninetwozero.battlechat.ui.chat;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -38,6 +39,7 @@ import com.android.volley.VolleyError;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
+import com.ninetwozero.battlechat.database.models.MessageDAO;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
@@ -52,13 +54,15 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import se.emilsjolander.sprinkles.Query;
+
 public class ChatFragment extends BaseLoadingListFragment {
     public static final String TAG = "ChatListFragment";
 
     private static final String KEY_DISPLAY_OVERLAY = "showProgress";
-    private static final int ID_LOADER_REFRESH = 3000;
-    private static final int ID_LOADER_SEND = 3100;
-    private static final int ID_LOADER_CLOSE = 3200;
+    private static final int ID_REQUEST_REFRESH = 3000;
+    private static final int ID_REQUEST_SEND = 3100;
+    private static final int ID_REQUEST_CLOSE = 3200;
 
     private User user;
     private long chatId;
@@ -89,7 +93,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         super.onResume();
 
         handleArgumentsOnResume(getArguments());
-        startLoadingData();
+        loadFromDatabase();
     }
 
     @Override
@@ -106,7 +110,7 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Override
     protected void startLoadingData() {
-        doRequest(ID_LOADER_REFRESH, getArguments());
+        doRequest(ID_REQUEST_REFRESH, getArguments());
     }
 
     @Override
@@ -125,11 +129,19 @@ public class ChatFragment extends BaseLoadingListFragment {
         super.onSaveInstanceState(out);
     }
 
+    private void loadFromDatabase() {
+        Query.many(
+            MessageDAO.class,
+            "SELECT * FROM " + MessageDAO.TABLE_NAME + " WHERE userId = ?",
+            user.getId()
+        ).get().getCursor();
+    }
+
     private void doRequest(final int id, final Bundle args) {
-        if (id == ID_LOADER_SEND) {
+        if (id == ID_REQUEST_SEND) {
             toggleButton(false);
             requestQueue.add(fetchRequestForSend(args));
-        } else if (id == ID_LOADER_CLOSE) {
+        } else if (id == ID_REQUEST_CLOSE) {
             requestQueue.add(fetchRequestForChatClose(args));
         } else {
             toggleLoading(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
@@ -183,7 +195,7 @@ public class ChatFragment extends BaseLoadingListFragment {
                 }
 
                 if (chat.getChatId() != chatId && chatId != 0) {
-                    doRequest(ID_LOADER_CLOSE, getBundleForClose(chatId));
+                    doRequest(ID_REQUEST_CLOSE, getBundleForClose(chatId));
                 }
 
                 chatId = chat.getChatId();
@@ -292,7 +304,7 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private void reload(final boolean show) {
-        doRequest(ID_LOADER_REFRESH, getBundleForRefresh(show));
+        doRequest(ID_REQUEST_REFRESH, getBundleForRefresh(show));
     }
 
     private Bundle getBundleForRefresh(final boolean showProgress) {
@@ -366,7 +378,7 @@ public class ChatFragment extends BaseLoadingListFragment {
             field.requestFocus();
             return;
         }
-        doRequest(ID_LOADER_SEND, getBundleForSend(chatId, message));
+        doRequest(ID_REQUEST_SEND, getBundleForSend(chatId, message));
     }
 
     private void toggleButton(final boolean enable) {
