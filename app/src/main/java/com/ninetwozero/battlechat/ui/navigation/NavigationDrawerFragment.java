@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
@@ -161,20 +159,14 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         preferences.putString("recent_chat_username", user.getUsername());
         preferences.apply();
 
-        final FragmentManager manager = getFragmentManager();
-        final Fragment fragment = manager.findFragmentByTag(ChatFragment.TAG);
-        if (fragment == null) {
-            final Bundle data = new Bundle();
-            data.putString(Keys.Profile.ID, user.getId());
-            data.putString(Keys.Profile.USERNAME, user.getUsername());
-            data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
+        final Bundle data = new Bundle();
+        data.putString(Keys.Profile.ID, user.getId());
+        data.putString(Keys.Profile.USERNAME, user.getUsername());
+        data.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
 
-            final FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.content_root, ChatFragment.newInstance(data), ChatFragment.TAG);
-            transaction.commit();
-        } else {
-            BusProvider.getInstance().post(user);
-        }
+        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_root, ChatFragment.newInstance(data), ChatFragment.TAG);
+        transaction.commit();
 
         callbacks.onNavigationDrawerItemSelected(
             user.getUsername(),

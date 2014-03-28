@@ -15,17 +15,11 @@
 package com.ninetwozero.battlechat.ui.chat;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +48,8 @@ import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerListAdapter;
 import com.squareup.otto.Subscribe;
 
 import se.emilsjolander.sprinkles.CursorList;
+import se.emilsjolander.sprinkles.ManyQuery;
 import se.emilsjolander.sprinkles.Query;
-import se.emilsjolander.sprinkles.SprinklesContentObserver;
 
 public class ChatFragment extends BaseLoadingListFragment {
     public static final String TAG = "ChatListFragment";
@@ -92,9 +86,8 @@ public class ChatFragment extends BaseLoadingListFragment {
     @Override
     public void onResume() {
         super.onResume();
-
         handleArgumentsOnResume(getArguments());
-        loadFromDatabase();
+        startLoadingData();
     }
 
     @Override
@@ -127,29 +120,8 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     @Subscribe
-    public void onUserSelected(final User user) {
-        if (this.user.getId().equals(user.getId())) {
-            return;
-        }
-
-        this.user = user;
-        if (this.user == null) {
-            throw new IllegalStateException("User is null");
-        }
-
-        final View view = getView();
-        if (view == null) {
-            return;
-        }
-
-        updateActionBarWithPresence(user);
-        setupSound();
-        reload(true);
-    }
-
-    @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
-        if (chatId > 0) {
+        if (chatId > 0 && !isRefreshing) {
             reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
         }
     }
@@ -173,17 +145,22 @@ public class ChatFragment extends BaseLoadingListFragment {
         isRefreshing = false;
     }
 
-    private void initialize(final View view, final Bundle state) {
-        setupFromState(state);
+    private void initialize(final View view, final Bundle bundle) {
+        if (bundle == null) {
+            setupFromBundle(getArguments());
+        } else {
+            setupFromBundle(bundle);
+        }
         setupForm(view);
         setupListView(view);
-        setupContentObserver();
+        setupSound();
     }
 
-    private void setupFromState(final Bundle state) {
+    private void setupFromBundle(final Bundle state) {
         if (state == null) {
             return;
         }
+
         this.chatId = state.getLong(Keys.Chat.CHAT_ID, 0L);
         this.user = new User(
             state.getString(Keys.Profile.ID),
@@ -221,17 +198,37 @@ public class ChatFragment extends BaseLoadingListFragment {
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
     }
 
-    private void setupContentObserver() {
-        new SprinklesContentObserver(
-            new ContentObserver(new Handler()) {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupContentLoading();
+    }
+
+    private void setupContentLoading() {
+        Query.many(
+            MessageDAO.class,
+            "SELECT * " +
+            "FROM " + MessageDAO.TABLE_NAME + " " +
+            "WHERE userId = ?",
+            user.getId()
+        ).getAsync(
+            getLoaderManager(), new ManyQuery.ResultHandler<MessageDAO>() {
                 @Override
-                public void onChange(boolean selfChange) {
-                    super.onChange(selfChange);
-                    Log.d("YOLO", "New data in DB --> UPDATE!!!");
-                    loadFromDatabase();
+                public boolean handleResult(CursorList<MessageDAO> messageDAOs) {
+                    final boolean shouldScroll = shouldScrollToLatestMessage();
+                    updateListAdapter(user, messageDAOs);
+                    if (shouldScroll) {
+                        scrollToLatestMessage();
+                    }
+
+                    if (messageDAOs.size() > 0) {
+                        toggleLoading(false);
+                    }
+                    return true;
                 }
-            }
-        ).register(MessageDAO.class, true);
+            },
+            MessageDAO.class
+        );
     }
 
     private void reload(final boolean show) {
@@ -241,22 +238,6 @@ public class ChatFragment extends BaseLoadingListFragment {
         final Intent intent = new Intent(getActivity(), ChatService.class);
         intent.putExtra(ChatService.USER_ID, user.getId());
         getActivity().startService(intent);
-    }
-
-    private void loadFromDatabase() {
-        final CursorList<MessageDAO> messages = Query.many(
-            MessageDAO.class,
-            "SELECT * " +
-            "FROM " + MessageDAO.TABLE_NAME + " " +
-            "WHERE userId = ?",
-            user.getId()
-        ).get();
-
-        final boolean shouldScroll = shouldScrollToLatestMessage();
-        updateListAdapter(user, messages);
-        if (shouldScroll) {
-            scrollToLatestMessage();
-        }
     }
 
     private void doRequest(final int id, final Bundle args) {
@@ -308,9 +289,7 @@ public class ChatFragment extends BaseLoadingListFragment {
             }
 
             @Override
-            protected void deliverResponse(Object response) {
-
-            }
+            protected void deliverResponse(Object response) {}
         };
     }
 
@@ -321,6 +300,10 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private boolean shouldScrollToLatestMessage() {
+        if (getView() == null) {
+            return false;
+        }
+
         final ListView listView = getListView();
         final int lastVisiblePosition = listView.getLastVisiblePosition();
         final int maxPosition = listView.getCount() - 1;
@@ -363,6 +346,7 @@ public class ChatFragment extends BaseLoadingListFragment {
             field.requestFocus();
             return;
         }
+
         doRequest(ID_REQUEST_SEND, getBundleForSend(chatId, message));
     }
 

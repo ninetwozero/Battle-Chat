@@ -1,7 +1,8 @@
 package com.ninetwozero.battlechat.services;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -28,17 +29,18 @@ import java.util.List;
 import se.emilsjolander.sprinkles.Query;
 import se.emilsjolander.sprinkles.Transaction;
 
-public class ChatService extends IntentService implements Response.ErrorListener {
+public class ChatService extends Service implements Response.ErrorListener {
     public static final String USER_ID = "userId";
 
     private final Gson gson = GsonProvider.getInstance();
 
-    public ChatService() {
-        super("ChatService");
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public int onStartCommand(Intent intent, int flags, final int startId) {
         final String userId = intent.getStringExtra(USER_ID);
         final RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(
@@ -67,9 +69,12 @@ public class ChatService extends IntentService implements Response.ErrorListener
 
                     int messageCount = 0;
                     int unreadMessageCount = 0;
+                    boolean success = true;
                     for (Message message : messages) {
                         if (message.getTimestamp() > timestamp) {
-                            new MessageDAO(message, userId).save(transaction);
+                            if (!(new MessageDAO(message, userId).save(transaction))) {
+                                success = false;
+                            }
                             messageCount++;
 
                             if (!message.getUsername().equalsIgnoreCase(Session.getUsername())) {
@@ -77,7 +82,7 @@ public class ChatService extends IntentService implements Response.ErrorListener
                             }
                         }
                     }
-                    transaction.setSuccessful(true);
+                    transaction.setSuccessful(success);
                     transaction.finish();
 
                     chatId = chat.getChatId();
@@ -101,17 +106,17 @@ public class ChatService extends IntentService implements Response.ErrorListener
                             messageCount[1]
                         )
                     );
+                    stopSelf(startId);
                 }
             }
         );
+        return Service.START_NOT_STICKY;
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.w(getClass().getSimpleName(), "Failed to update the chat: " + error.getMessage());
     }
-
-
 
     protected <T> T fromJson(final String json, final Class<T> outClass) {
         final JsonObject jsonObject = extractFromJson(json, false);

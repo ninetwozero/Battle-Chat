@@ -92,4 +92,15 @@ public class User {
             presenceType == PresenceType.GROUP_WEB
         );
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id='" + id + '\'' +
+            ", username='" + username + '\'' +
+            ", gravatarHash='" + gravatarHash + '\'' +
+            ", presence=" + presence +
+            ", presenceType=" + presenceType +
+            '}';
+    }
 }

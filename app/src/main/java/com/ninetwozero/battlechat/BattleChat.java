@@ -30,7 +30,7 @@ public class BattleChat extends Application {
     public static final String TAG = "com.ninetwozero.battlechat";
     public static final String COOKIE_NAME = "beaker.session.id";
     public static final String COOKIE_DOMAIN = "battlelog.battlefield.com";
-    public static final String BUGSENSE_KEY = "c07b42d4";
+    public static final String BUGSENSE_KEY = "c07b42d4#";
     
     private static BattleChat instance;
 
