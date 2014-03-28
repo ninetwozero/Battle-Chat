@@ -21,7 +21,7 @@ import android.content.Context;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.network.SimpleGetRequest;
-import com.ninetwozero.battlechat.services.BattleChatService;
+import com.ninetwozero.battlechat.services.BattlelogSessionService;
 import com.ninetwozero.battlechat.utils.NotificationHelper;
 
 public class BaseLogoutTask extends SimpleGetRequest<Object> {
@@ -41,6 +41,6 @@ public class BaseLogoutTask extends SimpleGetRequest<Object> {
     protected void deliverResponse(Object response) {
         Session.clearSession(context);
         NotificationHelper.clearNotification(context);
-        BattleChatService.unscheduleRun(context);
+        BattlelogSessionService.unscheduleRun(context);
     }
 }

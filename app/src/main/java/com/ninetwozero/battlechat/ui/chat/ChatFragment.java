@@ -16,13 +16,16 @@ package com.ninetwozero.battlechat.ui.chat;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,35 +43,33 @@ import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.database.models.MessageDAO;
+import com.ninetwozero.battlechat.datatypes.ChatRefreshedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.factories.UrlFactory;
-import com.ninetwozero.battlechat.json.chat.Chat;
-import com.ninetwozero.battlechat.json.chat.ChatContainer;
-import com.ninetwozero.battlechat.json.chat.Message;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.network.SimpleGetRequest;
 import com.ninetwozero.battlechat.network.SimplePostRequest;
+import com.ninetwozero.battlechat.services.ChatService;
 import com.ninetwozero.battlechat.ui.navigation.NavigationDrawerListAdapter;
 import com.squareup.otto.Subscribe;
 
-import java.util.List;
-
+import se.emilsjolander.sprinkles.CursorList;
 import se.emilsjolander.sprinkles.Query;
+import se.emilsjolander.sprinkles.SprinklesContentObserver;
 
 public class ChatFragment extends BaseLoadingListFragment {
     public static final String TAG = "ChatListFragment";
 
     private static final String KEY_DISPLAY_OVERLAY = "showProgress";
-    private static final int ID_REQUEST_REFRESH = 3000;
     private static final int ID_REQUEST_SEND = 3100;
     private static final int ID_REQUEST_CLOSE = 3200;
 
-    private User user;
     private long chatId;
-    private SharedPreferences sharedPreferences;
-    private SoundPool soundPool;
+    private User user;
+
     private int soundId;
+    private SoundPool soundPool;
+    private boolean isRefreshing;
 
     public ChatFragment() {
     }
@@ -110,13 +111,9 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Override
     protected void startLoadingData() {
-        doRequest(ID_REQUEST_REFRESH, getArguments());
-    }
-
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (!isRefreshing) {
+            reload(true);
+        }
     }
 
     @Override
@@ -129,12 +126,137 @@ public class ChatFragment extends BaseLoadingListFragment {
         super.onSaveInstanceState(out);
     }
 
+    @Subscribe
+    public void onUserSelected(final User user) {
+        if (this.user.getId().equals(user.getId())) {
+            return;
+        }
+
+        this.user = user;
+        if (this.user == null) {
+            throw new IllegalStateException("User is null");
+        }
+
+        final View view = getView();
+        if (view == null) {
+            return;
+        }
+
+        updateActionBarWithPresence(user);
+        setupSound();
+        reload(true);
+    }
+
+    @Subscribe
+    public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
+        if (chatId > 0) {
+            reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
+        }
+    }
+
+    @Subscribe
+    public void onChatRefreshed(ChatRefreshedEvent event) {
+        toggleLoading(false);
+
+        if (event.getChatId() != chatId && chatId != 0) {
+            doRequest(ID_REQUEST_CLOSE, getBundleForClose(chatId));
+        }
+
+        chatId = event.getChatId();
+        user = event.getUser();
+        updateActionBarWithPresence(user);
+
+        if (event.getUnreadCount() > 0) {
+            notifyWithSound();
+        }
+
+        isRefreshing = false;
+    }
+
+    private void initialize(final View view, final Bundle state) {
+        setupFromState(state);
+        setupForm(view);
+        setupListView(view);
+        setupContentObserver();
+    }
+
+    private void setupFromState(final Bundle state) {
+        if (state == null) {
+            return;
+        }
+        this.chatId = state.getLong(Keys.Chat.CHAT_ID, 0L);
+        this.user = new User(
+            state.getString(Keys.Profile.ID),
+            state.getString(Keys.Profile.USERNAME),
+            state.getString(Keys.Profile.GRAVATAR_HASH)
+        );
+
+    }
+
+    private void setupForm(final View view) {
+        ((EditText) view.findViewById(R.id.input_message)).setOnEditorActionListener(
+            new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == EditorInfo.IME_ACTION_SEND) {
+                        onSend();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        );
+        view.findViewById(R.id.button_send).setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onSend();
+                }
+            }
+        );
+    }
+
+    private void setupListView(final View view) {
+        final ListView listView = (ListView) view.findViewById(android.R.id.list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+    }
+
+    private void setupContentObserver() {
+        new SprinklesContentObserver(
+            new ContentObserver(new Handler()) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    super.onChange(selfChange);
+                    Log.d("YOLO", "New data in DB --> UPDATE!!!");
+                    loadFromDatabase();
+                }
+            }
+        ).register(MessageDAO.class, true);
+    }
+
+    private void reload(final boolean show) {
+        toggleLoading(show);
+        isRefreshing = true;
+
+        final Intent intent = new Intent(getActivity(), ChatService.class);
+        intent.putExtra(ChatService.USER_ID, user.getId());
+        getActivity().startService(intent);
+    }
+
     private void loadFromDatabase() {
-        Query.many(
+        final CursorList<MessageDAO> messages = Query.many(
             MessageDAO.class,
-            "SELECT * FROM " + MessageDAO.TABLE_NAME + " WHERE userId = ?",
+            "SELECT * " +
+            "FROM " + MessageDAO.TABLE_NAME + " " +
+            "WHERE userId = ?",
             user.getId()
-        ).get().getCursor();
+        ).get();
+
+        final boolean shouldScroll = shouldScrollToLatestMessage();
+        updateListAdapter(user, messages);
+        if (shouldScroll) {
+            scrollToLatestMessage();
+        }
     }
 
     private void doRequest(final int id, final Bundle args) {
@@ -144,8 +266,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         } else if (id == ID_REQUEST_CLOSE) {
             requestQueue.add(fetchRequestForChatClose(args));
         } else {
-            toggleLoading(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
-            requestQueue.add(fetchRequestForRefresh(args));
+            reload(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
         }
     }
 
@@ -171,61 +292,6 @@ public class ChatFragment extends BaseLoadingListFragment {
                 clearInput();
                 toggleButton(true);
                 reload(false);
-            }
-        };
-    }
-
-    private Request<Chat> fetchRequestForRefresh(Bundle args) {
-        return new SimpleGetRequest<Chat>(
-            UrlFactory.buildOpenChatURL(args.getString(Keys.Profile.ID)),
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    ChatFragment.this.onErrorResponse(error);
-                    showToast(R.string.msg_chat_load_error);
-                }
-            }
-        ) {
-            @Override
-            protected Chat doParse(String json) {
-                final ChatContainer container = fromJson(json, ChatContainer.class);
-                final Chat chat = container.getChat();
-                if (chat == null) {
-                    return null;
-                }
-
-                if (chat.getChatId() != chatId && chatId != 0) {
-                    doRequest(ID_REQUEST_CLOSE, getBundleForClose(chatId));
-                }
-
-                chatId = chat.getChatId();
-                for (User chatUser : chat.getUsers()) {
-                    if (!chatUser.getId().equals(Session.getUserId())) {
-                        user = chatUser;
-                        break;
-                    }
-                }
-                return chat;
-            }
-
-            @Override
-            protected void deliverResponse(Chat chat) {
-                if (chat == null) {
-                    showToast(R.string.msg_chat_refresh_fail);
-                    return;
-                }
-
-                if (chat.getUnreadCount() > 0) {
-                    notifyWithSound();
-                }
-
-                final boolean doScroll = shouldScrollToLatestMessage();
-                updateListAdapter(user, chat.getMessages());
-                updateActionBarWithPresence(user);
-                if (doScroll) {
-                    scrollToLatestMessage();
-                }
-                toggleLoading(false);
             }
         };
     }
@@ -261,60 +327,6 @@ public class ChatFragment extends BaseLoadingListFragment {
         return maxPosition == 0 || lastVisiblePosition == maxPosition;
     }
 
-    @Subscribe
-    public void onUserSelected(final User user) {
-        this.user = user;
-        if (this.user == null) {
-            throw new IllegalStateException("User is null");
-        }
-
-        final View view = getView();
-        if (view == null) {
-            return;
-        }
-
-        setupSound();
-        reload(true);
-    }
-
-    @Subscribe
-    public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
-        if (chatId > 0) {
-            reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
-        }
-    }
-
-    private void initialize(final View view, final Bundle state) {
-        setupFromState(state);
-        setupForm(view);
-        setupListView(view);
-    }
-
-    private void setupFromState(final Bundle state) {
-        if (state == null) {
-            return;
-        }
-        this.chatId = state.getLong(Keys.Chat.CHAT_ID, 0L);
-        this.user = new User(
-            state.getString(Keys.Profile.ID),
-            state.getString(Keys.Profile.USERNAME),
-            state.getString(Keys.Profile.GRAVATAR_HASH)
-        );
-
-    }
-
-    private void reload(final boolean show) {
-        doRequest(ID_REQUEST_REFRESH, getBundleForRefresh(show));
-    }
-
-    private Bundle getBundleForRefresh(final boolean showProgress) {
-        final Bundle bundle = new Bundle();
-        bundle.putString(Keys.Profile.ID, user.getId());
-        bundle.putString(Keys.Chat.CHECKSUM, Session.getChecksum());
-        bundle.putBoolean(KEY_DISPLAY_OVERLAY, showProgress);
-        return bundle;
-    }
-
     private Bundle getBundleForSend(final long chatId, final String message) {
         final Bundle bundle = new Bundle();
         bundle.putString(Keys.Chat.MESSAGE, message);
@@ -340,34 +352,7 @@ public class ChatFragment extends BaseLoadingListFragment {
             data.getString(Keys.Profile.USERNAME),
             data.getString(Keys.Profile.GRAVATAR_HASH)
         );
-    }
-
-    private void setupForm(final View view) {
-        ((EditText) view.findViewById(R.id.input_message)).setOnEditorActionListener(
-            new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                    if (id == EditorInfo.IME_ACTION_SEND) {
-                        onSend();
-                        return true;
-                    }
-                    return false;
-                }
-            }
-        );
-        view.findViewById(R.id.button_send).setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onSend();
-                }
-            }
-        );
-    }
-
-    private void setupListView(final View view) {
-        final ListView listView = (ListView) view.findViewById(android.R.id.list);
-        listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+        updateActionBarWithPresence(user);
     }
 
     private void onSend() {
@@ -419,6 +404,13 @@ public class ChatFragment extends BaseLoadingListFragment {
         }
     }
 
+    private void playSound() {
+        if (soundPool == null) {
+            return;
+        }
+        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1);
+    }
+
     private void stopSound() {
         if (soundPool == null) {
             return;
@@ -428,17 +420,10 @@ public class ChatFragment extends BaseLoadingListFragment {
         soundId = 0;
     }
 
-    private void playSound() {
-        if (soundPool == null) {
-            return;
-        }
-        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1);
-    }
-
-    protected void updateListAdapter(final User user, final List<Message> messages) {
-        MessageListAdapter adapter = (MessageListAdapter) getListAdapter();
+    protected void updateListAdapter(final User user, final CursorList<MessageDAO> messages) {
+        RegularChatListAdapter adapter = (RegularChatListAdapter) getListAdapter();
         if (adapter == null) {
-            adapter = new MessageListAdapter(getActivity(), Session.getUsername(), messages);
+            adapter = new RegularChatListAdapter(getActivity(), Session.getUsername(), messages);
             setListAdapter(adapter);
         } else {
             adapter.setItems(messages);

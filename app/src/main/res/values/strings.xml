@@ -15,7 +15,9 @@
 <resources>
 
   <string name="app_name">Battle Chat</string>
-  <string name="service_name">Battlelog Session Service</string>
+  <string name="service_name_session">Battlelog Session Service</string>
+  <string name="service_name_chat">Battlelog Chat Service</string>
+  <string name="service_name_friends">Battlelog Friendlist Service</string>
 
   <string-array name="update_interval_entries">
     <item>Every 5 seconds</item>

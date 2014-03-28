@@ -41,7 +41,7 @@ public class NotificationHelper {
         );
 
         final NotificationManager manager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        manager.cancel(R.string.service_name);
+        manager.cancel(R.string.service_name_session);
 
         Notification notification = new NotificationCompat.Builder(c)
             .setContentTitle(c.getString(R.string.text_notification_title))
@@ -50,12 +50,12 @@ public class NotificationHelper {
             .setOngoing(true)
             .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
             .build();
-        manager.notify(R.string.service_name, notification);
+        manager.notify(R.string.service_name_session, notification);
     }
 
     public static void showLoggedOutNotification(final Context c) {
         final NotificationManager notificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.service_name);
+        notificationManager.cancel(R.string.service_name_session);
 
         Notification notification = new NotificationCompat.Builder(c)
             .setContentTitle(c.getString(R.string.text_notification_title))
@@ -65,11 +65,11 @@ public class NotificationHelper {
             .setAutoCancel(true)
             .setContentIntent(PendingIntent.getActivity(c, 0, new Intent(c, LoginActivity.class), 0))
             .build();
-        notificationManager.notify(R.string.service_name, notification);
+        notificationManager.notify(R.string.service_name_session, notification);
     }
 
     public static void clearNotification(final Context c) {
         final NotificationManager notificationManager = (NotificationManager) c.getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(R.string.service_name);
+        notificationManager.cancel(R.string.service_name_session);
     }
 }

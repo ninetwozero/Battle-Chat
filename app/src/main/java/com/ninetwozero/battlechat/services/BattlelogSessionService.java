@@ -50,7 +50,7 @@ import com.ninetwozero.battlechat.utils.NotificationHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BattleChatService extends Service {
+public class BattlelogSessionService extends Service {
     public static final int FLAG_SUCCESS = 0;
     public static final int FLAG_RETRY_LOGIN = 1;
     public static final int ACTION_LOGIN = 0;
@@ -78,7 +78,7 @@ public class BattleChatService extends Service {
     }
 
     public static Intent getIntent(final Context c) {
-        return new Intent(c, BattleChatService.class);
+        return new Intent(c, BattlelogSessionService.class);
     }
 
     public static void scheduleRun(final Context c) {
@@ -87,7 +87,7 @@ public class BattleChatService extends Service {
             AlarmManager.ELAPSED_REALTIME,
             DateUtils.HOUR_IN_MILLIS,
             DateUtils.HOUR_IN_MILLIS,
-            BattleChatService.getPendingIntent(c.getApplicationContext())
+            BattlelogSessionService.getPendingIntent(c.getApplicationContext())
         );
     }
 
@@ -97,13 +97,13 @@ public class BattleChatService extends Service {
             AlarmManager.ELAPSED_REALTIME,
             timeInSeconds * 1000,
             timeInSeconds * 1000,
-            BattleChatService.getPendingIntent(c.getApplicationContext())
+            BattlelogSessionService.getPendingIntent(c.getApplicationContext())
         );
     }
 
     public static void unscheduleRun(final Context c) {
         final AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(BattleChatService.getPendingIntent(c.getApplicationContext()));
+        alarmManager.cancel(BattlelogSessionService.getPendingIntent(c.getApplicationContext()));
     }
 
     @Override
@@ -237,7 +237,7 @@ public class BattleChatService extends Service {
 
     private void stopServiceAfterFailedRequests() {
         Log.i(TAG, "Our session has expired - removing the stored information.");
-        BattleChatService.unscheduleRun(getApplicationContext());
+        BattlelogSessionService.unscheduleRun(getApplicationContext());
         Session.clearSession(getApplicationContext());
         showNotification(false);
         stopSelf();

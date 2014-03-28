@@ -15,7 +15,7 @@
 <resources>
 
   <string name="app_name">Battle Chat</string>
-  <string name="service_name">Služba sezení Battlelog</string>
+  <string name="service_name_session">Služba sezení Battlelog</string>
 
   <string-array name="update_interval_entries">
     <item>Každých 5 sekund</item>

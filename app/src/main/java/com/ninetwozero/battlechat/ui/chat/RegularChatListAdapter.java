@@ -21,23 +21,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.base.ui.BaseListAdapter;
+import com.ninetwozero.battlechat.base.ui.BaseCursorListAdapter;
+import com.ninetwozero.battlechat.database.models.MessageDAO;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.UrlFactory;
-import com.ninetwozero.battlechat.json.chat.GroupJoinedGame;
-import com.ninetwozero.battlechat.json.chat.Message;
 import com.ninetwozero.battlechat.json.chat.User;
 import com.ninetwozero.battlechat.utils.DateTimeUtils;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import se.emilsjolander.sprinkles.CursorList;
 
-public class MessageListAdapter extends BaseListAdapter<Message> {
-
+public class RegularChatListAdapter extends BaseCursorListAdapter<MessageDAO> {
     private final String self;
     private User user;
 
-    public MessageListAdapter(final Context context, final String self, final List<Message> items) {
+    public RegularChatListAdapter(final Context context, final String self, final CursorList<MessageDAO> items) {
         super(context);
         this.self = self;
         this.items = items;
@@ -49,48 +47,36 @@ public class MessageListAdapter extends BaseListAdapter<Message> {
     }
 
     @Override
-    public long getItemId(final int position) {
-        return position;
-    }
-
-    @Override
     public int getViewTypeCount() {
         return 2;
     }
 
     @Override
-    public int getItemViewType(final int position) {
-        final Message message = getItem(position);
-        if (message.getType() == Message.Type.MESSAGE) {
-            if (message.getUsername().equalsIgnoreCase(self)) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } else {
-            return 2;
-        }
+    public int getItemViewType(int position) {
+        return getItem(position).getUsername().equals(self) ? 0 : 1;
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        return getItem(position).getId();
     }
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final Message message = getItem(position);
-        final boolean ownMessage = self.equals(message.getUsername());
+        final MessageDAO message = getItem(position);
+        final boolean ownMessageDAO = self.equals(message.getUsername());
         if (convertView == null) {
             convertView = layoutInflater.inflate(fetchLayoutResource(position), null);
         }
 
-        if (message.getType() == Message.Type.MESSAGE) {
-            displayAvatar(convertView, ownMessage);
-            setText(convertView, R.id.message, String.valueOf(Html.fromHtml(message.getMessage())));
-            setText(convertView, R.id.timestamp, DateTimeUtils.toRelative(message.getTimestamp()));
-        } else {
-            handleGroupChatSpecifics(convertView, message);
-        }
+        displayAvatar(convertView, ownMessageDAO);
+        setText(convertView, R.id.message, String.valueOf(Html.fromHtml(message.getContent())));
+        setText(convertView, R.id.timestamp, DateTimeUtils.toRelative(message.getTimestamp()));
         return convertView;
     }
 
-    private void handleGroupChatSpecifics(final View view, Message message) {
+    /* TODO: Future stuff
+    private void handleGroupChatSpecifics(final View view, MessageDAO message) {
         String contentToDisplay = "Unknown group chat event";
         if (message.getType() == Message.Type.INVITED_TO_GROUP) {
             contentToDisplay = String.format(
@@ -119,21 +105,21 @@ public class MessageListAdapter extends BaseListAdapter<Message> {
 
         }
         setText(view, R.id.message, contentToDisplay);
-    }
+    } */
 
-    private void displayAvatar(final View view, final boolean isOwnMessage) {
+    private void displayAvatar(final View view, final boolean isOwnMessageDAO) {
         final ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
         if (imageView != null) {
             if (user == null) {
                 imageView.setImageResource(R.drawable.default_gravatar);
             } else {
-                Picasso.with(context).load(fetchGravatarUrl(isOwnMessage)).into(imageView);
+                Picasso.with(context).load(fetchGravatarUrl(isOwnMessageDAO)).into(imageView);
             }
         }
     }
 
-    private String fetchGravatarUrl(boolean ownMessage) {
-        if (ownMessage) {
+    private String fetchGravatarUrl(boolean ownMessageDAO) {
+        if (ownMessageDAO) {
             return Session.getGravatarUrl();
         } else {
             return UrlFactory.buildGravatarUrl(user.getGravatarHash());
@@ -147,8 +133,6 @@ public class MessageListAdapter extends BaseListAdapter<Message> {
                 return R.layout.list_item_message_right;
             case 1:
                 return R.layout.list_item_message_left;
-            case 2:
-                return R.layout.list_item_message_info;
             default:
                 throw new IllegalStateException("Unknown itemTypeNumber: " + itemTypeNumber);
         }

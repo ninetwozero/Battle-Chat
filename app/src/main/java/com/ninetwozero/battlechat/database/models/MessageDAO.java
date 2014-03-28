@@ -14,7 +14,6 @@
 
 package com.ninetwozero.battlechat.database.models;
 
-import com.google.gson.annotations.SerializedName;
 import com.ninetwozero.battlechat.json.chat.Message;
 
 import se.emilsjolander.sprinkles.Model;
@@ -35,13 +34,16 @@ public class MessageDAO extends Model {
     private String content;
     @Column("timestamp")
     private long timestamp;
-    @Column("chatId")
-    private long chatId;
+    @Column("userId")
+    private String userId;
 
-    public MessageDAO(final Message message) {
+    public MessageDAO() {}
+
+    public MessageDAO(final Message message, final String userId) {
         this.username = message.getUsername();
         this.content = message.getMessage();
         this.timestamp = message.getTimestamp();
+        this.userId = userId;
     }
 
     public long getId() {
@@ -60,5 +62,8 @@ public class MessageDAO extends Model {
         return timestamp;
     }
 
-    public long getChatId() { return chatId; }
+    public String getUserId() {
+        return userId;
+    }
 }
+

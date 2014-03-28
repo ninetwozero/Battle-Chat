@@ -20,7 +20,7 @@ import com.ninetwozero.battlechat.base.ui.BaseFragmentActivity;
 import com.ninetwozero.battlechat.datatypes.ToggleNavigationDrawerRequest;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
 import com.ninetwozero.battlechat.datatypes.UserLogoutEvent;
-import com.ninetwozero.battlechat.services.BattleChatService;
+import com.ninetwozero.battlechat.services.BattlelogSessionService;
 import com.ninetwozero.battlechat.ui.about.AppInfoActivity;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.ui.fragments.StartupFragment;
@@ -104,10 +104,10 @@ public class MainActivity
 
     private void triggerLogout() {
         startService(
-            BattleChatService.getIntent(getApplicationContext()).putExtra(
-                BattleChatService.INTENT_CALLED_FROM_ACTIVITY, true
+            BattlelogSessionService.getIntent(getApplicationContext()).putExtra(
+                BattlelogSessionService.INTENT_CALLED_FROM_ACTIVITY, true
             ).putExtra(
-                BattleChatService.INTENT_ACTION, BattleChatService.ACTION_LOGOUT
+                BattlelogSessionService.INTENT_ACTION, BattlelogSessionService.ACTION_LOGOUT
             )
         );
     }

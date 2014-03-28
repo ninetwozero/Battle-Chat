@@ -77,8 +77,21 @@
 
     <service
       android:icon="@drawable/ic_launcher"
-      android:label="@string/service_name"
-      android:name=".services.BattleChatService"/>
+      android:label="@string/service_name_session"
+      android:name=".services.BattlelogSessionService"
+      />
+
+    <service
+      android:icon="@drawable/ic_launcher"
+      android:label="@string/service_name_chat"
+      android:name=".services.ChatService"
+      />
+
+    <service
+      android:icon="@drawable/ic_launcher"
+      android:label="@string/service_name_friends"
+      android:name=".services.FriendListService"
+      />
   </application>
 
 </manifest>

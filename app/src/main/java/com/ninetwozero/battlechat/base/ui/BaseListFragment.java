@@ -1,7 +1,9 @@
 package com.ninetwozero.battlechat.base.ui;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 public abstract class BaseListFragment extends ListFragment {
     private Toast toast;
     protected LayoutInflater layoutInflater;
+    protected SharedPreferences sharedPreferences;
 
 
     @Override
@@ -18,6 +21,12 @@ public abstract class BaseListFragment extends ListFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         this.layoutInflater = inflater;
         return null;
+    }
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     protected void showToast(final int resource) {

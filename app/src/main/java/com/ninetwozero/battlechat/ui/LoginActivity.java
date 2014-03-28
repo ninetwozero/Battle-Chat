@@ -39,7 +39,7 @@ import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseActivity;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.UserLoginEvent;
-import com.ninetwozero.battlechat.services.BattleChatService;
+import com.ninetwozero.battlechat.services.BattlelogSessionService;
 import com.ninetwozero.battlechat.ui.about.AppInfoActivity;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
@@ -220,14 +220,14 @@ public class LoginActivity extends BaseActivity {
             loginStatusMessageView.setText(R.string.login_progress_signing_in);
             showProgress(true);
             startService(
-                BattleChatService.getIntent(getApplicationContext()).putExtra(
-                    BattleChatService.INTENT_CALLED_FROM_ACTIVITY, true
+                BattlelogSessionService.getIntent(getApplicationContext()).putExtra(
+                    BattlelogSessionService.INTENT_CALLED_FROM_ACTIVITY, true
                 ).putExtra(
-                    BattleChatService.INTENT_ACTION, BattleChatService.ACTION_LOGIN
+                    BattlelogSessionService.INTENT_ACTION, BattlelogSessionService.ACTION_LOGIN
                 ).putExtra(
-                    BattleChatService.INTENT_INPUT_EMAIL, email
+                    BattlelogSessionService.INTENT_INPUT_EMAIL, email
                 ).putExtra(
-                    BattleChatService.INTENT_INPUT_PASSWORD, password
+                    BattlelogSessionService.INTENT_INPUT_PASSWORD, password
                 )
             );
         }
@@ -238,7 +238,7 @@ public class LoginActivity extends BaseActivity {
         showProgress(false);
         if (event.getStatus()) {
             Session.saveToSharedPreferences(getApplicationContext());
-            BattleChatService.scheduleRun(getApplicationContext());
+            BattlelogSessionService.scheduleRun(getApplicationContext());
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         } else {
