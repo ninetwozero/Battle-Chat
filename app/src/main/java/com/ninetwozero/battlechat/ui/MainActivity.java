@@ -49,6 +49,13 @@ public class MainActivity
     private boolean shouldShowDualPane = false;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkForStoredSession();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -190,6 +197,17 @@ public class MainActivity
         }
         setupNavigationDrawer();
         setupActivityFromState(savedInstanceState);
+    }
+
+    private void checkForStoredSession() {
+        if (!alreadyHasCookie()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
+
+    private boolean alreadyHasCookie() {
+        return sharedPreferences.contains(Keys.Session.COOKIE_VALUE) && !sharedPreferences.getString(Keys.Session.COOKIE_VALUE, "").equals("");
     }
 
     private void loadSettingsFromXml() {

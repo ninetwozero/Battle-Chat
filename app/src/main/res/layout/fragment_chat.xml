@@ -25,7 +25,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    >
 
     <ImageView
       android:id="@+id/button_send"
@@ -48,46 +49,61 @@
       />
   </RelativeLayout>
 
-  <ListView
-    android:id="@android:id/list"
+  <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_above="@id/wrap_form"
-    android:dividerHeight="0px"
-    android:divider="@android:color/transparent"
-    />
+    >
+    <ListView
+      android:id="@android:id/list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:dividerHeight="0px"
+      android:divider="@android:color/transparent"
+      />
 
-  <TextView
-    android:id="@android:id/empty"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@id/wrap_form"
-    android:gravity="center"
-    android:text="@string/msg_no_messages"
-    />
+    <TextView
+      android:id="@android:id/empty"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:text="@string/msg_no_messages"
+      />
+
+    <TextView
+      android:id="@+id/new_message_indicator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:textAppearance="@android:style/TextAppearance.Holo.Small"
+      android:textColor="@color/dirtywhite"
+      android:background="@color/blue"
+      android:padding="@dimen/spacing_l"
+      android:layout_centerHorizontal="true"
+      android:layout_alignParentBottom="true"
+      android:visibility="gone"
+      />
+  </RelativeLayout>
 
   <LinearLayout
-    android:id="@+id/status"
-    android:background="#FFFFFF"
+    android:id="@+id/wrap_loading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/card_activity_bg"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="gone">
-
     <ProgressBar
-      style="?android:attr/progressBarStyleLarge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"/>
-
+      android:indeterminate="true"
+      />
     <TextView
-      android:id="@+id/message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="16dp"
-      android:fontFamily="sans-serif-light"
+      android:textAppearance="@android:style/TextAppearance.Holo"
       android:text="@string/text_chat_loading"
-      android:textAppearance="?android:attr/textAppearanceMedium"/>
+      android:fontFamily="sans-serif-light"
+      />
   </LinearLayout>
 </RelativeLayout>

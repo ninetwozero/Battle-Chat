@@ -41,6 +41,8 @@
   <dimen name="login_form_element_width">240dp</dimen>
   <dimen name="action_item_size">32dp</dimen>
 
+  <dimen name="text_xs">12sp</dimen>
+
   <!-- Card dimens -->
   <dimen name="card_width">-1px</dimen>
   <dimen name="text_card_title">24sp</dimen>

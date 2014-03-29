@@ -151,4 +151,7 @@
   <string name="collab_desc_dapil">Translated the app into Czech</string>
   <string name="collab_name_gk">Gustav Karlsson</string>
   <string name="collab_desc_gk">Quality Assurance</string>
+  <string name="msg_error_no_network">Not connected to the Internet.</string>
+  <string name="msg_unread_message">1 unread message</string>
+  <string name="msg_unread_messages">%1$s unread messages</string>
 </resources>

@@ -25,10 +25,8 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.ninetwozero.battlechat.BattleChat;
@@ -70,7 +68,6 @@ public class BattlelogSessionService extends Service {
     private SharedPreferences sharedPreferences;
 
     private int chatInformationStatusCode = -1;
-    private RequestQueue requestQueue;
     private BaseLoginTask userLoginTask;
 
     public static PendingIntent getPendingIntent(final Context c) {
@@ -109,7 +106,6 @@ public class BattlelogSessionService extends Service {
     @Override
     public void onCreate() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        requestQueue = Volley.newRequestQueue(this);
     }
 
     @Override
@@ -146,12 +142,12 @@ public class BattlelogSessionService extends Service {
 
         if (action == ACTION_SYNC) {
             reloadSession();
-            requestQueue.add(fetchRequestForChatInformation());
+            BattleChat.getRequestQueue().add(fetchRequestForChatInformation());
         } else if (action == ACTION_LOGIN) {
             userLoginTask = new UserLoginTask(getApplicationContext(), originatedFromActivity);
             userLoginTask.execute(email, password);
         } else if (action == ACTION_LOGOUT) {
-            requestQueue.add(new UserLogoutTask(getApplicationContext(), originatedFromActivity));
+            BattleChat.getRequestQueue().add(new UserLogoutTask(getApplicationContext(), originatedFromActivity));
         }
     }
 

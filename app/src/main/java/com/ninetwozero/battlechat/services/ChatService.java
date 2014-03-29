@@ -3,6 +3,7 @@ package com.ninetwozero.battlechat.services;
 import android.app.Service;
 import android.content.Intent;
 
+import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.base.BaseApiService;
 import com.ninetwozero.battlechat.dao.MessageDAO;
 import com.ninetwozero.battlechat.datatypes.ChatRefreshedEvent;
@@ -26,7 +27,7 @@ public class ChatService extends BaseApiService {
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        requestQueue.add(
+        BattleChat.getRequestQueue().add(
             new SimpleGetRequest<Integer[]>(
                 UrlFactory.buildOpenChatURL(userId),
                 this
@@ -43,9 +44,9 @@ public class ChatService extends BaseApiService {
                     final MessageDAO latestMessage = Query.one(
                         MessageDAO.class,
                         "SELECT * " +
-                        "FROM " + MessageDAO.TABLE_NAME + " " +
-                        "WHERE userId = ? " +
-                        "ORDER BY timestamp DESC",
+                            "FROM " + MessageDAO.TABLE_NAME + " " +
+                            "WHERE userId = ? " +
+                            "ORDER BY timestamp DESC",
                         userId
                     ).get();
                     final long timestamp = latestMessage == null ? 0 : latestMessage.getTimestamp();

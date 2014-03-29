@@ -12,11 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.NoConnectionError;
+import com.android.volley.VolleyError;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.dao.UserDAO;
-import com.ninetwozero.battlechat.datatypes.ApiServiceError;
 import com.ninetwozero.battlechat.datatypes.FriendListRefreshedEvent;
 import com.ninetwozero.battlechat.datatypes.NavigationDrawerIsAttachedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
@@ -96,33 +97,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     }
 
     @Override
-    protected void startLoadingData() {
-        reload(true);
-    }
-
-    private void setupContentLoading() {
-        Query.many(
-            UserDAO.class,
-            "SELECT * " +
-            "FROM " + UserDAO.TABLE_NAME + " " +
-            "WHERE localUserId = ?",
-            Session.getUserId()
-        ).getAsync(
-            getLoaderManager(), new ManyQuery.ResultHandler<UserDAO>() {
-                @Override
-                public boolean handleResult(CursorList<UserDAO> friends) {
-                    updateListAdapter(friends);
-                    if (friends.size() > 0) {
-                        showProgress(false);
-                    }
-                    return true;
-                }
-            },
-            UserDAO.class
-        );
-    }
-
-    @Override
     public void onListItemClick(final ListView listView, final View view, final int position, final long id) {
         final UserDAO user = ((NavigationDrawerListAdapter) getListAdapter()).getItem(position);
         if (user == null) {
@@ -156,26 +130,56 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
 
     @Subscribe
     public void onFriendListRefreshed(final FriendListRefreshedEvent event) {
-        showProgress(false);
+        showAsLoading(false);
         isRefreshing = false;
     }
 
     @Subscribe
-    public void onApiServiceError(ApiServiceError error) {
-        showToast(error.getMessage());
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (error instanceof NoConnectionError) {
+            // TODO: Display it in some nice way
+        } else {
+            showToast(error.getMessage());
+        }
+        showAsLoading(false);
     }
 
-    private void reload(final boolean shouldDisplayLoadingOverlay) {
+    @Override
+    protected void reload(final boolean show) {
         if (isRefreshing) {
             return;
         }
 
-        showProgress(shouldDisplayLoadingOverlay);
+        showAsLoading(show);
         isRefreshing = true;
 
         final Intent intent = new Intent(getActivity(), FriendListService.class);
         intent.putExtra(FriendListService.USER_ID, Session.getUserId());
         getActivity().startService(intent);
+    }
+
+    private void setupContentLoading() {
+        Query.many(
+            UserDAO.class,
+            "SELECT * " +
+                "FROM " + UserDAO.TABLE_NAME + " " +
+                "WHERE localUserId = ? " +
+                "ORDER BY presence DESC, username COLLATE NOCASE ASC",
+            Session.getUserId()
+        ).getAsync(
+            getLoaderManager(), new ManyQuery.ResultHandler<UserDAO>() {
+                @Override
+                public boolean handleResult(CursorList<UserDAO> friends) {
+                    updateListAdapter(friends);
+                    if (friends.size() > 0) {
+                        showAsLoading(false);
+                    }
+                    return true;
+                }
+            },
+            UserDAO.class
+        );
     }
 
     private void initialize(final View view, final Bundle state) {
@@ -199,14 +203,6 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     private void setupListView(final View view) {
         final ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    }
-
-    private void showProgress(final boolean show) {
-        final View view = getView();
-        if (view == null) {
-            return;
-        }
-        view.findViewById(R.id.wrap_loading).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /*

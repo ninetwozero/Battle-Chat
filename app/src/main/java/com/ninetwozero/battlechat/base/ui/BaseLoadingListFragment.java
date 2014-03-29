@@ -1,28 +1,18 @@
 package com.ninetwozero.battlechat.base.ui;
 
-import android.app.Activity;
-import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.factories.GsonProvider;
 import com.ninetwozero.battlechat.utils.BusProvider;
 
 public abstract class BaseLoadingListFragment extends BaseListFragment implements Response.ErrorListener {
     protected final Gson gson = GsonProvider.getInstance();
-    protected RequestQueue requestQueue;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        requestQueue = Volley.newRequestQueue(activity);
-    }
 
     public void onResume() {
         super.onResume();
@@ -36,7 +26,7 @@ public abstract class BaseLoadingListFragment extends BaseListFragment implement
     }
 
     public void onStop() {
-        requestQueue.cancelAll(
+        BattleChat.getRequestQueue().cancelAll(
             new RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
@@ -47,26 +37,17 @@ public abstract class BaseLoadingListFragment extends BaseListFragment implement
         super.onStop();
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Log.e(getClass().getSimpleName(), "[VolleyError] " + error.getMessage());
+    protected void showAsLoading(final boolean show) {
+        final View view = getView();
+        if (view == null) {
+            return;
+        }
+        view.findViewById(R.id.wrap_loading).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    protected <T> T fromJson(final String json, final Class<T> outClass) {
-        final JsonObject jsonObject = extractFromJson(json, false);
-        return gson.fromJson(jsonObject, outClass);
+    protected void startLoadingData() {
+        reload(true);
     }
 
-    protected <T> T fromJson(final String json, final Class<T> outClass, final boolean returnTopLevelJson) {
-        final JsonObject jsonObject = extractFromJson(json, returnTopLevelJson);
-        return gson.fromJson(jsonObject, outClass);
-    }
-
-    protected JsonObject extractFromJson(final String json, boolean returnTopLevel) {
-        JsonParser parser = new JsonParser();
-        JsonObject topLevel = parser.parse(json).getAsJsonObject();
-        return returnTopLevel? topLevel : topLevel.getAsJsonObject("data");
-    }
-
-    protected abstract void startLoadingData();
+    protected abstract void reload(boolean showAsLoading);
 }

@@ -3,6 +3,7 @@ package com.ninetwozero.battlechat.services;
 import android.app.Service;
 import android.content.Intent;
 
+import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.base.BaseApiService;
 import com.ninetwozero.battlechat.dao.UserDAO;
 import com.ninetwozero.battlechat.datatypes.FriendListRefreshedEvent;
@@ -24,7 +25,7 @@ public class FriendListService extends BaseApiService {
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        requestQueue.add(
+        BattleChat.getRequestQueue().add(
             new SimpleGetRequest<Boolean>(
                 UrlFactory.buildFriendListURL(),
                 this

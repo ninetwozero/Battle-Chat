@@ -103,16 +103,8 @@ public class LoginActivity extends BaseActivity {
     private void setupFromPreExistingData() {
         setTitle(R.string.title_login);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (alreadyHasCookie() && BattleChat.isConnectedToNetwork()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
         email = sharedPreferences.getString(Keys.Session.EMAIL, "");
         password = sharedPreferences.getString(Keys.Session.PASSWORD, "");
-    }
-
-    private boolean alreadyHasCookie() {
-        return sharedPreferences.contains(Keys.Session.COOKIE_VALUE) && !sharedPreferences.getString(Keys.Session.COOKIE_VALUE, "").equals("");
     }
 
     private void setupLayout() {
@@ -130,7 +122,8 @@ public class LoginActivity extends BaseActivity {
             new OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                    if (id == R.id.login || id == EditorInfo.IME_ACTION_SEND) {
+                    if (BattleChat.isConnectedToNetwork() && id == EditorInfo.IME_ACTION_SEND) {
+                        clearErrorMessage();
                         doLogin();
                         return true;
                     }

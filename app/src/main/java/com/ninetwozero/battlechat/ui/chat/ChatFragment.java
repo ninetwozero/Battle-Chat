@@ -26,18 +26,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ninetwozero.battlechat.BattleChat;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
 import com.ninetwozero.battlechat.dao.MessageDAO;
-import com.ninetwozero.battlechat.datatypes.ApiServiceError;
 import com.ninetwozero.battlechat.datatypes.ChatRefreshedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
@@ -55,7 +57,9 @@ import se.emilsjolander.sprinkles.Query;
 public class ChatFragment extends BaseLoadingListFragment {
     public static final String TAG = "ChatListFragment";
 
+    private static final String STATE_UNREAD_COUNT = "stateUnreadCount";
     private static final String KEY_DISPLAY_OVERLAY = "showProgress";
+
     private static final int ID_REQUEST_SEND = 3100;
     private static final int ID_REQUEST_CLOSE = 3200;
 
@@ -65,6 +69,7 @@ public class ChatFragment extends BaseLoadingListFragment {
     private int soundId;
     private SoundPool soundPool;
     private boolean isRefreshing;
+    private int unreadCount;
 
     public ChatFragment() {
     }
@@ -99,11 +104,10 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Override
     public void onStop() {
-        requestQueue.add(fetchRequestForChatClose(getBundleForClose(chatId)));
+        BattleChat.getRequestQueue().add(fetchRequestForChatClose(getBundleForClose(chatId)));
         super.onStop();
     }
 
-    @Override
     protected void startLoadingData() {
         reload(true);
     }
@@ -113,9 +117,41 @@ public class ChatFragment extends BaseLoadingListFragment {
         out.putLong(Keys.Chat.CHAT_ID, chatId);
         out.putString(Keys.Profile.ID, user.getId());
         out.putString(Keys.Profile.USERNAME, user.getId());
-        out.putString(Keys.Profile.GRAVATAR_HASH, user.getId());
+        out.putString(Keys.Profile.GRAVATAR_HASH, user.getGravatarHash());
+        out.putInt(STATE_UNREAD_COUNT, unreadCount);
 
         super.onSaveInstanceState(out);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupContentLoading();
+    }
+
+    @Override
+    protected void reload(final boolean show) {
+        if (isRefreshing) {
+            return;
+        }
+
+        showAsLoading(show);
+        isRefreshing = true;
+
+        final Intent intent = new Intent(getActivity(), ChatService.class);
+        intent.putExtra(ChatService.USER_ID, user.getId());
+        getActivity().startService(intent);
+    }
+
+    @Subscribe
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (error instanceof NoConnectionError) {
+            // TODO: Display it in some nice way
+        } else {
+            showToast(error.getMessage());
+        }
+        showAsLoading(false);
     }
 
     @Subscribe
@@ -127,7 +163,7 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Subscribe
     public void onChatRefreshed(ChatRefreshedEvent event) {
-        toggleLoading(false);
+        showAsLoading(false);
 
         if (event.getChatId() != chatId && chatId != 0) {
             doRequest(ID_REQUEST_CLOSE, getBundleForClose(chatId));
@@ -139,14 +175,10 @@ public class ChatFragment extends BaseLoadingListFragment {
 
         if (event.getUnreadCount() > 0) {
             notifyWithSound();
+            unreadCount += event.getUnreadCount();
         }
 
         isRefreshing = false;
-    }
-
-    @Subscribe
-    public void onApiServiceError(ApiServiceError error) {
-        showToast(error.getMessage());
     }
 
     private void initialize(final View view, final Bundle bundle) {
@@ -155,6 +187,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         } else {
             setupFromBundle(bundle);
         }
+        setupUnreadCountIndicator(view);
         setupForm(view);
         setupListView(view);
         setupSound();
@@ -171,7 +204,20 @@ public class ChatFragment extends BaseLoadingListFragment {
             state.getString(Keys.Profile.USERNAME),
             state.getString(Keys.Profile.GRAVATAR_HASH)
         );
+        this.unreadCount = state.getInt(STATE_UNREAD_COUNT, 0);
 
+    }
+
+    public void setupUnreadCountIndicator(View view) {
+        view.findViewById(R.id.new_message_indicator).setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    scrollToLatestMessage();
+                    hideUnreadMessageCount();
+                }
+            }
+        );
     }
 
     private void setupForm(final View view) {
@@ -200,12 +246,52 @@ public class ChatFragment extends BaseLoadingListFragment {
     private void setupListView(final View view) {
         final ListView listView = (ListView) view.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+        listView.setOnScrollListener(
+            new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    if (unreadCount > 0) {
+                        final int lastVisiblePosition = view.getLastVisiblePosition();
+                        final int maxPosition = totalItemCount - 1;
+                        if (lastVisiblePosition != maxPosition) {
+                            showUnreadMessageCount(unreadCount);
+                        } else {
+                            hideUnreadMessageCount();
+                        }
+                    }
+                }
+            }
+        );
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setupContentLoading();
+    private void showUnreadMessageCount(int unreadCount) {
+        final View view = getView();
+        if (view == null) {
+            return;
+        }
+
+        final TextView textView = (TextView) view.findViewById(R.id.new_message_indicator);
+        if (unreadCount == 1) {
+            textView.setText(getString(R.string.msg_unread_message));
+        } else {
+            textView.setText(String.format(getString(R.string.msg_unread_messages), unreadCount));
+        }
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideUnreadMessageCount() {
+        final View view = getView();
+        if (view == null) {
+            return;
+        }
+
+        final TextView textView = (TextView) view.findViewById(R.id.new_message_indicator);
+        textView.setVisibility(View.GONE);
+        unreadCount = 0;
     }
 
     private void setupContentLoading() {
@@ -223,10 +309,13 @@ public class ChatFragment extends BaseLoadingListFragment {
                     updateListAdapter(user, messageDAOs);
                     if (shouldScroll) {
                         scrollToLatestMessage();
+                        unreadCount = 0;
+                    } else {
+                        showUnreadMessageCount(unreadCount);
                     }
 
                     if (messageDAOs.size() > 0) {
-                        toggleLoading(false);
+                        showAsLoading(false);
                     }
                     return true;
                 }
@@ -235,25 +324,12 @@ public class ChatFragment extends BaseLoadingListFragment {
         );
     }
 
-    private void reload(final boolean show) {
-        if (isRefreshing) {
-            return;
-        }
-
-        toggleLoading(show);
-        isRefreshing = true;
-
-        final Intent intent = new Intent(getActivity(), ChatService.class);
-        intent.putExtra(ChatService.USER_ID, user.getId());
-        getActivity().startService(intent);
-    }
-
     private void doRequest(final int id, final Bundle args) {
         if (id == ID_REQUEST_SEND) {
             toggleButton(false);
-            requestQueue.add(fetchRequestForSend(args));
+            BattleChat.getRequestQueue().add(fetchRequestForSend(args));
         } else if (id == ID_REQUEST_CLOSE) {
-            requestQueue.add(fetchRequestForChatClose(args));
+            BattleChat.getRequestQueue().add(fetchRequestForChatClose(args));
         } else {
             reload(args.getBoolean(KEY_DISPLAY_OVERLAY, true));
         }
@@ -301,12 +377,6 @@ public class ChatFragment extends BaseLoadingListFragment {
         };
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        super.onErrorResponse(error);
-        showToast(error.getMessage());
-    }
-
     private boolean shouldScrollToLatestMessage() {
         if (getView() == null) {
             return false;
@@ -348,6 +418,12 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     private void onSend() {
         final EditText field = (EditText) getView().findViewById(R.id.input_message);
+
+        if (!BattleChat.isConnectedToNetwork()) {
+            field.setError(getString(R.string.msg_error_no_network));
+            return;
+        }
+
         final String message = field.getText().toString();
         if (message.length() == 0) {
             field.setError(getString(R.string.msg_chat_send_message_error));
@@ -379,14 +455,6 @@ public class ChatFragment extends BaseLoadingListFragment {
         if (sharedPreferences.getBoolean(Keys.Settings.BEEP_ON_NEW, true)) {
             playSound();
         }
-    }
-
-    private void toggleLoading(boolean isLoading) {
-        final View view = getView();
-        if (view == null) {
-            return;
-        }
-        view.findViewById(R.id.status).setVisibility(isLoading ? View.VISIBLE : View.GONE);
     }
 
     private void setupSound() {

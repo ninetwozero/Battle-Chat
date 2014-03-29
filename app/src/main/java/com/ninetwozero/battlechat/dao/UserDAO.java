@@ -95,7 +95,7 @@ public class UserDAO extends Model {
     public boolean isGroup() {
         return (
             presenceType == PresenceType.GROUP_ORIGIN ||
-            presenceType == PresenceType.GROUP_WEB
+                presenceType == PresenceType.GROUP_WEB
         );
     }
 }

@@ -49,8 +49,9 @@
       android:layout_alignParentLeft="true"
       android:textIsSelectable="false"
       android:textColor="#CCC"
-      android:textAppearance="@android:style/TextAppearance.Holo.Small"
-      android:layout_below="@id/message"/>
+      android:textAppearance="@style/TextAppearance.Holo.Smallest"
+      android:layout_below="@id/message"
+      />
   </RelativeLayout>
 
 </RelativeLayout>

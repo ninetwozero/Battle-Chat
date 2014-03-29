@@ -44,11 +44,14 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="TextAppearance.Holo.Smallest" parent="@android:style/TextAppearance.Holo.Small">
+    <item name="android:textSize">@dimen/text_xs</item>
+  </style>
+
   <style name="ChatMessageBox">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:minHeight">@dimen/chat_avatar_size</item>
-    <item name="android:layout_marginBottom">@dimen/spacing_m</item>
     <item name="android:paddingTop">@dimen/spacing_m</item>
     <item name="android:paddingRight">@dimen/spacing_m</item>
     <item name="android:paddingBottom">@dimen/spacing_m</item>
