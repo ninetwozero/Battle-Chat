@@ -36,7 +36,8 @@ import com.android.volley.VolleyError;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
-import com.ninetwozero.battlechat.database.models.MessageDAO;
+import com.ninetwozero.battlechat.dao.MessageDAO;
+import com.ninetwozero.battlechat.datatypes.ApiServiceError;
 import com.ninetwozero.battlechat.datatypes.ChatRefreshedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
@@ -104,9 +105,7 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Override
     protected void startLoadingData() {
-        if (!isRefreshing) {
-            reload(true);
-        }
+        reload(true);
     }
 
     @Override
@@ -121,7 +120,7 @@ public class ChatFragment extends BaseLoadingListFragment {
 
     @Subscribe
     public void onReceivedRefreshEvent(final TriggerRefreshEvent event) {
-        if (chatId > 0 && !isRefreshing) {
+        if (chatId > 0) {
             reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
         }
     }
@@ -143,6 +142,11 @@ public class ChatFragment extends BaseLoadingListFragment {
         }
 
         isRefreshing = false;
+    }
+
+    @Subscribe
+    public void onApiServiceError(ApiServiceError error) {
+        showToast(error.getMessage());
     }
 
     private void initialize(final View view, final Bundle bundle) {
@@ -232,6 +236,10 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private void reload(final boolean show) {
+        if (isRefreshing) {
+            return;
+        }
+
         toggleLoading(show);
         isRefreshing = true;
 

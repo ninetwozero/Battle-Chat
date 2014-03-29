@@ -92,6 +92,7 @@
       android:label="@string/service_name_friends"
       android:name=".services.FriendListService"
       />
+
   </application>
 
 </manifest>

@@ -1,29 +1,35 @@
 package com.ninetwozero.battlechat.json.chat;
 
 public enum PresenceType {
-    PLAYING_MP(100),
-    PLAYING_COOP(100),
-    PLAYING_ORIGIN(100),
+    PLAYING_MP(1001, 100),
+    PLAYING_COOP(1002, 100),
+    PLAYING_ORIGIN(1003, 100),
 
-    GROUP_WEB(75),
-    GROUP_ORIGIN(75),
+    GROUP_WEB(751, 75),
+    GROUP_ORIGIN(752, 75),
 
-    ONLINE_WEB(50),
-    ONLINE_TABLET(50),
-    ONLINE_MOBILE(50),
-    ONLINE_GAME(50),
-    ONLINE_ORIGIN(50),
+    ONLINE_WEB(501, 50),
+    ONLINE_TABLET(502, 50),
+    ONLINE_MOBILE(503, 50),
+    ONLINE_GAME(504, 50),
+    ONLINE_ORIGIN(505, 50),
 
-    AWAY_WEB(25),
-    AWAY_ORIGIN(25),
+    AWAY_WEB(251, 25),
+    AWAY_ORIGIN(252, 25),
 
-    UNKNOWN(0),
-    OFFLINE(0);
+    UNKNOWN(1, 0),
+    OFFLINE(2, 0);
 
     private final static int AWAY_BITMASK = 65536;
+    private final int id;
     private final int listPriority;
-    PresenceType(final int listPriority) {
+    PresenceType(final int id, final int listPriority) {
+        this.id = id;
         this.listPriority = listPriority;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public int getListPriority() {
@@ -40,5 +46,14 @@ public enum PresenceType {
         } else {
             return OFFLINE;
         }
+    }
+
+    public static PresenceType from(final int id) {
+        for (PresenceType type : values()) {
+            if (type.getId() == id) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No presence for ID=" + id);
     }
 }

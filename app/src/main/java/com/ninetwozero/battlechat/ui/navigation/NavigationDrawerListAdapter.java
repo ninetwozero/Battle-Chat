@@ -19,14 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.base.ui.BaseListAdapter;
+import com.ninetwozero.battlechat.base.ui.BaseCursorListAdapter;
+import com.ninetwozero.battlechat.dao.UserDAO;
 import com.ninetwozero.battlechat.json.chat.PresenceType;
-import com.ninetwozero.battlechat.json.chat.User;
 
-import java.util.List;
+import se.emilsjolander.sprinkles.CursorList;
 
-public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
-    public NavigationDrawerListAdapter(final Context context, final List<User> users) {
+public class NavigationDrawerListAdapter extends BaseCursorListAdapter<UserDAO> {
+    public NavigationDrawerListAdapter(final Context context, final CursorList<UserDAO> users) {
         super(context, users);
     }
 
@@ -42,7 +42,7 @@ public class NavigationDrawerListAdapter extends BaseListAdapter<User> {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        final User user = getItem(position);
+        final UserDAO user = getItem(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_navigation_drawer, null);
         }

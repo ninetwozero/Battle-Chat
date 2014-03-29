@@ -12,38 +12,44 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.json.chat;
+package com.ninetwozero.battlechat.dao;
 
-public class User {
-    private final String id;
-    private final String username;
-    private final String gravatarHash;
-    private UserPresence presence;
-    private final PresenceType presenceType;
+import com.ninetwozero.battlechat.json.chat.PresenceType;
+import com.ninetwozero.battlechat.json.chat.User;
 
-    public User(final String id, final String username, final String gravatar) {
-        this.id = id;
-        this.username = username;
-        this.gravatarHash = gravatar;
-        this.presenceType = PresenceType.UNKNOWN;
-    }
+import se.emilsjolander.sprinkles.Model;
+import se.emilsjolander.sprinkles.annotations.Column;
+import se.emilsjolander.sprinkles.annotations.PrimaryKey;
+import se.emilsjolander.sprinkles.annotations.Table;
 
-    public User(final String id, final String username, final String gravatar, final PresenceType type) {
-        this.id = id;
-        this.username = username;
-        this.gravatarHash = gravatar;
-        this.presenceType = type;
-    }
+@Table("Friends")
+public class UserDAO extends Model {
+    public static final String TABLE_NAME = "Friends";
 
-    public User(
-        final String id, final String username, final String gravatar,
-        final UserPresence presence, final PresenceType presenceType
-    ) {
-        this.id = id;
-        this.username = username;
-        this.gravatarHash = gravatar;
-        this.presence = presence;
-        this.presenceType = presenceType;
+    @PrimaryKey
+    @Column("id")
+    private String id;
+
+    @Column("username")
+    private String username;
+
+    @Column("gravatarhash")
+    private String gravatarHash;
+
+    @Column("presence")
+    private PresenceType presenceType;
+
+    @Column("localUserId")
+    private String localUserId;
+
+    public UserDAO() {}
+
+    public UserDAO(User user, String localUserId) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.gravatarHash = user.getGravatarHash();
+        this.presenceType = user.getPresenceType();
+        this.localUserId = localUserId;
     }
 
     public String getId() {
@@ -58,12 +64,12 @@ public class User {
         return gravatarHash;
     }
 
-    public UserPresence getPresence() {
-        return presence;
-    }
-
     public PresenceType getPresenceType() {
         return presenceType;
+    }
+
+    public String getLocalUserId() {
+        return localUserId;
     }
 
     public boolean isOffline() {

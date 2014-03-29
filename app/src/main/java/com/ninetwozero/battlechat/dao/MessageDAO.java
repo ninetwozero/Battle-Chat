@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 */
 
-package com.ninetwozero.battlechat.database.models;
+package com.ninetwozero.battlechat.dao;
 
 import com.ninetwozero.battlechat.json.chat.Message;
 
@@ -28,12 +28,16 @@ public class MessageDAO extends Model {
     @AutoIncrementPrimaryKey
     @Column("id")
     private long id;
+
     @Column("author")
     private String username;
+
     @Column("content")
     private String content;
+
     @Column("timestamp")
     private long timestamp;
+
     @Column("userId")
     private String userId;
 

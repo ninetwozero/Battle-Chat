@@ -21,7 +21,10 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.ninetwozero.battlechat.database.models.MessageDAO;
+import com.ninetwozero.battlechat.dao.MessageDAO;
+import com.ninetwozero.battlechat.dao.UserDAO;
+import com.ninetwozero.battlechat.json.chat.PresenceType;
+import com.ninetwozero.battlechat.utils.PresenceTypeSerializer;
 
 import se.emilsjolander.sprinkles.Migration;
 import se.emilsjolander.sprinkles.Sprinkles;
@@ -66,12 +69,14 @@ public class BattleChat extends Application {
         instance = this;
 
         Sprinkles sprinkles = Sprinkles.init(getApplicationContext());
+        sprinkles.registerType(PresenceType.class, new PresenceTypeSerializer());
         sprinkles.addMigration(fetchInitialMigrations());
     }
 
     private Migration fetchInitialMigrations() {
         final Migration migration = new Migration();
         migration.createTable(MessageDAO.class);
+        migration.createTable(UserDAO.class);
         return migration;
     }
 }

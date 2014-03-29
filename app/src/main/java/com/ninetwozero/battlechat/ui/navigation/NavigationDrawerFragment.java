@@ -1,11 +1,11 @@
 package com.ninetwozero.battlechat.ui.navigation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +15,16 @@ import android.widget.TextView;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseLoadingListFragment;
-import com.ninetwozero.battlechat.comparators.UserComparator;
+import com.ninetwozero.battlechat.dao.UserDAO;
+import com.ninetwozero.battlechat.datatypes.ApiServiceError;
+import com.ninetwozero.battlechat.datatypes.FriendListRefreshedEvent;
 import com.ninetwozero.battlechat.datatypes.NavigationDrawerIsAttachedEvent;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.datatypes.TriggerRefreshEvent;
-import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.Chat;
-import com.ninetwozero.battlechat.json.chat.ComCenterInformation;
-import com.ninetwozero.battlechat.json.chat.ComCenterRequest;
 import com.ninetwozero.battlechat.json.chat.PresenceType;
 import com.ninetwozero.battlechat.json.chat.User;
-import com.ninetwozero.battlechat.network.SimpleGetRequest;
+import com.ninetwozero.battlechat.services.FriendListService;
 import com.ninetwozero.battlechat.ui.chat.ChatFragment;
 import com.ninetwozero.battlechat.utils.BusProvider;
 import com.squareup.otto.Subscribe;
@@ -33,18 +32,19 @@ import com.squareup.otto.Subscribe;
 import org.jsoup.helper.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import se.emilsjolander.sprinkles.CursorList;
+import se.emilsjolander.sprinkles.ManyQuery;
+import se.emilsjolander.sprinkles.Query;
 
 public class NavigationDrawerFragment extends BaseLoadingListFragment {
     public static final String TAG = "NavigationDrawerFragment";
 
-    private static final int ID_LOADER = 2000;
     private static final String STATE_SELECTED_ID = "selectedId";
-    private static final String KEY_DISPLAY_OVERLAY = "manual_reload";
 
-    private boolean shouldReloadOnAttach = false;
-    private boolean shouldReloadWithLoadingScreen = false;
+    private boolean isRefreshing;
+
     private int currentSelectedId = 0;
     private NavigationDrawerCallbacks callbacks;
 
@@ -65,6 +65,12 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupContentLoading();
+    }
+
+    @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         try {
@@ -73,30 +79,13 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
         }
 
-        if (shouldReloadOnAttach) {
-            shouldReloadWithLoadingScreen = false;
-            shouldReloadOnAttach = false;
-            reload(false);
-        }
-
-        BusProvider.getInstance().post(new NavigationDrawerIsAttachedEvent());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         startLoadingData();
+        BusProvider.getInstance().post(new NavigationDrawerIsAttachedEvent());
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
-        final LoaderManager manager = getLoaderManager();
-        if (manager != null && manager.hasRunningLoaders()) {
-            manager.destroyLoader(ID_LOADER);
-        }
-
         callbacks = null;
     }
 
@@ -106,50 +95,36 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         super.onSaveInstanceState(outState);
     }
 
-    // TODO: Load friends from DB && selectItemFromState(currentSelectedId); ?
     @Override
     protected void startLoadingData() {
-        doLoadData(new Bundle());
+        reload(true);
     }
 
-    private void doLoadData(final Bundle arguments) {
-        final ListView listView = getListView();
-        if (listView == null || listView.getCount() == 0 || arguments.getBoolean(KEY_DISPLAY_OVERLAY)) {
-            showProgress(true);
-        }
-        requestQueue.add(
-            new SimpleGetRequest<List<User>>(
-                UrlFactory.buildFriendListURL(),
-                this
-            ) {
+    private void setupContentLoading() {
+        Query.many(
+            UserDAO.class,
+            "SELECT * " +
+            "FROM " + UserDAO.TABLE_NAME + " " +
+            "WHERE localUserId = ?",
+            Session.getUserId()
+        ).getAsync(
+            getLoaderManager(), new ManyQuery.ResultHandler<UserDAO>() {
                 @Override
-                protected List<User> doParse(String json) {
-                    final ComCenterRequest comCenter = fromJson(json, ComCenterRequest.class);
-                    final ComCenterInformation comCenterInformation = comCenter.getInformation();
-                    if (comCenterInformation == null) {
-                        return null;
+                public boolean handleResult(CursorList<UserDAO> friends) {
+                    updateListAdapter(friends);
+                    if (friends.size() > 0) {
+                        showProgress(false);
                     }
-
-                    final List<User> friends = comCenterInformation.getFriends();
-                    if (friends == null) {
-                        return null;
-                    }
-                    Collections.sort(friends, new UserComparator());
-                    return friends;
+                    return true;
                 }
-
-                @Override
-                protected void deliverResponse(List<User> response) {
-                    updateListAdapter(response);
-                    showProgress(false);
-                }
-            }
+            },
+            UserDAO.class
         );
     }
 
     @Override
     public void onListItemClick(final ListView listView, final View view, final int position, final long id) {
-        final User user = ((NavigationDrawerListAdapter) getListAdapter()).getItem(position);
+        final UserDAO user = ((NavigationDrawerListAdapter) getListAdapter()).getItem(position);
         if (user == null) {
             return;
         }
@@ -179,16 +154,28 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         reload(event.getType() == TriggerRefreshEvent.Type.MANUAL);
     }
 
+    @Subscribe
+    public void onFriendListRefreshed(final FriendListRefreshedEvent event) {
+        showProgress(false);
+        isRefreshing = false;
+    }
+
+    @Subscribe
+    public void onApiServiceError(ApiServiceError error) {
+        showToast(error.getMessage());
+    }
+
     private void reload(final boolean shouldDisplayLoadingOverlay) {
-        if (getActivity() == null) {
-            shouldReloadOnAttach = true;
-            shouldReloadWithLoadingScreen = shouldDisplayLoadingOverlay;
+        if (isRefreshing) {
             return;
         }
 
-        final Bundle arguments = getArguments() == null ? new Bundle() : getArguments();
-        arguments.putBoolean(KEY_DISPLAY_OVERLAY, shouldDisplayLoadingOverlay);
-        doLoadData(arguments);
+        showProgress(shouldDisplayLoadingOverlay);
+        isRefreshing = true;
+
+        final Intent intent = new Intent(getActivity(), FriendListService.class);
+        intent.putExtra(FriendListService.USER_ID, Session.getUserId());
+        getActivity().startService(intent);
     }
 
     private void initialize(final View view, final Bundle state) {
@@ -250,7 +237,7 @@ public class NavigationDrawerFragment extends BaseLoadingListFragment {
         return groupChatsForCom;
     }
 
-    protected void updateListAdapter(final List<User> friends) {
+    protected void updateListAdapter(final CursorList<UserDAO> friends) {
         final NavigationDrawerListAdapter adapter = (NavigationDrawerListAdapter) getListAdapter();
         if (adapter == null) {
             setListAdapter(new NavigationDrawerListAdapter(getActivity(), friends));

@@ -22,7 +22,7 @@ import android.widget.ImageView;
 
 import com.ninetwozero.battlechat.R;
 import com.ninetwozero.battlechat.base.ui.BaseCursorListAdapter;
-import com.ninetwozero.battlechat.database.models.MessageDAO;
+import com.ninetwozero.battlechat.dao.MessageDAO;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.factories.UrlFactory;
 import com.ninetwozero.battlechat.json.chat.User;
