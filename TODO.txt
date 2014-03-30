@@ -1,2 +1,0 @@
-TODO:
-Why doesn't the chat work upon logging in? Something's fishy!

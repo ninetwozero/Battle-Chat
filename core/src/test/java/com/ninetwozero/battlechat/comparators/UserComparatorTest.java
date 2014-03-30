@@ -1,108 +1,58 @@
 package com.ninetwozero.battlechat.comparators;
 
-import com.ninetwozero.battlechat.datatypes.User;
+import com.ninetwozero.battlechat.json.chat.PresenceType;
+import com.ninetwozero.battlechat.json.chat.User;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
-// TODO: We have to remove the Parcelable parts of User in able to run this at the moment (as regular JUNIT).
-// FIXME: When Junit supports individual bars per assertion, I'll refactor the ten methods into one with a loop
-
 public class UserComparatorTest {
-    
-	private static List<User> actualUserOrder;
-	private static List<User> expectedUserOrder;
-	
-	public UserComparatorTest() {		
-		User user0 = new User(0, "Playing", User.PLAYING_MP);
-		User user1 = new User(100, "Jarl Ank", User.PLAYING_COOP);
-		User user2 = new User(101, "Jarl Pank", User.PLAYING_ORIGIN);
-		User user3 = new User(0, "Online", User.ONLINE_WEB);
-		User user5 = new User(201, "Sarl Ank", User.ONLINE_GAME);
-		User user4 = new User(200, "Jarl Pank", User.ONLINE_MOBILE);
-		User user6 = new User(0, "Offline", User.OFFLINE);
-		User user7 = new User(300, "Amk", User.OFFLINE);
-		User user8 = new User(301, "Ank", User.OFFLINE);
 
-		actualUserOrder = new ArrayList<User>();
-		expectedUserOrder = new ArrayList<User>();
-		
-		actualUserOrder.add(user2);
-		actualUserOrder.add(user7);
-		actualUserOrder.add(user0);
-		actualUserOrder.add(user1);
-		actualUserOrder.add(user5);
-		actualUserOrder.add(user8);
-		actualUserOrder.add(user3);
-		actualUserOrder.add(user6);
-		actualUserOrder.add(user4);
+    private static List<User> usersAutomatic;
+    private static List<User> usersManual;
 
-		expectedUserOrder.add(user0);
-		expectedUserOrder.add(user1);
-		expectedUserOrder.add(user2);
-		expectedUserOrder.add(user3);
-		expectedUserOrder.add(user4);
-		expectedUserOrder.add(user5);
-		expectedUserOrder.add(user6);
-		expectedUserOrder.add(user7);
-		expectedUserOrder.add(user8);
-		
-		Collections.sort(actualUserOrder, new UserComparator());
-	}
-	
-	@Test
-	public void testThatAlgorithmWorksOnIndex0() throws Exception {
-		assertEquals(expectedUserOrder.get(0), actualUserOrder.get(0));
-	}
-	
-	@Test
-	public void testThatAlgorithmWorksOnIndex1() throws Exception {
-		assertEquals(expectedUserOrder.get(1), actualUserOrder.get(1));
-	}
-	
+    public UserComparatorTest() {
+        User user1 = new User("100", "Jarl Ank", "", PresenceType.PLAYING_MP);
+        User user2 = new User("101", "Jarl Pank", "", PresenceType.PLAYING_MP);
+        User user3 = new User("200", "Darl Ank", "", PresenceType.ONLINE_WEB);
+        User user4 = new User("202", "Sarl Pank", "", PresenceType.ONLINE_WEB);
+        User user5 = new User("201", "Jarl Stank", "", PresenceType.AWAY_WEB);
+        User user6 = new User("203", "Zarl Zank", "", PresenceType.AWAY_WEB);
+        User user7 = new User("300", "Amk", "", PresenceType.OFFLINE);
+        User user8 = new User("301", "Ank", "", PresenceType.OFFLINE);
 
-	@Test
-	public void testThatAlgorithmWorksOnIndex2() throws Exception {
-		assertEquals(expectedUserOrder.get(2), actualUserOrder.get(2));
-	}
-	
+        usersAutomatic = new ArrayList<User>();
+        usersManual = new ArrayList<User>();
 
-	@Test
-	public void testThatAlgorithmWorksOnIndex3() throws Exception {
-		assertEquals(expectedUserOrder.get(3), actualUserOrder.get(3));
-	}
-	
+        usersAutomatic.add(user2);
+        usersAutomatic.add(user6);
+        usersAutomatic.add(user8);
+        usersAutomatic.add(user1);
+        usersAutomatic.add(user4);
+        usersAutomatic.add(user7);
+        usersAutomatic.add(user3);
+        usersAutomatic.add(user5);
 
-	@Test
-	public void testThatAlgorithmWorksOnIndex4() throws Exception {
-		assertEquals(expectedUserOrder.get(4), actualUserOrder.get(4));
-	}
-	
+        usersManual.add(user1);
+        usersManual.add(user2);
+        usersManual.add(user3);
+        usersManual.add(user4);
+        usersManual.add(user5);
+        usersManual.add(user6);
+        usersManual.add(user7);
+        usersManual.add(user8);
 
-	@Test
-	public void testThatAlgorithmWorksOnIndex5() throws Exception {
-		assertEquals(expectedUserOrder.get(5), actualUserOrder.get(5));
-	}
-	
+        Collections.sort(usersAutomatic, new UserComparator());
+    }
 
-	@Test
-	public void testThatAlgorithmWorksOnIndex6() throws Exception {
-		assertEquals(expectedUserOrder.get(6), actualUserOrder.get(6));
-	}
-	
-
-	@Test
-	public void testThatAlgorithmWorksOnIndex7() throws Exception {
-		assertEquals(expectedUserOrder.get(7), actualUserOrder.get(7));
-	}
-
-	@Test
-	public void testThatAlgorithmWorksOnIndex8() throws Exception {
-		assertEquals(expectedUserOrder.get(8), actualUserOrder.get(8));
-	}
-	
+    @Test
+    public void autoSortShouldMatchOurManualSorting() {
+        for (int i = 0, max = usersAutomatic.size(); i < max; i++) {
+            Assert.assertEquals(usersManual.get(i), usersAutomatic.get(i));
+        }
+    }
 }

@@ -1,225 +1,175 @@
 <!DOCTYPE html>
-<html id="gate-html">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge;chrome=1"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="apple-touch-icon-precomposed"
-          href="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/base/apple-touch-icon-precomposed.png"/>
-    <title>Battlelog / Sign in</title>
-    <link type="text/css" rel="stylesheet"
-          href="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/generated/bundle_gate_topbundles_99444915.css"/>
-    <script type="text/javascript"
-            src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/generated/en_US/bundle_gate_topbundles_99444915.js"></script>
+<html xmlns:surf="" id="gate-html">
+ <head>
+ <meta http-equiv="X-UA-Compatible" content="ie=edge;chrome=1" />
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+ <link rel="apple-touch-icon-precomposed" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/apple-touch-icon-precomposed.png" />
+ <title>Battlelog / Log in</title>
+ <link type="text/css" rel="stylesheet" href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/bundle_gate_topbundles_1849059137.css"/>
+<script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_gate_topbundles_1849059137.js"></script>
 
-    <script>
-        var foutBrowser = ( ($.browser.mozilla && document.documentElement.style.MozTransform === '') || $.browser.opera || $.browser.msie );
-        if (foutBrowser) {
-            var dde = document.documentElement;
-            if (!dde.className) {
-                dde.className = 'wf-_fout';
-            } else {
-                dde.className = dde.className + ' wf-_fout ';
-            }
-        }
-        WebFont.load({
-            custom: {
-                families: ['BebasNeueRegular'],
-                urls: ['/cdnprefix/local/public/base/fonts/bebasNeueRegular.css']
-            }
-        });
-        (function (m) {
-            if (m) document.location.href = m[1] + decodeURIComponent(m[2]);
-        })(document.location.href.match(new RegExp("(http.*?\/\/.*?)/.*?#!(.*)", "im")));
-    </script>
-    <!--[if lt IE 9]>
-    <link href="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/base/shared/ielt9.css"
-          rel="stylesheet" type="text/css"/>
-    <![endif]-->
-    <!--[if IE 7]>
-    <link href="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/base/shared/ie7.css" rel="stylesheet"
-          type="text/css"/>
-    <![endif]-->
-</head>
-<body id="gate" class="">
-<div id="gate-container">
+ <script>
+ var foutBrowser = ( ($.browser.mozilla && document.documentElement.style.MozTransform === '') || $.browser.opera || $.browser.msie );
+ if(foutBrowser) {
+ var dde = document.documentElement;
+ if(!dde.className) { dde.className = 'wf-_fout'; } else { dde.className = dde.className + ' wf-_fout '; }
+ }
+ WebFont.load({
+ custom: {
+ families: ['BebasNeueRegular'],
+ urls : ['/cdnprefix/local/public/base/fonts/bebasNeueRegular.css']
+ }
+ });
+ (function(m) { if (m) document.location.href = m[1] + decodeURIComponent(m[2]); })(document.location.href.match(new RegExp("(http.*?\/\/.*?)/.*?#!(.*)", "im")));
+ </script>
+ <!--[if lt IE 9]>
+ <link href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/shared/ielt9.css" rel="stylesheet" type="text/css" />
+ <![endif]-->
+ <!--[if IE 7]>
+ <link href="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/base/shared/ie7.css" rel="stylesheet" type="text/css" />
+ <![endif]-->
+ </head>
+ <body id="gate" class="">
+ <div id="gate-container">
 
-    <div id="gate-wrapper">
-        <div class="gate-wrapper-bg"></div>
-        <div class="gate-wrapper-inner">
-            <div class="gate-form gate-login-form-wrapper">
-                <img width="324" height="42"
-                     src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/battlelog.png"
-                     alt="Battlelog" class="battlelog-logo"/>
+ <div id="gate-wrapper">
+ <div class="gate-wrapper-bg"></div>
+ <div class="gate-wrapper-inner">
+ <div class="gate-form gate-login-form-wrapper">
+ <img width="324" height="42" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/battlelog.png" alt="Battlelog" class="battlelog-logo" />
+ <p class="awesome highlight">Play with your friends</p>
+ <p class="awesome">Plan and Analyze every game &amp; track your stats</p>
+ <div class="form-container">
+ <div class="originconnect-status">
+ <div class="originconnect-working">
+ Signing you in automatically...
+ </div>
+ <div class="originconnect-error">
+ Automatic sign-in failed
+ </div>
+ </div>
+ <script type="text/javascript">
+ var RecaptchaOptions = {
+ theme: 'blackglass',
+ lang: 'en'
+ };
+ </script>
+ <form autocomplete="off" action="https://battlelog.battlefield.com:443/bf3/gate/login/" method="POST" id="gate-form">
 
-                <p class="awesome highlight">Play with your friends</p>
+ <div class="gate-login-errormsg wfont">Wrong email or password</div>
+ 
+ <input type="hidden" name="redirect" value="" />
+ <label class="gate-form-input-wrapper placeholder">
+ <input type="email" value="" class="gate-form-input" id="gate-form-email" name="email" autocomplete="on" />
+ <span>Origin™ Account E-mail</span>
+ </label>
+ <label class="gate-form-input-wrapper placeholder">
+ <input type="password" value="" class="gate-form-input" id="gate-form-password" name="password" autocomplete="on" />
+ <span>Password</span>
+ </label>
 
-                <p class="awesome">Plan and Analyze every game &amp; track your stats</p>
+ <table cellpadding="0" cellspacing="0" border="0" class="gate-login-possible">
+ <tr>
+ <td class="gate-form-checkbox" class="gate-form-alternative" style="padding:0;">
+ <input type="checkbox" value="1" id="gate-form-loginatonce" name="remember"
+ checked="checked"
+ />
+ <label for="gate-form-loginatonce">Remember me</label>
+ </td>
+ <td class="gate-login-form-submit-wrapper"><input type="submit" value="Log in" class="gate-form-submit base-button-arrow-small" name="submit" /></td>
+ </tr>
+ </table>
+ <div class="gate-login-form-extra">
+ <a href="https://www.origin.com/us/account/reset-password" target="_blank">Forgot password?</a>
+ |
+ <a href="/bf3/language/"><span>Change language</span></a>
+ </div>
+ <p class="gate-login-queue"></p>
+ <div id="gate-login-form-info" class="gate-login-not_possible base-hide">
+ <div class="gate-login-form-info-status">The site is currently full and youʹve been placed in the queue</div>
+ <div class="gate-login-form-info-secondary">Expected waiting time is <span id="gate-login-form-info-wait-time">-</span></div>
+ <input type="submit" class="gate-login-form-info-action-button" value="Try again" name="submit" />
+ </div>
+ </form>
+ </div>
+ </div>
 
-                <div class="form-container">
-                    <div class="originconnect-status">
-                        <div class="originconnect-working">
-                            Signing you in automatically...
-                        </div>
-                        <div class="originconnect-error">
-                            Automatic sign-in failed
-                        </div>
-                    </div>
-                    <div class="originconnect-fallback">
-                        <form action="https://battlelog.battlefield.com:443/bf3/gate/login/" method="POST"
-                              id="gate-form">
+ <div class="clear"></div>
+ </div>
+ </div>
+ <div class="gate-battlelog-support">
+ <div class="gate-battlelog-support-devices">
+ <div class="device-mobile"></div>
+ <div class="device-computer"></div>
+ </div>
+ <div class="gate-battlelog-support-games">
+ <div class="gate-footer-games">
+ <h3>Battlelog Powers</h3>
+ <div class="games">
+ <img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/bf3-logo.png" width="264" height="113" alt="Battlefield 3" />
+ <img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/moh-logo.png" width="221" height="111" alt="Medal of Honor: Warfighter" />
+ </div>
+ </div>
+ <div class="clear"></div>
+ </div>
+ </div>
+ <div class="gate-footer">
+ <div class="gate-footer-body">
+ <div class="gate-footer-quotes">
+ <blockquote data-timeout="18000">
+ <p>Battlelog is a stroke of genius. I am beyond impressed, and highly welcome the change.</p>
+ <cite>Tweet from <a href="http://twitter.com/jason_patrick_/status/131736565729869825" target="_blank">jason_patrick_</a></cite>
+ </blockquote>
+ <blockquote data-timeout="18000">
+ <p>Brilliant. By far my favourite new feature! Much more user friendly than other stat tracking portals in other games.</p>
+ <cite>Tweet from <a href="http://twitter.com/xbuttonkill/status/131734801676902401" target="_blank">xbuttonkill</a></cite>
+ </blockquote>
+ <blockquote data-timeout="18000">
+ <p>Additionally, future AAA titles will need something similar if they want to be taken seriously. Battlelog is a game changer imho.</p>
+ <cite>Tweet from <a href="http://twitter.com/xbuttonkill/status/131734948838244352" target="_blank">xbuttonkill</a></cite>
+ </blockquote>
+ <blockquote data-timeout="18000">
+ <p>I made battlelog my homescreen on my computer.....I'm on it every time I play #greatidea</p>
+ <cite>Tweet from <a href="http://twitter.com/lankymartian/status/131735840320786432" target="_blank">lankymartian</a></cite>
+ </blockquote>
+ </div>
+ <div class="gate-footer-highlighted">
+ <a class="footer-logo" href="http://www.ea.com/" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/logo-ea.png" alt="" width="52" height="52"></a>
+ <a class="footer-logo" href="http://www.dice.se/" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/logo-dice.png" alt="" width="103" height="52"></a>
+ <a class="footer-logo" href="http://www.esn.me/" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/logo-esn.png" alt="" width="66" height="52"></a>
+ <a class="footer-logo" href="http://www.dangerclosegames.com" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/logo-dc.png" alt="" width="49" height="52"></a>
+ <a class="footer-logo-more" href="http://smarturl.it/BattlelogiPhoneApp" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/app-store.png" alt="" width="134" height="45"></a>
+ <a class="footer-logo-more" href="http://smarturl.it/BattlelogAndroidApp" target="_blank"><img src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/gate/app-store-android.png" alt="" width="129" height="45"></a>
 
-                            <div class="gate-login-errormsg wfont">Wrong email or password</div>
-
-                            <input type="hidden" name="redirect" value=""/>
-                            <label class="gate-form-input-wrapper placeholder">
-                                <input type="email" value="" class="gate-form-input" id="gate-form-email" name="email"
-                                       autocomplete="on"/>
-                                <span>Origin™ Account E-mail</span>
-                            </label>
-                            <label class="gate-form-input-wrapper placeholder">
-                                <input type="password" value="" class="gate-form-input" id="gate-form-password"
-                                       name="password" autocomplete="on"/>
-                                <span>Password</span>
-                            </label>
-                            <table cellpadding="0" cellspacing="0" border="0" class="gate-login-possible">
-                                <tr>
-                                    <td class="gate-form-checkbox" class="gate-form-alternative" style="padding:0;">
-                                        <input type="checkbox" value="1" id="gate-form-loginatonce"
-                                               name="remember"/><label for="gate-form-loginatonce">Remember me</label>
-                                    </td>
-                                    <td class="gate-login-form-submit-wrapper"><input type="submit" value="Sign in"
-                                                                                      class="gate-form-submit base-button-arrow-small"
-                                                                                      name="submit"/></td>
-                                </tr>
-                            </table>
-                            <div class="gate-login-form-extra">
-                                <a href="https://www.origin.com/us/account/reset-password" target="_blank">Forgot
-                                    password?</a>
-                                |
-                                <a href="/bf3/language/"><span>Change language</span></a>
-                            </div>
-                            <p class="gate-login-queue"></p>
-
-                            <div id="gate-login-form-info" class="gate-login-not_possible base-hide">
-                                <div class="gate-login-form-info-status">The site is currently full and youʹve been
-                                    placed in the queue
-                                </div>
-                                <div class="gate-login-form-info-secondary">Expected waiting time is <span
-                                        id="gate-login-form-info-wait-time">-</span></div>
-                                <input type="submit" class="gate-login-form-info-action-button" value="Try again"
-                                       name="submit"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="gate-battlelog-support">
-        <div class="gate-battlelog-support-devices">
-            <div class="device-mobile"></div>
-            <div class="device-computer"></div>
-        </div>
-        <div class="gate-battlelog-support-games">
-            <div class="gate-footer-games">
-                <h3>Battlelog Powers</h3>
-
-                <div class="games">
-                    <img src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/bf3-logo.png"
-                         width="264" height="113" alt="Battlefield 3"/>
-                    <img src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/moh-logo.png"
-                         width="221" height="111" alt="Medal of Honor: Warfighter"/>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="gate-footer">
-        <div class="gate-footer-body">
-            <div class="gate-footer-quotes">
-                <blockquote data-timeout="18000">
-                    <p>Battlelog is a stroke of genius. I am beyond impressed, and highly welcome the change.</p>
-                    <cite>Tweet from <a href="http://twitter.com/jason_patrick_/status/131736565729869825"
-                                        target="_blank">jason_patrick_</a></cite>
-                </blockquote>
-                <blockquote data-timeout="18000">
-                    <p>Brilliant. By far my favourite new feature! Much more user friendly than other stat tracking
-                        portals in other games.</p>
-                    <cite>Tweet from <a href="http://twitter.com/xbuttonkill/status/131734801676902401" target="_blank">xbuttonkill</a></cite>
-                </blockquote>
-                <blockquote data-timeout="18000">
-                    <p>Additionally, future AAA titles will need something similar if they want to be taken seriously.
-                        Battlelog is a game changer imho.</p>
-                    <cite>Tweet from <a href="http://twitter.com/xbuttonkill/status/131734948838244352" target="_blank">xbuttonkill</a></cite>
-                </blockquote>
-                <blockquote data-timeout="18000">
-                    <p>I made battlelog my homescreen on my computer.....I'm on it every time I play #greatidea</p>
-                    <cite>Tweet from <a href="http://twitter.com/lankymartian/status/131735840320786432"
-                                        target="_blank">lankymartian</a></cite>
-                </blockquote>
-            </div>
-            <div class="gate-footer-highlighted">
-                <a class="footer-logo" href="http://www.ea.com/" target="_blank"><img
-                        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/logo-ea.png" alt=""
-                        width="52" height="52"></a>
-                <a class="footer-logo" href="http://www.dice.se/" target="_blank"><img
-                        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/logo-dice.png"
-                        alt="" width="103" height="52"></a>
-                <a class="footer-logo" href="http://www.esn.me/" target="_blank"><img
-                        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/logo-esn.png"
-                        alt="" width="66" height="52"></a>
-                <a class="footer-logo" href="http://www.dangerclosegames.com" target="_blank"><img
-                        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/logo-dc.png" alt=""
-                        width="49" height="52"></a>
-                <a class="footer-logo-more" href="http://itunes.apple.com/app/ea-battlelog/id505311163" target="_blank"><img
-                        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/gate/app-store.png"
-                        alt="" width="134" height="45"></a>
-
-                <div class="clear"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript"
-        src="http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1/public/generated/en_US/bundle_gate_bottombundles_2499556143.js"></script>
+ <div class="clear"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <script type="text/javascript" src="http://battlelog-cdn.battlefield.com/cdnprefix/9c6d33122d17c/public/generated/en_US/bundle_gate_bottombundles_2499556143.js"></script>
 
 
 <script type="text/javascript">
-    Surface.setTimeZoneData('UTC');
-    Surface.urlContext = {"_section": "bf3"};
-    Surface.globalContext = {"userContext": {}, "staticContext": {"googleAnalytics": "UA-28072291-1", "pluginDownloadUrl": "/public/download/battlelog-web-plugins_2.1.3_109.exe", "myPersonas": [], "locale": "en_US", "idleTimeout": 600, "serverBrowserMaxSize": 300, "platforms": {"real": {}, "imag": {}, "denominator": {}, "numerator": {}, "XBOX": 8, "PC": 1, "XBOX360": 2, "PS2": 16, "PS3": 4}, "pluginVersion": "2.1.3", "sslAvailable": true, "advertisementService": "http://adsrv.ea.com/api/20120529/advertisement", "gateDLCBodyClass": "", "preferredLang": null, "currentHost": "http://battlelog.battlefield.com:80", "originStoreExpansions": {"8192": "OFB-EAST:55172", "512": "OFB-EAST:41331", "4096": "OFB-EAST:51080", "16384": "OFB-EAST:109546437", "1024": "OFB-EAST:50401", "2048": "OFB-EAST:50631"}, "gameExpansions": {"BF3AM": 8192, "BF3AK": 4096, "BF4PREPURCHASE": 65536, "VANILLA": 0, "BF2142NS": 4, "BF3PREMIUM": 1024, "BF3EG": 16384, "BF1942SW": 2, "BFBCPS3DEMO": 128, "BF3CQ": 2048, "BF2AF": 8, "MOHWPDLC0": 32768, "BFBC360DEMO": 64, "real": {}, "imag": {}, "denominator": {}, "BF2SF": 32, "BF4DDPREPURCHASE": 131072, "BF1942RTR": 1, "BF3B2K": 512, "numerator": {}, "BF2EF": 16, "BFBC2NAM": 256}, "warsawActive": false, "languages": [
-        {"lang": "en", "value": 1},
-        {"lang": "de", "value": 2},
-        {"lang": "fr", "value": 4},
-        {"lang": "es", "value": 8},
-        {"lang": "it", "value": 16},
-        {"lang": "pl", "value": 32},
-        {"lang": "ru", "value": 64},
-        {"lang": "ja", "value": 128},
-        {"lang": "ko", "value": 256},
-        {"lang": "zh", "value": 512},
-        {"lang": "cs", "value": 1024}
-    ], "useSonar": true, "launchTimerInSeconds": 0, "sections": {"real": {}, "BFBC": 128, "ALL": 536870912, "MOHW": 4096, "urlStrings": ["bf3", "all", "api", "mohw"], "BFMC": 512, "imag": {}, "denominator": {}, "numerator": {}, "BFP4F": 1024, "BF3": 2, "BF2": 32, "BFHEROES": 256, "BF1943": 8, "BF2142": 64, "BFBC2": 1, "GENERAL": 1073741824, "BFVIETNAM": 16, "BF1942": 4}, "pluginLauncherVersion": "109", "socialSharingEnabled": false, "buildVersion": "production-45", "checkPlugin": true, "nucleusNamespaces": {"BATTLEFIELD": "battlefield", "CEM_EA_ID": "cem_ea_id", "XBOX": "xbox", "PS3": "ps3"}, "ownsActiveGame": false, "devguideEnabled": false, "isTouchDevice": false, "allowRunGame": false, "useJsDebug": false, "backdropUrl": "", "voice": {"xmlInitUrl": "http://battlelog.battlefield.com/sonar/xml/", "version": "0.70.4"}, "serverBrowserPageSize": 30, "logClientSideErrors": false, "gameType": {"real": {}, "COOP": 4, "imag": {}, "SP": 2, "numerator": {}, "denominator": {}, "MP": 1, "NOT_PLAYING": 0}, "checkGameInstalled": false, "currentHostSecure": "https://battlelog.battlefield.com:443", "games": {"real": {}, "BFBC": 128, "BF1943": 8, "MOHW": 4096, "BFMC": 512, "imag": {}, "denominator": {}, "numerator": {}, "BFP4F": 1024, "BF3": 2, "BF2": 32, "BFHEROES": 256, "BF2142": 64, "BFBC2": 1, "BFVIETNAM": 16, "BF1942": 4}, "cdnBaseDir": "battlelog/prod/", "detectedBrowser": {"isWindows": true, "isTouchDevice": false, "isWin64": false, "isWinXP": false, "isOriginIGO": false}, "originStoreScriptUrl": "https://games.web.dm.origin.com/web/ecommerce/originStoreWeb", "gravatarDefaultUrl": "http://battlelog-cdn.battlefield.com/cdnprefix/avatar1/public/base/shared/default-avatar-[SIZE].png", "sslStrategy": "login"}, "isAjaxFetch": false, "session": {"hasAdminAccess": false, "postChecksum": "unset", "user": null, "rollouts": [], "userGameExpansions": {}, "locale": {"shortdate": "%d/%m", "fulldate": "%Y-%m-%d", "offset": 0, "time": "%H:%M"}, "isLoggedIn": false, "userGames": {}, "userId": "0", "introSectionBits": 4294967295}, "systemUtcTime": 1368959614, "mutedSounds": 0, "staticPrefix": "http://battlelog-cdn.battlefield.com/cdnprefix/19ae9958b1f1", "realm": {"lang": 1, "game": 2, "section": 2}, "pushConnections": [
-        {"sslAddress": "10.99.139.120:6054", "apiKey": "planet", "nodeNumber": 3, "channelsWithAuth": ["1369002814;a8ba4074561677cddca1ad7d7c180363a6bc7191@guest_1368959612.29"], "sslEnabled": false, "sslWsAddress": "10.99.139.120:6054", "channels": ["@guest_1368959612.29"], "token": "1369002812;6053df45a4c57698e9add6d5d3680233da3ff7b5", "user": "guest_1368959612.29", "address": "beaconpush-13.battlelog.battlefield.com", "wsAddress": "beaconpush-13.battlelog.battlefield.com", "log": false}
-    ], "showPreorder": true, "pushPorts": [80, "secure-443"], "pushServers": ["beaconpush-4.battlelog.battlefield.com", "beaconpush-14.battlelog.battlefield.com", "beaconpush-1.battlelog.battlefield.com", "beaconpush-13.battlelog.battlefield.com", "beaconpush-3.battlelog.battlefield.com", "beaconpush-11.battlelog.battlefield.com", "beaconpush-12.battlelog.battlefield.com", "beaconpush-2.battlelog.battlefield.com"], "currentUrl": "|bf3|gate|", "writeBanUntil": 0, "componentName": "gate", "hasWriteBan": false, "pushFlashUrl": "http://s3-eu-west-1.amazonaws.com/bl-assets/web-socket.swf", "isAjaxNavigation": false, "actionName": "index", "isSecure": false, "pushJavascriptUrl": "http://s3-eu-west-1.amazonaws.com/bl-assets/client-3.js", "loginQueueConfig": {"active": false, "startedAt": 1356727073, "rampupDuration": 0, "offset": 0}, "banType": 0};
-    Surface.urlactionMap = {};
-    Surface.Renderer.state.usedTemplates = ['gate.index', 'surfaceframework.index', 'gate.bottombundles', 'gate.topbundles', 'base.googleanalytics', 'gate.base'];
-    Surface.Renderer.state.usedComponents = ['gate', 'base', 'surfaceframework'];
-    Surface.domReady(Surface.Renderer.invokeUsedComponents);
+Surface.setTimeZoneData('UTC');
+Surface.urlContext = {"_section":"bf3"};
+Surface.globalContext = {"isAjaxNavigation":false,"isAjaxFetch":false,"staticPrefix":"http:\/\/battlelog-cdn.battlefield.com\/cdnprefix\/9c6d33122d17c","isSecure":false,"realm":{"lang":1,"game":2,"section":2},"userContext":{},"staticContext":{"googleAnalytics":"UA-28072291-1","suggestionTypes":{"real":{},"CAMPAIGN_ASSIGNMENT":256,"ASSIGNMENT":128,"WEAPON":2,"denominator":{},"numerator":{},"KIT_UNLOCK":16,"VEHICLE_ATTACHMENT":8,"PERSONAL_RECORD":1,"SERVICE_STAR":512,"imag":{},"BATTLEPACK":1024,"MEDAL":32,"WEAPON_ATTACHMENT":4,"RIBBON":64},"userPresenceStates":{"AWAY_ORIGIN":131072,"PLAYING_MP":256,"ONLINE_TABLET":2,"PLAYING_ORIGIN":1024,"ONLINE_ORIGIN":16,"numerator":{},"INVISIBLE_MOBILE":67108864,"denominator":{},"INVISIBLE_TABLET":33554432,"PLAYING_COOP":512,"GROUP_WEB":4294967296,"ONLINE_GAME":8,"GROUP_ORIGIN":8589934592,"ONLINE_MOBILE":4,"real":{},"imag":{},"INVISIBLE_WEB":16777216,"ONLINE_WEB":1,"AWAY_WEB":65536},"pluginDownloadUrl":"\/public\/download\/battlelog-web-plugins_2.1.7_115.exe","locale":"en_US","idleTimeout":600,"isProduction":true,"serverBrowserMaxSize":300,"platforms":{"real":{},"imag":{},"denominator":{},"numerator":{},"XBOXONE":64,"XBOX":8,"PC":1,"XBOX360":2,"PS2":16,"PS3":4,"PS4":32},"pluginVersion":"2.1.7","sslAvailable":true,"advertisementService":"http:\/\/adsrv-int.ea.com\/api\/20120529\/advertisement","gateDLCBodyClass":"","preferredLang":null,"currentHost":"http:\/\/battlelog.battlefield.com:80","originStoreExpansions":{"8192":"OFB-EAST:55172","512":"OFB-EAST:41331","4096":"OFB-EAST:51080","16384":"OFB-EAST:109546437","1024":"OFB-EAST:50401","2048":"OFB-EAST:50631"},"socialSharingEnabled":false,"myPersonas":[],"battlereportFeedbackSurveyUrl":"\/bf4\/about\/at-survey\/","languages":[{"lang":"en","value":1},{"lang":"de","value":2},{"lang":"fr","value":4},{"lang":"es","value":8},{"lang":"it","value":16},{"lang":"pl","value":32},{"lang":"ru","value":64},{"lang":"ja","value":128},{"lang":"ko","value":256},{"lang":"zh","value":512},{"lang":"cs","value":1024}],"useSonar":true,"launchTimerInSeconds":0,"sections":{"real":{},"BFBC":128,"ALL":536870912,"MOHW":4096,"urlStrings":["bf3","all","api","mohw","bf4"],"BFMC":512,"imag":{},"denominator":{},"numerator":{},"BF1942":4,"BFP4F":1024,"BF3":2,"BF2":32,"BFHEROES":256,"BF1943":8,"BF2142":64,"BFBC2":1,"GENERAL":1073741824,"BFVIETNAM":16,"WARSAW":2048},"pluginLauncherVersion":"115","friendrecommendationEnabled":false,"gameExpansions":{"BF3AM":8192,"BF3AK":4096,"BF4PREPURCHASE":65536,"VANILLA":0,"BF2142NS":4,"BF4XP3DT":4194304,"BF3PREMIUM":1024,"BF3EG":16384,"BF1942SW":2,"BFBCPS3DEMO":128,"BF3CQ":2048,"BF2AF":8,"BF4XP2NS":2097152,"MOHWPDLC0":32768,"BFBC360DEMO":64,"real":{},"imag":{},"denominator":{},"BF2SF":32,"BF4DDPREPURCHASE":131072,"BF1942RTR":1,"BF4XP1CR":1048576,"BF3B2K":512,"BF4PREMIUM":262144,"BF4XP4FS":8388608,"numerator":{},"BF4XP0SA":524288,"BF2EF":16,"BFBC2NAM":256},"buildVersion":"production-9","keeperQueryEndpoint":"","facebookOpenGraphEnabled":false,"checkPlugin":true,"nucleusNamespaces":{"BATTLEFIELD":"battlefield","CEM_EA_ID":"cem_ea_id","XBOX":"xbox","PS3":"ps3"},"ownsActiveGame":false,"devguideEnabled":false,"isTouchDevice":false,"allowRunGame":false,"useJsDebug":false,"backdropUrl":"","voice":{"xmlInitUrl":"http:\/\/battlelog.battlefield.com\/sonar\/xml\/","version":"0.70.4"},"serverBrowserPageSize":30,"logClientSideErrors":false,"gameType":{"real":{},"COOP":4,"imag":{},"SP":2,"numerator":{},"denominator":{},"MP":1,"NOT_PLAYING":0},"keeperEnabled":false,"checkGameInstalled":false,"currentHostSecure":"https:\/\/battlelog.battlefield.com:443","games":{"real":{},"BFBC":128,"BF1943":8,"MOHW":4096,"BFMC":512,"imag":{},"denominator":{},"numerator":{},"BF1942":4,"BFP4F":1024,"BF3":2,"BF2":32,"BFHEROES":256,"BF2142":64,"BFBC2":1,"BFVIETNAM":16,"WARSAW":2048},"cdnBaseDir":"battlelog\/prod\/","detectedBrowser":{"isIOS":false,"isWin64":false,"isAndroid":false,"appVersion":null,"isOriginIGO":false,"isWinXP":false,"isIE":false,"isHybridApp":false,"isTouchDevice":false,"appCapabilities":null,"isCommanderApp":false,"isWindows":true},"originStoreScriptUrl":"https:\/\/games.web.dm.origin.com\/web\/ecommerce\/originStoreWeb","gravatarDefaultUrl":"http:\/\/battlelog-cdn.battlefield.com\/cdnprefix\/avatar1\/public\/base\/shared\/default-avatar-[SIZE].png","sslStrategy":"login"},"actionName":"index","pushConnections":[{"sslAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","apiKey":"planet","nodeNumber":0,"channelsWithAuth":["1378421041;ea408f8fbe6ec80c649262465a9fe0690c71aa1dbp:user"],"sslEnabled":false,"sslWsAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","channels":["bp:user"],"token":"1378421033;0f83b2a81d795c35fd292986e9457342349f14e4","user":"guest_1378377833.91","address":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","wsAddress":"ec2-54-217-226-90.eu-west-1.compute.amazonaws.com","log":false}],"requestURI":"http:\/\/battlelog.battlefield.com\/bf3\/gate\/","writeBanUntil":0,"currentUrl":"|bf3|gate|","hasWriteBan":false,"pushFlashUrl":"http:\/\/ec2-54-217-226-90.eu-west-1.compute.amazonaws.com\/clients\/client-1.swf","session":{"hasAdminAccess":false,"postChecksum":"695ae62b5b","user":null,"rollouts":[],"userGameExpansions":{},"locale":{"shortdate":"%d\/%m","fulldate":"%Y-%m-%d","offset":0,"time":"%H:%M"},"isLoggedIn":false,"userGames":{},"userId":"0","introSectionBits":4294967295},"banType":0,"systemUtcTime":1378377841,"mutedSounds":0,"componentName":"gate","loginQueueConfig":{"active":false,"startedAt":1356727073,"rampupDuration":0,"offset":0},"pushJavascriptUrl":"http:\/\/ec2-54-217-226-90.eu-west-1.compute.amazonaws.com\/clients\/client-2.js"};
+Surface.urlactionMap = {};
+Surface.Renderer.state.usedTemplates = ['gate.index', 'surfaceframework.index', 'gate.bottombundles', 'gate.topbundles', 'base.googleanalytics', 'gate.base'];
+Surface.Renderer.state.usedComponents = ['gate', 'base', 'surfaceframework'];
+Surface.domReady(Surface.Renderer.invokeUsedComponents);
 
 </script>
 
 <script language="javascript">
-    var ga_id = S.globalContext.staticContext.googleAnalytics;
-    if (ga_id) {
-        $.ga(ga_id);
-        $.ga.setWebsite();
-        $.ga.setVisitor();
-        $.ga.trackPageview();
-    }
+ var ga_id = S.globalContext.staticContext.googleAnalytics;
+ if(ga_id){
+ $.ga(ga_id);
+ $.ga.Anonymize()
+ $.ga.setWebsite();
+ $.ga.setVisitor();
+ $.ga.trackPageview();
+ }
 </script>
-</body>
+ </body>
 </html>

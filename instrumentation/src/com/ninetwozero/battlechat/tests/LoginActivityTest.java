@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ninetwozero.battlechat.R;
-import com.ninetwozero.battlechat.activities.LoginActivity;
+import com.ninetwozero.battlechat.ui.activities.LoginActivity;
 import com.squareup.spoon.Spoon;
 
 import static org.fest.assertions.api.ANDROID.assertThat;

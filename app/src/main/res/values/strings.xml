@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	This file is part of BattleChat
+
+    BattleChat is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    BattleChat is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
+<resources>
+
+  <string name="app_name">Battle Chat</string>
+  <string name="service_name_session">Battlelog Session Service</string>
+  <string name="service_name_chat">Battlelog Chat Service</string>
+  <string name="service_name_friends">Battlelog Friendlist Service</string>
+
+  <string-array name="update_interval_entries">
+    <item>Every 5 seconds</item>
+    <item>Every 10 seconds</item>
+    <item>Every 17 seconds</item>
+    <item>Every 25 seconds</item>
+    <item>Every 30 seconds</item>
+    <item>Every minute</item>
+  </string-array>
+  <integer-array name="update_interval_values">
+    <item>5</item>
+    <item>10</item>
+    <item>17</item>
+    <item>25</item>
+    <item>30</item>
+    <item>60</item>
+  </integer-array>
+
+  <string name="menu_exit">Log out</string>
+  <string name="msg_message_ok">Message sent!</string>
+  <string name="msg_message_fail">Message could not be sent!</string>
+  <string name="msg_chat_refresh_fail">Could not reload chat. Please try to re-login.</string>
+  <string name="msg_chat_send_message_error">You need to enter a message.</string>
+  <string name="msg_chat_send_multiple_error">You\'re already sending the message!</string>
+  <string name="msg_chat_load_fail">An error occurred: You can\'t chat with this user.</string>
+  <string name="msg_chat_load_error">An error occurred: Unable to refresh the chat.</string>
+  <string name="text_notification_title">Battle Chat status</string>
+  <string name="text_notification_subtitle_ok">Signed in as %1$s. Tap to open.</string>
+  <string name="text_notification_subtitle_fail">Session lost. Tap to login.</string>
+  <string name="label_offline">Offline</string>
+  <string name="label_online">Online</string>
+  <string name="label_group">Group</string>
+  <string name="label_playing">Playing</string>
+  <string name="msg_no_messages">No messages found. :-(</string>
+  <string name="msg_no_friends">No friends found. :-(</string>
+  <string name="title_settings">Settings</string>
+  <string name="title_chat">Chat</string>
+  <string name="title_main">@string/app_name</string>
+  <string name="msg_chat_sending_message">Sending message&#8230;</string>
+  <string name="prompt_email">Origin™ Email</string>
+  <string name="prompt_password">Origin™ Password</string>
+  <string name="action_sign_in_short">Sign in</string>
+  <string name="login_progress_signing_in">Signing in&#8230;</string>
+  <string name="error_invalid_email">This email address is invalid</string>
+  <string name="error_field_required">This field is required</string>
+  <string name="menu_about">About</string>
+  <string name="text_login_accept_terms">I accept the terms and conditions.</string>
+  <string name="text_preference_notification_title">Display status notification</string>
+  <string name="text_preference_notification_on">A notification will be shown.</string>
+  <string name="text_preference_notification_off">No notifications will be shown.</string>
+  <string name="text_preference_beep_off">You won\'t hear a thing!</string>
+  <string name="text_preference_beep_on">Don\'t worry, we\'ll beep you.</string>
+  <string name="text_preference_beep_title">Beep for messages</string>
+  <string name="text_preference_interval_title">Chat refresh interval</string>
+  <string name="title_refresh">Refresh</string>
+  <string name="text_chat_loading">Loading messages&#8230;</string>
+  <string name="title_about">About</string>
+  <string name="text_about_by">By Karl Lindmark</string>
+  <string name="text_about_email">support@ninetwozero.com</string>
+  <string name="text_about_version">1.0</string>
+  <string name="text_chat_title">Chatting with %1$s</string>
+  <string name="title_login">Login</string>
+
+  <!-- new strings -->
+  <string name="ninetwozero">NINETWOZERO</string>
+  <string name="logged_in_as">LOGGED IN AS</string>
+  <string name="msg_unable_to_get_friends">Unable to download friends list.</string>
+
+  <string name="label_away">Away</string>
+  <string name="label_unknown">Unknown</string>
+  <string name="label_you">You</string>
+  <string name="desc_gravatar">Gravatar</string>
+
+  <string name="text_main_loading">Loading friends&#8230;</string>
+
+  <string name="chat_group_invited">%1$s was invited</string>
+  <string name="chat_group_joined">%1$s joined the chat</string>
+  <string name="chat_group_left">%1$s left the chat</string>
+  <string name="chat_group_joinedgame">%1$s joined %2$s</string>
+  <string name="label_friends">Friends</string>
+  <string name="menu_reset_password">Reset password</string>
+  <string name="accept">Accept</string>
+
+  <string name="text_login_disclaimer">This app was not created nor is it endorsed by EA/DICE.
+    Battlefield is a
+    registered trademark of EA Digital Illusions CE AB. No user account information is being stored
+    off-device and/or shared with third-parties.\n\n
+    By clicking OK below, you acknowledge and accept the terms above.
+  </string>
+  <string name="cdesc_logo">Application logo</string>
+  <string name="startup_title">Welcome to Battle Chat!</string>
+  <string name="startup_main_information">Looks like you don\'t have any chats open at the moment.
+    Let\'s fix that.
+  </string>
+  <string name="startup_second_information">Just select a friend to the left to start chatting. :-)</string>
+  <string name="startup_start_new">Start a new chat</string>
+  <string name="startup_start_random">Start a random chat</string>
+  <string name="cdesc_action_item">Action item</string>
+  <string name="cdesc_button_send">Send button</string>
+  <string name="error_broken_form">Broken form! Please restart the app.</string>
+  <string name="cdesc_warning_icon">Warning</string>
+  <string name="msg_no_network">This app requires Internet access - are you connected?</string>
+
+  <!-- ABOUT -->
+  <string name="label_about">About</string>
+  <string name="label_updates">Changelog</string>
+  <string name="label_credits">Credits</string>
+  <string name="label_opensource">Licenses</string>
+  <string name="app_email">support@ninetwozero.com</string>
+
+  <string name="msg_info_join_gplus">Join our community on G+</string>
+  <string name="msg_info_join_tweet">Tweet with us</string>
+  <string name="msg_info_email">Send us an e-mail</string>
+  <string name="msg_about_help_text">If you ever encounter any issues with Battle Chat, you can count on us
+    to help. Just tap one of the buttons below to get started!
+  </string>
+  <string name="msg_about_help_heading">Need help?</string>
+
+  <!-- Collaborators -->
+  <string name="collab_name_peter">Peter Mikloško</string>
+  <string name="collab_desc_peter">Partner in Crime on BF4 Intel</string>
+  <string name="collab_name_humphreybc">Benjamin Humphrey</string>
+  <string name="collab_desc_humphreybc">Re-designed the login UI + startup screen</string>
+  <string name="collab_name_dbagjones">Stephen Beaudet</string>
+  <string name="collab_desc_dbagjones">Created the awesome logo</string>
+  <string name="collab_name_lindyhop">Alexander Lindström</string>
+  <string name="collab_desc_lindyhop">Quality Assurance</string>
+  <string name="collab_name_stillesjo">Alexander Stillesjö</string>
+  <string name="collab_desc_stillesjo">Quality Assurance</string>
+  <string name="collab_name_dapil">Daniel Peukert</string>
+  <string name="collab_desc_dapil">Translated the app into Czech</string>
+  <string name="collab_name_gk">Gustav Karlsson</string>
+  <string name="collab_desc_gk">Quality Assurance</string>
+  <string name="msg_error_no_network">Not connected to the Internet.</string>
+  <string name="msg_unread_message">1 unread message</string>
+  <string name="msg_unread_messages">%1$s unread messages</string>
+</resources>

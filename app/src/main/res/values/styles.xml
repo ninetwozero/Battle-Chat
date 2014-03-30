@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	This file is part of BattleChat
+
+    BattleChat is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    BattleChat is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
+<resources>
+
+  <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    <item name="android:homeAsUpIndicator">@drawable/ic_navigation_drawer</item>
+  </style>
+
+  <style name="AppTheme" parent="AppBaseTheme">
+    <item name="android:homeAsUpIndicator">@drawable/ic_navigation_drawer</item>
+  </style>
+
+  <style name="AppThemeChildActivity" parent="android:Theme.Holo.Light"/>
+
+  <style name="LoginFormContainer">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_centerInParent">true</item>
+  </style>
+
+  <style name="separator">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:background">#FFCCCCCC</item>
+    <item name="android:layout_marginTop">8dp</item>
+    <item name="android:layout_marginBottom">8dp</item>
+  </style>
+
+  <style name="heading">
+    <item name="android:textAppearance">@android:style/TextAppearance.Holo.Small</item>
+    <item name="android:textColor">@android:color/darker_gray</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="TextAppearance.Holo.Smallest" parent="@android:style/TextAppearance.Holo.Small">
+    <item name="android:textSize">@dimen/text_xs</item>
+  </style>
+
+  <style name="ChatMessageBox">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">@dimen/chat_avatar_size</item>
+    <item name="android:paddingTop">@dimen/spacing_m</item>
+    <item name="android:paddingRight">@dimen/spacing_m</item>
+    <item name="android:paddingBottom">@dimen/spacing_m</item>
+    <item name="android:paddingLeft">@dimen/spacing_m</item>
+  </style>
+
+  <style name="LeftMessageBox" parent="ChatMessageBox">
+    <item name="android:background">@drawable/bubble_background_l</item>
+    <item name="android:paddingLeft">@dimen/spacing_l</item>
+  </style>
+  <style name="RightMessageBox" parent="ChatMessageBox">
+    <item name="android:background">@drawable/bubble_background_r</item>
+    <item name="android:paddingRight">@dimen/spacing_l</item>
+  </style>
+
+  <!-- Buttons -->
+  <style name="BaseButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:text">@string/startup_start_new</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@android:color/white</item>
+  </style>
+
+  <style name="BlueButton" parent="BaseButton">
+    <item name="android:background">@drawable/blue_button_background</item>
+  </style>
+
+  <style name="RedButton" parent="BaseButton">
+    <item name="android:background">@drawable/red_button_background</item>
+  </style>
+
+  <!-- Card related styles -->
+  <style name="RegularHeadingOverCard">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">@android:style/TextAppearance.Holo</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">@dimen/text_card_title</item>
+    <item name="android:textColor">#505050</item>
+    <item name="android:layout_marginBottom">@dimen/spacing_m</item>
+  </style>
+
+  <style name="RegularCardTitle">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">@android:style/TextAppearance.Holo.Large</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textColor">#707070</item>
+  </style>
+
+  <style name="RegularCardSubtitle">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">@android:style/TextAppearance.Holo.Small</item>
+    <item name="android:textColor">#808080</item>
+  </style>
+
+  <style name="RegularCard">
+    <item name="android:layout_width">@dimen/card_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/card_bg_selector</item>
+    <item name="android:padding">@dimen/spacing_m</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:layout_marginBottom">@dimen/spacing_m</item>
+  </style>
+</resources>
