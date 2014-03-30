@@ -20,6 +20,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -274,6 +275,8 @@ public class ChatFragment extends BaseLoadingListFragment {
             return;
         }
 
+        Log.d("YOLO", "unreadCount is " + unreadCount);
+
         final TextView textView = (TextView) view.findViewById(R.id.new_message_indicator);
         if (unreadCount == 1) {
             textView.setText(getString(R.string.msg_unread_message));
@@ -311,9 +314,11 @@ public class ChatFragment extends BaseLoadingListFragment {
                         scrollToLatestMessage();
                         unreadCount = 0;
                     } else {
-                        showUnreadMessageCount(unreadCount);
+                        if (unreadCount > 0) {
+                            showUnreadMessageCount(unreadCount);
+                        }
                     }
-
+                    
                     if (messageDAOs.size() > 0) {
                         showAsLoading(false);
                     }
