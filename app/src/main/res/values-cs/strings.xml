@@ -16,6 +16,8 @@
 
   <string name="app_name">Battle Chat</string>
   <string name="service_name_session">Služba sezení Battlelog</string>
+  <string name="service_name_chat">Služba chatu Battlelog</string>
+  <string name="service_name_friends">Služba seznamu přátel Battlelog</string>
 
   <string-array name="update_interval_entries">
     <item>Každých 5 sekund</item>
@@ -41,14 +43,15 @@
   <string name="msg_chat_send_message_error">Musíte vyplnit zprávu.</string>
   <string name="msg_chat_send_multiple_error">Už zprávu odesíláte!</string>
   <string name="msg_chat_load_fail">Nastala chyba: Nemůžete chatovat s tímto uživatelem.</string>
+  <string name="msg_chat_load_error">Nastala chyba: Nepodařilo se obnovit chat.</string>
   <string name="text_notification_title">Battle Chat status</string>
   <string name="text_notification_subtitle_ok">Přihlášen jako %s. Dotkněte se pro otevření.</string>
   <string name="text_notification_subtitle_fail">Sezení ztraceno. Dotkněte se pro přihlášení.</string>
   <string name="label_offline">Offline</string>
   <string name="label_online">Online</string>
+  <string name="label_group">Skupina</string>
   <string name="label_playing">Hraje</string>
   <string name="msg_no_messages">Žádná zpráva nenalezena. :-(</string>
-  <string name="app_email">support@ninetwozero.com</string>
   <string name="msg_no_friends">Žádní přátelé nenalezeni. :-(</string>
   <string name="title_settings">Nastavení</string>
   <string name="title_chat">Chat</string>
@@ -77,5 +80,77 @@
   <string name="text_about_version">1.0</string>
   <string name="text_chat_title">Chatujete s %s</string>
   <string name="title_login">Přihlásit se</string>
+  
+  <!-- new strings -->
   <string name="ninetwozero">NINETWOZERO</string>
+  <string name="logged_in_as">PŘIHLÁŠEN JAKO</string>
+  <string name="msg_unable_to_get_friends">Nepodařilo se stáhnout seznam přátel.</string>
+
+  <string name="label_away">Pryč</string>
+  <string name="label_unknown">Neznámý</string>
+  <string name="label_you">Vy</string>
+  <string name="desc_gravatar">Gravatar</string>
+
+  <string name="text_main_loading">Načítání přátel&#8230;</string>
+
+  <string name="chat_group_invited">%1$s byl pozván</string>
+  <string name="chat_group_joined">%1$s se připojil do chatu</string>
+  <string name="chat_group_left">%1$s opustil chat</string>
+  <string name="chat_group_joinedgame">%1$s se připojil na %2$s</string>
+  <string name="label_friends">Přátelé</string>
+  <string name="menu_reset_password">Resetovat heslo</string>
+  <string name="accept">Přijmout</string>
+  <string name="text_login_disclaimer">Tato aplikace nebyla vytvořena, ani schválena EA/DICE.
+    Battlefield je
+    registrovaná ochranná známka EA Digital Illusions CE AB. Žádné informace o uživateli nejsou ukládány a/nebo sdíleny
+    s třetími stranami.\n\n
+    Kliknutím na tlačítko OK níže uznáváte a přijímáte podmínky výše.
+  </string>
+  <string name="cdesc_logo">Logo aplikace</string>
+  <string name="startup_title">Vítejte v Battle Chat!</string>
+  <string name="startup_main_information">Vypadá to, že v této chvíli nemáte otevřené žádné chaty.
+    Pojďme to napravit.
+  </string>
+  <string name="startup_second_information">Stačí vybrat přítele nalevo a můžete začít chatovat. :-)</string>
+  <string name="startup_start_new">Začít nový chat</string>
+  <string name="startup_start_random">Začít náhodný chat</string>
+  <string name="cdesc_action_item">Action item</string>
+  <string name="cdesc_button_send">T</string>
+  <string name="error_broken_form">Rozbitý formulář! Prosím restartujte aplikaci.</string>
+  <string name="cdesc_warning_icon">Upozornění</string>
+  <string name="msg_no_network">Tato aplikace potřebuje připojení k internetu - jste připojeni?</string>
+
+  <!-- ABOUT -->
+  <string name="label_about">O aplikaci</string>
+  <string name="label_updates">Seznam změn</string>
+  <string name="label_credits">Autoři</string>
+  <string name="label_opensource">Licence</string>
+  <string name="app_email">support@ninetwozero.com</string>
+
+  <string name="msg_info_join_gplus">Přidejte se do naší komunity na G+</string>
+  <string name="msg_info_join_tweet">Tweetujte s námi</string>
+  <string name="msg_info_email">Pošlete nám e-mail</string>
+  <string name="msg_about_help_text">Pokud budete mít někdy jakýkoli problém s aplikací Battle Chat, rádi vám 
+    pomůžeme. Stačí kliknout na jedno z tlačítek níže a můžete začít!
+  </string>
+  <string name="msg_about_help_heading">Potřebujete pomoc?</string>
+
+  <!-- Collaborators -->
+  <string name="collab_name_peter">Peter Mikloško</string>
+  <string name="collab_desc_peter">Spolupachatel aplikace BF4 Intel</string>
+  <string name="collab_name_humphreybc">Benjamin Humphrey</string>
+  <string name="collab_desc_humphreybc">Redesign přihlašovacího UI + startovací obrazovky</string>
+  <string name="collab_name_dbagjones">Stephen Beaudet</string>
+  <string name="collab_desc_dbagjones">Vytvořil úžasné logo</string>
+  <string name="collab_name_lindyhop">Alexander Lindström</string>
+  <string name="collab_desc_lindyhop">Zajištění kvality</string>
+  <string name="collab_name_stillesjo">Alexander Stillesjö</string>
+  <string name="collab_desc_stillesjo">Zajištění kvality</string>
+  <string name="collab_name_dapil">Daniel Peukert</string>
+  <string name="collab_desc_dapil">Přeložil aplikaci do češtiny</string>
+  <string name="collab_name_gk">Gustav Karlsson</string>
+  <string name="collab_desc_gk">Zajištění kvality</string>
+  <string name="msg_error_no_network">Zařízení není přpojeno k Internetu.</string>
+  <string name="msg_unread_message">1 nepřečtená zpráva</string>
+  <string name="msg_unread_messages">%1$s nepřečtené zprávy</string>
 </resources>
