@@ -69,7 +69,7 @@
   <string name="text_preference_notification_on">Notifikace bude viditelná.</string>
   <string name="text_preference_notification_off">Notifikace nebude viditelná.</string>
   <string name="text_preference_beep_off">Nic neuslyšíte.</string>
-  <string name="text_preference_beep_on">Nebojte se, pípneme.</string>
+  <string name="text_preference_beep_on">Nebojte se, zapípáme.</string>
   <string name="text_preference_beep_title">Pípat při přijaté zprávě</string>
   <string name="text_preference_interval_title">Interval obnovení chatu</string>
   <string name="title_refresh">Obnovit</string>
@@ -114,8 +114,8 @@
   <string name="startup_second_information">Stačí vybrat přítele nalevo a můžete začít chatovat. :-)</string>
   <string name="startup_start_new">Začít nový chat</string>
   <string name="startup_start_random">Začít náhodný chat</string>
-  <string name="cdesc_action_item">Action item</string>
-  <string name="cdesc_button_send">T</string>
+  <string name="cdesc_action_item">Položka akce</string>
+  <string name="cdesc_button_send">Tlačítko Odeslat</string>
   <string name="error_broken_form">Rozbitý formulář! Prosím restartujte aplikaci.</string>
   <string name="cdesc_warning_icon">Upozornění</string>
   <string name="msg_no_network">Tato aplikace potřebuje připojení k internetu - jste připojeni?</string>
