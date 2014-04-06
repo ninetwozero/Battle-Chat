@@ -17,7 +17,7 @@ Supporting coders
 **Peter Miklosko**<br />
 E-mail: peter.budo@gmail.com<br />
 Google+: [+PeterMiklosko](https://plus.google.com/+PeterMiklosko)<br />
-Twitter: [@peter_budo](https://www.twitter.com/peter-budo)<br />
+Twitter: [@peter-budo](https://www.twitter.com/peter-budo)<br />
 GitHub: [@peter-budo](https://www.github.com/peter-budo)<br />
 LinkedIn: [petermiklosko](http://www.linkedin.com/in/petermiklosko)<br />
 
