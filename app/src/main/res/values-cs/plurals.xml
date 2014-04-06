@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Valid quantities: ["zero" | "one" | "two" | "few" | "many" | "other"] -->
+  <plurals name="msg_unread_messages">
+    <item quantity="one">1 nepřečtená zpráva</item>
+    <item quantity="few">%d nepřečtené zprávy</item>
+    <item quantity="other">%d nepřečtených zpráv</item>
+  </plurals>
+</resources>
