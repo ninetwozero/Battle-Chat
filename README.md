@@ -1,6 +1,6 @@
 Battle Chat
 =============
-Battle Chat is an unofficial Battlelog chat [application for Android devices running 2.2+ and onward] (https://play.google.com/store/apps/details?id=com.ninetwozero.battlechat).
+Battle Chat is an unofficial Battlelog chat [application for Android devices running 4.0+ and onward] (https://play.google.com/store/apps/details?id=com.ninetwozero.battlechat).
 
 Author
 ------------
