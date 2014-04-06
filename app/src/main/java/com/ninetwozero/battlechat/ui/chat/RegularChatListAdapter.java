@@ -113,7 +113,10 @@ public class RegularChatListAdapter extends BaseCursorListAdapter<MessageDAO> {
             if (user == null) {
                 imageView.setImageResource(R.drawable.default_gravatar);
             } else {
-                Picasso.with(context).load(fetchGravatarUrl(isOwnMessageDAO)).into(imageView);
+                Picasso.with(context)
+                    .load(fetchGravatarUrl(isOwnMessageDAO))
+                    .placeholder(R.drawable.default_gravatar)
+                    .into(imageView);
             }
         }
     }

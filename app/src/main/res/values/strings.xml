@@ -75,9 +75,6 @@
   <string name="title_refresh">Refresh</string>
   <string name="text_chat_loading">Loading messages&#8230;</string>
   <string name="title_about">About</string>
-  <string name="text_about_by">By Karl Lindmark</string>
-  <string name="text_about_email">support@ninetwozero.com</string>
-  <string name="text_about_version">1.0</string>
   <string name="text_chat_title">Chatting with %1$s</string>
   <string name="title_login">Login</string>
 
@@ -120,6 +117,7 @@
   <string name="error_broken_form">Broken form! Please restart the app.</string>
   <string name="cdesc_warning_icon">Warning</string>
   <string name="msg_no_network">This app requires Internet access - are you connected?</string>
+  <string name="msg_error_no_network">Not connected to the Internet.</string>
 
   <!-- ABOUT -->
   <string name="label_about">About</string>
@@ -135,23 +133,4 @@
     to help. Just tap one of the buttons below to get started!
   </string>
   <string name="msg_about_help_heading">Need help?</string>
-
-  <!-- Collaborators -->
-  <string name="collab_name_peter">Peter Mikloško</string>
-  <string name="collab_desc_peter">Partner in Crime on BF4 Intel</string>
-  <string name="collab_name_humphreybc">Benjamin Humphrey</string>
-  <string name="collab_desc_humphreybc">Re-designed the login UI + startup screen</string>
-  <string name="collab_name_dbagjones">Stephen Beaudet</string>
-  <string name="collab_desc_dbagjones">Created the awesome logo</string>
-  <string name="collab_name_lindyhop">Alexander Lindström</string>
-  <string name="collab_desc_lindyhop">Quality Assurance</string>
-  <string name="collab_name_stillesjo">Alexander Stillesjö</string>
-  <string name="collab_desc_stillesjo">Quality Assurance</string>
-  <string name="collab_name_dapil">Daniel Peukert</string>
-  <string name="collab_desc_dapil">Translated the app into Czech</string>
-  <string name="collab_name_gk">Gustav Karlsson</string>
-  <string name="collab_desc_gk">Quality Assurance</string>
-  <string name="msg_error_no_network">Not connected to the Internet.</string>
-  <string name="msg_unread_message">1 unread message</string>
-  <string name="msg_unread_messages">%1$s unread messages</string>
 </resources>
