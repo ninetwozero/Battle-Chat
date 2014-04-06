@@ -74,6 +74,6 @@ public class LoginHtmlParserTest {
 
     @Test
     public void testGetGravatar(){
-        Assert.assertEquals(loggedInParser.getGravatarUrl(), "http://www.gravatar.com/avatar/1241459af7d1ba348ec8b258240ea145.png?s=320");
+        Assert.assertEquals(loggedInParser.getGravatarUrl(), "http://www.gravatar.com/avatar/1241459af7d1ba348ec8b258240ea145/?s=320&d=" + LoginHtmlParser.DEFAULT_GRAVATAR);
     }
 }
