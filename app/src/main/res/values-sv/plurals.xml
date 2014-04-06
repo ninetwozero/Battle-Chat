@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Valid quantities: ["zero" | "one" | "two" | "few" | "many" | "other"] -->
+  <plurals name="msg_unread_messages">
+    <item quantity="one">1 oläst meddlande</item>
+    <item quantity="other">%d olästa meddelanden</item>
+  </plurals>
+</resources>

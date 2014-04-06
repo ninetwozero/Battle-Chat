@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	This file is part of BattleChat
+
+    BattleChat is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    BattleChat is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+-->
+<resources>
+
+  <string name="app_name">Battle Chat</string>
+  <string name="service_name_session">Inloggningstjänsten</string>
+  <string name="service_name_chat">Chattjänsten</string>
+  <string name="service_name_friends">Vänlistetjänsten</string>
+
+  <string-array name="update_interval_entries">
+    <item>Var 5:e sekund</item>
+    <item>Var 10:e sekund</item>
+    <item>Var 17:e sekund</item>
+    <item>Var 25:e sekund</item>
+    <item>Var 30:e sekund</item>
+    <item>Varje minut</item>
+  </string-array>
+  <integer-array name="update_interval_values">
+    <item>5</item>
+    <item>10</item>
+    <item>17</item>
+    <item>25</item>
+    <item>30</item>
+    <item>60</item>
+  </integer-array>
+
+  <string name="menu_exit">Logga ut</string>
+  <string name="msg_message_ok">Meddelandet skickat!</string>
+  <string name="msg_message_fail">Meddelandet kunde ej skickas!</string>
+  <string name="msg_chat_refresh_fail">Chatten kunde ej laddas om. Vänligen logga in igen.</string>
+  <string name="msg_chat_send_message_error">Du måste skriva in ett meddelande.</string>
+  <string name="msg_chat_send_multiple_error">Du försöker redan skicka meddelandet!</string>
+  <string name="msg_chat_load_fail">Ett fel uppstod: Du kan inte chatta med den valda användaren.</string>
+  <string name="msg_chat_load_error">Ett fel uppstod: Vi kunde ej ladda om chatten</string>
+  <string name="text_notification_title">Battle Chat-status</string>
+  <string name="text_notification_subtitle_ok">Inloggad som %1$s. Tryck för att öppna.</string>
+  <string name="text_notification_subtitle_fail">Utloggad. Tryck för att öppna.</string>
+  <string name="label_offline">Offline</string>
+  <string name="label_online">Online</string>
+  <string name="label_group">Grupp</string>
+  <string name="label_playing">Spelar</string>
+  <string name="msg_no_messages">Inga meddelanden funna. :-(</string>
+  <string name="msg_no_friends">Inga vänner funna. :-(</string>
+  <string name="title_settings">Inställningar</string>
+  <string name="title_chat">Chatt</string>
+  <string name="title_main">@string/app_name</string>
+  <string name="msg_chat_sending_message">Skickar meddelandet... &#8230;</string>
+  <string name="prompt_email">E-post för Origin™</string>
+  <string name="prompt_password">Lösenord för Origin™</string>
+  <string name="action_sign_in_short">Logga in</string>
+  <string name="login_progress_signing_in">Loggar in&#8230;</string>
+  <string name="error_invalid_email">Felaktig e-postadress</string>
+  <string name="error_field_required">Detta fält måste fyllas i</string>
+  <string name="menu_about">Om</string>
+  <string name="text_login_accept_terms">Jag accepterar de givna villkoren.</string>
+  <string name="text_preference_notification_title">Visa statusnotifiering</string>
+  <string name="text_preference_notification_on">Notifieringen kommer att visas.</string>
+  <string name="text_preference_notification_off">Notifieringen kommer inte att visas.</string>
+  <string name="text_preference_beep_off">Du kommer inte att höra ett knyst!</string>
+  <string name="text_preference_beep_on">Oroa dig inte, vi hör av oss.</string>
+  <string name="text_preference_beep_title">Pip för nya meddelanden</string>
+  <string name="text_preference_interval_title">Omladdningsintervall för chatten</string>
+  <string name="title_refresh">Ladda om</string>
+  <string name="text_chat_loading">Laddar meddlanden&#8230;</string>
+  <string name="title_about">Om</string>
+  <string name="text_chat_title">Chattar med %1$s</string>
+  <string name="title_login">Logga in</string>
+
+  <!-- new strings -->
+  <string name="ninetwozero">NINETWOZERO</string>
+  <string name="logged_in_as">Inloggad som</string>
+  <string name="msg_unable_to_get_friends">Kan ej ladda ned vänlistan.</string>
+
+  <string name="label_away">Borta</string>
+  <string name="label_unknown">Okänt</string>
+  <string name="label_you">Du</string>
+  <string name="desc_gravatar">Gravatar</string>
+
+  <string name="text_main_loading">Laddar vänlistan&#8230;</string>
+
+  <string name="chat_group_invited">%1$s har bjudits in</string>
+  <string name="chat_group_joined">%1$s anslöt till chatten</string>
+  <string name="chat_group_left">%1$s lämnade chatten</string>
+  <string name="chat_group_joinedgame">%1$s anslöt %2$s</string>
+  <string name="label_friends">Vänner</string>
+  <string name="menu_reset_password">Återställ lösenord</string>
+  <string name="accept">Acceptera</string>
+
+  <string name="text_login_disclaimer">
+    Denna app har varken skapats eller fått stöd av EA/DICE.
+    Battlefield är ett registrerat varumärke tillhörande EA Digital Illusions CE AB. Ingen kontoinformation
+    lagras utanför denna enhet och/eller delas med någon tredjepart.\n\n
+    När du klickar OK nedan innebär det att du läst och accepterat villkoren ovan.
+  </string>
+  <string name="cdesc_logo">Logotyp</string>
+  <string name="startup_title">Välkommen till Battle Chat!</string>
+  <string name="startup_main_information">
+    Det ser ut som att du inte hunnit öppna upp en chatt. Låt oss börja!
+  </string>
+  <string name="startup_second_information">Välj en valfri vän till vänster för att börja chatta. :-)</string>
+  <string name="startup_start_new">Starta en ny chatt</string>
+  <string name="startup_start_random">Starta en randomchatt</string>
+  <string name="cdesc_action_item">Actionknapp</string>
+  <string name="cdesc_button_send">Skicka-knapp</string>
+  <string name="error_broken_form">Trasigt formulär! Vänligen starta om appen..</string>
+  <string name="cdesc_warning_icon">Varning</string>
+  <string name="msg_no_network">Denna app kräver internetåtkomst. Är du uppkopplad?</string>
+  <string name="msg_error_no_network">Ej ansluten till internet.</string>
+
+  <!-- ABOUT -->
+  <string name="label_about">Om</string>
+  <string name="label_updates">Ändringslog</string>
+  <string name="label_credits">Credits</string>
+  <string name="label_opensource">Licenser</string>
+  <string name="app_email">support@ninetwozero.com</string>
+
+  <string name="msg_info_join_gplus">Gå med i vår community på G+</string>
+  <string name="msg_info_join_tweet">Tweeta med oss</string>
+  <string name="msg_info_email">Skicka oss ett e-mail</string>
+  <string name="msg_about_help_text">
+    Om du någonsin stöter på några problem med Battle Chat så kan du räkna med vår hjälp.
+    Tryck på någon av knapparna nedan för att komma igång!
+  </string>
+  <string name="msg_about_help_heading">Behöver du hjälp?</string>
+</resources>
