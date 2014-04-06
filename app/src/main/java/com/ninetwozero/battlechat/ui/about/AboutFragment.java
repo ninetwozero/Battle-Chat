@@ -16,7 +16,7 @@ import com.ninetwozero.battlechat.base.ui.BaseFragment;
 
 public class AboutFragment extends BaseFragment implements View.OnClickListener {
     private static final String URL_GPLUS = "https://plus.google.com/communities/116943801107614500778";
-    private static final String URL_TWITTER = "https://twitter.com/intent/tweet?text=%40karllindmark";
+    private static final String URL_TWITTER = "https://twitter.com/intent/tweet?text=%40karllindmark%20%23BattleChat2";
 
     public static AboutFragment newInstance(final Bundle data) {
         final AboutFragment fragment = new AboutFragment();
