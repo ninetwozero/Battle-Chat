@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         packageName 'com.ninetwozero.battlechat'
-        versionCode 16142000
+        versionCode 16142001
         versionName '2.0'
         minSdkVersion 14
         targetSdkVersion 19

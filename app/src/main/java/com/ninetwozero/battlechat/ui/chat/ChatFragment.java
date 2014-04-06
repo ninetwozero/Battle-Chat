@@ -318,7 +318,7 @@ public class ChatFragment extends BaseLoadingListFragment {
                             showUnreadMessageCount(unreadCount);
                         }
                     }
-                    
+
                     if (messageDAOs.size() > 0) {
                         showAsLoading(false);
                     }
