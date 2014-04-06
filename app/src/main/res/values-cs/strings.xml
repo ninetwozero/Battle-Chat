@@ -75,9 +75,6 @@
   <string name="title_refresh">Obnovit</string>
   <string name="text_chat_loading">Načítám zprávy&#8230;</string>
   <string name="title_about">O aplikaci</string>
-  <string name="text_about_by">Od Karl Lindmark</string>
-  <string name="text_about_email">support@ninetwozero.com</string>
-  <string name="text_about_version">1.0</string>
   <string name="text_chat_title">Chatujete s %s</string>
   <string name="title_login">Přihlásit se</string>
   
@@ -119,6 +116,7 @@
   <string name="error_broken_form">Rozbitý formulář! Prosím restartujte aplikaci.</string>
   <string name="cdesc_warning_icon">Upozornění</string>
   <string name="msg_no_network">Tato aplikace potřebuje připojení k internetu - jste připojeni?</string>
+  <string name="msg_error_no_network">Zařízení není přpojeno k Internetu.</string>
 
   <!-- ABOUT -->
   <string name="label_about">O aplikaci</string>
@@ -134,23 +132,4 @@
     pomůžeme. Stačí kliknout na jedno z tlačítek níže a můžete začít!
   </string>
   <string name="msg_about_help_heading">Potřebujete pomoc?</string>
-
-  <!-- Collaborators -->
-  <string name="collab_name_peter">Peter Mikloško</string>
-  <string name="collab_desc_peter">Spolupachatel aplikace BF4 Intel</string>
-  <string name="collab_name_humphreybc">Benjamin Humphrey</string>
-  <string name="collab_desc_humphreybc">Redesign přihlašovacího UI + startovací obrazovky</string>
-  <string name="collab_name_dbagjones">Stephen Beaudet</string>
-  <string name="collab_desc_dbagjones">Vytvořil úžasné logo</string>
-  <string name="collab_name_lindyhop">Alexander Lindström</string>
-  <string name="collab_desc_lindyhop">Zajištění kvality</string>
-  <string name="collab_name_stillesjo">Alexander Stillesjö</string>
-  <string name="collab_desc_stillesjo">Zajištění kvality</string>
-  <string name="collab_name_dapil">Daniel Peukert</string>
-  <string name="collab_desc_dapil">Přeložil aplikaci do češtiny</string>
-  <string name="collab_name_gk">Gustav Karlsson</string>
-  <string name="collab_desc_gk">Zajištění kvality</string>
-  <string name="msg_error_no_network">Zařízení není přpojeno k Internetu.</string>
-  <string name="msg_unread_message">1 nepřečtená zpráva</string>
-  <string name="msg_unread_messages">%1$s nepřečtené zprávy</string>
 </resources>
