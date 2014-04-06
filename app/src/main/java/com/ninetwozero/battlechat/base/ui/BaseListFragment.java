@@ -15,6 +15,11 @@ public abstract class BaseListFragment extends ListFragment {
     protected LayoutInflater layoutInflater;
     protected SharedPreferences sharedPreferences;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

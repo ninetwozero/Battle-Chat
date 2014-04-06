@@ -20,7 +20,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,6 +187,7 @@ public class ChatFragment extends BaseLoadingListFragment {
         } else {
             setupFromBundle(bundle);
         }
+
         setupUnreadCountIndicator(view);
         setupForm(view);
         setupListView(view);
@@ -219,6 +219,10 @@ public class ChatFragment extends BaseLoadingListFragment {
                 }
             }
         );
+
+        if (unreadCount > 0) {
+            showUnreadMessageCount(unreadCount);
+        }
     }
 
     private void setupForm(final View view) {
@@ -275,14 +279,8 @@ public class ChatFragment extends BaseLoadingListFragment {
             return;
         }
 
-        Log.d("YOLO", "unreadCount is " + unreadCount);
-
         final TextView textView = (TextView) view.findViewById(R.id.new_message_indicator);
-        if (unreadCount == 1) {
-            textView.setText(getString(R.string.msg_unread_message));
-        } else {
-            textView.setText(String.format(getString(R.string.msg_unread_messages), unreadCount));
-        }
+        textView.setText(getResources().getQuantityString(R.plurals.msg_unread_messages, unreadCount, unreadCount));
         textView.setVisibility(View.VISIBLE);
     }
 
