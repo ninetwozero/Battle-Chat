@@ -8,7 +8,7 @@ Phone screenshots
 
 Tablet screenshots
 ------------
-![Login screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/login.png) ![Main screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/main.png) ![Chat screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/chat.png)
+![Login screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/login.png) &nbsp; ![Main screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/main.png) &nbsp; ![Chat screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/chat.png)
 
 Author
 ------------
