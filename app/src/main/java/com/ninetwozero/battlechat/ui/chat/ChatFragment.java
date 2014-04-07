@@ -438,7 +438,12 @@ public class ChatFragment extends BaseLoadingListFragment {
     }
 
     private void toggleButton(final boolean enable) {
-        final View button = getView().findViewById(R.id.button_send);
+        final View view = getView();
+        if (view == null) {
+            return;
+        }
+        
+        final View button = view.findViewById(R.id.button_send);
         button.setEnabled(enable);
         button.setAlpha(enable ? 1.0f : 0.5f);
     }
