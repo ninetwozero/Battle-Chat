@@ -2,6 +2,14 @@ Battle Chat
 =============
 Battle Chat is an unofficial Battlelog chat [application for Android devices running 4.0+ and onward] (https://play.google.com/store/apps/details?id=com.ninetwozero.battlechat).
 
+Phone screenshots
+------------
+![Login screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/phone/login.png) ![Main screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/phone/main.png) ![Chat screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/phone/chat.png)
+
+Tablet screenshots
+------------
+![Login screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/login.png) ![Main screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/main.png) ![Chat screen](http://ninetwozero.github.io/Battle-Chat/images/screenshots/tablet/chat.png)
+
 Author
 ------------
 **Karl Lindmark**<br />
