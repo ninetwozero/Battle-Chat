@@ -23,17 +23,22 @@ import android.view.MenuItem;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.BuildConfig;
 
 public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BugSenseHandler.initAndStartSession(this, BattleChat.BUGSENSE_KEY);
+        if (!BuildConfig.DEBUG) {
+            BugSenseHandler.initAndStartSession(this, BattleChat.BUGSENSE_KEY);
+        }
     }
 
     @Override
     protected void onDestroy() {
-        BugSenseHandler.closeSession(this);
+        if (!BuildConfig.DEBUG) {
+            BugSenseHandler.closeSession(this);
+        }
         super.onDestroy();
     }
 

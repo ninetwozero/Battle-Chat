@@ -76,6 +76,18 @@
         />
     </activity>
 
+    <activity
+      android:name=".ui.ShareActivity"
+      android:label="@string/title_share"
+      android:theme="@style/AppTheme"
+      >
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/*"/>
+      </intent-filter>
+    </activity>
+
     <service
       android:icon="@drawable/ic_launcher"
       android:label="@string/service_name_session"
@@ -93,7 +105,6 @@
       android:label="@string/service_name_friends"
       android:name=".services.FriendListService"
       />
-
   </application>
 
 </manifest>
