@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.1'
+        classpath 'com.android.tools.build:gradle:0.10.1'
     }
 }
 apply plugin: 'android'
@@ -19,12 +19,12 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
         packageName 'com.ninetwozero.battlechat'
         versionCode 16142001
-        versionName '2.0'
+        versionName '2.0.1'
         minSdkVersion 14
         targetSdkVersion 19
     }
@@ -41,6 +41,7 @@ android {
     buildTypes {
         debug {
             debuggable true
+            buildConfigField "boolean", "isDebug", "true"
         }
 
         release {
@@ -48,6 +49,7 @@ android {
             jniDebugBuild false
             signingConfig signingConfigs.battlechat
             runProguard false
+            buildConfigField "boolean", "isDebug", "false"
         }
     }
 
