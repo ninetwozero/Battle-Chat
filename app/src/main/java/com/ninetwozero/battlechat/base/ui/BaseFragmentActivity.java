@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.ninetwozero.battlechat.BattleChat;
+import com.ninetwozero.battlechat.BuildConfig;
 import com.ninetwozero.battlechat.Keys;
 import com.ninetwozero.battlechat.datatypes.Session;
 import com.ninetwozero.battlechat.ui.LoginActivity;
@@ -39,7 +40,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BugSenseHandler.initAndStartSession(this, BattleChat.BUGSENSE_KEY);
+        if (!BuildConfig.DEBUG) {
+            BugSenseHandler.initAndStartSession(this, BattleChat.BUGSENSE_KEY);
+        }
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (BattleChat.hasStoredCookie(sharedPreferences)) {
@@ -52,7 +55,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        BugSenseHandler.closeSession(this);
+        if (!BuildConfig.DEBUG) {
+            BugSenseHandler.closeSession(this);
+        }
         super.onDestroy();
     }
 

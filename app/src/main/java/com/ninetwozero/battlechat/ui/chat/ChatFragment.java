@@ -146,10 +146,16 @@ public class ChatFragment extends BaseLoadingListFragment {
     @Subscribe
     @Override
     public void onErrorResponse(VolleyError error) {
+        String message = error.getMessage();
+        if (message == null) {
+            message = error.getClass().getSimpleName();
+        }
+
         if (error instanceof NoConnectionError) {
             // TODO: Display it in some nice way
+            showToast(message);
         } else {
-            showToast(error.getMessage());
+            showToast(message);
         }
         showAsLoading(false);
     }

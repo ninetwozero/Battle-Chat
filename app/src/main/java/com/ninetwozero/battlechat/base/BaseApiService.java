@@ -25,6 +25,9 @@ public abstract class BaseApiService extends Service implements Response.ErrorLi
 
     @Override
     public int onStartCommand(Intent intent, int flags, final int startId) {
+        if (intent == null) {
+            return Service.START_NOT_STICKY;
+        }
         userId = intent.getStringExtra(USER_ID);
         return Service.START_NOT_STICKY;
     }
