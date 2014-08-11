@@ -23,19 +23,17 @@ import android.net.NetworkInfo;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.ninetwozero.battlechat.dao.MessageDAO;
-import com.ninetwozero.battlechat.dao.UserDAO;
+import com.ninetwozero.battlechat.dao.migration.InitialMigration;
 import com.ninetwozero.battlechat.json.chat.PresenceType;
 import com.ninetwozero.battlechat.utils.PresenceTypeSerializer;
 
-import se.emilsjolander.sprinkles.Migration;
 import se.emilsjolander.sprinkles.Sprinkles;
 
 public class BattleChat extends Application {
-    public static final String TAG = "com.ninetwozero.battlechat";
     public static final String COOKIE_NAME = "beaker.session.id";
     public static final String COOKIE_DOMAIN = "battlelog.battlefield.com";
     public static final String BUGSENSE_KEY = "c07b42d4";
+    private static final String DB_NAME = "battlechat.db";
 
     private static BattleChat instance;
     private static RequestQueue requestQueue;
@@ -54,16 +52,13 @@ public class BattleChat extends Application {
     }
 
     private void setupDatabase() {
-        Sprinkles sprinkles = Sprinkles.init(getApplicationContext());
+        Sprinkles sprinkles = Sprinkles.init(getApplicationContext(), DB_NAME, 0);
         sprinkles.registerType(PresenceType.class, new PresenceTypeSerializer());
-        sprinkles.addMigration(fetchInitialMigrations());
+        fetchInitialMigrations(sprinkles);
     }
 
-    private Migration fetchInitialMigrations() {
-        final Migration migration = new Migration();
-        migration.createTable(MessageDAO.class);
-        migration.createTable(UserDAO.class);
-        return migration;
+    private void fetchInitialMigrations(Sprinkles sprinkles) {
+        sprinkles.addMigration(new InitialMigration());
     }
 
     public static RequestQueue getRequestQueue() {

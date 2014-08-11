@@ -17,7 +17,7 @@ package com.ninetwozero.battlechat.dao;
 import com.ninetwozero.battlechat.json.chat.Message;
 
 import se.emilsjolander.sprinkles.Model;
-import se.emilsjolander.sprinkles.annotations.AutoIncrementPrimaryKey;
+import se.emilsjolander.sprinkles.annotations.AutoIncrement;
 import se.emilsjolander.sprinkles.annotations.Column;
 import se.emilsjolander.sprinkles.annotations.Table;
 
@@ -25,8 +25,8 @@ import se.emilsjolander.sprinkles.annotations.Table;
 public class MessageDAO extends Model {
     public static final String TABLE_NAME = "Messages";
 
-    @AutoIncrementPrimaryKey
-    @Column("id")
+    @AutoIncrement
+    @Column("rowId")
     private long id;
 
     @Column("author")
