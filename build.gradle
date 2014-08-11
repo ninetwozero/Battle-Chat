@@ -13,8 +13,6 @@ subprojects {
     }
 
     apply plugin: 'checkstyle'
-
-
     checkstyle {
         ignoreFailures = true
         configFile = new File(ciDir, "checkstyle.xml")
@@ -22,11 +20,6 @@ subprojects {
 
     apply plugin: 'findbugs'
     findbugs {
-        ignoreFailures = true
-    }
-
-    apply plugin: 'pmd'
-    pmd {
         ignoreFailures = true
     }
 }
