@@ -14,7 +14,6 @@
   </module>
 
   <module name="TreeWalker">
-    <property name="cacheFile" value="${checkstyle.cache.file}" />
 
     <!-- Checks for Javadoc comments.                     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html -->
@@ -30,7 +29,7 @@
     <module name="LocalFinalVariableName" />
     <module name="LocalVariableName" />
     <module name="MemberName" />
-    <module name="MethodName" />
+    <!-- <module name="MethodName" /> using MethodNameExcludingTestsCheck instead -->
     <module name="PackageName" />
     <module name="ParameterName" />
     <module name="StaticVariableName" />
@@ -49,7 +48,7 @@
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="LineLength">
-      <property name="max" value="150" />
+      <property name="max" value="180" />
     </module>
     <module name="MethodLength" />
     <module name="ParameterNumber" />
@@ -62,7 +61,7 @@
     <module name="MethodParamPad" />
     <module name="NoWhitespaceAfter" />
     <module name="NoWhitespaceBefore" />
-    <module name="OperatorWrap" />
+    <!--<module name="OperatorWrap" />-->
     <module name="ParenPad" />
     <module name="TypecastParenPad" />
     <module name="WhitespaceAfter" />
@@ -88,7 +87,6 @@
     <!-- See http://checkstyle.sf.net/config_coding.html -->
     <!--module name="AvoidInlineConditionals"/-->
     <module name="CovariantEquals" />
-    <module name="DoubleCheckedLocking" />
     <module name="EmptyStatement" />
     <module name="EqualsAvoidNull" />
     <module name="EqualsHashCode" />
@@ -117,4 +115,8 @@
     <module name="TodoComment" />
     <module name="UpperEll" />
   </module>
+
+  <!--<module name="SuppressionFilter">
+    <property name="file" value="${checkstyleConfigDir}/checkstyle-suppressions.xml" />
+  </module>-->
 </module>

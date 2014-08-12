@@ -13,8 +13,6 @@ subprojects {
     }
 
     apply plugin: 'checkstyle'
-
-
     checkstyle {
         ignoreFailures = true
         configFile = new File(ciDir, "checkstyle.xml")
@@ -24,13 +22,4 @@ subprojects {
     findbugs {
         ignoreFailures = true
     }
-
-    apply plugin: 'pmd'
-    pmd {
-        ignoreFailures = true
-    }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
 }

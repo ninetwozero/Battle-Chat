@@ -19,15 +19,15 @@ import com.ninetwozero.battlechat.json.chat.User;
 
 import se.emilsjolander.sprinkles.Model;
 import se.emilsjolander.sprinkles.annotations.Column;
-import se.emilsjolander.sprinkles.annotations.PrimaryKey;
+import se.emilsjolander.sprinkles.annotations.Key;
 import se.emilsjolander.sprinkles.annotations.Table;
 
 @Table("Friends")
 public class UserDAO extends Model {
     public static final String TABLE_NAME = "Friends";
 
-    @PrimaryKey
-    @Column("id")
+    @Key
+    @Column("rowId")
     private String id;
 
     @Column("username")
